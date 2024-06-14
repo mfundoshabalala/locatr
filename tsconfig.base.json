@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@profolio/maps": ["libs/maps/src/index.ts"],
       "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"]
     }
   },
