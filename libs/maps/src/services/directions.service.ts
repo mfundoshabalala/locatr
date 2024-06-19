@@ -10,26 +10,26 @@ export class DirectionsService {
   private directionsSubject = new BehaviorSubject<google.maps.DirectionsResult | null>(null);
   public directions$: Observable<google.maps.DirectionsResult | null> = this.directionsSubject.asObservable();
 
-  setDirectionsResult(result: google.maps.DirectionsResult) {
+  private setDirectionsResult(result: google.maps.DirectionsResult) {
     this.directionsSubject.next(result);
   }
 
-  clearDirectionsResult() {
+  private clearDirectionsResult() {
     this.directionsSubject.next(null);
   }
 
   calculateDirections(
     origin: google.maps.LatLngLiteral,
     destination: google.maps.LatLngLiteral,
-    waypoints?: google.maps.DirectionsWaypoint[]
+    waypoints?: google.maps.DirectionsWaypoint[],
+    travelMode?: google.maps.TravelMode
   ) {
     const directionsService = new google.maps.DirectionsService();
-
     const request: google.maps.DirectionsRequest = {
       origin: origin,
       destination: destination,
       waypoints: waypoints,
-      travelMode: google.maps.TravelMode.DRIVING,
+      travelMode: travelMode || google.maps.TravelMode.DRIVING,
     };
 
     directionsService.route(request, (

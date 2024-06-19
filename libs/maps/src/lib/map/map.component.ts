@@ -1,15 +1,16 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoogleMap, MapAdvancedMarker, MapDirectionsRenderer } from '@angular/google-maps';
+import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { MapLegendComponent } from '../map-legend/map-legend.component';
 import { Observable, Subscription } from 'rxjs';
-import { DirectionsService } from '../directions.service';
+import { DirectionsService } from '../../services/directions.service';
 import { FormsModule } from '@angular/forms';
+import { MapSearchBarComponent } from '../map-search-bar/map-search-bar.component';
 
 @Component({
   selector: 'lib-map',
   standalone: true,
-  imports: [GoogleMap, CommonModule, MapLegendComponent, MapAdvancedMarker, MapDirectionsRenderer, FormsModule],
+  imports: [GoogleMapsModule, CommonModule, MapLegendComponent, MapSearchBarComponent ,FormsModule],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -40,13 +41,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   ngAfterViewInit(): void {
-    console.log('Map component view initialized');
-
     this.directionsSubscription = this.directionsResults$.subscribe((result) => {
       if (result) {
         console.log('Displaying directions on the map:', result);
-        // Optionally handle displaying the directions on the map
-        // Use a <map-directions-renderer> to display the route
       }
     });
   }
@@ -58,12 +55,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('Map component initialized');
-    // Subscribe to the directions result from the service
     this.directionsResults$ = this.directionsService.directions$;
   }
 
-  onMapReady(map: google.maps.Map): void {
+  onMapReady = (map: google.maps.Map): void => {
     console.log('Map ready', map);
   }
 
