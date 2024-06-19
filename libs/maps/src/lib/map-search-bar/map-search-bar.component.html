@@ -1,11 +1,3 @@
-<div class="search-bar">
-	<input #searchInput type="text" class="search-input"
-		placeholder="Search for a location" (input)="onInputChange($event)" />
-	<div *ngIf="loading" class="loader">Loading...</div>
-	<ul class="suggestions-list" *ngIf="predictions.length > 0">
-		<li *ngFor="let prediction of predictions"
-			(click)="selectPrediction(prediction.place_id)">
-			{{ prediction.description }}
-		</li>
-	</ul>
-</div>
+<!-- <mat-form-field appearance="outline" > -->
+	<input [placeholder]="placeholder" #inputField matInput class="search-input" />
+<!-- </mat-form-field> -->

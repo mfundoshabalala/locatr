@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MapSearchBarComponent } from '../map-search-bar/map-search-bar.component';
 
 @Component({
-  selector: 'lib-map',
+  selector: 'lib-map-viewer',
   standalone: true,
   imports: [GoogleMapsModule, CommonModule, MapLegendComponent, MapSearchBarComponent ,FormsModule],
   templateUrl: './map.component.html',

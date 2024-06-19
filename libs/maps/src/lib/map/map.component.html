@@ -1,12 +1,3 @@
-<!-- <div class="flex p-3">
-	<input id="location" type="text" [(ngModel)]="location" #locationInput
-		class="px-4 py-2 mx-1 text-sm border rounded shadow-sm font-semi min-w-1/4"
-		placeholder="Search for a location" autocomplete="off" />
-	<button class="px-3 mx-1 text-sm border rounded shadow-sm font-semi" (onclick)="searchLocation(locationInput.value)">
-		🔍 Search
-	</button>
-</div> -->
-<lib-map-search-bar></lib-map-search-bar>
 <section class="flex">
 	<section class="routing-map">
 		<google-map #map (mapInitialized)="onMapReady($event)" [width]="null" [height]="null"

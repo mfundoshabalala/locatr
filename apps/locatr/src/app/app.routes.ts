@@ -9,7 +9,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'maps',
-    loadComponent: () =>
-      import('@profolio/maps').then((m) => m.MapComponent),
+    loadComponent: () => import('@profolio/maps').then((m) => m.MapDisplayComponent),
   },
 ];
