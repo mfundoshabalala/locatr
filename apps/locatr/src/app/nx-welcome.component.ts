@@ -454,7 +454,7 @@ import { CommonModule } from '@angular/common';
               </svg>
               <span>You&apos;re up and running</span>
             </h2>
-            <a href="#commands"> What&apos;s next? </a>
+            <a href="/maps"> What&apos;s next? </a>
           </div>
           <div class="logo-container">
             <svg
