@@ -3,14 +3,13 @@
 		<google-map #map (mapInitialized)="onMapReady($event)" [width]="null" [height]="null"
 			[center]="center" [zoom]="zoom" [options]="options" mapId="MAP_ID_HERE">
 			<map-advanced-marker *ngFor="let marker of markers"
-				[position]="marker.position" draggable="false">
-			</map-advanced-marker>
-			<map-directions-renderer *ngIf="directionsResults$ | async as directionsResults"
-				[directions]="directionsResults">
-			</map-directions-renderer>
-			<map-traffic-layer [autoRefresh]="false" />
-			<map-transit-layer />
+				[position]="marker.position" draggable="false"></map-advanced-marker>
+			<map-directions-renderer *ngIf="directions"
+				[directions]="directions"></map-directions-renderer>
+			<map-traffic-layer [autoRefresh]="false" /><map-transit-layer />
 		</google-map>
 	</section>
-	<lib-map-legend [map]="map" [(markers)]="markers"></lib-map-legend>
+	<!-- FIXME: remove the marker 2 way binding and replace with the observable
+	in the marker legend component -->
+	<lib-map-legend [map]="map"></lib-map-legend>
 </section>

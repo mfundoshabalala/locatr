@@ -3,10 +3,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   NgZone,
-  Output,
   ViewChild, OnDestroy,
   AfterViewInit,
 } from '@angular/core';
@@ -20,14 +18,12 @@ import { PlacesService } from '../../services/places.service';
   standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule],
   templateUrl: './map-search-bar.component.html',
-  styleUrl: './map-search-bar.component.css',
+  styleUrls: ['./map-search-bar.component.css'],
 })
 export class MapSearchBarComponent implements AfterViewInit, OnDestroy {
   @ViewChild('inputField') inputField!: ElementRef;
   @Input() placeholder = 'Enter address...';
-  // @Output() placeChanged = new EventEmitter<PlaceSearchResult>();
   autocomplete: google.maps.places.Autocomplete | undefined;
-  listener: any;
 
   constructor(private ngZone: NgZone, private placesService: PlacesService) {}
 
@@ -64,7 +60,6 @@ export class MapSearchBarComponent implements AfterViewInit, OnDestroy {
       imageUrl: this.getPhotoUrl(place),
       iconUrl: place?.icon,
     };
-    // this.placeChanged.emit(result);
     this.placesService.setPlace(result);
   }
 }

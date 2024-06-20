@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
-import { Subscription } from 'rxjs';
-import { MapService } from '../../services/map.service';
-import { MarkerService } from '../../services/marker.service';
-import { RouteService } from '../../services/route.service';
+// import { Subscription } from 'rxjs';
 import { BUTTONS_CONFIG } from '../../config/buttons-config';
+import { MarkerInterface } from '../../interfaces/marker.interface';
+import { MapService, MarkerService, RouteService } from '../../services';
 
 @Component({
   selector: 'lib-map-legend',
@@ -16,11 +15,11 @@ import { BUTTONS_CONFIG } from '../../config/buttons-config';
 })
 export class MapLegendComponent implements OnInit {
   @Input() map!: GoogleMap;
-  @Input() markers: { position: google.maps.LatLngLiteral; label: string }[] = [];
-  @Output() markersChange = new EventEmitter<{ position: google.maps.LatLngLiteral; label: string }[]>();
+  @Input() markers: MarkerInterface[] = [];
+  @Output() markersChange = new EventEmitter<MarkerInterface[]>();
 
-  directionsSubscription!: Subscription;
-  buttons: { category: string; buttons: { clickHandler: () => any; label: string; icon: string; }[]; }[] | undefined;
+  // directionsSubscription!: Subscription;
+  buttons: { category: string; buttons: { clickHandler: () => any; label: string; icon: string }[] }[] | undefined;
 
   [Symbol.iterator]() {
     return this.markers[Symbol.iterator]();
@@ -43,6 +42,7 @@ export class MapLegendComponent implements OnInit {
       })),
     }));
   }
+
   private getClickHandler(label: string): () => void {
     switch (label) {
       case 'Refresh Map':
@@ -56,24 +56,15 @@ export class MapLegendComponent implements OnInit {
             this.markers.map((marker) => marker.position)
           );
       case 'Change Map Type':
-        // return () => this.mapService.changeMapType(this.map, google.maps.MapTypeId.ROADMAP); // Example map type
         return () => this.mapService.changeMapType(this.map); // Example map type
       case 'Add Marker':
-        return () => {
-          this.markers = this.markerService.addNewMarker(this.markers, { lat: -30.3595, lng: 22.2375 });
-          this.markersChange.emit(this.markers);
-        };
+        return () => this.markerService.addNewMarker({ lat: -30.3595, lng: 22.2375 });
       case 'Clear Markers':
-        return () => {
-          this.markers = [];
-          this.markersChange.emit([])
-        };
+        return () => this.markerService.clearMarkers();
       case 'Route to Marker':
         return () => null;
       case 'Draw Route Between Markers':
-        return () => {
-          this.routeService.drawRouteBetweenMarkers(this.markers.map((marker) => marker.position));
-        };
+        return () => this.routeService.drawRouteBetweenMarkers(this.markers.map((marker) => marker.position));
       case 'Toggle Traffic':
         return () => this.mapService.toggleTrafficLayer(this.map, new google.maps.TrafficLayer());
       case 'Import Data':
