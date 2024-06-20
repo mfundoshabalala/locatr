@@ -1,11 +1,10 @@
 import { Component, Input, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
-// import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 import { BUTTONS_CONFIG } from '../../configs/buttons-config';
 import { MarkerInterface } from '../../interfaces/marker.interface';
 import { MapService, MarkerService, RouteService } from '../../services';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'lib-button-panel',

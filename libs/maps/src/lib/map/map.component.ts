@@ -10,6 +10,7 @@ import { PlacesService } from '../../services/places.service';
 import { MarkerService } from '../../services/marker.service';
 import { MarkerInterface } from '../../interfaces/marker.interface';
 import { MapService } from '../../services';
+import { ToastService } from '@profolio/shared-ui';
 
 @Component({
   selector: 'lib-map-viewer',
@@ -36,17 +37,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   markers: MarkerInterface[] = [];
   directions: google.maps.DirectionsResult | undefined;
-  // markers = [
-  //   { position: { lat: -30.5595, lng: 22.9375 }, label: 'A' },
-  //   { position: { lat: -30.543, lng: 21.9375 }, label: 'B' },
-  //   { position: { lat: -30.6595, lng: 23.9375 }, label: 'C' },
-  // ];
 
   constructor(
     private directionsService: DirectionsService,
     private placesService: PlacesService,
     private markerService: MarkerService,
-    private mapService: MapService
+    private mapService: MapService,
+    private toast: ToastService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -71,6 +68,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         console.log('Displaying directions on the map: ', result);
         this.markerService.clearMarkers();
         this.directions = result;
+        this.toast.showSuccess('Directions found');
       }
     });
   };
@@ -78,7 +76,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private subscribeToPlacesResults = () => {
     this.placesSubscription = this.placesService.place$.subscribe((result) => {
       if (result && result.location) {
-        console.log('Displaying places search on the map: ', result);
         this.markerService.addNewMarker({ lat: result.location.lat(), lng: result.location.lng() });
       }
     });
@@ -110,6 +107,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   onMapReady = (map: google.maps.Map): void => {
     console.log('Map ready', map);
+    this.toast.showInfo('Map is ready');
   };
 
   // private searchLocation(location: string) {

@@ -1,5 +1,5 @@
 .map-wrapper {
-	@apply flex flex-col w-screen h-screen gap-3 p-4 overflow-hidden bg-white border;
+	@apply flex flex-col w-screen h-screen gap-3 p-4 overflow-hidden border bg-slate-100;
 }
 
 .map-wrapper .map-header {
@@ -11,9 +11,9 @@
 }
 
 .map-wrapper .viewer-wrapper .map-viewer {
-	@apply flex-1 overflow-hidden border rounded-md shadow-sm bg-slate-100;
+	@apply flex-1 overflow-hidden bg-white border rounded-md shadow-sm;
 }
 
 .map-wrapper .viewer-wrapper .map-display-panel {
-	@apply flex flex-col p-2 border rounded-md shadow-sm gap-y-3 bg-slate-50 w-fit max-w-48 lg:max-w-72;
+	@apply flex flex-col p-2 bg-white border rounded-md shadow-sm gap-y-3 w-fit max-w-48 lg:max-w-72;
 }

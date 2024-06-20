@@ -1,5 +1,6 @@
 // directions.service.ts
 import { Injectable } from '@angular/core';
+import { ToastService } from '@profolio/shared-ui';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 declare let google: any;
@@ -18,6 +19,8 @@ export class DirectionsService {
     this.directionsSubject.next(null);
   }
 
+  constructor(private toast: ToastService) {}
+
   calculateDirections(
     origin: google.maps.LatLngLiteral,
     destination: google.maps.LatLngLiteral,
@@ -32,14 +35,12 @@ export class DirectionsService {
       travelMode: travelMode || google.maps.TravelMode.DRIVING,
     };
 
-    directionsService.route(request, (
-			result: google.maps.DirectionsResult,
-			status: google.maps.DirectionsStatus
-		) => {
+    directionsService.route(request, (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => {
       if (status === google.maps.DirectionsStatus.OK && result) {
         this.setDirectionsResult(result);
       } else {
-        console.error('Directions request failed due to ' + status);
+        // console.error('Directions request failed due to ' + status);
+        this.toast.showError('Directions request failed');
         this.clearDirectionsResult();
       }
     });

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DirectionsService } from './directions.service';
+import { ToastService } from '@profolio/shared-ui';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RouteService {
-  constructor(private directionsService: DirectionsService) {}
+  constructor(private directionsService: DirectionsService, private toastr: ToastService) {}
 
   // calculateRouteToMarker(
   //   origin: google.maps.LatLngLiteral,
@@ -22,7 +23,7 @@ export class RouteService {
 
   drawRouteBetweenMarkers = (markers: google.maps.LatLngLiteral[]): void | Observable<google.maps.DirectionsResult | undefined> => {
     if (markers.length < 2) {
-      alert('Please add at least two markers to draw a route between them.');
+      this.toastr.showError('Please add at least two markers to draw a route between them.');
       return new Observable<google.maps.DirectionsResult | undefined>();
     }
 
