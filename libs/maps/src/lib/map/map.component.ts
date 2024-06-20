@@ -108,11 +108,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  // ngOnInit(): void {
-  //   // this.directionsResults$ = this.directionsService.directions$;
-  //   // this.placesResults$ = this.placesService.place$;
-  // }
-
   onMapReady = (map: google.maps.Map): void => {
     console.log('Map ready', map);
   };

@@ -1,31 +1,26 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 // import { Subscription } from 'rxjs';
-import { BUTTONS_CONFIG } from '../../config/buttons-config';
+import { BUTTONS_CONFIG } from '../../configs/buttons-config';
 import { MarkerInterface } from '../../interfaces/marker.interface';
 import { MapService, MarkerService, RouteService } from '../../services';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'lib-map-legend',
+  selector: 'lib-button-panel',
   standalone: true,
   imports: [CommonModule, GoogleMap, MapAdvancedMarker],
   templateUrl: './map-legend.component.html',
   styleUrl: './map-legend.component.css',
 })
-export class MapLegendComponent implements OnInit {
+export class MapLegendComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() map!: GoogleMap;
-  @Input() markers: MarkerInterface[] = [];
-  @Output() markersChange = new EventEmitter<MarkerInterface[]>();
-
-  // directionsSubscription!: Subscription;
   buttons: { category: string; buttons: { clickHandler: () => any; label: string; icon: string }[] }[] | undefined;
 
-  [Symbol.iterator]() {
-    return this.markers[Symbol.iterator]();
-  }
-
-  selectedMarker?: google.maps.marker.AdvancedMarkerElement;
+  markersSubscription!: Subscription;
+  markers: MarkerInterface[] = [];
+  // selectedMarker?: google.maps.marker.AdvancedMarkerElement;
 
   constructor(
     private mapService: MapService,
@@ -34,7 +29,31 @@ export class MapLegendComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.buttons = BUTTONS_CONFIG.map((category) => ({
+    this.buttons = this.createMapButtons();
+  }
+
+  ngAfterViewInit(): void {
+    this.subscribeToMarkerChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeMarkersSubscription();
+  }
+
+  private subscribeToMarkerChanges = () => {
+    this.markersSubscription = this.markerService.markers$.subscribe((result) => {
+      this.markers = result;
+    });
+  };
+
+  private unsubscribeMarkersSubscription() {
+    if (this.markersSubscription) {
+      this.markersSubscription.unsubscribe();
+    }
+  }
+
+  private createMapButtons() {
+    return BUTTONS_CONFIG.map((category) => ({
       category: category.category,
       buttons: category.buttons.map((button) => ({
         ...button,
@@ -56,7 +75,7 @@ export class MapLegendComponent implements OnInit {
             this.markers.map((marker) => marker.position)
           );
       case 'Change Map Type':
-        return () => this.mapService.changeMapType(this.map); // Example map type
+        return () => this.mapService.changeMapType(this.map);
       case 'Add Marker':
         return () => this.markerService.addNewMarker({ lat: -30.3595, lng: 22.2375 });
       case 'Clear Markers':
@@ -68,9 +87,11 @@ export class MapLegendComponent implements OnInit {
       case 'Toggle Traffic':
         return () => this.mapService.toggleTrafficLayer(this.map, new google.maps.TrafficLayer());
       case 'Import Data':
+        // TODO: implement import data method
         return () => document.getElementById('fileInput')?.click();
       case 'Export Data':
-        return () => console.log('Export Data method called'); // Implement the export logic as needed
+        // TODO: implement export data method
+        return () => console.log('Export Data method called');
       default:
         return () => console.warn('No handler defined for', label);
     }

@@ -1,0 +1,19 @@
+.button-container {
+	@apply flex-none px-2 py-4 bg-white border rounded shadow-sm max-w-72;
+}
+
+.button {
+	@apply flex items-center justify-center px-3 py-1 text-xs font-medium text-black border rounded shadow-sm text-pretty;
+}
+
+.category {
+	@apply font-medium text-black;
+}
+
+.button-icon {
+	@apply text-base;
+}
+
+h1 {
+	@apply m-2 text-4xl font-black text-center;
+}
