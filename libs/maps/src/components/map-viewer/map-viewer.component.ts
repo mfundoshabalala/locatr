@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
-import { MapLegendComponent } from '../map-legend/map-legend.component';
+import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.component';
 import { Subscription } from 'rxjs';
 import { DirectionsService } from '../../services/directions.service';
 import { FormsModule } from '@angular/forms';
-import { MapSearchBarComponent } from '../map-search-bar/map-search-bar.component';
+import { MapSearchInputComponent } from '../map-search-input/map-search-input.component';
 import { PlacesService } from '../../services/places.service';
 import { MarkerService } from '../../services/marker.service';
 import { MarkerInterface } from '../../interfaces/marker.interface';
@@ -15,12 +15,12 @@ import { ToastService } from '@profolio/shared-ui';
 @Component({
   selector: 'lib-map-viewer',
   standalone: true,
-  imports: [GoogleMapsModule, CommonModule, MapLegendComponent, MapSearchBarComponent, FormsModule],
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  imports: [GoogleMapsModule, CommonModule, MapButtonPanelComponent, MapSearchInputComponent, FormsModule],
+  templateUrl: './map-viewer.component.html',
+  styleUrl: './map-viewer.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class MapComponent implements AfterViewInit, OnDestroy {
+export class MapViewComponent implements AfterViewInit, OnDestroy {
   @ViewChild(GoogleMap) map!: GoogleMap;
   center: google.maps.LatLngLiteral = { lat: -30.5595, lng: 22.9375 };
   zoom = 7;
@@ -43,7 +43,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private placesService: PlacesService,
     private markerService: MarkerService,
     private mapService: MapService,
-    private toast: ToastService,
+    private toast: ToastService
   ) {}
 
   ngAfterViewInit(): void {
@@ -56,7 +56,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.markersSubscription = this.markerService.markers$.subscribe((result) => {
       if (result && result.length !== 0) {
         console.log('Displaying marker results: ', result);
-        this.mapService.fitMarkersToView(this.map, result.map((marker) => marker.position));
+        this.mapService.fitMarkersToView(
+          this.map,
+          result.map((marker) => marker.position)
+        );
       }
       this.markers = result;
     });

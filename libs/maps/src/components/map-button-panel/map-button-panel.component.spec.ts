@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MapSearchBarComponent } from './map-search-bar.component';
+import { MapButtonPanelComponent } from './map-button-panel.component';
 
-describe('MapSearchBarComponent', () => {
-  let component: MapSearchBarComponent;
-  let fixture: ComponentFixture<MapSearchBarComponent>;
+describe('MapLegendComponent', () => {
+  let component: MapButtonPanelComponent;
+  let fixture: ComponentFixture<MapButtonPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MapSearchBarComponent],
+      imports: [MapButtonPanelComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MapSearchBarComponent);
+    fixture = TestBed.createComponent(MapButtonPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

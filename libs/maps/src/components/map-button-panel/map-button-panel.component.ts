@@ -7,13 +7,13 @@ import { MarkerInterface } from '../../interfaces/marker.interface';
 import { MapService, MarkerService, RouteService } from '../../services';
 
 @Component({
-  selector: 'lib-button-panel',
+  selector: 'lib-map-button-panel',
   standalone: true,
   imports: [CommonModule, GoogleMap, MapAdvancedMarker],
-  templateUrl: './map-legend.component.html',
-  styleUrl: './map-legend.component.css',
+  templateUrl: './map-button-panel.component.html',
+  styleUrl: './map-button-panel.component.css',
 })
-export class MapLegendComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() map!: GoogleMap;
   buttons: { category: string; buttons: { clickHandler: () => any; label: string; icon: string }[] }[] | undefined;
 

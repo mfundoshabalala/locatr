@@ -17,10 +17,10 @@ import { PlacesService } from '../../services/places.service';
   selector: 'lib-map-search-input',
   standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule],
-  templateUrl: './map-search-bar.component.html',
-  styleUrls: ['./map-search-bar.component.css'],
+  templateUrl: './map-search-input.component.html',
+  styleUrl: './map-search-input.component.css',
 })
-export class MapSearchBarComponent implements AfterViewInit, OnDestroy {
+export class MapSearchInputComponent implements AfterViewInit, OnDestroy {
   @ViewChild('inputField') inputField!: ElementRef;
   @Input() placeholder = 'Enter address...';
   autocomplete: google.maps.places.Autocomplete | undefined;
