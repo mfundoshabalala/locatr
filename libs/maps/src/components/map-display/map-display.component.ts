@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapSearchInputComponent } from '../map-search-input/map-search-input.component';
 import { MapViewComponent } from '../map-viewer/map-viewer.component';
 import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.component';
 import { MapInfoPanelComponent } from '../map-info-panel/map-info-panel.component';
+import { MapRoutingPanelComponent } from '../map-routing-panel/map-routing-panel.component';
+import { MapSidebarComponent } from '../map-sidebar/map-sidebar.component';
 
 @Component({
-  selector: 'lib-map-display-panel',
+  selector: 'lib-map-display',
   standalone: true,
-  imports: [CommonModule, MapSearchInputComponent, MapViewComponent, MapButtonPanelComponent, MapInfoPanelComponent],
+  imports: [
+    CommonModule,
+    MapButtonPanelComponent,
+    MapInfoPanelComponent,
+    MapRoutingPanelComponent,
+    MapSearchInputComponent,
+    MapViewComponent,
+    MapSidebarComponent
+  ],
   templateUrl: './map-display.component.html',
   styleUrl: './map-display.component.css',
 })
-export class MapDisplayComponent implements OnInit {
-  ngOnInit(): void {
-    console.log('MapDisplayComponent initialized');
-  }
-}
+export class MapDisplayComponent {}

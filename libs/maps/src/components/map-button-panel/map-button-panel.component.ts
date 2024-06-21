@@ -67,7 +67,7 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
         return () => this.mapService.refreshMap(this.map);
       case 'Locate User':
         return () => this.mapService.centerOnUser(this.map);
-      case 'Fit to Bounds':
+      case 'Fit Bounds':
         return () =>
           this.mapService.fitMarkersToView(
             this.map,
@@ -81,7 +81,7 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
         return () => this.markerService.clearMarkers();
       case 'Route to Marker':
         return () => null;
-      case 'Draw Route Between Markers':
+      case 'Show Route':
         return () => this.routeService.drawRouteBetweenMarkers(this.markers.map((marker) => marker.position));
       case 'Toggle Traffic':
         return () => this.mapService.toggleTrafficLayer(this.map, new google.maps.TrafficLayer());

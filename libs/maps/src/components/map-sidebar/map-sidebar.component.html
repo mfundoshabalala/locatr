@@ -1,0 +1,12 @@
+<nav class="flex flex-col text-sm font-medium" aria-label="Main Navigation">
+	<ul class="flex-1 py-2 space-y-2">
+		<li *ngFor="let item of navItems" class="border rounded-md">
+			<a [href]="item.link"
+				class="flex items-center px-4 py-2 hover:bg-gray-700"
+				[attr.aria-label]="item.label">
+				<span class="mr-2">{{ item.icon }}</span> {{ item.label }}
+			</a>
+		</li>
+	</ul>
+</nav>
+

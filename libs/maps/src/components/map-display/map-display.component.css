@@ -1,19 +1,23 @@
-.map-wrapper {
-	@apply flex flex-col w-screen h-screen gap-3 p-4 overflow-hidden border bg-slate-100;
+.map-display {
+	@apply flex flex-col min-h-screen gap-3 p-4 bg-slate-100;
 }
 
-.map-wrapper .map-header {
-	@apply p-2 rounded-md;
+.map-display>.map-header {
+	@apply p-2 bg-white border rounded-md shadow-sm;
 }
 
-.map-wrapper .viewer-wrapper {
-	@apply flex flex-1 gap-x-3;
+.map-display>.map-footer {
+	@apply p-2 bg-white border rounded-md shadow-sm;
 }
 
-.map-wrapper .viewer-wrapper .map-viewer {
-	@apply flex-1 overflow-hidden bg-white border rounded-md shadow-sm;
+.map-display>.viewer-wrapper {
+	@apply flex flex-1 rounded-md gap-x-3;
 }
 
-.map-wrapper .viewer-wrapper .map-display-panel {
-	@apply flex flex-col p-2 bg-white border rounded-md shadow-sm gap-y-3 w-fit max-w-48 lg:max-w-72;
+.map-display>.viewer-wrapper>.map-viewer {
+	@apply flex-1 p-2 bg-white border rounded-md shadow-sm;
+}
+
+.map-display>.viewer-wrapper>.map-display-panel {
+	@apply flex flex-col p-2 bg-white border rounded-md shadow-sm gap-y-3 w-fit max-w-48 xl:max-w-72;
 }

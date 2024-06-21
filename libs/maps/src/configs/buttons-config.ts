@@ -15,7 +15,7 @@ export const BUTTONS_CONFIG: ButtonCategory[] = [
     buttons: [
       { label: 'Refresh Map', icon: '🔄' },
       { label: 'Locate User', icon: '📍' },
-      { label: 'Fit to Bounds', icon: '🔍' },
+      { label: 'Fit Bounds', icon: '🔍' },
       { label: 'Change Map Type', icon: '🗺️' },
     ],
   },
@@ -31,7 +31,7 @@ export const BUTTONS_CONFIG: ButtonCategory[] = [
     category: 'Routes',
     buttons: [
       { label: 'Route to Marker', icon: '🚗' },
-      { label: 'Draw Route Between Markers', icon: '🚧' },
+      { label: 'Show Route', icon: '🚧' },
     ],
   },
   {
