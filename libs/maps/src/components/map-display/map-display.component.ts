@@ -6,6 +6,7 @@ import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.co
 import { MapInfoPanelComponent } from '../map-info-panel/map-info-panel.component';
 import { MapRoutingPanelComponent } from '../map-routing-panel/map-routing-panel.component';
 import { MapSidebarComponent } from '../map-sidebar/map-sidebar.component';
+import { LogoComponent } from '@profolio/shared-ui';
 
 @Component({
   selector: 'lib-map-display',
@@ -17,7 +18,8 @@ import { MapSidebarComponent } from '../map-sidebar/map-sidebar.component';
     MapRoutingPanelComponent,
     MapSearchInputComponent,
     MapViewComponent,
-    MapSidebarComponent
+    MapSidebarComponent,
+    LogoComponent
   ],
   templateUrl: './map-display.component.html',
   styleUrl: './map-display.component.css',

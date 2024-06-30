@@ -1,14 +1,30 @@
-<section class="button-container">
-	<div *ngFor="let group of buttons" class="mb-4">
+<section class="button-panel" @slideIn>
+	<div *ngFor="let group of buttons">
 		<div class="category">{{ group.category }}</div>
 		<hr class="my-2">
-		<div class="flex flex-wrap px-2 py-1 gap-x-2 gap-y-1.5">
+		<div class="button-container">
 			<button *ngFor="let button of group.buttons"
-				(click)="button.clickHandler()" class="button">
-				<span *ngIf="button.icon" class="mr-2 button-icon">{{ button.icon }}</span>
+				(click)="button?.clickHandler()"
+				[ngClass]="{ 'disabled': button?.disabled }" class="button">
+				<span *ngIf="button.icon" class="mr-2 button-icon">{{ button.icon
+					}}</span>
 				<span class="button-text">{{ button.label }}</span>
 			</button>
 		</div>
 	</div>
 </section>
 
+
+<!-- <section class="accordion">
+	<div *ngFor="let group of buttons">
+		<details>
+			<summary>{{ group.category }}</summary>
+			<div class="flex flex-wrap px-2 py-1 gap-x-2 gap-y-1.5">
+				<button *ngFor="let button of group.buttons"
+					(click)="button.clickHandler()" class="button">
+					{{ button.label }}
+				</button>
+			</div>
+		</details>
+	</div>
+</section> -->

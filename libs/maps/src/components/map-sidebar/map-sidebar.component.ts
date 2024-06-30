@@ -16,6 +16,6 @@ export class MapSidebarComponent {
     { label: 'Live Tracking', icon: '📍', link: '#' },
     { label: 'Schedules', icon: '📅', link: '#' },
     { label: 'Alerts', icon: '🔔', link: '#' },
-    { label: 'Settings', icon: '⚙️', link: '#' },
+    { label: 'Settings', icon: '⚙️', link: '#' }
   ];
 }

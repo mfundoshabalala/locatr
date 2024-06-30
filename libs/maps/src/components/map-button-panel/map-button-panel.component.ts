@@ -1,21 +1,34 @@
+import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
 import { Component, Input, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+//
 import { BUTTONS_CONFIG } from '../../configs/buttons-config';
 import { MarkerInterface } from '../../interfaces/marker.interface';
 import { MapService, MarkerService, RouteService } from '../../services';
+import { ButtonInterface } from '../../interfaces/button.interface';
 
 @Component({
   selector: 'lib-map-button-panel',
   standalone: true,
   imports: [CommonModule, GoogleMap, MapAdvancedMarker],
+  animations: [
+    trigger('slideIn', [
+      transition(':enter', [
+        query('.button', [
+          style({ transform: 'translateX(100%)', opacity: 0 }),
+          stagger('100ms', [animate('500ms ease-out', style({ transform: 'translateX(0)', opacity: 1 }))]),
+        ]),
+      ]),
+    ]),
+  ],
   templateUrl: './map-button-panel.component.html',
   styleUrl: './map-button-panel.component.css',
 })
 export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() map!: GoogleMap;
-  buttons: { category: string; buttons: { clickHandler: () => any; label: string; icon: string }[] }[] | undefined;
+  buttons: { category: string; buttons: ButtonInterface[] }[] | undefined;
 
   markersSubscription!: Subscription;
   markers: MarkerInterface[] = [];

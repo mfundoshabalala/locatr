@@ -1,17 +1,23 @@
-.button-container {
-	@apply flex-none py-4 border rounded shadow-sm bg-slate-50 max-w-72;
+.button-panel {
+	@apply flex flex-col flex-none gap-4 py-4 border rounded shadow-sm bg-slate-50 max-w-72;
 }
 
-.button {
-	@apply flex items-center justify-center px-3 py-1 text-xs font-medium duration-300 bg-white border rounded-md shadow cursor-pointer border-slate-300 active:border-slate-300 text-gray-950 active:shadow-sm text-pretty active:bg-slate-200;
-}
-
-.category {
+.button-panel .category {
 	@apply px-2 -mb-1 font-medium text-black border-slate-100;
 }
 
-.button-icon {
-	@apply text-base;
+.button-panel .button-container {
+	@apply flex flex-wrap px-2 py-1 gap-x-2 gap-y-1.5;
 }
 
-/* TODO: Styling for diabled button */
+.button-panel .button-container .button {
+	@apply flex items-center justify-center w-full px-3 py-1 text-xs font-medium duration-300 bg-white border rounded-md shadow cursor-pointer border-slate-300 active:border-slate-300 text-gray-950 active:shadow-sm text-pretty active:bg-slate-200;
+}
+
+.button-panel .button-container>.button.disabled {
+	@apply text-gray-500 bg-gray-300 shadow-none cursor-not-allowed border-slate-300;
+}
+
+.button-panel .button-container>.button> .button-icon {
+	@apply text-base;
+}

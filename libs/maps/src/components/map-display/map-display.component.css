@@ -3,7 +3,7 @@
 }
 
 .map-display>.map-header {
-	@apply p-2 bg-white border rounded-md shadow-sm;
+	@apply flex items-center justify-between px-8 py-4 bg-white border rounded-md shadow-sm;
 }
 
 .map-display>.map-footer {

@@ -27,8 +27,6 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
   options: google.maps.MapOptions = {
     center: this.center,
     zoom: this.zoom,
-    maxZoom: 15,
-    minZoom: 4,
   };
 
   placesSubscription!: Subscription;

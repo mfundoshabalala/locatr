@@ -1,0 +1,16 @@
+.sidebar {
+	@apply flex flex-col text-sm font-medium gap-y-4 text-slate-950;
+}
+
+.sidebar>.sidebar-wrapper {
+	@apply flex flex-col flex-1 py-4 gap-y-3;
+}
+
+.sidebar>.sidebar-wrapper>.navlink {
+	@apply border-slate-300;
+}
+
+.sidebar>.sidebar-wrapper>.navlink>.navitem {
+	@apply inline-block w-full px-6 py-2 duration-300 bg-white border rounded-md cursor-pointer hover:bg-slate-600 hover:text-white;
+	/* @apply flex items-center px-4 py-2 hover:bg-gray-700; */
+}

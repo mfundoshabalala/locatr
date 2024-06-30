@@ -3,5 +3,5 @@
 }
 
 .search-wapper>input.search-input {
-	@apply z-20 block w-full p-2 text-sm font-medium text-black placeholder-gray-600 bg-gray-200 border border-gray-300 rounded;
+	@apply z-20 block w-full p-2 text-sm font-medium text-black placeholder-gray-600 bg-gray-200 border rounded border-slate-300;
 }
