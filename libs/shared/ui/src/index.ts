@@ -7,3 +7,5 @@ export * from './components/logo/logo.component';
 export * from './services/toast.service';
 
 export * from './components/user-profile/user-profile.component';
+
+export * from './components/navbar/navbar.component';
