@@ -35,6 +35,12 @@ dependencies:
   '@angular/router':
     specifier: ~18.0.0
     version: 18.0.3(@angular/common@18.0.3)(@angular/core@18.0.3)(@angular/platform-browser@18.0.3)(rxjs@7.8.1)
+  '@fortawesome/angular-fontawesome':
+    specifier: ^0.15.0
+    version: 0.15.0(@angular/core@18.0.3)
+  '@fortawesome/free-solid-svg-icons':
+    specifier: ^6.5.2
+    version: 6.5.2
   '@nx/angular':
     specifier: 19.3.0
     version: 19.3.0(@angular-devkit/build-angular@18.0.4)(@angular-devkit/core@18.0.4)(@angular-devkit/schematics@18.0.4)(@schematics/angular@18.0.4)(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@18.16.9)(eslint@8.57.0)(nx@19.3.0)(rxjs@7.8.1)(typescript@5.4.5)
@@ -3563,6 +3569,38 @@ packages:
   /@eslint/js@8.57.0:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  /@fortawesome/angular-fontawesome@0.15.0(@angular/core@18.0.3):
+    resolution: {integrity: sha512-oxmJDYGNSym5ycFR0LX4ZOPAU+wWmMAznYpkm5DNAtWWkhMLcrZl15eZQmVIEE+qruQ7JiVrg3tpo8bEkFlDgw==}
+    peerDependencies:
+      '@angular/core': ^18.0.0
+    dependencies:
+      '@angular/core': 18.0.3(rxjs@7.8.1)(zone.js@0.14.7)
+      '@fortawesome/fontawesome-svg-core': 6.5.2
+      tslib: 2.6.3
+    dev: false
+
+  /@fortawesome/fontawesome-common-types@6.5.2:
+    resolution: {integrity: sha512-gBxPg3aVO6J0kpfHNILc+NMhXnqHumFxOmjYCFfOiLZfwhnnfhtsdA2hfJlDnj+8PjAs6kKQPenOTKj3Rf7zHw==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dev: false
+
+  /@fortawesome/fontawesome-svg-core@6.5.2:
+    resolution: {integrity: sha512-5CdaCBGl8Rh9ohNdxeeTMxIj8oc3KNBgIeLMvJosBMdslK/UnEB8rzyDRrbKdL1kDweqBPo4GT9wvnakHWucZw==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.5.2
+    dev: false
+
+  /@fortawesome/free-solid-svg-icons@6.5.2:
+    resolution: {integrity: sha512-QWFZYXFE7O1Gr1dTIp+D6UcFUF0qElOnZptpi7PBUMylJh+vFmIedVe1Ir6RM1t2tEQLLSV1k7bR4o92M+uqlw==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.5.2
+    dev: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}

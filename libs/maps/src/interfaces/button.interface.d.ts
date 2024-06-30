@@ -6,10 +6,11 @@ export interface ButtonConfig {
 
 export interface ButtonInterface extends ButtonConfig {
   clickHandler?: any;
-  description?: string;
+  purpose?: string;
 }
 
 export interface ButtonCategory {
   category: string;
+  description?: string;
   buttons: ButtonInterface[];
 }

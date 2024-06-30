@@ -1,23 +1,68 @@
-.button-panel {
-	@apply flex flex-col flex-none gap-4 py-4 border rounded shadow-sm bg-slate-50 max-w-72;
+/* General section styling with Tailwind */
+section {
+  @apply flex flex-col flex-none w-64 gap-4 py-4 duration-500 border rounded shadow-sm bg-slate-50;
 }
 
-.button-panel .category {
-	@apply px-2 -mb-1 font-medium text-black border-slate-100;
+/* Styling for each details element within the section */
+section > details {
+  @apply px-2 text-sm font-medium select-none text-slate-900 border-slate-100;
 }
 
+/* Icon transition for rotating on open */
+section > details > summary span.icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s;
+  margin-left: auto;
+}
+
+/* Rotate icon when details are open */
+section > details[open] summary span.icon {
+  transform: rotate(180deg);
+}
+
+/* Summary styling with flex layout */
+summary {
+  @apply flex justify-between px-2 cursor-pointer gap-x-4 flex-nowrap;
+}
+
+/* Hide the default marker for the summary element */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Container for buttons with responsive flex layout */
 .button-panel .button-container {
-	@apply flex flex-wrap px-2 py-1 gap-x-2 gap-y-1.5;
+  @apply flex flex-wrap py-1 gap-x-2 gap-y-1.5;
 }
 
+/* Button styling for alignment and interaction feedback */
 .button-panel .button-container .button {
-	@apply flex items-center justify-center w-full px-3 py-1 text-xs font-medium duration-300 bg-white border rounded-md shadow cursor-pointer border-slate-300 active:border-slate-300 text-gray-950 active:shadow-sm text-pretty active:bg-slate-200;
+  @apply flex items-center w-full px-3 py-1 text-xs font-medium duration-300 bg-white border rounded-md shadow cursor-pointer border-slate-300 text-gray-950 hover:bg-slate-200 active:border-slate-300 active:shadow-sm;
 }
 
-.button-panel .button-container>.button.disabled {
-	@apply text-gray-500 bg-gray-300 shadow-none cursor-not-allowed border-slate-300;
+/* Disabled button styling */
+.button-panel .button-container > .button.disabled {
+  @apply text-gray-500 bg-gray-300 shadow-none cursor-not-allowed border-slate-300;
 }
 
-.button-panel .button-container>.button> .button-icon {
-	@apply text-base;
+/* Button icon styling */
+.button-panel .button-container > .button > .button-icon {
+  @apply text-base;
+}
+
+/* Custom transition for smooth expansion */
+details[open] .button-container {
+  animation: expand 0.3s ease-in-out;
+}
+
+@keyframes expand {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
 }

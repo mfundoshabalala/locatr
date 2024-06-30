@@ -2,13 +2,13 @@
 	@apply flex flex-col min-h-screen gap-3 p-4 bg-slate-100;
 }
 
-.map-display>.map-header {
+/* .map-display>.map-header {
 	@apply flex items-center justify-between px-8 py-4 bg-white border rounded-md shadow-sm;
-}
+} */
 
-.map-display>.map-footer {
+/* .map-display>.map-footer {
 	@apply p-2 bg-white border rounded-md shadow-sm;
-}
+} */
 
 .map-display>.viewer-wrapper {
 	@apply flex flex-1 rounded-md gap-x-3;

@@ -3,7 +3,7 @@
 }
 
 .profile-wrapper>.profile {
-	@apply p-3 duration-300 border-2 border-blue-100 rounded-full shadow-sm cursor-pointer bg-slate-100 active:bg-white hover:border-purple-400;
+	@apply p-2 duration-300 border-2 border-blue-100 rounded-full shadow-sm cursor-pointer bg-slate-100 active:bg-white hover:border-purple-400;
 }
 
 .profile-wrapper .dropdown {

@@ -1,8 +1,10 @@
+import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
 import { Component, Input, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //
 import { BUTTONS_CONFIG } from '../../configs/buttons-config';
 import { MarkerInterface } from '../../interfaces/marker.interface';
@@ -12,7 +14,7 @@ import { ButtonInterface } from '../../interfaces/button.interface';
 @Component({
   selector: 'lib-map-button-panel',
   standalone: true,
-  imports: [CommonModule, GoogleMap, MapAdvancedMarker],
+  imports: [CommonModule, GoogleMap, MapAdvancedMarker, FontAwesomeModule],
   animations: [
     trigger('slideIn', [
       transition(':enter', [
@@ -33,6 +35,9 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
   markersSubscription!: Subscription;
   markers: MarkerInterface[] = [];
   // selectedMarker?: google.maps.marker.AdvancedMarkerElement;
+  activeCategoryIndex = 0;
+  faAngleUp = faAngleUp;
+  faAngleDown = faAngleDown;
 
   constructor(
     private mapService: MapService,
@@ -61,6 +66,12 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
   private unsubscribeMarkersSubscription() {
     if (this.markersSubscription) {
       this.markersSubscription.unsubscribe();
+    }
+  }
+
+  toggleCategory(index: number) {
+    if (this.activeCategoryIndex !== index) {
+      this.activeCategoryIndex = index; // Switch to the new category
     }
   }
 
