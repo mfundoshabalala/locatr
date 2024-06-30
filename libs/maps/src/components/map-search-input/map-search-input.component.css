@@ -1,7 +1,7 @@
-.search-wapper {
+.search-wrapper {
 	@apply inline-block w-full max-w-sm rounded-md shadow-sm bg-slate-200;
 }
 
-.search-wapper>input.search-input {
-	@apply z-20 block w-full p-2 text-sm font-medium text-black placeholder-gray-600 bg-gray-200 border rounded border-slate-300;
+.search-wrapper>input.search-input {
+	@apply z-20 block p-2 text-sm font-medium text-black placeholder-gray-600 bg-gray-200 border rounded border-slate-300 w-96;
 }

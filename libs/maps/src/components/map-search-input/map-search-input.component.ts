@@ -17,7 +17,11 @@ import { PlacesService } from '../../services/places.service';
   selector: 'lib-map-search-input',
   standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule],
-  templateUrl: './map-search-input.component.html',
+  template: `
+  <div class="search-wrapper">
+    <input [placeholder]="placeholder" #inputField class="search-input" />
+  </div>
+  `,
   styleUrl: './map-search-input.component.css',
 })
 export class MapSearchInputComponent implements AfterViewInit, OnDestroy {
@@ -61,5 +65,5 @@ export class MapSearchInputComponent implements AfterViewInit, OnDestroy {
       iconUrl: place?.icon,
     };
     this.placesService.setPlace(result);
-  }
+  };
 }

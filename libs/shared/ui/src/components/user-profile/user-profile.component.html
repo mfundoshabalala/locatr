@@ -1,0 +1,19 @@
+<div class="profile-wrapper">
+	<span class="profile" (click)="toggleDropdown($event)">
+		<ng-container *ngIf="image.length>0; else elseTemplate">
+			<img [src]="image" />
+		</ng-container>
+		<ng-template #elseTemplate>
+			💀
+		</ng-template>
+	</span>
+	<div  [ngClass]="{'hidden': isHidden}">
+		<ul class="dropdown">
+			<li>item-1</li>
+			<li>item-2</li>
+			<li>item-3</li>
+			<li>item-4</li>
+			<li>item-5</li>
+		</ul>
+	</div>
+</div>

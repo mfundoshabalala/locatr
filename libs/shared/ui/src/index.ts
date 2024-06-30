@@ -6,3 +6,4 @@ export * from './components/logo/logo.component';
 // services
 export * from './services/toast.service';
 
+export * from './components/user-profile/user-profile.component';
