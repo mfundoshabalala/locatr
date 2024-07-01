@@ -38,7 +38,7 @@ summary::-webkit-details-marker {
 
 /* Button styling for alignment and interaction feedback */
 .button-panel .button-container .button {
-  @apply flex items-center w-full px-3 py-1 text-xs font-medium duration-300 bg-white border rounded-md shadow cursor-pointer border-slate-300 text-gray-950 hover:bg-slate-200 active:border-slate-300 active:shadow-sm;
+  @apply flex items-center w-full px-3 py-1 text-xs font-normal duration-300 bg-white border rounded-md shadow cursor-pointer border-slate-300 text-gray-950 hover:bg-slate-200 active:border-slate-300 active:shadow-sm;
 }
 
 /* Disabled button styling */
