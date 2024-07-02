@@ -5,7 +5,7 @@ export interface ButtonConfig {
 }
 
 export interface ButtonInterface extends ButtonConfig {
-  clickHandler?: any;
+  method: string;
   purpose?: string;
 }
 

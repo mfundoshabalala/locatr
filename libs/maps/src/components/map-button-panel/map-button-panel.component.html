@@ -5,7 +5,7 @@
 			<fa-icon [icon]="activeCategoryIndex === i ? faAngleUp : faAngleDown"></fa-icon>
 		</summary>
 		<div class="button-container">
-			<button *ngFor="let button of group.buttons" (click)="button.clickHandler()" [ngClass]="{ 'disabled': button.disabled }" class="button">
+			<button *ngFor="let button of group.buttons" (click)="handleButtonClick(button.method)" [ngClass]="{ 'disabled': button.disabled }" class="button">
 				<span *ngIf="button.icon" class="mr-2 button-icon">{{ button.icon }}</span>
 				<span class="button-text">{{ button.label }}</span>
 			</button>

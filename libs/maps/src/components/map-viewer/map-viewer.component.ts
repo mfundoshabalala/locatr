@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.component';
 import { Subscription } from 'rxjs';
-import { DirectionsService } from '../../services/directions.service';
+import { DirectionsResult, DirectionsService } from '../../services/directions.service';
 import { FormsModule } from '@angular/forms';
 import { MapSearchInputComponent } from '../map-search-input/map-search-input.component';
 import { PlacesService } from '../../services/places.service';
 import { MarkerService } from '../../services/marker.service';
 import { MarkerInterface } from '../../interfaces/marker.interface';
-import { MapService } from '../../services';
+import { MapService, RouteService } from '../../services';
 import { ToastService } from '@profolio/shared-ui';
+import { PlaceSearchResult } from '../../interfaces/places.interface';
 
 @Component({
   selector: 'lib-map-viewer',
@@ -27,6 +28,8 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
   options: google.maps.MapOptions = {
     center: this.center,
     zoom: this.zoom,
+    clickableIcons: true,
+    // draggable: false
   };
 
   placesSubscription!: Subscription;
@@ -41,52 +44,67 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
     private placesService: PlacesService,
     private markerService: MarkerService,
     private mapService: MapService,
+    private routeService: RouteService,
     private toast: ToastService
   ) {}
 
   ngAfterViewInit(): void {
+    this.mapService.setMap(this.map);
+    this.setupSubscriptions();
+  }
+
+  private setupSubscriptions() {
     this.subscribeToMarkerChanges();
-    this.subscribeToDirectionsResults();
     this.subscribeToPlacesResults();
+    this.subscribeToDirectionsResults();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribePlacesSubscription();
+    this.unsubscribeMarkersSubscription();
+    this.unsubscribeDirectionsSubscription();
   }
 
   private subscribeToMarkerChanges = () => {
-    this.markersSubscription = this.markerService.markers$.subscribe((result) => {
-      if (result && result.length !== 0) {
-        console.log('Displaying marker results: ', result);
-        this.mapService.fitMarkersToView(
-          this.map,
-          result.map((marker) => marker.position)
-        );
-      }
-      this.markers = result;
+    this.markersSubscription = this.markerService.markers$.subscribe((markers) => {
+      this.handleMarkerSubscription(markers);
     });
+  };
+
+  private handleMarkerSubscription = (markers: MarkerInterface[]) => {
+    this.markers = markers;
+    if (markers && markers.length) {
+      this.mapService.addMarkersToBounds(markers);
+      this.mapService.fitMarkersToBounds(this.map);
+      // this.routeService.drawRouteBetweenMarkers(markers);
+    }
   };
 
   private subscribeToDirectionsResults = () => {
-    this.directionsSubscription = this.directionsService.directions$.subscribe((result) => {
-      if (result) {
-        console.log('Displaying directions on the map: ', result);
-        this.markerService.clearMarkers();
-        this.directions = result;
-        this.toast.showSuccess('Directions found');
-      }
+    this.directionsSubscription = this.directionsService.directions$.subscribe((directions) => {
+      return this.handleDirectionSubscription(directions);
     });
+  };
+
+  private handleDirectionSubscription = (directions: DirectionsResult | null) => {
+    if (directions) {
+      this.markerService.clearMarkers();
+      this.directions = directions;
+      this.toast.showSuccess('Directions calculated successfully!');
+    }
   };
 
   private subscribeToPlacesResults = () => {
-    this.placesSubscription = this.placesService.place$.subscribe((result) => {
-      if (result && result.location) {
-        this.markerService.addNewMarker({ lat: result.location.lat(), lng: result.location.lng() });
-      }
+    this.placesSubscription = this.placesService.place$.subscribe((place) => {
+      this.handlePlaceSubscription(place);
     });
   };
 
-  ngOnDestroy(): void {
-    this.unsubscribeDirectionsSubscription();
-    this.unsubscribePlacesSubscription();
-    this.unsubscribeMarkersSubscription();
-  }
+  private handlePlaceSubscription = (place: PlaceSearchResult | null) => {
+    if (place && place.location) {
+      this.markerService.addNewMarker({ lat: place.location.lat(), lng: place.location.lng() });
+    }
+  };
 
   private unsubscribeDirectionsSubscription() {
     if (this.directionsSubscription) {
@@ -110,25 +128,4 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
     console.log('Map ready', map);
     this.toast.showInfo('Map is ready');
   };
-
-  // private searchLocation(location: string) {
-  //   const geocoder = new google.maps.Geocoder();
-  //   geocoder.geocode({ address: location }, (results, status) => {
-  //     if (status === 'OK' && results && results[0]) {
-  //       const position = results[0].geometry.location.toJSON();
-  //       this.center = position;
-  //       this.map.panTo(position);
-  //     } else {
-  //       alert('Geocode was not successful for the following reason: ' + status);
-  //     }
-  //   });
-  // }
-
-  // moveMap(event: google.maps.MapMouseEvent) {
-  //   if (event.latLng) this.center = event.latLng.toJSON();
-  // }
-
-  // move(event: google.maps.MapMouseEvent) {
-  //   if (event.latLng) this.display = event.latLng.toJSON();
-  // }
 }

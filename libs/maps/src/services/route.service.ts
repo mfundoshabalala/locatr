@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DirectionsService } from './directions.service';
+import { DirectionsResult, DirectionsService } from './directions.service';
 import { ToastService } from '@profolio/shared-ui';
+import { MarkerInterface } from '../interfaces/marker.interface';
+import { GoogleMap } from '@angular/google-maps';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RouteService {
+  avoidHighways = false;
+  avoidTollRoads = false;
+
   constructor(private directionsService: DirectionsService, private toastr: ToastService) {}
 
   // calculateRouteToMarker(
@@ -21,19 +26,25 @@ export class RouteService {
   //  return this.directionsService.route(request).pipe(map((response) => response.result));
   // }
 
-  drawRouteBetweenMarkers = (markers: google.maps.LatLngLiteral[]): void | Observable<google.maps.DirectionsResult | undefined> => {
+  drawRouteBetweenMarkers = (markers: MarkerInterface[]): void | Observable<DirectionsResult | undefined> => {
     if (markers.length < 2) {
       this.toastr.showError('Please add at least two markers to draw a route between them.');
       return new Observable<google.maps.DirectionsResult | undefined>();
     }
 
-    const origin = markers[0];
-    const destination = markers[markers.length - 1];
-    const waypoints = markers.slice(1, -1).map((marker) => ({
-      location: marker,
-      stopover: true,
-    }));
+    this.directionsService.calculateDirections(markers);
+  };
 
-    return this.directionsService.calculateDirections(origin, destination, waypoints);
-  }
+  toggleAvoidHighWays = () => {
+    this.avoidHighways = !this.avoidHighways;
+  };
+
+  toggleAvoidTollRoads = () => {
+    this.avoidTollRoads = !this.avoidTollRoads;
+  };
+
+  enableTrafficView = (map: google.maps.Map) => {
+    const trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
+  };
 }
