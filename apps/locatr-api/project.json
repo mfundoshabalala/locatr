@@ -1,0 +1,31 @@
+{
+  "name": "locatr-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/locatr-api/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "locatr-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "locatr-api:build:development"
+        },
+        "production": {
+          "buildTarget": "locatr-api:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/locatr-api/jest.config.ts"
+      }
+    }
+  }
+}
