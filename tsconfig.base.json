@@ -15,6 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@profolio/data-access-client": ["libs/data-access-client/src/index.ts"],
+      "@profolio/data-access-driver": ["libs/data-access-driver/src/index.ts"],
+      "@profolio/data-access-notification": ["libs/data-access-notification/src/index.ts"],
+      "@profolio/data-access-order": ["libs/data-access-order/src/index.ts"],
+      "@profolio/data-access-route-optimization-settings": [
+        "libs/data-access-route-optimization-settings/src/index.ts"
+      ],
+      "@profolio/data-access-schedule": ["libs/data-access-schedule/src/index.ts"],
+      "@profolio/data-access-user": ["libs/data-access-user/src/index.ts"],
       "@profolio/maps": ["libs/maps/src/index.ts"],
       "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"],
       "@spartan-ng/ui-accordion-helm": ["libs/ui/ui-accordion-helm/src/index.ts"],
