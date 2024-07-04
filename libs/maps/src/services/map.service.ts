@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import { MarkerInterface } from '../interfaces/marker.interface';
-import { LatLngLiteral } from './directions.service';
+import { LatLngBounds, LatLngLiteral } from '../interfaces/direction.interface';
+
+declare const google: any;
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ export class MapService {
   trafficViewEnabled = false;
   heatmapView = false;
   private map: GoogleMap | undefined;
-  private readonly bounds!: google.maps.LatLngBounds;
+  private readonly bounds!: LatLngBounds;
 
   constructor() {
     this.bounds = new google.maps.LatLngBounds();

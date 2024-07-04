@@ -1,6 +1,6 @@
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
-import { Component, Input, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, inject, effect } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //
 import { BUTTONS_CONFIG } from '../../configs/buttons-config';
 import { MarkerInterface } from '../../interfaces/marker.interface';
-import { DirectionsService, MapService, MarkerService, RouteService } from '../../services';
+import { DirectionsService, MapService, MarkerService } from '../../services';
 import { ButtonInterface } from '../../interfaces/button.interface';
 
 export interface CategorisedButton {
@@ -33,44 +33,33 @@ export interface CategorisedButton {
   templateUrl: './map-button-panel.component.html',
   styleUrl: './map-button-panel.component.css',
 })
-export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MapButtonPanelComponent implements OnInit {
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
   activeCategoryIndex = 0;
   markersSubscription!: Subscription;
   markers: MarkerInterface[] = [];
   buttons: CategorisedButton[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 
-  constructor(
-    private mapService: MapService,
-    private markerService: MarkerService,
-    private routeService: RouteService,
-    private directionService: DirectionsService
-  ) {}
+  private mapService = inject(MapService);
+  private markerService = inject(MarkerService);
+  // private routeService = inject(RouteService);
+  private directionService = inject(DirectionsService);
+
+  constructor() {
+    this.setupMarkerReactivity();
+  }
 
   ngOnInit(): void {
     this.buttons = BUTTONS_CONFIG;
   }
 
-  ngAfterViewInit(): void {
-    this.subscribeToMarkerChanges();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeMarkersSubscription();
-  }
-
-  private subscribeToMarkerChanges = () => {
-    this.markersSubscription = this.markerService.markers$.subscribe((markers) => {
-      this.markers = markers;
+  private setupMarkerReactivity() {
+    effect(() => {
+      this.markers = this.markerService.markersChangeSignal$();
     });
-  };
-
-  private unsubscribeMarkersSubscription() {
-    if (this.markersSubscription) {
-      this.markersSubscription.unsubscribe();
-    }
   }
 
   toggleCategory = (index: number) => {
@@ -168,7 +157,7 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
     } else {
       map?.googleMap?.setMapTypeId('roadmap');
     }
-  }
+  };
 
   handleZoomIn = (): void => {
     const map = this.mapService.getMap();
@@ -211,7 +200,7 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
       map?.googleMap?.setCenter(pos);
       if (map) this.createMarker(pos);
     });
-  }
+  };
 
   private createMarker = (position: google.maps.LatLngLiteral): void => {
     const map = this.mapService.getMap();
@@ -225,7 +214,7 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
       title: 'You are here',
       gmpDraggable: false,
       collisionBehavior: google.maps.CollisionBehavior.REQUIRED,
-      zIndex: 1000
+      zIndex: 1000,
     });
     this.createInfoWindow(marker);
   };
@@ -244,7 +233,7 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
 
   handleGetDirections = (): void => {
     this.directionService.calculateDirections(this.markers);
-  }
+  };
 
   handleMeasureDistance(): void {
     // Logic to measure distance between two points on the map.
@@ -294,5 +283,6 @@ export class MapButtonPanelComponent implements OnInit, AfterViewInit, OnDestroy
       this.mapService.addMarkersToBounds(this.markers);
       this.mapService.fitMarkersToBounds(map);
     }
-  }
+  };
 }
+

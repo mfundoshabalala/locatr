@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { MarkerInterface } from '../interfaces/marker.interface';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MarkerService {
-  markers = [
+  protected _markers = [
     { position: { lat: -33.927383, lng: 18.451755 }, label: 'Marker 1' },
     { position: { lat: -34.031789, lng: 18.358893 }, label: 'Marker 2' },
     { position: { lat: -33.726478, lng: 18.638291 }, label: 'Marker 3' },
@@ -19,20 +18,17 @@ export class MarkerService {
     { position: { lat: -34.205678, lng: 18.349876 }, label: 'Marker 10' },
   ];
 
-  private markersSubject = new BehaviorSubject<MarkerInterface[]>(this.markers);
-  markers$ = this.markersSubject.asObservable();
+  private markersSignal = signal<MarkerInterface[]>(this._markers);
 
-  addNewMarker = (position: google.maps.LatLngLiteral): void => {
-    const currentMarkers = this.markersSubject.getValue();
-    const newMarker = {
-      position: position,
-      label: String.fromCharCode(65 + currentMarkers.length), // A, B, C, etc.
-    };
-    console.log('Marker added:', newMarker);
-    this.markersSubject.next([...currentMarkers, newMarker]);
-  };
+  get markersChangeSignal$() {
+    return this.markersSignal;
+  }
 
-  clearMarkers = (): void => {
-    this.markersSubject.next([]);
-  };
+  addNewMarker(marker: MarkerInterface) {
+    this.markersChangeSignal$.update((markers: MarkerInterface[]) => [...markers, marker]);
+  }
+
+  clearMarkers() {
+    this.markersChangeSignal$.set([]);
+  }
 }
