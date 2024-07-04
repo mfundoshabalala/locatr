@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { PlaceResult, AutoComplete, PlacesLibrary } from '../../interfaces/places.interface';
+import { AutoComplete, PlaceResult, PlacesLibrary } from '../../interfaces';
 
 @Component({
   selector: 'lib-search-input',
@@ -23,7 +23,7 @@ export class SearchInputComponent implements AfterViewInit {
   private readonly placeSignal = signal<PlaceResult | undefined>(undefined);
 
   // Expose the signal to the parent component
-  get placeChangedSignal(): Signal<PlaceResult | undefined> {
+  get placeChangedSignal$(): Signal<PlaceResult | undefined> {
     return this.placeSignal;
   }
 

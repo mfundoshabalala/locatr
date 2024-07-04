@@ -7,23 +7,25 @@ import { MapRoutingPanelComponent } from '../map-routing-panel/map-routing-panel
 import { MapSidebarComponent } from '../map-sidebar/map-sidebar.component';
 import { FooterComponent, HeaderComponent, LogoComponent, NavbarComponent, UserProfileComponent } from '@profolio/shared-ui';
 import { MapControllerComponent } from '../map-controller/map-controller.component';
+import { DriverSelectorComponent } from '../driver-selector/driver-selector.component';
 
 @Component({
   selector: 'lib-map-display',
   standalone: true,
   imports: [
     CommonModule,
+    DriverSelectorComponent,
+    FooterComponent,
+    HeaderComponent,
+    LogoComponent,
     MapButtonPanelComponent,
+    MapControllerComponent,
     MapInfoPanelComponent,
     MapRoutingPanelComponent,
     MapSearchComponent,
-    MapControllerComponent,
     MapSidebarComponent,
-    LogoComponent,
-    UserProfileComponent,
     NavbarComponent,
-    FooterComponent,
-    HeaderComponent
+    UserProfileComponent,
   ],
   templateUrl: './map-display.component.html',
   styleUrl: './map-display.component.css',

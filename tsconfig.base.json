@@ -25,7 +25,9 @@
       "@profolio/data-access-schedule": ["libs/data-access-schedule/src/index.ts"],
       "@profolio/data-access-user": ["libs/data-access-user/src/index.ts"],
       "@profolio/maps": ["libs/maps/src/index.ts"],
-      "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"]
+      "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@profolio/interfaces": ["libs/interfaces/src/index.d.ts"],
+      "@interfaces/*": ["libs/interfaces/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
