@@ -5,7 +5,7 @@ import { effect } from '@angular/core';
 
 import { ToastService } from '@profolio/shared-ui';
 import { PlacesService } from '../../services/places.service';
-import { MarkerService } from '../../services/marker.service';
+import { MarkerService } from '../../services/markers.service';
 import { DirectionsService, MapService } from '../../services';
 import { MarkerInterface } from '../../interfaces/marker.interface';
 import { MapViewerComponent } from '../map-viewer/map-viewer.component';
