@@ -44,4 +44,3 @@ export class MapService {
     map?.fitBounds(this.bounds);
   };
 }
-
