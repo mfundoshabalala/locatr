@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
-import { MapService } from './map.service';
+import { MapService } from './maps.service';
 import { ToastService } from '@profolio/shared-ui';
 import { DirectionsResult, TravelMode, LatLngLiteral, DirectionsWaypoint, DirectionsRequest, DirectionsStatus } from '../interfaces/direction.interface';
 import { MarkerInterface } from '../interfaces/marker.interface';

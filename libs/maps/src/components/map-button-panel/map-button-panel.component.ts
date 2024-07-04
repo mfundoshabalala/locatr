@@ -1,16 +1,17 @@
-import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
-import { Component, OnInit, inject, effect } from '@angular/core';
-import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, effect } from '@angular/core';
+import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
+import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 //
 import { BUTTONS_CONFIG } from '../../configs/buttons-config';
-import { AdvancedMarkerElement, MarkerInterface } from '../../interfaces/marker.interface';
 import { DirectionsService, MapService, MarkerService } from '../../services';
+
+import { Glyph, Maps } from '../../interfaces/map.interface';
 import { ButtonInterface } from '../../interfaces/button.interface';
-import { Maps } from '../../interfaces/map.interface';
 import { LatLngLiteral } from '../../interfaces/direction.interface';
+import { AdvancedMarkerElement, MarkerInterface } from '../../interfaces/marker.interface';
 
 export interface CategorisedButton {
   category: string;
@@ -207,9 +208,9 @@ export class MapButtonPanelComponent implements OnInit {
     });
   };
 
-  private createMarker = (position: LatLngLiteral): void => {
+  private createMarker = (position: LatLngLiteral, glyph?: Glyph): void => {
     const glyphSvgPinElement = new google.maps.marker.PinElement({
-      glyph: '💀',
+      glyph: glyph ?? '💀',
     });
     const marker = new google.maps.marker.AdvancedMarkerElement({
       map: this.map,
