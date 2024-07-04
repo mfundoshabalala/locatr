@@ -10,10 +10,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, SearchInputComponent],
   template: `
-  <lib-search-input
-    #searchInput
-    [placeholder]="'Enter address...'">
-  </lib-search-input>
+    <lib-search-input
+      #searchInput
+      [placeholder]="'Enter address...'">
+    </lib-search-input>
   `,
   styleUrls: ['./map-search.component.css'],
 })
@@ -23,7 +23,7 @@ export class MapSearchComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     effect(() => {
-      const place = this.searchInput.placeChangedSignal();
+      const place = this.searchInput.placeChangedSignal$();
       if (place) {
         this.handlePlaceChange(place);
       }

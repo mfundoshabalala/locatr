@@ -22,7 +22,7 @@ export class SearchInputComponent implements AfterViewInit {
   private readonly placeSignal = signal<PlaceResult | undefined>(undefined);
 
   // Expose the signal to the parent component
-  get placeChangedSignal(): Signal<PlaceResult | undefined> {
+  get placeChangedSignal$(): Signal<PlaceResult | undefined> {
     return this.placeSignal;
   }
 

@@ -5,9 +5,15 @@
 			<lib-map-sidebar />
 		</aside>
 		<section class="main-section">
-			<!-- <header class="map-header">
-			</header> -->
-			<lib-header />
+			<header class="flex justify-around p-2 map-header">
+				<!-- <lib-map-search></lib-map-search> -->
+				<section class="flex gap-x-2">
+					<p class="border">date picker</p>
+					<lib-driver-selector />
+				</section>
+				<lib-user-profile />
+			</header>
+			<!-- <lib-header /> -->
 			<section class="map-section">
 				<article class="map-content">
 					<lib-map-controller />

@@ -7,5 +7,8 @@ export * from './components/map-viewer/map-viewer.component';
 export * from './components/map-sidebar/map-sidebar.component';
 export * from './components/map-search/map-search.component';
 export * from './components/search-input/search-input.component';
-
 export * from './components/map-controller/map-controller.component';
+export * from './components/select-menu/select-menu.component';
+export * from './components/driver-selector/driver-selector.component';
+
+export * from './components/multi-select-dropdown/multi-select-dropdown.component';
