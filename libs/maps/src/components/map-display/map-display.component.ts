@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MapSearchInputComponent } from '../map-search-input/map-search-input.component';
+import { MapSearchComponent } from '../map-search/map-search.component';
 import { MapViewComponent } from '../map-viewer/map-viewer.component';
 import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.component';
 import { MapInfoPanelComponent } from '../map-info-panel/map-info-panel.component';
@@ -16,7 +16,7 @@ import { FooterComponent, HeaderComponent, LogoComponent, NavbarComponent, UserP
     MapButtonPanelComponent,
     MapInfoPanelComponent,
     MapRoutingPanelComponent,
-    MapSearchInputComponent,
+    MapSearchComponent,
     MapViewComponent,
     MapSidebarComponent,
     LogoComponent,

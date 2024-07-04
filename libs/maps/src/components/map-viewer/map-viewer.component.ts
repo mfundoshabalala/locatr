@@ -1,22 +1,23 @@
 import { Component, ViewEncapsulation, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
-import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.component';
 import { Subscription } from 'rxjs';
 import { DirectionsResult, DirectionsService } from '../../services/directions.service';
 import { FormsModule } from '@angular/forms';
-import { MapSearchInputComponent } from '../map-search-input/map-search-input.component';
+
+import { MapSearchComponent } from '../map-search/map-search.component';
+import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.component';
+import { ToastService } from '@profolio/shared-ui';
 import { PlacesService } from '../../services/places.service';
 import { MarkerService } from '../../services/marker.service';
-import { MarkerInterface } from '../../interfaces/marker.interface';
 import { MapService, RouteService } from '../../services';
-import { ToastService } from '@profolio/shared-ui';
+import { MarkerInterface } from '../../interfaces/marker.interface';
 import { PlaceSearchResult } from '../../interfaces/places.interface';
 
 @Component({
   selector: 'lib-map-viewer',
   standalone: true,
-  imports: [GoogleMapsModule, CommonModule, MapButtonPanelComponent, MapSearchInputComponent, FormsModule],
+  imports: [GoogleMapsModule, CommonModule, MapButtonPanelComponent, MapSearchComponent, FormsModule],
   templateUrl: './map-viewer.component.html',
   styleUrl: './map-viewer.component.css',
   encapsulation: ViewEncapsulation.None,
