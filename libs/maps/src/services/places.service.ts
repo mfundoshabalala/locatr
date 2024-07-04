@@ -1,15 +1,21 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { PlaceSearchResult } from '../interfaces/places.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlacesService {
-  private placeSubject = new BehaviorSubject<PlaceSearchResult | null>(null);
-  place$ = this.placeSubject.asObservable();
+  private placeSignal = signal<PlaceSearchResult | null>(null);
 
-	setPlace = (place: PlaceSearchResult) => {
-		this.placeSubject.next(place);
-	}
+  get placeChangeSignal$() {
+    return this.placeSignal;
+  }
+
+  setPlace(place: PlaceSearchResult) {
+    this.placeSignal.set(place);
+  }
+
+  clearPlace() {
+    this.placeSignal.set(null);
+  }
 }

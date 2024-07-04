@@ -1,4 +1,6 @@
-export interface MarkerInterface  {
+export interface MarkerInterface {
 	position: google.maps.LatLngLiteral;
-	label: string;
+	label?: string;
 }
+
+export type AdvancedMarkerElement = google.maps.marker.AdvancedMarkerElement;

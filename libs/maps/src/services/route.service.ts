@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DirectionsResult, DirectionsService } from './directions.service';
+import { DirectionsService } from './directions.service';
 import { ToastService } from '@profolio/shared-ui';
+import { DirectionsResult } from '../interfaces/direction.interface';
 import { MarkerInterface } from '../interfaces/marker.interface';
-import { GoogleMap } from '@angular/google-maps';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,7 @@ export class RouteService {
   drawRouteBetweenMarkers = (markers: MarkerInterface[]): void | Observable<DirectionsResult | undefined> => {
     if (markers.length < 2) {
       this.toastr.showError('Please add at least two markers to draw a route between them.');
-      return new Observable<google.maps.DirectionsResult | undefined>();
+      return new Observable<DirectionsResult | undefined>();
     }
 
     this.directionsService.calculateDirections(markers);
