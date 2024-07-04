@@ -1,9 +1,9 @@
-// search-input.component.ts (Dumb Component with Signals)
 import { Component, ElementRef, Input, ViewChild, AfterViewInit, signal, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { AutoComplete, PlaceResult, PlacesLibrary } from '../../interfaces/places.interface';
 
 @Component({
   selector: 'lib-search-input',
