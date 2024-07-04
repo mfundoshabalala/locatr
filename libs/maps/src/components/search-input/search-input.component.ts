@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { PlaceResult, AutoComplete, PlacesLibrary } from '../../interfaces/places.interface';
 
 @Component({
   selector: 'lib-search-input',
@@ -20,7 +19,7 @@ import { PlaceResult, AutoComplete, PlacesLibrary } from '../../interfaces/place
 export class SearchInputComponent implements AfterViewInit {
   @ViewChild('inputField') inputField!: ElementRef;
   @Input() placeholder = 'Enter address...';
-  private placeSignal = signal<PlaceResult | undefined>(undefined);
+  private readonly placeSignal = signal<PlaceResult | undefined>(undefined);
 
   // Expose the signal to the parent component
   get placeChangedSignal(): Signal<PlaceResult | undefined> {
@@ -38,7 +37,7 @@ export class SearchInputComponent implements AfterViewInit {
     this.autocomplete = new Autocomplete(this.inputField.nativeElement);
     this.autocomplete.addListener('place_changed', () => {
       const place = this.autocomplete?.getPlace();
-      this.placeSignal.set(place); // Update the signal with the new place
+      this.placeSignal.set(place);
     });
   }
 }

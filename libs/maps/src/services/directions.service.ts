@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ToastService } from '@profolio/shared-ui';
-import { MarkerInterface } from '../interfaces/marker.interface';
 import { GoogleMap } from '@angular/google-maps';
 import { MapService } from './map.service';
-import { DirectionsRequest, DirectionsResult, DirectionsStatus, DirectionsWaypoint, LatLngLiteral, TravelMode } from '../interfaces/direction.interface';
+import { ToastService } from '@profolio/shared-ui';
+import { DirectionsResult, TravelMode, LatLngLiteral, DirectionsWaypoint, DirectionsRequest, DirectionsStatus } from '../interfaces/direction.interface';
+import { MarkerInterface } from '../interfaces/marker.interface';
 
 declare let google: any;
 @Injectable({

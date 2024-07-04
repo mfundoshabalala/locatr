@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DirectionsService } from './directions.service';
 import { ToastService } from '@profolio/shared-ui';
-import { MarkerInterface } from '../interfaces/marker.interface';
-import { GoogleMap } from '@angular/google-maps';
 import { DirectionsResult } from '../interfaces/direction.interface';
+import { MarkerInterface } from '../interfaces/marker.interface';
 
 @Injectable({
   providedIn: 'root',

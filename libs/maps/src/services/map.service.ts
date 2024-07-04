@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
-import { MarkerInterface } from '../interfaces/marker.interface';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { LatLngBounds, LatLngLiteral } from '../interfaces/direction.interface';
+import { Maps } from '../interfaces/map.interface';
+import { MarkerInterface } from '../interfaces/marker.interface';
 
 declare const google: any;
-
 @Injectable({
   providedIn: 'root',
 })
@@ -13,33 +12,35 @@ export class MapService {
   avoidTollRoads = false;
   trafficViewEnabled = false;
   heatmapView = false;
-  private map: GoogleMap | undefined;
   private readonly bounds!: LatLngBounds;
 
   constructor() {
     this.bounds = new google.maps.LatLngBounds();
   }
 
-  getMap = (): GoogleMap | undefined => {
-    return this.map;
+  private readonly mapSignal = signal<Maps | undefined>(undefined);
+
+  get mapChangeSignal$(): WritableSignal<Maps | undefined> {
+    return this.mapSignal;
   };
 
-  setMap = (map: GoogleMap): void => {
-    this.map = map;
-  };
+  setMap = (map: Maps): void => {
+    this.mapSignal.set(map);
+  }
 
-  addLatLngToBounds(latlng: LatLngLiteral): void {
+  private addLatLngToBounds(latlng: LatLngLiteral): void {
     const latLng = new google.maps.LatLng(latlng);
     this.bounds.extend(latLng);
   }
 
-  addMarkersToBounds = (markers: MarkerInterface[]) => {
+  addMarkersToBounds = (markers: MarkerInterface[]): void => {
     for (const marker of markers) {
       this.addLatLngToBounds(marker.position);
     }
   };
 
-  fitMarkersToBounds = (map: GoogleMap) => {
-    map.fitBounds(this.bounds);
+  fitMarkersToBounds = (): void => {
+    const map = this.mapChangeSignal$();
+    map?.fitBounds(this.bounds);
   };
 }

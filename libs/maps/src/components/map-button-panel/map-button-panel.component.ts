@@ -3,19 +3,19 @@ import { trigger, style, transition, animate, query, stagger } from '@angular/an
 import { Component, OnInit, inject, effect } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //
 import { BUTTONS_CONFIG } from '../../configs/buttons-config';
-import { MarkerInterface } from '../../interfaces/marker.interface';
+import { AdvancedMarkerElement, MarkerInterface } from '../../interfaces/marker.interface';
 import { DirectionsService, MapService, MarkerService } from '../../services';
 import { ButtonInterface } from '../../interfaces/button.interface';
+import { Maps } from '../../interfaces/map.interface';
+import { LatLngLiteral } from '../../interfaces/direction.interface';
 
 export interface CategorisedButton {
   category: string;
   buttons: ButtonInterface[];
 }
-
 @Component({
   selector: 'lib-map-button-panel',
   standalone: true,
@@ -37,8 +37,8 @@ export class MapButtonPanelComponent implements OnInit {
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
   activeCategoryIndex = 0;
-  markersSubscription!: Subscription;
   markers: MarkerInterface[] = [];
+  map: Maps | undefined;
   buttons: CategorisedButton[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
@@ -50,6 +50,7 @@ export class MapButtonPanelComponent implements OnInit {
 
   constructor() {
     this.setupMarkerReactivity();
+    this.reactiveMapChange();
   }
 
   ngOnInit(): void {
@@ -59,6 +60,14 @@ export class MapButtonPanelComponent implements OnInit {
   private setupMarkerReactivity() {
     effect(() => {
       this.markers = this.markerService.markersChangeSignal$();
+      console.log('Markers updated:', this.markers);
+    });
+  }
+
+  private reactiveMapChange() {
+    effect(() => {
+      this.map = this.mapService.mapChangeSignal$();
+      console.log('Map updated:', this.map);
     });
   }
 
@@ -147,28 +156,25 @@ export class MapButtonPanelComponent implements OnInit {
   }
 
   handleSwitchMapType = (): void => {
-    const map = this.mapService.getMap();
-    if (map?.getMapTypeId() === 'roadmap') {
-      map.googleMap?.setMapTypeId('terrain');
-    } else if (map?.getMapTypeId() === 'terrain') {
-      map.googleMap?.setMapTypeId('hybrid');
-    } else if (map?.getMapTypeId() === 'hybrid') {
-      map.googleMap?.setMapTypeId('satellite');
+    if (this.map?.getMapTypeId() === 'roadmap') {
+      this.map?.setMapTypeId('terrain');
+    } else if (this.map?.getMapTypeId() === 'terrain') {
+      this.map?.setMapTypeId('hybrid');
+    } else if (this.map?.getMapTypeId() === 'hybrid') {
+      this.map?.setMapTypeId('satellite');
     } else {
-      map?.googleMap?.setMapTypeId('roadmap');
+      this.map?.setMapTypeId('roadmap');
     }
   };
 
   handleZoomIn = (): void => {
-    const map = this.mapService.getMap();
-    const zoom = map?.getZoom();
-    if (zoom) map?.googleMap?.setZoom(zoom + 1);
+    const zoom = this.map?.getZoom();
+    if (zoom) this.map?.setZoom(zoom + 1);
   };
 
   handleZoomOut = (): void => {
-    const map = this.mapService.getMap();
-    const zoom = map?.getZoom();
-    if (zoom) map?.googleMap?.setZoom(zoom - 1);
+    const zoom = this.map?.getZoom();
+    if (zoom) this.map?.setZoom(zoom - 1);
   };
 
   handleSafeRoutes(): void {
@@ -190,25 +196,23 @@ export class MapButtonPanelComponent implements OnInit {
   }
 
   handleFindMyLocation = (): void => {
-    const map = this.mapService.getMap();
     const navigator = window.navigator.geolocation;
     navigator.getCurrentPosition((position) => {
       const pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
-      map?.googleMap?.setCenter(pos);
-      if (map) this.createMarker(pos);
+      this.map?.setCenter(pos);
+      if (this.map) this.createMarker(pos);
     });
   };
 
-  private createMarker = (position: google.maps.LatLngLiteral): void => {
-    const map = this.mapService.getMap();
+  private createMarker = (position: LatLngLiteral): void => {
     const glyphSvgPinElement = new google.maps.marker.PinElement({
       glyph: '💀',
     });
     const marker = new google.maps.marker.AdvancedMarkerElement({
-      map: map?.googleMap,
+      map: this.map,
       position: position,
       content: glyphSvgPinElement.element,
       title: 'You are here',
@@ -219,20 +223,20 @@ export class MapButtonPanelComponent implements OnInit {
     this.createInfoWindow(marker);
   };
 
-  private createInfoWindow = (marker: google.maps.marker.AdvancedMarkerElement): void => {
-    const map = this.mapService.getMap();
+  private createInfoWindow = (marker: AdvancedMarkerElement): void => {
     const infoWindow = new google.maps.InfoWindow();
     infoWindow.setContent('Location found.');
     marker.addEventListener('click', () => {
       infoWindow.open({
         anchor: marker,
-        map: map?.googleMap,
+        map: this.map,
       });
     });
   };
 
   handleGetDirections = (): void => {
     this.directionService.calculateDirections(this.markers);
+    this.markerService.clearMarkers();
   };
 
   handleMeasureDistance(): void {
@@ -278,11 +282,9 @@ export class MapButtonPanelComponent implements OnInit {
   }
 
   handleFitBounds = (): void => {
-    const map = this.mapService.getMap();
-    if (map) {
-      this.mapService.addMarkersToBounds(this.markers);
-      this.mapService.fitMarkersToBounds(map);
-    }
+    if (!this.map) return;
+    this.mapService.addMarkersToBounds(this.markers);
+    this.mapService.fitMarkersToBounds();
   };
 }
 
