@@ -1,23 +1,23 @@
 <section class="map-display">
-	<!-- <header class="map-header">
-		<lib-logo />
-		<lib-map-search-input></lib-map-search-input>
-		<lib-navbar />
-		<lib-user-profile />
-	</header> -->
-	<lib-header />
 	<main class="viewer-wrapper">
-		<!-- <div class="map-display-panel"> -->
-		<div>
-			<lib-map-sidebar></lib-map-sidebar>
-		</div>
-		<div class="map-viewer">
-			<lib-map-viewer></lib-map-viewer>
-		</div>
-		<div class="map-display-panel">
-			<lib-map-button-panel></lib-map-button-panel>
-		</div>
-		<!-- <lib-map-info-panel></lib-map-info-panel> -->
+		<aside class="sidenav">
+			<lib-logo />
+			<lib-map-sidebar />
+		</aside>
+		<section class="main-section">
+			<!-- <header class="map-header">
+			</header> -->
+			<lib-header />
+			<section class="map-section">
+				<article class="map-content">
+					<lib-map-viewer />
+				</article>
+				<aside class="map-tools">
+					<lib-map-button-panel />
+				</aside>
+			</section>
+		</section>
 	</main>
-	<lib-footer />
+	<!-- <footer class="main-footer">footer</footer> -->
+	 <lib-footer />
 </section>

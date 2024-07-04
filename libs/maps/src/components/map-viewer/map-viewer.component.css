@@ -1,5 +1,5 @@
 .routing-wrapper {
-	@apply flex-1 h-full p-2 border rounded-md shadow-sm bg-slate-100;
+	@apply flex-1 h-full p-0.5 bg-white border rounded-md shadow-sm;
 }
 
 .routing-wrapper>.routing-map {

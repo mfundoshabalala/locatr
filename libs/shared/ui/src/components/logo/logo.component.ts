@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-  <h1 class="font-serif text-2xl font-black cursor-pointer">
+  <h1 class="font-serif text-2xl font-black cursor-pointer text-center">
     <a href="/">Locatr</a>
   </h1>
   `,
