@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastComponent } from '@profolio/shared-ui';
+import { initFlowbite } from 'flowbite';
 // import { NxWelcomeComponent } from './nx-welcome.component';
 
 @Component({
@@ -10,6 +11,11 @@ import { ToastComponent } from '@profolio/shared-ui';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'locatr';
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
 }
+
