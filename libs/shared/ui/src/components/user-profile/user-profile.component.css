@@ -1,5 +1,5 @@
 .profile-wrapper {
-	@apply relative;
+	@apply relative flex items-center;
 }
 
 .profile-wrapper>.profile {
