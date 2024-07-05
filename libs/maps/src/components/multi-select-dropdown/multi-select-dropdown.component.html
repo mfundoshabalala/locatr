@@ -1,41 +1,25 @@
-<label class="relative">
-	<input type="checkbox" class="hidden peer" (change)="toggleDropdown()" />
-
-	<div
-		class="cursor-pointer after:content-['▼'] after:text-xs after:ml-1 after:inline-flex after:items-center peer-checked:after:-rotate-180 after:transition-transform inline-flex border rounded px-5 py-2">
-		{{ prompt }}
-		<ng-container *ngIf="isJsEnabled && selectedOptions.length > 0">
-			<span class="ml-1 text-blue-500">({{ selectedOptions.length }} selected)</span>
-		</ng-container>
+<div class="relative" libClickOutside [childElement]="dropdownMenu">
+	<div #dropdown (click)="toggleDropdown()"
+		class="dropdown-button">
+		<span class="font-medium">{{ prompt }}</span>
+		<svg class="flex items-center w-3 h-3 font-thin ms-3" aria-hidden="true"
+			xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+			<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+				stroke-width="2" d="m1 1 4 4 4-4" />
+		</svg>
 	</div>
 
-	<div
-		class="absolute z-50 w-full overflow-y-scroll transition-opacity bg-white border opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto max-h-60">
-		<ul *ngIf="isJsEnabled">
-			<li>
-				<button (click)="handleSelectAllClick($event)" [disabled]="selectedOptions.length >= options.length"
-					class="w-full px-2 py-1 text-left text-blue-600 disabled:opacity-50">
-					Select All
-				</button>
-			</li>
-			<li>
-				<button (click)="handleClearSelectionClick($event)" [disabled]="selectedOptions.length === 0"
-					class="w-full px-2 py-1 text-left text-blue-600 disabled:opacity-50">
-					Clear selection
-				</button>
-			</li>
-		</ul>
-		<ul>
-			<li *ngFor="let option of options">
-				<label
-					class="flex px-2 py-1 transition-colors cursor-pointer whitespace-nowrap hover:bg-blue-100"
-					[class.bg-blue-200]="selectedOptions.includes(option.driversID)">
-					<input type="checkbox" name="{{ formFieldName }}" [value]="option.driversID"
-						class="cursor-pointer" [checked]="selectedOptions.includes(option.driversID)"
-						(change)="handleChange($event)" />
-					<span class="ml-1">{{ option.name }}</span>
-				</label>
+	<!-- Dropdown menu -->
+	<div #dropdownMenu class="hidden dropdown-menu">
+		<ul class="p-3 space-y-1 text-sm text-slate-700">
+			<li *ngFor="let item of options;">
+				<div class="flex items-center p-2 rounded hover:bg-slate-100">
+					<input id="checkbox-item-4" type="checkbox" value=""
+						class="w-4 h-4 text-blue-600 rounded bg-slate-100 border-slate-300 focus:ring-blue-500 focus:ring-2">
+					<label for="checkbox-item-4" class="w-full text-sm font-medium rounded text-slate-900 ms-2">
+						{{ item.name }}</label>
+				</div>
 			</li>
 		</ul>
 	</div>
-</label>
+</div>

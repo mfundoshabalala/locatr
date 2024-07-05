@@ -1,27 +1,27 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DriversInterface } from '../../interfaces';
+import { ClickOutsideDirective } from '@profolio/shared-ui';
 
 @Component({
   selector: 'lib-multi-select',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ClickOutsideDirective],
   templateUrl: './multi-select-dropdown.component.html',
   styleUrls: ['./multi-select-dropdown.component.css'],
 })
-export class MultiSelectDropdownComponent implements OnInit, OnChanges {
-  @Input() formFieldName = 'options';
-  @Input() options: DriversInterface[] = [];
-  @Input() prompt = 'Select one or more options';
-  @Output() selectionChange: EventEmitter<string[]> = new EventEmitter<string[]>();
+export class MultiSelectDropdownComponent implements OnChanges {
+  @Input({ required: true }) formFieldName = 'options';
+  @Input({ required: true }) options: DriversInterface[] = [];
+  @Input({ required: true }) prompt = 'Select one or more options';
 
-  isJsEnabled = false;
+  @Output() selectionChange: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+
   selectedOptions: string[] = [];
 
-  ngOnInit() {
-    this.isJsEnabled = true;
-  }
+  constructor(private renderer: Renderer2) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['options']) {
@@ -29,35 +29,23 @@ export class MultiSelectDropdownComponent implements OnInit, OnChanges {
     }
   }
 
-  handleChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const option = input.value;
-    const isChecked = input.checked;
-
-    if (isChecked) {
-      this.selectedOptions.push(option);
-    } else {
-      this.selectedOptions = this.selectedOptions.filter((item) => item !== option);
-    }
-
-    this.selectionChange.emit(this.selectedOptions);
-  }
-
-  handleSelectAllClick(event: MouseEvent) {
-    event.preventDefault();
-
-    this.selectedOptions = this.options.map((option) => option.driversID as string);
-    this.selectionChange.emit(this.selectedOptions);
-  }
-
-  handleClearSelectionClick(event: MouseEvent) {
-    event.preventDefault();
-
-    this.selectedOptions = [];
-    this.selectionChange.emit(this.selectedOptions);
-  }
-
   toggleDropdown() {
-    // This method is just a placeholder to trigger the dropdown toggle in the template
+    // Toggle dropdown visibility
+    const dropdownMenu = this.dropdownMenu.nativeElement;
+    if (dropdownMenu.classList.contains('hidden')) {
+      this.showDropdown();
+    } else {
+      this.hideDropdown();
+    }
+  }
+
+  private showDropdown() {
+    this.renderer.removeClass(this.dropdownMenu.nativeElement, 'hidden');
+    this.renderer.addClass(this.dropdownMenu.nativeElement, 'block');
+  }
+
+  private hideDropdown() {
+    this.renderer.removeClass(this.dropdownMenu.nativeElement, 'block');
+    this.renderer.addClass(this.dropdownMenu.nativeElement, 'hidden');
   }
 }

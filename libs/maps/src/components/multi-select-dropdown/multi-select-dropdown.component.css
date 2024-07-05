@@ -1,0 +1,7 @@
+.dropdown-button {
+	@apply text-slate-700 inline-flex items-center shadow-sm border bg-gradient-radial from-white to-slate-100 rounded-md text-sm px-5 py-2.5 text-center me-2 cursor-pointer;
+}
+
+.dropdown-menu {
+	@apply absolute left-0 z-10 w-48 bg-white rounded-lg shadow-md top-12;
+}
