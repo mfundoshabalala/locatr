@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@interfaces/*": ["libs/interfaces/*"],
       "@profolio/data-access-client": ["libs/data-access-client/src/index.ts"],
       "@profolio/data-access-driver": ["libs/data-access-driver/src/index.ts"],
       "@profolio/data-access-notification": ["libs/data-access-notification/src/index.ts"],
@@ -24,10 +25,9 @@
       ],
       "@profolio/data-access-schedule": ["libs/data-access-schedule/src/index.ts"],
       "@profolio/data-access-user": ["libs/data-access-user/src/index.ts"],
-      "@profolio/maps": ["libs/maps/src/index.ts"],
-      "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"],
       "@profolio/interfaces": ["libs/interfaces/src/index.d.ts"],
-      "@interfaces/*": ["libs/interfaces/*"]
+      "@profolio/maps": ["libs/maps/src/index.ts"],
+      "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
