@@ -57,10 +57,13 @@ export class MapControllerComponent {
   }
 
   private reactiveMapChange() {
-    effect(() => {
-      this.map = this.mapService.mapChangeSignal$();
-      console.log('Map updated:', this.map);
-    });
+    effect(
+      () => {
+        this.map = this.mapService.mapChangeSignal$();
+        this.toast.showInfo('Map updated!');
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   private reactivePlaceChange() {
@@ -84,7 +87,7 @@ export class MapControllerComponent {
       this.directions = this.directionsService.directionsChangeSignal$();
       if (this.directions) {
         this.markerService.clearMarkers();
-        this.toast.showSuccess('Directions calculated successfully!');
+        this.toast.showInfo('Directions calculated successfully!');
       }
     });
   }

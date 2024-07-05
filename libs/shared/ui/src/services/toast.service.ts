@@ -1,8 +1,7 @@
 // toast.service.ts
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
-export interface ToastMessage {
+export interface Toast {
   message: string;
   type: 'success' | 'error' | 'info' | 'warning';
   duration?: number; // duration in milliseconds
@@ -12,12 +11,23 @@ export interface ToastMessage {
   providedIn: 'root',
 })
 export class ToastService {
-  private _toastSubject = new BehaviorSubject<ToastMessage | null>(null);
-  toast$ = this._toastSubject.asObservable();
+  private toastSignal = signal<Toast | null>(null);
+
+  get toastChangeSignal$() {
+    return this.toastSignal;
+  }
+
+  private setToast(toast: Toast) {
+    this.toastSignal.set(toast);
+  }
+
+  clearToast() {
+    this.toastSignal.set(null);
+  }
 
   private show(message: string, type: 'success' | 'error' | 'info' | 'warning', duration = 3000) {
-    this._toastSubject.next({ message, type, duration });
-    setTimeout(() => this.clear(), duration);
+    this.setToast({ message, type, duration });
+    setTimeout(() => this.clearToast(), duration);
   }
 
   showSuccess(message: string, duration = 5000) {
@@ -34,9 +44,5 @@ export class ToastService {
 
   showWarning(message: string, duration = 5000) {
     this.show(message, 'warning', duration);
-  }
-
-  clear() {
-    this._toastSubject.next(null);
   }
 }

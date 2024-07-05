@@ -1,35 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
-import { ToastMessage, ToastService } from '../../services/toast.service';
-
+import { Toast, ToastService } from '../../services/toast.service';
+import { ToastDisplayComponent } from '../toast-display/toast-display.component';
 @Component({
   selector: 'lib-toast',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div *ngIf="toastMessage$ | async as toast" class="toast" [ngClass]="toast.type">
-      <span class="emoji">{{ emojis[toast.type] }}</span>
-      <span class="flex-1 text-pretty">{{ toast.message }}</span>
-      <button (click)="closeToast()" class="text-xl font-bold">&times;</button>
-    </div>
-  `,
+  imports: [CommonModule, ToastDisplayComponent],
+  template: `<lib-toast-display *ngIf="toast" [type]="toast.type" [message]="toast.message"></lib-toast-display> `,
   styleUrl: './toast.component.css',
 })
 export class ToastComponent {
-  toastMessage$: Observable<ToastMessage | null>;
-  readonly emojis = {
-    success: '✅',
-    error: '❌',
-    info: 'ℹ️',
-    warning: '⚠️'
-  };
+  protected toast: Toast | null = null;
 
-  constructor(private toastService: ToastService) {
-    this.toastMessage$ = this.toastService.toast$;
+  private readonly toastService = inject(ToastService);
+  constructor() {
+    this.reactiveToastChange();
   }
 
-  closeToast() {
-    this.toastService.clear();
+  private reactiveToastChange() {
+    effect(() => {
+      this.toast = this.toastService.toastChangeSignal$();
+    });
   }
 }
