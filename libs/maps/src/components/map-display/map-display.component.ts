@@ -5,15 +5,17 @@ import { MapButtonPanelComponent } from '../map-button-panel/map-button-panel.co
 import { MapInfoPanelComponent } from '../map-info-panel/map-info-panel.component';
 import { MapRoutingPanelComponent } from '../map-routing-panel/map-routing-panel.component';
 import { MapSidebarComponent } from '../map-sidebar/map-sidebar.component';
-import { FooterComponent, HeaderComponent, LogoComponent, NavbarComponent, UserProfileComponent } from '@profolio/shared-ui';
+import { FooterComponent, HeaderComponent, LogoComponent, NavbarComponent, UserProfileComponent, DatePickerComponent } from '@profolio/shared-ui';
 import { MapControllerComponent } from '../map-controller/map-controller.component';
 import { DriverSelectorComponent } from '../driver-selector/driver-selector.component';
+
 
 @Component({
   selector: 'lib-map-display',
   standalone: true,
   imports: [
     CommonModule,
+    DatePickerComponent,
     DriverSelectorComponent,
     FooterComponent,
     HeaderComponent,

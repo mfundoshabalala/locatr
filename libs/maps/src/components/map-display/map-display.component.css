@@ -19,11 +19,11 @@
 }
 
 .map-display>.viewer-wrapper>.main-section>.map-header {
-	@apply flex justify-between p-4 bg-white border rounded-md shadow-sm;
+	@apply flex justify-between px-8 py-4 bg-white border rounded-md shadow-sm;
 }
 
 .map-display>.viewer-wrapper>.main-section>.map-section {
-	@apply flex flex-1 gap-4 shadow-sm;
+	@apply flex flex-1 gap-4;
 }
 
 .map-display>.viewer-wrapper>.main-section>.map-section>.map-content {
