@@ -27,7 +27,8 @@
       "@profolio/data-access-user": ["libs/data-access-user/src/index.ts"],
       "@profolio/interfaces": ["libs/interfaces/src/index.d.ts"],
       "@profolio/maps": ["libs/maps/src/index.ts"],
-      "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"]
+      "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@profolio/users": ["libs/users/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
