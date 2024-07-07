@@ -3,7 +3,7 @@ const { join } = require('path');
 
 module.exports = {
   output: {
-    path: join(__dirname, '../../dist/apps/locatr-api'),
+    path: join(__dirname, '../../dist/apps/locatr-backend'),
   },
   plugins: [
     new NxAppWebpackPlugin({

@@ -1,17 +1,17 @@
 {
-  "name": "locatr-api-e2e",
+  "name": "locatr-backend-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "implicitDependencies": ["locatr-api"],
+  "implicitDependencies": ["locatr-backend"],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
       "options": {
-        "jestConfig": "apps/locatr-api-e2e/jest.config.ts",
+        "jestConfig": "apps/locatr-backend-e2e/jest.config.ts",
         "passWithNoTests": true
       },
-      "dependsOn": ["locatr-api:build"]
+      "dependsOn": ["locatr-backend:build"]
     }
   }
 }

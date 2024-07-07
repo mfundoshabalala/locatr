@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'locatr-api-e2e',
+  displayName: 'locatr-backend-e2e',
   preset: '../../jest.preset.js',
   globalSetup: '<rootDir>/src/support/global-setup.ts',
   globalTeardown: '<rootDir>/src/support/global-teardown.ts',
@@ -15,5 +15,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/locatr-api-e2e',
+  coverageDirectory: '../../coverage/locatr-backend-e2e',
 };
