@@ -1,9 +1,0 @@
-<nav class="sidebar" aria-label="Main Navigation">
-	<ul class="sidebar-wrapper">
-		<li *ngFor="let item of navItems" class="navlink">
-			<a [href]="item.link" class="navitem" [attr.aria-label]="item.label">
-				<span class="mr-2">{{ item.icon }}</span> {{ item.label }}
-			</a>
-		</li>
-	</ul>
-</nav>

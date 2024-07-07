@@ -1,0 +1,35 @@
+.map-display {
+  @apply flex flex-col w-full min-h-screen gap-4 p-4 bg-slate-100;
+}
+
+.map-display > .main-footer {
+  @apply flex p-2 bg-white border rounded-md shadow-sm;
+}
+
+.map-display > .viewer-wrapper {
+  @apply flex flex-1 gap-4 p-2 bg-white border rounded-md shadow-sm flex-nowrap;
+}
+
+.map-display > .viewer-wrapper > .sidenav {
+  @apply flex flex-col p-2 border rounded-md shadow-sm bg-slate-100;
+}
+
+.map-display > .viewer-wrapper > .main-section {
+  @apply flex flex-col flex-1 gap-4 p-2 border rounded-md shadow-sm bg-slate-100;
+}
+
+.map-display > .viewer-wrapper > .main-section > .map-header {
+  @apply flex justify-between px-8 py-4 bg-white border rounded-md shadow-sm;
+}
+
+.map-display > .viewer-wrapper > .main-section > .map-section {
+  @apply flex flex-1 gap-4;
+}
+
+.map-display > .viewer-wrapper > .main-section > .map-section > .map-content {
+  @apply flex-1 overflow-hidden;
+}
+
+.map-display > .viewer-wrapper > .main-section > .map-section > .map-tools {
+  @apply flex p-2 bg-white border rounded-md shadow-sm;
+}
