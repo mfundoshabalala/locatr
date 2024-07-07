@@ -1,0 +1,15 @@
+.profile-wrapper {
+  @apply relative flex items-center;
+}
+
+.profile-wrapper > .profile {
+  @apply p-2 duration-300 border-2 border-blue-100 rounded-full shadow-sm cursor-pointer bg-slate-100 active:bg-white hover:border-purple-400;
+}
+
+.profile-wrapper .dropdown {
+  @apply absolute z-50 flex flex-col px-4 py-2 border rounded-md right-10 top-10 gap-y-1 bg-slate-100 text-nowrap;
+}
+
+.profile-wrapper .dropdown > li {
+  @apply px-4 bg-white border border-white rounded shadow-sm;
+}

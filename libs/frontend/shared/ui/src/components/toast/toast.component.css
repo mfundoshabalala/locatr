@@ -1,0 +1,19 @@
+.toast {
+  @apply fixed z-50 flex items-center max-w-sm px-4 py-2 space-x-4 text-sm font-medium border rounded-lg shadow-lg top-5 right-5;
+}
+
+.toast.success {
+  @apply text-green-700 border-green-200;
+}
+
+.toast.info {
+  @apply text-blue-700 border-blue-200;
+}
+
+.toast.warning {
+  @apply text-yellow-700 border-yellow-200;
+}
+
+.toast.error {
+  @apply text-red-700 border-red-200;
+}
