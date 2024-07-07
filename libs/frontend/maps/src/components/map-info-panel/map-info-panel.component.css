@@ -1,0 +1,3 @@
+.map-info-panel {
+  @apply flex-1 px-2 py-4 text-sm font-medium border rounded shadow-sm bg-slate-100;
+}

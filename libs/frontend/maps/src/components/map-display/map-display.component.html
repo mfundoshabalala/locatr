@@ -1,0 +1,30 @@
+<section class="map-display">
+  <main class="viewer-wrapper">
+    <aside class="sidenav">
+      <lib-logo />
+      <lib-map-sidebar />
+    </aside>
+    <section class="main-section">
+      <header class="flex justify-around py-2 map-header">
+        <!-- <lib-map-search></lib-map-search> -->
+        <section class="flex gap-x-2">
+          <!-- <p class="border">date picker</p> -->
+          <lib-date-picker />
+          <lib-driver-selector />
+        </section>
+        <lib-user-profile />
+      </header>
+      <!-- <lib-header /> -->
+      <section class="map-section">
+        <article class="map-content">
+          <lib-map-controller />
+        </article>
+        <aside class="map-tools">
+          <lib-map-button-panel />
+        </aside>
+      </section>
+    </section>
+  </main>
+  <!-- <footer class="main-footer">footer</footer> -->
+  <lib-footer />
+</section>
