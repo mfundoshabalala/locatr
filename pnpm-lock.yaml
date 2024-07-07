@@ -16676,6 +16676,17 @@ snapshots:
     optionalDependencies:
       webpack: 5.91.0(@swc/core@1.5.29(@swc/helpers@0.5.11))(esbuild@0.21.3)(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.92.0))
 
+  webpack-dev-middleware@7.2.1(webpack@5.92.0(@swc/core@1.5.29(@swc/helpers@0.5.11))(webpack-cli@5.1.4)):
+    dependencies:
+      colorette: 2.0.20
+      memfs: 4.9.2
+      mime-types: 2.1.35
+      on-finished: 2.4.1
+      range-parser: 1.2.1
+      schema-utils: 4.2.0
+    optionalDependencies:
+      webpack: 5.92.0(@swc/core@1.5.29(@swc/helpers@0.5.11))(webpack-cli@5.1.4)
+
   webpack-dev-server@4.15.2(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.92.0))(webpack@5.92.0(@swc/core@1.5.29(@swc/helpers@0.5.11))(webpack-cli@5.1.4)):
     dependencies:
       '@types/bonjour': 3.5.13
@@ -16747,7 +16758,7 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 7.2.1(webpack@5.91.0(@swc/core@1.5.29(@swc/helpers@0.5.11))(esbuild@0.21.3)(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.92.0)))
+      webpack-dev-middleware: 7.2.1(webpack@5.92.0(@swc/core@1.5.29(@swc/helpers@0.5.11))(webpack-cli@5.1.4))
       ws: 8.18.0
     optionalDependencies:
       webpack: 5.91.0(@swc/core@1.5.29(@swc/helpers@0.5.11))(esbuild@0.21.3)(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.92.0))
