@@ -5,8 +5,11 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as dotenv from 'dotenv';
 
 import { AppModule } from './app/app.module';
+
+dotenv.config(); // Load environment variables from .env file
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
