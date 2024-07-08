@@ -15,10 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@interfaces/*": ["libs/interfaces/*"],
       "@profolio/frontend/maps": ["libs/frontend/maps/src/index.ts"],
-      "@profolio/interfaces": ["libs/interfaces/src/index.d.ts"],
-      "@profolio/shared-ui": ["libs/shared/ui/src/index.ts"]
+      "@profolio/frontend/shared/ui": ["libs/frontend/shared/ui/src/index.ts"],
+      "@profolio/interfaces": ["libs/interfaces/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

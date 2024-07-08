@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ToastComponent } from '@profolio/shared-ui';
+import { ToastComponent } from '@profolio/frontend/shared/ui';
 import { initFlowbite } from 'flowbite';
 // import { NxWelcomeComponent } from './nx-welcome.component';
 
@@ -18,4 +18,3 @@ export class AppComponent implements OnInit {
     initFlowbite();
   }
 }
-

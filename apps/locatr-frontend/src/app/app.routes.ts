@@ -8,6 +8,10 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
   },
   {
+    path: 'clients',
+    loadComponent: () => import('../components/client-list/client-list.component').then((m) => m.ClientListComponent),
+  },
+  {
     path: 'maps',
     loadComponent: () => import('@profolio/frontend/maps').then((m) => m.MapDisplayComponent),
   },

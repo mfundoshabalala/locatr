@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DirectionsService } from './directions.service';
-import { ToastService } from '@profolio/shared-ui';
+import { ToastService } from '@profolio/frontend/shared/ui';
 import { DirectionsResult } from '../interfaces/direction.interface';
 import { MarkerInterface } from '../interfaces/marker.interface';
 

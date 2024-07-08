@@ -12,7 +12,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DriversInterface } from '../../interfaces';
-import { ClickOutsideDirective } from '@profolio/shared-ui';
+import { ClickOutsideDirective } from '@profolio/frontend/shared/ui';
 
 @Component({
   selector: 'lib-multi-select',

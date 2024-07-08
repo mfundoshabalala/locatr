@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import { MapService } from './maps.service';
-import { ToastService } from '@profolio/shared-ui';
+import { ToastService } from '@profolio/frontend/shared/ui';
 import {
   DirectionsResult,
   TravelMode,

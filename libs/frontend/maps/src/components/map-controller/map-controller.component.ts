@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { effect } from '@angular/core';
 
-import { ToastService } from '@profolio/shared-ui';
+import { ToastService } from '@profolio/frontend/shared/ui';
 import { PlacesService } from '../../services/places.service';
 import { MarkerService } from '../../services/markers.service';
 import { DirectionsService, MapService } from '../../services';
