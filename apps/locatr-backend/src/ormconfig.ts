@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { Client } from './app/client/entities/client.entity';
 
 dotenv.config();
 
@@ -10,11 +11,14 @@ const config: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  // entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  entities: [Client],
   synchronize: true, // This is for development only
   logging: true,
   subscribers: [],
   migrations: [],
 };
+
+console.log('Type ORM Config', config);
 
 export default config;

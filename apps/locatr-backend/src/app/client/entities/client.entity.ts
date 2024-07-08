@@ -8,8 +8,14 @@ export abstract class Base {
   @CreateDateColumn()
   createdAt: Date;
 
+  @Column()
+  createdBy: string;
+
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column()
+  updatedBy: string;
 }
 
 @Entity()
@@ -22,7 +28,7 @@ export class Client extends Base {
   email: string;
 
   @Column()
-  phoneNumber: string;
+  phone: string;
 
   @Column()
   @IsNotEmpty()
