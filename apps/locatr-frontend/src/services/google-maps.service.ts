@@ -15,7 +15,7 @@ export class GoogleMapsService {
   constructor() {
     this.loader = new Loader({
       apiKey: this.apiKey,
-      version: 'weekly',
+      version: 'beta',
       libraries: ['places'],
     });
   }

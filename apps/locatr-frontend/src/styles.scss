@@ -22,6 +22,11 @@ a {
   @apply px-4 py-1.5 border rounded-md shadow-sm inline-block bg-white;
 }
 
+input[type="text"] {
+  @apply rounded-md border shadow-md py-2 border-slate-300 pl-9 text-sm font-medium capitalize;
+}
+
+// button inputs
 .btn {
   @apply text-white active:shadow-none relative px-4 py-1.5 text-sm font-medium duration-500;
 }
