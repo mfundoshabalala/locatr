@@ -1,0 +1,3 @@
+export * from './client-list/client-list.component';
+export * from './content-header/content-header.component';
+export * from './google-map/google-maps.component';

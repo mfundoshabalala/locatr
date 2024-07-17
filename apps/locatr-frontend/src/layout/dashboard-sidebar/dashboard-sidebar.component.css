@@ -1,0 +1,16 @@
+aside.sidebar {
+  @apply flex flex-col h-full space-y-8 min-w-52;
+  @apply p-4 border rounded-md shadow-sm bg-slate-100;
+}
+
+aside.sidebar ul {
+  @apply space-y-1;
+}
+
+aside.sidebar a {
+  @apply w-full py-2 text-sm font-medium duration-300 hover:bg-blue-500 hover:text-white active:bg-blue-600;
+}
+
+aside.sidebar a.active-link {
+  @apply text-white bg-blue-600;
+}

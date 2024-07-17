@@ -1,0 +1,7 @@
+section.dashboard-layout {
+	@apply flex flex-col min-h-screen p-4 bg-slate-100 gap-y-4;
+}
+
+main {
+	@apply p-4 bg-white border rounded-md shadow-sm;
+}
