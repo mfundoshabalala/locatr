@@ -7,57 +7,53 @@
 html,
 body,
 app-root {
-  min-height: 100vh;
-  height: auto;
-  margin: 0;
-  overflow-x: hidden;
+  @apply min-h-screen m-0 block text-slate-800 bg-slate-100;
 }
 
-:root {
-  --font-sans: '';
+h1 {
+  @apply text-3xl font-bold font-serif px-2;
 }
 
-:root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --primary: 222.2 47.4% 11.2%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --ring: 222.2 84% 4.9%;
-  --radius: 0.5rem;
+h2 {
+  @apply text-xl font-medium font-serif;
 }
 
-.dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --primary: 210 40% 98%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --ring: 212.7 26.8% 83.9;
+a {
+  @apply px-4 py-1.5 border rounded-md shadow-sm inline-block bg-white;
+}
+
+input[type="text"] {
+  @apply rounded-md border shadow-md py-2 border-slate-300 pl-9 text-sm font-medium capitalize;
+}
+
+// button inputs
+.btn {
+  @apply text-white active:shadow-none relative px-4 py-1.5 text-sm font-medium duration-500;
+}
+
+.btn-light {
+  @apply bg-white text-slate-800 hover:bg-slate-50 active:bg-slate-100;
+}
+.btn-info {
+  @apply bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800;
+}
+
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 active:bg-blue-800;
+}
+
+.btn-success {
+  @apply bg-green-600 hover:bg-green-700 active:bg-green-800;
+}
+
+.btn-warning {
+  @apply bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-800;
+}
+
+.btn-danger {
+  @apply bg-red-600 hover:bg-red-700 active:bg-red-800;
+}
+
+.btn-secondary {
+  @apply bg-slate-600 hover:bg-slate-700 active:bg-slate-800;
 }

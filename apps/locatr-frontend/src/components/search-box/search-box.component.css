@@ -1,0 +1,7 @@
+div {
+	@apply relative;
+}
+
+div > img {
+	@apply absolute block w-5 h-5 top-2.5 left-2;
+}

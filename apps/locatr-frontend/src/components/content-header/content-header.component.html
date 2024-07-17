@@ -1,0 +1,11 @@
+<header class="header">
+	<div>
+		<h2>{{ pageTitle }}</h2>
+		<h3>{{ pageSubtitle }}</h3>
+	</div>
+	<div>
+		@if (showSearchBox) {
+			<app-search-box [type]="searchType" />
+		}
+	</div>
+</header>

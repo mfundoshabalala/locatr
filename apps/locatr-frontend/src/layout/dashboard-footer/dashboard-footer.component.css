@@ -1,0 +1,7 @@
+footer.footer {
+	@apply p-4 bg-white border rounded-md shadow-sm;
+}
+
+footer.footer > p {
+	@apply text-sm font-medium text-center;
+}
