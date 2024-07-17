@@ -2,3 +2,7 @@ header.header {
 	@apply p-4 border rounded-md shadow-sm;
 	@apply flex justify-between bg-white;
 }
+
+header.header h3 {
+	@apply text-sm italic;
+}

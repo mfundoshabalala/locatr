@@ -8,7 +8,9 @@
 			<ul>
 				<li *ngFor="let item of menuItems">
 					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-						{{ item.label }}</a>
+						<img src="assets/icons/{{ item.icon }}" alt="" class="icon-img">
+						<span>{{ item.label }}</span>
+					</a>
 				</li>
 			</ul>
 		</nav>
@@ -19,7 +21,9 @@
 			<ul>
 				<li *ngFor="let item of footerItems">
 					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-						{{ item.label }}</a>
+						<img src="assets/icons/{{ item.icon }}" alt="" class="icon-img">
+						<span>{{ item.label }}</span>
+					</a>
 				</li>
 			</ul>
 		</nav>

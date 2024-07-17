@@ -19,7 +19,8 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/locatr-frontend/public"
+            "input": "apps/locatr-frontend/public",
+            "output": "./assets/"
           }
         ],
         "styles": ["apps/locatr-frontend/src/styles.scss"],

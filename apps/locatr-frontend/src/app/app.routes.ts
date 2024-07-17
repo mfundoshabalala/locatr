@@ -5,52 +5,53 @@ export const appRoutes: Route[] = [
   {
     path: '',
     loadComponent: () => import('@profolio/frontend/maps').then((m) => m.MapDisplayComponent),
+    data: { title: 'Map Display', subtitle: 'View and interact with your maps.' },
   },
   {
     path: 'dashboard',
-    title: 'Dashboard',
     component: DashboardLayoutComponent,
+    data: { title: 'Dashboard', subtitle: 'Overview of your route planning activities.' },
     children: [
       {
         path: 'client',
-        title: 'Client Management',
         loadComponent: () => import('../pages').then((m) => m.ClientManagementComponent),
+        data: { title: 'Client Management', subtitle: 'Manage and track client information and locations.' },
       },
       {
         path: 'driver',
-        title: 'Driver Management',
         loadComponent: () => import('../pages').then((m) => m.DriverManagementComponent),
+        data: { title: 'Driver Management', subtitle: 'Organize and monitor your drivers.' },
       },
       {
         path: 'vehicle',
-        title: 'Vehicle Management',
         loadComponent: () => import('../pages').then((m) => m.VehicleManagementComponent),
+        data: { title: 'Vehicle Management', subtitle: 'Keep your fleet information up-to-date.' },
       },
       {
         path: 'trip',
-        title: 'Trip Management',
         loadComponent: () => import('../pages').then((m) => m.TripManagementComponent),
+        data: { title: 'Trip Management', subtitle: 'Schedule and oversee your trips.' },
       },
       {
         path: 'route',
-        title: 'Route Planning',
         loadComponent: () => import('../pages').then((m) => m.RoutePlanningComponent),
+        data: { title: 'Route Planning', subtitle: 'Plan and optimize routes for efficiency.' },
       },
       {
         path: 'routing',
-        title: 'Routing',
         loadComponent: () => import('../pages').then((m) => m.RoutingComponent),
+        data: { title: 'Routing', subtitle: 'Manage and adjust route details.' },
       },
       {
         path: 'settings',
-        title: 'Settings Management',
         loadComponent: () => import('../pages').then((m) => m.SettingsManagementComponent),
+        data: { title: 'Settings Management', subtitle: 'Configure your application settings.' },
       },
       {
         path: 'support',
-        title: 'Support Management',
         loadComponent: () => import('../pages').then((m) => m.SupportManagementComponent),
-      }
+        data: { title: 'Support Management', subtitle: 'Handle support requests and issues.' },
+      },
     ],
-  }
+  },
 ];
