@@ -10,19 +10,20 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './dashboard-sidebar.component.css',
 })
 export class DashboardSidebarComponent {
+  // NOTE: icons are from https://www.svgrepo.com/
   public menuItems: MenuItem[] = [
-    { label: 'Dashboard', path: '/dashboard', icon: 'dashboard-svgrepo-com.svg' },
-    { label: 'Clients', path: '/dashboard/client', icon: 'company-svgrepo-com.svg' },
-    { label: 'Drivers', path: '/dashboard/driver', icon: 'truck-driver-svgrepo-com.svg' },
-    { label: 'Vehicles', path: '/dashboard/vehicle', icon: 'vehicle-wheel-svgrepo-com.svg' },
-    { label: 'Trips', path: '/dashboard/trip', icon: 'trip-svgrepo-com.svg' },
-    { label: 'Planning', path: '/dashboard/route', icon: 'calendar-svgrepo-com.svg' },
-    { label: 'Routing', path: '/dashboard/routing', icon: 'route-start-svgrepo-com.svg' },
+    { label: 'Dashboard', path: '/dashboard', icon: 'dashboard.svg' },
+    { label: 'Clients', path: '/dashboard/client', icon: 'company.svg' },
+    { label: 'Team', path: '/dashboard/driver', icon: 'team.svg' },
+    { label: 'Vehicles', path: '/dashboard/vehicle', icon: 'truck-weight-max-loading.svg' },
+    { label: 'Trips', path: '/dashboard/trip', icon: 'trip.svg' },
+    { label: 'Planning', path: '/dashboard/route', icon: 'calendar.svg' },
+    { label: 'Routing', path: '/dashboard/routing', icon: 'route-start.svg' },
   ];
 
   public footerItems: MenuItem[] = [
-    { label: 'Settings', path: '/dashboard/settings', icon: 'settings-svgrepo-com.svg' },
-    { label: 'Support', path: '/dashboard/support', icon: 'info-circle-fill-svgrepo-com.svg' },
+    { label: 'Settings', path: '/dashboard/settings', icon: 'settings.svg' },
+    { label: 'Support', path: '/dashboard/support', icon: 'headset-support.svg' },
   ];
 }
 
