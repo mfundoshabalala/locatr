@@ -10,3 +10,4 @@ export * from './dashboard/vehicle-management/vehicle-management.component';
 
 // other pages
 export * from './error/error.component';
+export * from './landing-page/landing-page.component';
