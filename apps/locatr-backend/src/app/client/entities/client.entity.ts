@@ -1,10 +1,9 @@
 import { IsNotEmpty } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-// base entity
-import { Base } from '../../common/entities/base.entity';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+
 
 @Entity()
-export class Client extends Base {
+export class Client {
 
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
   id: string;
@@ -22,4 +21,16 @@ export class Client extends Base {
   @Column()
   @IsNotEmpty()
   address: string;
+
+  @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
+  createdAt: Date;
+
+  @Column()
+  createdBy: string;
+
+  @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
+  updatedAt: Date;
+
+  @Column()
+  updatedBy: string;
 }

@@ -1,11 +1,10 @@
-import { Column, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 // entities
 import { Role } from "../../role/entities/role.entity";
-import { Base } from '../../common/entities/base.entity';
 import { Employee } from "../../employee/entities/employee.entity";
 
 @Entity()
-export class User extends Base {
+export class User {
   @PrimaryGeneratedColumn('uuid', { name: 'userID' })
   id: string;
 
@@ -21,4 +20,16 @@ export class User extends Base {
   @OneToOne(() => Employee, (employee) => employee.user, { cascade: true })
   @JoinColumn()
   employee: Employee;
+
+  @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
+  createdAt: Date;
+
+  @Column()
+  createdBy: string;
+
+  @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
+  updatedAt: Date;
+
+  @Column()
+  updatedBy: string;
 }

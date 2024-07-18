@@ -1,10 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 import { User } from "../../user/entities/user.entity";
-import { Base } from "../../common/entities/base.entity";
 
 @Entity()
-export class Employee extends Base {
+export class Employee {
   @PrimaryGeneratedColumn('uuid', { name: 'employeeID' })
   id: string;
 
@@ -28,4 +27,16 @@ export class Employee extends Base {
 
   @OneToOne(() => User, (user) => user.employee)
   user: User;
+
+  @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
+  createdAt: Date;
+
+  @Column()
+  createdBy: string;
+
+  @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
+  updatedAt: Date;
+
+  @Column()
+  updatedBy: string;
 }

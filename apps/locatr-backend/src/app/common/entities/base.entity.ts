@@ -1,13 +1,13 @@
 import { CreateDateColumn, Column, UpdateDateColumn } from "typeorm";
 
-export abstract class Base {
-  @CreateDateColumn()
+export class Base {
+  @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
   createdAt: Date;
 
   @Column()
   createdBy: string;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
   updatedAt: Date;
 
   @Column()

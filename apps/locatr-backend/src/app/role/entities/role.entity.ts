@@ -1,10 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 import { User } from '../../user/entities/user.entity';
-import { Base } from '../../common/entities/base.entity';
 
 @Entity()
-export class Role extends Base {
+export class Role  {
   @PrimaryGeneratedColumn('uuid', { name: 'roleID' })
   id: string;
 
@@ -14,4 +13,16 @@ export class Role extends Base {
   @ManyToMany(() => User, (user) => user.roles)
   @JoinTable()
   users: User[];
+
+  @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
+  createdAt: Date;
+
+  @Column()
+  createdBy: string;
+
+  @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
+  updatedAt: Date;
+
+  @Column()
+  updatedBy: string;
 }
