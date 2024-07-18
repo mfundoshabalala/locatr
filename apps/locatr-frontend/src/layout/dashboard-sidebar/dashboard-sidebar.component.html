@@ -1,0 +1,31 @@
+<aside class="sidebar">
+	<header>
+		<h1>Locatr</h1>
+	</header>
+
+	<main>
+		<nav>
+			<ul>
+				<li *ngFor="let item of menuItems">
+					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+						<img src="assets/icons/{{ item.icon }}" alt="" class="icon-img">
+						<span>{{ item.label }}</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</main>
+
+	<footer>
+		<nav>
+			<ul>
+				<li *ngFor="let item of footerItems">
+					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+						<img src="assets/icons/{{ item.icon }}" alt="" class="icon-img">
+						<span>{{ item.label }}</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</footer>
+</aside>

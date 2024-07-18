@@ -19,7 +19,13 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/locatr-frontend/public"
+            "input": "apps/locatr-frontend/public/assets",
+            "output": "assets/"
+          },
+          {
+            "glob": "favicon.ico",
+            "input": "apps/locatr-frontend/public",
+            "output": "/"
           }
         ],
         "styles": ["apps/locatr-frontend/src/styles.scss"],
