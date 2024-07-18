@@ -89,4 +89,14 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: 'error',
+    loadComponent: () => import('../pages').then((m) => m.ErrorComponent),
+    data: { errorMessage: 'An unexpected error occurred. Please try again later.' },
+  },
+  {
+    path: '**',
+    loadComponent: () => import('../pages').then((m) => m.ErrorComponent),
+    data: { errorMessage: 'Page not found. Please check the URL and try again.' },
+  },
 ];

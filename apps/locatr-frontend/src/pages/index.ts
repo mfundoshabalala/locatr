@@ -9,5 +9,5 @@ export * from './dashboard/trip-management/trip-management.component';
 export * from './dashboard/vehicle-management/vehicle-management.component';
 
 // other pages
-
+export * from './error/error.component';
 export * from './landing-page/landing-page.component';
