@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
@@ -7,36 +7,26 @@ import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 
 @Injectable()
-export class ClientsService {
-  constructor(@InjectRepository(Client) private clientsRepository: Repository<Client>) {}
+export class ClientService {
+  constructor(@InjectRepository(Client) private clientRepository: Repository<Client>) {}
 
   async create(createClientDto: CreateClientDto): Promise<Client> {
-    const client = this.clientsRepository.create(createClientDto);
-    return this.clientsRepository.save(client);
+    return this.clientRepository.save(createClientDto);
   }
 
   async findAll(): Promise<Client[]> {
-    return this.clientsRepository.find();
+    return this.clientRepository.find();
   }
 
-  async findOne(id: number): Promise<Client> {
-    const client = await this.clientsRepository.findOne({ where: { id } });
-    if (!client) {
-      throw new NotFoundException(`Client with ID ${id} not found`);
-    }
-    return client;
+  async findOne(id: string): Promise<Client> {
+    return this.clientRepository.findOne({ where: { id } });
   }
 
-  async update(id: number, updateClientDto: UpdateClientDto): Promise<Client> {
-    await this.clientsRepository.update(id, updateClientDto);
-    const updatedClient = await this.findOne(id);
-    return updatedClient;
+  async update(id: string, updateClientDto: UpdateClientDto): Promise<UpdateResult> {
+    return this.clientRepository.update(id, updateClientDto);
   }
 
-  async remove(id: number): Promise<void> {
-    const result = await this.clientsRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Client with ID ${id} not found`);
-    }
+  async remove(id: string): Promise<DeleteResult> {
+    return this.clientRepository.delete(id);
   }
 }
