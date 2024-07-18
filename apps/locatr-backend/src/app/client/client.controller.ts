@@ -1,10 +1,10 @@
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 
-import { ClientService } from './clients.service';
+import { ClientService } from './client.service';
+import { Client } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { Client } from './entities/client.entity';
 
 @Controller('client')
 export class ClientController {
