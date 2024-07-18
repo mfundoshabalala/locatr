@@ -4,12 +4,7 @@ import { DashboardLayoutComponent } from '../layout';
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () => import('@profolio/frontend/maps').then((m) => m.MapDisplayComponent),
-    data: {
-      title: 'Map Display',
-      subtitle: 'View and interact with your maps.',
-      searchType: 'address',
-    },
+    loadComponent: () => import('../pages').then((m) => m.LandingPageComponent)
   },
   {
     path: 'dashboard',
