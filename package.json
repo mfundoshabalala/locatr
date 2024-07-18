@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4"
+    "dev": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4",
+    "server": "nx serve locatr-backend",
+    "client": "nx serve locatr-frontend"
   },
   "private": true,
   "dependencies": {
