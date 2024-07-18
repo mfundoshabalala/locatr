@@ -2,7 +2,9 @@
   "name": "@profolio/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~18.0.0",
