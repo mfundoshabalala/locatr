@@ -90,6 +90,14 @@ export const appRoutes: Route[] = [
     ],
   },
   {
+    path: 'auth/login',
+    loadComponent: () => import('../pages').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'auth/register',
+    loadComponent: () => import('../pages').then((m) => m.RegisterComponent),
+  },
+  {
     path: 'error',
     loadComponent: () => import('../pages').then((m) => m.ErrorComponent),
     data: { errorMessage: 'An unexpected error occurred. Please try again later.' },
