@@ -16,42 +16,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Fetch all branches and tags
 
-      # Set up Node.js
-      - uses: actions/setup-node@v3
+      # Set up pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+
+      # Install Node.js
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      # Cache pnpm modules
-      - name: Cache pnpm modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      # Install pnpm globally
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      # Verify pnpm installation
-      - name: Check pnpm version
-        run: pnpm --version
-
-      # Ensure the working directory is correct
-      - name: Print working directory
-        run: pwd
-
-      # Install dependencies using pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+          cache: 'pnpm'
 
       - uses: nrwl/nx-set-shas@v4
 
       # Run Nx commands for linting, testing, and building
-      - name: Run Nx commands
-        run: |
-          npx nx affected -t lint test build
-          npx nx affected --parallel 1 -t e2e-ci
+      - run: npx nx affected -t lint test build --base=master
+      - run: npx nx affected --parallel 1 -t e2e-ci --base=master
