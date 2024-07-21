@@ -16,7 +16,7 @@ export class User {
 
   @OneToOne(() => Role, (role) => role.user)
   @JoinColumn()
-  role!: Role;
+  role!: Role; // assigned based on department and position
 
   @OneToOne(() => Employee, (employee) => employee.user, { cascade: true })
   @JoinColumn()
