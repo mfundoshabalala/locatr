@@ -15,6 +15,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        'polygon': "url('/assets/images/polygon-bg-element.svg')",
         'gradient-radial': 'radial-gradient(var(--gradient-color-stops))',
       }
     },
