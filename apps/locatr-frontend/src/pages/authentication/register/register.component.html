@@ -1,0 +1,74 @@
+<!-- register.component.hmtl -->
+
+<section class="flex flex-col items-center justify-center w-full min-h-screen bg-repeat-x bg-polygon">
+	<header class="mb-6 prose text-center">
+		<h1 class="inline-block text-4xl font-bold text-transparent bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 bg-clip-text">Get Started with Our Routing Solutions</h1>
+		<h2 class="mt-2 text-xl text-gray-700">Streamline your operations and enhance your logistics with our advanced routing
+			technology.</h2>
+		<p class="mt-2 text-sm text-gray-500">Complete the registration below to unlock powerful tools that optimize your
+			routes and improve efficiency.</p>
+	</header>
+
+	<!-- form section -->
+	<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="p-8 bg-white border rounded-md shadow-md border-slate-300">
+		<!-- Step 1: Employee Section -->
+		@if (currentStep === 1) {
+			<div class="grid gap-2 employeeSection md:grid-cols-2">
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="firstName">First Name</label>
+					<input type="text" id="firstName" formControlName="firstName" placeholder="Simphiwe" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="lastName">Last Name</label>
+					<input type="text" id="lastName" formControlName="lastName" placeholder="Mabaso" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1 col-span-full">
+					<label class="w-20 text-sm font-medium leading-tight" for="email">Email</label>
+					<input type="email" id="email" formControlName="email" placeholder="simphiwe.mabaso@gmail.co.za" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1 col-span-full">
+					<label class="w-20 text-sm font-medium leading-tight" for="phone">Phone Number</label>
+					<input type="tel" id="phone" formControlName="phone" placeholder="0123456789" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="position">Position</label>
+					<input type="text" id="position" formControlName="position" placeholder="Developer" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="department">Department</label>
+					<input type="text" id="department" formControlName="department" placeholder="IT" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+			</div>
+		}
+
+		<!-- Step 2: User Section -->
+		@if (currentStep === 2) {
+			<div class="grid gap-2 userSection">
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="username">Username</label>
+					<input type="text" id="username" formControlName="username" placeholder="sims1234"
+						class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="password">Password</label>
+					<input type="password" id="password" formControlName="password" placeholder="********"
+						class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="confirmPassword">Confirm Password</label>
+					<input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="********"
+						class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+			</div>
+		}
+
+		<!-- Navigation Buttons -->
+		<div class="flex justify-between py-8">
+			<button type="button" class="btn" (click)="previousStep()" [disabled]="currentStep === 1">Previous</button>
+			<button type="button" class="btn" (click)="nextStep()" [disabled]="currentStep === 2">Next</button>
+		</div>
+
+		<!-- Submit Button -->
+		<button type="submit" [disabled]="registerForm.invalid" class="btn" *ngIf="currentStep === 2">Complete Registration</button>
+	</form>
+</section>

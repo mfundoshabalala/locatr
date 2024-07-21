@@ -2,16 +2,37 @@
 	<h2 class="invisible">Locatr</h2>
 	<nav>
 		<ul>
-			<li><a class="btn btn-light" href="/">Home</a></li>
-			<li><a class="btn btn-light" href="/about">About</a></li>
-			<li><a class="btn btn-light" href="/contact">Contact</a></li>
+			<li><a class="btn" href="/">Home</a></li>
+			<li><a class="btn" href="/about">About</a></li>
+			<li><a class="btn" href="/contact">Contact</a></li>
 		</ul>
 	</nav>
 
-	<nav>
-		<ul>
-			<li><a class="btn btn-primary" href="/login">Login</a></li>
-			<li><a class="btn btn-success" href="/register">Register</a></li>
-		</ul>
-	</nav>
+	<div class="flex items-center gap-x-4">
+		<!-- notification  -->
+		<div class="dropdown dropdown-end">
+			<div tabindex="0" role="button" class="w-8 m-1 cursor-pointer indicator">
+				<img src="assets/icons/bell.svg" alt="Bell">
+				<!-- <span class="badge badge-xs badge-primary indicator-item"></span> -->
+			</div>
+			<ul tabindex="0" class="space-y-1 dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow flex-start">
+				<li><a class="btn">Notification 1</a></li>
+				<li><a class="btn">Notification 2</a></li>
+				<li><a class="btn">Notification 3</a></li>
+				<li><a class="btn">Notification 4</a></li>
+			</ul>
+		</div>
+
+		<!-- avatar with dropdown -->
+		<div class="avatar dropdown dropdown-end">
+			<div tabindex="1" role="button" class="m-1 w-10 p-1.5 border rounded-full border-slate-300 cursor-pointer active:shadow-none hover:shadow shadow-md shadow-slate-200">
+				<img src="assets/icons/user.svg" alt="Avatar">
+			</div>
+			<ul tabindex="1" class="space-y-1 dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow flex-start">
+				<li><a class="btn" href="/profile">Edit Profile</a></li>
+				<li><a class="btn" href="/settings">Settings</a></li>
+				<li><a class="btn" href="/auth/logout">Logout</a></li>
+			</ul>
+		</div>
+	</div>
 </header>

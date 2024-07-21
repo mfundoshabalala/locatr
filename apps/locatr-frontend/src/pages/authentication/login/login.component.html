@@ -1,0 +1,40 @@
+<!-- login.component.html -->
+<div class="min-h-screen hero bg-base-200 bg-src bg-polygon">
+	<div class="flex-col hero-content lg:flex-row-reverse">
+		<div class="max-w-2xl p-2 prose-lg text-center lg:text-left text-pretty md:px-10">
+			<h1 class="my-0 text-5xl font-bold">Welcome Back!</h1>
+			<p class="py-6">
+				Plan your routes with ease and precision. Log in to access advanced mapping tools and ensure efficient travel
+				every time. Your journey starts here.
+			</p>
+		</div>
+		<div class="w-full max-w-sm shadow-2xl card bg-base-100 shrink-0">
+			<form class="card-body" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+				<div class="form-control">
+					<label for="username" class="label">
+						<span class="label-text">Username</span>
+					</label>
+					<input type="text" id="username" [(ngModel)]="credentials.username" name="username"
+						class="input input-bordered" required>
+				</div>
+				<div class="form-control">
+					<label for="password" class="label">
+						<span class="label-text">Password</span>
+					</label>
+					<input type="password" placeholder="password" [(ngModel)]="credentials.password" name="password"
+						class="input input-bordered" required />
+					<label class="label">
+						<a href="auth/forgot-password" class="label-text-alt link link-hover">Forgot password?</a>
+					</label>
+				</div>
+				<div class="mt-6 form-control">
+					<button type="submit" class="border shadow border-slate-400 btn btn-info">Login</button>
+					<label class="flex justify-start gap-1 text-xs label flex-nowrap">
+						Do not have an account?
+						<a href="auth/register" class="label-text-alt link link-hover">Register</a>
+					</label>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

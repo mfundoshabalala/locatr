@@ -1,14 +1,15 @@
-<aside class="sidebar">
-	<header>
+<aside class="flex flex-col h-full space-y-4 tracking-wide">
+	<header class="p-2 tracking-normal prose text-center lg:prose-base">
 		<h1>Locatr</h1>
 	</header>
 
 	<main>
 		<nav>
-			<ul>
+			<ul class="w-48 space-y-1 menu rounded-box">
 				<li *ngFor="let item of menuItems">
-					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-						<img src="assets/icons/{{ item.icon }}" alt="" class="icon-img">
+					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+						class="justify-start border shadow btn border-slate-200 flex-nowrap">
+						<img src="assets/icons/{{ item.icon }}" alt="" class="w-5 h-5">
 						<span>{{ item.label }}</span>
 					</a>
 				</li>
@@ -16,13 +17,20 @@
 		</nav>
 	</main>
 
-	<footer>
-		<nav>
-			<ul>
+	<footer class="flex flex-col justify-between flex-1 mt-10">
+		<nav class="h-full">
+			<ul class="w-48 h-full menu rounded-box gap-y-1">
 				<li *ngFor="let item of footerItems">
-					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
-						<img src="assets/icons/{{ item.icon }}" alt="" class="icon-img">
+					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+						class="justify-start border shadow btn border-slate-200 flex-nowrap">
+						<img src="assets/icons/{{ item.icon }}" alt="" class="w-5 h-5">
 						<span>{{ item.label }}</span>
+					</a>
+				</li>
+				<li class="mt-auto">
+					<a href="auth/logout" class="justify-start border btn btn-error border-slate-200 flex-nowrap">
+						<img src="assets/icons/logout.svg" alt="" class="w-5 h-5">
+						<span>Logout</span>
 					</a>
 				</li>
 			</ul>
