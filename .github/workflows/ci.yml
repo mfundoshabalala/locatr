@@ -18,21 +18,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Cache node_modules
+      # Set up Node.js and cache pnpm packages
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: 'pnpm'
 
-      # Install pnpm
+      # Install pnpm globally
       - run: npm install -g pnpm
+      # Debug the installation
+      - run: pnpm --version
 
-      # Install dependencies using pnpm
+      # Install project dependencies using pnpm
       - run: pnpm install --frozen-lockfile
 
       - uses: nrwl/nx-set-shas@v4
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: npx nx-cloud record -- echo Hello World
+      # Run Nx commands for linting, testing, and building
       - run: npx nx affected -t lint test build
       - run: npx nx affected --parallel 1 -t e2e-ci
