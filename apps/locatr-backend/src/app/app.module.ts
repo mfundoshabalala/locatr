@@ -4,26 +4,29 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { DBConfigService } from '../configs';
+import { DBConfigModule } from '../configs/database/config.module';
+import { AuthModule } from '../modules/auth/auth.module';
+import { ClientModule } from '../modules/client/client.module';
+import { EmployeeModule } from '../modules/employee/employee.module';
+import { RoleModule } from '../modules/role/role.module';
+import { UserModule } from '../modules/user/user.module';
 
-import { PostgresConfigService } from './config';
-import { UserModule } from './user/user.module';
-import { RoleModule } from './role/role.module';
-import { ClientModule } from './client/client.module';
-import { EmployeeModule } from './employee/employee.module';
-import { PostgresConfigModule } from './config/database/config.module';
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: ['.env', '.env.local'], isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      imports: [PostgresConfigModule],
-      useClass: PostgresConfigService,
-      inject: [PostgresConfigService],
+      imports: [DBConfigModule],
+      useClass: DBConfigService,
+      inject: [DBConfigService],
     }),
     ClientModule,
     EmployeeModule,
     RoleModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

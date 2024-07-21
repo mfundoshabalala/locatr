@@ -10,7 +10,7 @@ export * from './dashboard/vehicle-management/vehicle-management.component';
 
 // authentication
 export * from './authentication/login/login.component';
-// export * from './authentication/logout/logout.component';
+export * from './authentication/logout/logout.component';
 export * from './authentication/register/register.component';
 // export * from './authentication/reset-password/reset-password.component';
 // export * from './authentication/verify-email/verify-email.component';

@@ -1,5 +1,5 @@
 header {
-	@apply p-4 bg-white border rounded-md shadow-sm;
+	@apply px-8 py-4 bg-white border rounded-md shadow-sm;
 	@apply flex items-center justify-between;
 }
 

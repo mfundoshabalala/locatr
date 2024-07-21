@@ -8,6 +8,10 @@ module.exports = {
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  daisyui: {
+    themes: ['corporate', 'cmyk'],
+    // themes: [],
+  },
   theme: {
     extend: {
       backgroundImage: {
@@ -15,5 +19,10 @@ module.exports = {
       }
     },
   },
-  plugins: [require('flowbite/plugin')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('flowbite/plugin'),
+    require('daisyui')
+  ],
 };

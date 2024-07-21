@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { DashboardLayoutComponent } from '../layout';
+import { authGuard } from '../guards/auth.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -9,6 +10,7 @@ export const appRoutes: Route[] = [
   {
     path: 'dashboard',
     component: DashboardLayoutComponent,
+    canActivate: [authGuard],
     data: {
       title: 'Dashboard',
       subtitle: 'Overview of your route planning activities.',
@@ -98,6 +100,10 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('../pages').then((m) => m.RegisterComponent),
   },
   {
+    path: 'auth/logout',
+    loadComponent: () => import('../pages').then((m) => m.LogoutComponent),
+  },
+  {
     path: 'error',
     loadComponent: () => import('../pages').then((m) => m.ErrorComponent),
     data: { errorMessage: 'An unexpected error occurred. Please try again later.' },
@@ -106,5 +112,5 @@ export const appRoutes: Route[] = [
     path: '**',
     loadComponent: () => import('../pages').then((m) => m.ErrorComponent),
     data: { errorMessage: 'Page not found. Please check the URL and try again.' },
-  },
+  }
 ];
