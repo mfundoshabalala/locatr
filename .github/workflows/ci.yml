@@ -25,7 +25,6 @@ jobs:
         with:
           node-version: 20
 
-      # Cache pnpm modules
       - name: Cache pnpm modules
         uses: actions/cache@v3
         with:
@@ -34,29 +33,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      # Install pnpm globally
       - name: Install pnpm
         run: npm install -g pnpm
 
-      # Verify pnpm installation
       - name: Check pnpm version
         run: pnpm --version
 
-      # Ensure the working directory is correct
       - name: Print working directory
         run: pwd
 
-      # Install dependencies using pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       - uses: nrwl/nx-set-shas@v4
 
-      # Run Nx commands for linting, testing, and building
+      - name: Determine Base SHA
+        id: determine_base_sha
+        run: |
+          echo "NX_BASE=$(git merge-base origin/master HEAD)" >> $GITHUB_ENV
+
       - name: Run Nx commands
         run: |
           npx nx affected -t lint test build --verbose
           npx nx affected --parallel 1 -t e2e-ci --verbose
         env:
-          NX_BASE: ''
+          NX_BASE: ${{ env.NX_BASE }}
           NX_HEAD: ${{ github.sha }}
