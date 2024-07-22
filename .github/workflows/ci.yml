@@ -14,12 +14,14 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Fetch all history for all branches and tags
+          ref: master  # Ensure the master branch is checked out
 
-      # Set up Node.js
-      - uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 20
 
@@ -53,5 +55,8 @@ jobs:
       # Run Nx commands for linting, testing, and building
       - name: Run Nx commands
         run: |
-          npx nx affected -t lint test build
-          npx nx affected --parallel 1 -t e2e-ci
+          npx nx affected -t lint test build --verbose
+          npx nx affected --parallel 1 -t e2e-ci --verbose
+        env:
+          NX_BASE: ''
+          NX_HEAD: ${{ github.sha }}
