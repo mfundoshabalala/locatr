@@ -1,6 +1,7 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, Get, Query, Res } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
+import { UserService } from '../user/user.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { User } from '../user/entities/user.entity';
 import { Public } from './strategy/public-strategy';
@@ -8,7 +9,7 @@ import { Public } from './strategy/public-strategy';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly userService: UserService) {}
 
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -24,6 +25,7 @@ export class AuthController {
     const payload: CreateUserDto = {
       username: signUpDto.username,
       password: signUpDto.password,
+      verified: signUpDto.verified,
       roleID: signUpDto.roleID,
       employee: signUpDto.employee,
       role: null,
@@ -31,10 +33,20 @@ export class AuthController {
     return this.authService.signUp(payload);
   }
 
-  @HttpCode(HttpStatus.OK)
-  @Post('forgot-password')
-  forgotPassword(@Body() forgotPasswordDto: User) {
-    return this.authService.forgotPassword(forgotPasswordDto.username);
+  @Get('confirm')
+  async confirmEmail(@Query('token') token: string, @Res() res) {
+    const username = await this.authService.verifyEmail(token);
+    // return res.redirect('/email-confirmed'); // Redirect to a confirmation page
+    // return res.send({ username });
+    return { message: `Email verified for user ${username}` };
+  }
+
+  @Get('reset-password')
+  async resetPassword(@Query('token') token: string, @Res() res) {
+    // Implement the logic to show reset password page
+    // return res.render('reset-password', { token });
+    const username = await this.authService.verifyEmail(token);
+    return { message: `Password reset link verified for user ${username}` };
   }
 
   // @UseGuards(AuthGuard)

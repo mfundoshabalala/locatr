@@ -1,4 +1,4 @@
-import { IsString, IsObject, MaxLength, MinLength, IsNotEmpty, IsNotEmptyObject, IsUUID, IsOptional } from 'class-validator';
+import { IsString, IsObject, MaxLength, MinLength, IsNotEmpty, IsNotEmptyObject, IsUUID, IsOptional, IsBoolean } from 'class-validator';
 
 import { CreateEmployeeDto } from '../../employee/dto/create-employee.dto';
 import { Role } from '../../role/entities/role.entity';
@@ -14,6 +14,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   password: string;
+
+  @IsBoolean()
+  verified: boolean;
 
   @IsOptional()
   @IsNotEmpty()

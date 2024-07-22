@@ -14,6 +14,9 @@ export class User {
   @Column()
   password!: string;
 
+  @Column({ default: false })
+  verified!: boolean;
+
   @OneToOne(() => Role, (role) => role.user)
   @JoinColumn()
   role!: Role; // assigned based on department and position

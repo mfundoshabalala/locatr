@@ -31,7 +31,7 @@ export class AuthenticationService {
 
   async register(user: UserRegistration) {
     try {
-      await lastValueFrom(this.http.post<any>(`${this.authUrl}/register`, user));
+      await lastValueFrom(this.http.post(`${this.authUrl}/register`, user));
       this.router.navigate(['/auth/login']);
     } catch (error) {
       throw new Error('Registration failed: ' + error);
@@ -47,11 +47,23 @@ export class AuthenticationService {
     }
   }
 
-	logout() {
-		sessionStorage.removeItem('access_token');
-	}
+  logout() {
+    sessionStorage.removeItem('access_token');
+  }
 
   isAuthenticated(): boolean {
-		return !!sessionStorage.getItem('access_token');
-	}
+    return !!sessionStorage.getItem('access_token');
+  }
+
+  forgotPassword(username: string): Promise<any> {
+    return lastValueFrom(this.http.post(`${this.authUrl}/forgot-password`, { username }));
+  }
+
+  confirmEmail(token: string): Promise<any> {
+    return lastValueFrom(this.http.get(`${this.authUrl}/confirm`, { params: { token } }));
+  }
+
+  resetPassword(token: string, newPassword: string): Promise<any> {
+    return lastValueFrom(this.http.post(`${this.authUrl}/reset-password`, { token, newPassword }));
+  }
 }
