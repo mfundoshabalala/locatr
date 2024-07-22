@@ -11,8 +11,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UserService {
   constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
 
-  async hashPassword(password: string): Promise<string> {
-    const saltRounds = 10;
+  async hashPassword(password: string, saltRounds=10): Promise<string> {
     return await bcrypt.hash(password, saltRounds);
   }
 
@@ -21,14 +20,9 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    try {
-      const user = this.userRepository.create(createUserDto);
-      console.log('User:', user);
-      return await this.userRepository.save(user);
-    } catch (error) {
-      console.error('Error creating user:', error);
-      throw error;
-    }
+    createUserDto.password = await this.hashPassword(createUserDto.password);
+    const user = this.userRepository.create(createUserDto);
+    return await this.userRepository.save(user);
   }
 
   findAll(): Promise<User[]> {

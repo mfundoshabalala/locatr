@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
@@ -16,9 +17,17 @@ export class AuthService {
     private readonly roleService: RoleService
   ) {}
 
-  async signIn(username: string, pass: string): Promise<{ access_token: string }> {
+  private async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userService.findOneBy(username);
-    if (user?.password !== pass) {
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return user;
+    }
+    return null;
+  }
+
+  async signIn(username: string, pass: string): Promise<{ access_token: string }> {
+    const user = await this.validateUser(username, pass);
+    if (!user) {
       throw new UnauthorizedException();
     }
 
@@ -30,14 +39,13 @@ export class AuthService {
 
   async signUp(payload: CreateUserDto): Promise<User> {
     let user: User;
-    console.log(payload);
     try {
       if (payload.roleID) {
         const role = await this.roleService.findOne(payload.roleID);
         if (!role) {
-          throw new Error("Role not found");
+          throw new Error('Role not found');
         }
-        user = await this.userService.create({...payload, role });
+        user = await this.userService.create({ ...payload, role });
       } else {
         user = await this.userService.create(payload);
       }
