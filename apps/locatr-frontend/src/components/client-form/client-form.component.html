@@ -18,8 +18,10 @@
 			</div>
 			<div class="flex items-center gap-1 col-span-full">
 				<label class="w-20 text-sm font-medium leading-tight" for="address">Company Address</label>
-				<input type="text" id="text" formControlName="address" placeholder="12 Road Street, Suburb, City"
-					class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				<!-- <input type="text" id="text" formControlName="address" placeholder="12 Road Street, Suburb, City"
+					class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72"> -->
+				<app-search-box formControlName="address" type="address" (placeChange)="onPlaceChange($event)"
+					placeholder="12 Road Street, Suburb, City, 0000" class="col-span-full"></app-search-box>
 			</div>
 		</div>
 

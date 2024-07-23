@@ -1,7 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { GoogleMapsService } from './google-maps.service';
 
+declare const google:any;
 @Injectable({ providedIn: 'root' })
 export class SearchService {
+  private googleService = inject(GoogleMapsService);
+
   filterListBySearchQuery(searchQuery: string, searchList: (string | SearchItem)[]): (string | SearchItem)[] {
     return searchList.filter((item) => {
       if (typeof item === 'string') {
@@ -11,11 +15,13 @@ export class SearchService {
     });
   }
 
-  initializeAutocomplete(
+  async initializeAutocomplete(
     element: HTMLInputElement,
     placeChangeCallback: (place: google.maps.places.PlaceResult) => void
   ) {
-    const autocomplete = new google.maps.places.Autocomplete(element);
+    const loader = this.googleService.loader;
+    const { Autocomplete } = await loader.importLibrary('places');
+    const autocomplete = new Autocomplete(element);
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       console.log('place', place);
