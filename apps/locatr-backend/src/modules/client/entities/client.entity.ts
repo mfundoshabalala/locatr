@@ -1,21 +1,22 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 
 @Entity()
 export class Client {
-
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   @IsNotEmpty()
   name: string;
 
   @Column({ unique: true })
+  @IsNotEmpty()
   email: string;
 
   @Column()
+  @IsNotEmpty()
   phone: string;
 
   @Column()
@@ -23,14 +24,14 @@ export class Client {
   address: string;
 
   @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
-  createdAt: Date;
+  createdAt!: Date;
 
-  @Column()
-  createdBy: string;
+  @Column({ nullable: true })
+  createdBy!: string;
 
   @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
-  updatedAt: Date;
+  updatedAt!: Date;
 
-  @Column()
-  updatedBy: string;
+  @Column({ nullable: true })
+  updatedBy!: string;
 }

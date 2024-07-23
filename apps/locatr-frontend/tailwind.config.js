@@ -4,13 +4,11 @@ const { join } = require('path');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./node_modules/flowbite/**/*.js",
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   daisyui: {
-    themes: ['corporate', 'cmyk'],
-    // themes: [],
+    themes: ['corporate', 'cmyk']
   },
   theme: {
     extend: {
@@ -21,9 +19,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    require('daisyui'),
     require('@tailwindcss/forms'),
-    require('flowbite/plugin'),
-    require('daisyui')
+    require('@tailwindcss/typography'),
   ],
 };
