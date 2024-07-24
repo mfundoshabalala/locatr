@@ -47,11 +47,15 @@ export class AuthenticationService {
     }
   }
 
-	logout() {
-		sessionStorage.removeItem('access_token');
-	}
+  logout() {
+    sessionStorage.removeItem('access_token');
+  }
 
   isAuthenticated(): boolean {
-		return !!sessionStorage.getItem('access_token');
-	}
+    return !!sessionStorage.getItem('access_token');
+  }
+
+  getAuthToken(): string | null {
+    return sessionStorage.getItem('access_token');
+  }
 }

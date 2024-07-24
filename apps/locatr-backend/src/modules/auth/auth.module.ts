@@ -1,42 +1,39 @@
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
 // import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 
-import { jwtConstants } from './constants';
-import { AuthService } from './auth.service';
-import { User } from '../user/entities/user.entity';
-// import { AuthGuard } from './guard/auth/auth.guard';
-import { JwtStrategy } from './strategy/jwt-strategy';
-import { UserService } from '../user/user.service';
-import { AuthController } from './auth.controller';
-import { RoleService } from '../role/role.service';
 import { Role } from '../role/entities/role.entity';
+import { RoleService } from '../role/role.service';
+import { User } from '../user/entities/user.entity';
+import { UserService } from '../user/user.service';
+import { AuthService } from './auth.service';
+import { AuthMiddleware } from '../../middleware';
+import { AuthController } from './auth.controller';
+import { JwtStrategy } from './strategy/jwt-strategy';
+
+
 
 @Module({
   imports: [
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET || jwtConstants.secret,
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
     TypeOrmModule.forFeature([User, Role]),
   ],
   controllers: [AuthController],
   providers: [
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: AuthGuard,
-    // },
     AuthService,
     JwtStrategy,
     UserService,
-    RoleService
+    RoleService,
   ],
   exports: [AuthService],
 })
-export class AuthModule {
-  constructor() {
-    console.log('JWT Secret', process?.env?.JWT_SECRET);
+export class AuthModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

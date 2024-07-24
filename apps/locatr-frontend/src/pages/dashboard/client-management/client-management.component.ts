@@ -33,5 +33,6 @@ export class ClientManagementComponent {
   }
   async loadData(): Promise<void> {
     this.clientList = await this.clientService.getClientList();
+    console.log('Client list:', this.clientList);
   }
 }

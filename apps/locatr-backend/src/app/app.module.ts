@@ -1,18 +1,13 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-import { DBConfigService } from '../configs';
-import { DBConfigModule } from '../configs/database/config.module';
-import { AuthModule } from '../modules/auth/auth.module';
-import { ClientModule } from '../modules/client/client.module';
-import { EmployeeModule } from '../modules/employee/employee.module';
-import { RoleModule } from '../modules/role/role.module';
-import { UserModule } from '../modules/user/user.module';
 
-
+import { DBConfigModule, DBConfigService } from '../configs';
+import { AuthMiddleware } from '../middleware';
+import { AuthModule, AuthService, ClientModule, EmployeeModule, RoleModule, UserModule } from '../modules';
 
 @Module({
   imports: [
@@ -22,13 +17,17 @@ import { UserModule } from '../modules/user/user.module';
       useClass: DBConfigService,
       inject: [DBConfigService],
     }),
+    AuthModule,
     ClientModule,
     EmployeeModule,
     RoleModule,
     UserModule,
-    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}

@@ -39,6 +39,10 @@ export class UserService {
     return this.userRepository.findOne({ where: { username } });
   }
 
+  findById(id: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
   update(id: string, updateUserDto: UpdateUserDto): Promise<UpdateResult> {
     return this.userRepository.update(id, updateUserDto);
   }
