@@ -5,7 +5,17 @@
     "module": "commonjs",
     "types": ["node"],
     "emitDecoratorMetadata": true,
-    "target": "es2021"
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "target": "es2021",
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["./src/common/*"],
+      "@config/*": ["./src/configs/*"],
+      "@interceptor/*": ["./src/interceptors/*"],
+      "@middleware/*": ["./src/middleware/*"],
+      "@migrations/*": ["./src/modules/*"]
+    }
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": ["src/**/*.ts"]
