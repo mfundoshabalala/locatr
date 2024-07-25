@@ -2,7 +2,15 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": []
+    "types": [],
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@guards/*": ["./src/guards/*"],
+      "@layout/*": ["./src/layout/*"],
+      "@middleware/*": ["./src/middleware/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@services/*": ["./src/services/*"],
+    }
   },
   "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"],
