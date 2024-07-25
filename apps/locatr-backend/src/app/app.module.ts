@@ -7,11 +7,11 @@ import { AppController } from './app.controller';
 
 import { DBConfigModule, DBConfigService } from '../configs';
 import { AuthMiddleware } from '../middleware';
-import { AuthModule, AuthService, ClientModule, EmployeeModule, RoleModule, UserModule } from '../modules';
+import { AuthModule, AuthService, ClientModule, EmployeeModule, RoleModule, SiteModule, UserModule } from '../modules';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: ['.env', '.env.local'], isGlobal: true }),
+    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [DBConfigModule],
       useClass: DBConfigService,
@@ -22,6 +22,7 @@ import { AuthModule, AuthService, ClientModule, EmployeeModule, RoleModule, User
     EmployeeModule,
     RoleModule,
     UserModule,
+    SiteModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],
