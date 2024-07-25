@@ -23,7 +23,6 @@ export class AuthMiddleware implements NestMiddleware {
       }
     } else {
       console.warn('X-Authorization token not found');
-      throw new UnauthorizedException('Authorization token not found');
     }
 
     next();
