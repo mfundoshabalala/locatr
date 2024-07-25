@@ -1,37 +1,54 @@
 import { IsNotEmpty } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
 
-
+import { Site } from '@migrations/site/entities/site.entity';
+import { Contact } from '@migrations/contact/entities/contact.entity';
+import { Industry } from '@migrations/industry/entities/industry.entity';
 @Entity()
 export class Client {
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, type: 'varchar', length: 255 })
   @IsNotEmpty()
   name: string;
 
-  @Column({ unique: true })
-  @IsNotEmpty()
-  email: string;
+  @ManyToOne(() => Industry)
+  @JoinColumn({ name: 'industryID' })
+  industry: Industry;
 
-  @Column()
-  @IsNotEmpty()
-  phone: string;
+  @ManyToOne(() => Contact)
+  @JoinColumn({ name: 'contactID' })
+  contact: Contact;
 
-  @Column()
-  @IsNotEmpty()
-  address: string;
+  @ManyToOne(() => Site)
+  @JoinColumn({ name: 'siteID' })
+  site: Site;
 
-  @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
-  createdAt!: Date;
+  @Column({ type: 'jsonb', nullable: true })
+  businessHours: any;
 
-  @Column({ nullable: true })
-  createdBy!: string;
+  @Column({ length: 255, nullable: true })
+  website: string;
 
-  @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
-  updatedAt!: Date;
+  @Column({ type: 'text', nullable: true })
+  notes: string;
 
-  @Column({ nullable: true })
-  updatedBy!: string;
+  @Column({ type: 'text', nullable: true })
+  servicesProvided: string;
+
+  @Column({ length: 50 })
+  status: string;
+
+  @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ nullable: false, update: false, length: 255, type: 'varchar', default: 'system' })
+  createdBy: string;
+
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
+  @Column({ nullable: true, length: 255, type: 'varchar', default: 'system' })
+  updatedBy: string;
 }
