@@ -1,0 +1,4 @@
+.loader {
+  @apply text-2xl font-medium text-yellow-400 bg-slate-800;
+  @apply fixed z-50 flex items-center justify-center w-screen h-screen; /* Changed to fixed positioning */
+}
