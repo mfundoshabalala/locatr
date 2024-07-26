@@ -9,15 +9,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@components/*": ["./src/components/*"],
-      "@guards/*": ["./src/guards/*"],
-      "@layout/*": ["./src/layout/*"],
-      "@middleware/*": ["./src/middleware/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@services/*": ["./src/services/*"]
-    },
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
   "include": [],
