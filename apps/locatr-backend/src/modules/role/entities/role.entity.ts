@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Role {
@@ -9,9 +8,6 @@ export class Role {
 
   @Column()
   name!: string;
-
-  @OneToOne(() => User, (user) => user.role)
-  user!: User;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

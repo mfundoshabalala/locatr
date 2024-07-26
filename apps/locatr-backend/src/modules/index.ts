@@ -13,3 +13,6 @@ export * from './role/role.service';
 export * from './user/user.module';
 export * from './user/user.service';
 
+export * from './site/site.module';
+export * from './site/site.service';
+

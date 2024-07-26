@@ -21,7 +21,7 @@ export class EmployeeController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Employee> {
+  findOne(@Param('id') id: string): Promise<Employee | null> {
     return this.employeeService.findOne(id);
   }
 
