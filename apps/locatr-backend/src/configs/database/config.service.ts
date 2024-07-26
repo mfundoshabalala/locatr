@@ -1,28 +1,24 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { join } from 'path';
 
 @Injectable()
 export class DBConfigService implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
+	constructor (private readonly configService: ConfigService) {
+    console.log(__dirname + '/../../**/*.entity{.ts,.js}');
+  }
 
-  createTypeOrmOptions(): TypeOrmModuleOptions {
-    const isProduction = process.env.NODE_ENV === 'production';
-    const sourcePath = isProduction ? 'dist' : 'src';
-
-    return {
+	createTypeOrmOptions(): TypeOrmModuleOptions {
+		return {
       type: 'postgres',
       host: this.configService.get('POSTGRES_HOST'),
       port: +this.configService.get('POSTGRES_PORT'),
       username: this.configService.get('POSTGRES_USER'),
       password: this.configService.get('POSTGRES_PASSWORD'),
       database: this.configService.get('POSTGRES_DATABASE'),
-      migrations: [join(__dirname, `../../${sourcePath}/migrations/*{.ts,.js}`)],
-      entities: [join(__dirname, `../../${sourcePath}/modules/**/*.entity{.ts,.js}`)],
-      synchronize: isProduction ? false : true,
-      migrationsRun: true,
-      autoLoadEntities: true,
+      entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
+      synchronize: true,
+      autoLoadEntities: true
     };
-  }
+	}
 }

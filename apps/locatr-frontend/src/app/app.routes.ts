@@ -21,19 +21,17 @@ export const appRoutes: Route[] = [
         path: 'client',
         loadComponent: () => import('../pages').then((m) => m.ClientManagementComponent),
         data: {
-          entityName: 'client',
           title: 'Client Management',
           subtitle: 'Manage and track client information and locations.',
           searchType: 'list',
         },
       },
       {
-        path: 'employee',
+        path: 'driver',
         loadComponent: () => import('../pages').then((m) => m.DriverManagementComponent),
         data: {
-          entityName: 'employee',
-          title: 'Employee Management',
-          subtitle: 'Organize and monitor your employees.',
+          title: 'Driver Management',
+          subtitle: 'Organize and monitor your drivers.',
           searchType: 'list',
         },
       },
@@ -41,7 +39,6 @@ export const appRoutes: Route[] = [
         path: 'vehicle',
         loadComponent: () => import('../pages').then((m) => m.VehicleManagementComponent),
         data: {
-          entityName: 'vehicle',
           title: 'Vehicle Management',
           subtitle: 'Keep your fleet information up-to-date.',
           searchType: 'list',
@@ -51,7 +48,6 @@ export const appRoutes: Route[] = [
         path: 'trip',
         loadComponent: () => import('../pages').then((m) => m.TripManagementComponent),
         data: {
-          entityName: 'trip',
           title: 'Trip Management',
           subtitle: 'Schedule and oversee your trips.',
           searchType: 'list',
@@ -61,7 +57,6 @@ export const appRoutes: Route[] = [
         path: 'route',
         loadComponent: () => import('../pages').then((m) => m.RoutePlanningComponent),
         data: {
-          entityName: 'route',
           title: 'Route Planning',
           subtitle: 'Plan and optimize routes for efficiency.',
           searchType: 'address',

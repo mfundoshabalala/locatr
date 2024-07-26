@@ -1,12 +1,12 @@
-import { Unique } from 'typeorm';
 import { IsString, IsObject, MaxLength, MinLength, IsNotEmpty, IsNotEmptyObject, IsUUID, IsOptional } from 'class-validator';
 
 import { CreateEmployeeDto } from '../../employee/dto/create-employee.dto';
 import { Role } from '../../role/entities/role.entity';
+import { Unique } from 'typeorm';
 
 export class CreateUserDto {
   @MinLength(4)
-  @MaxLength(10)
+  @MaxLength(20)
   @IsString()
   @Unique(['username'])
   readonly username: string;
@@ -16,6 +16,7 @@ export class CreateUserDto {
   password: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsUUID()
   readonly roleID: string;
 

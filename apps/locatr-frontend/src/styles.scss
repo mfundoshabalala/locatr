@@ -10,10 +10,6 @@ app-root {
   @apply min-h-screen m-0 block text-slate-800 bg-slate-100;
 }
 
-app-root {
-  position: relative;
-  /* Ensure that the root element has a relative position */
-}
 // h1 {
 //   @apply text-3xl font-bold font-serif px-2;
 // }
@@ -42,9 +38,6 @@ button.btn {
   @apply py-3;
 }
 
-button.btn.btn-sm {
-  @apply py-1 px-1.5;
-}
 button.btn-info {
   @apply bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800;
 }
