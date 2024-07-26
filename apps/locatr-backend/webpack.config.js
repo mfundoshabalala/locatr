@@ -1,23 +1,9 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
-const path = require('path');
-
-const workspaceRoot = path.join(__dirname, '../..');
+const { join } = require('path');
 
 module.exports = {
   output: {
-    path: path.join(__dirname, '../../dist/apps/locatr-backend'),
-    devtoolModuleFilenameTemplate: (info) => {
-      const rel = path.relative(workspaceRoot, info.absoluteResourcePath);
-      return `webpack:///./${rel}`;
-    },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.md$/,
-        type: 'asset/source',
-      },
-    ],
+    path: join(__dirname, '../../dist/apps/locatr-backend'),
   },
   plugins: [
     new NxAppWebpackPlugin({
@@ -27,9 +13,7 @@ module.exports = {
       tsConfig: './tsconfig.app.json',
       assets: ['./src/assets'],
       optimization: false,
-      generatePackageJson: true,
       outputHashing: 'none',
-      sourceMap: true,
     }),
   ],
 };

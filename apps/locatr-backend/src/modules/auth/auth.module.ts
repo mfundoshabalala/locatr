@@ -32,7 +32,6 @@ import { JwtStrategy } from './strategy/jwt-strategy';
   ],
   exports: [AuthService],
 })
-
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
