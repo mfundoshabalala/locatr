@@ -18,8 +18,8 @@ export class AuthMiddleware implements NestMiddleware {
           req.user = user;
         }
       } catch (err) {
-        console.error('Invalid token:', err.message);
-        throw new UnauthorizedException(err.message);
+        console.error('Invalid token:', (err as Error).message);
+        throw new UnauthorizedException((err as Error).message);
       }
     } else {
       console.warn('X-Authorization token not found');
