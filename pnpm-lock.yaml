@@ -228,6 +228,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.13
         version: 0.5.13(tailwindcss@3.4.4(ts-node@10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@18.16.9)(typescript@5.4.5)))
+      '@types/bcrypt':
+        specifier: ^5.0.2
+        version: 5.0.2
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
@@ -315,6 +318,9 @@ importers:
       ts-node:
         specifier: 10.9.1
         version: 10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.11))(@types/node@18.16.9)(typescript@5.4.5)
+      tsconfig-paths-webpack-plugin:
+        specifier: ^4.1.0
+        version: 4.1.0
       typescript:
         specifier: ~5.4.2
         version: 5.4.5
@@ -2878,6 +2884,9 @@ packages:
 
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
+
+  '@types/bcrypt@5.0.2':
+    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
 
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
@@ -7174,6 +7183,10 @@ packages:
 
   tsconfig-paths-webpack-plugin@4.0.0:
     resolution: {integrity: sha512-fw/7265mIWukrSHd0i+wSwx64kYUSAKPfxRDksjKIYTxSAp9W9/xcZVBF4Kl0eqQd5eBpAQ/oQrc5RyM/0c1GQ==}
+    engines: {node: '>=10.13.0'}
+
+  tsconfig-paths-webpack-plugin@4.1.0:
+    resolution: {integrity: sha512-xWFISjviPydmtmgeUAuXp4N1fky+VCtfhOkDUFIv5ea7p4wuTomI4QTrXvFBX2S4jZsmyTSrStQl+E+4w+RzxA==}
     engines: {node: '>=10.13.0'}
 
   tsconfig-paths@4.2.0:
@@ -11902,6 +11915,10 @@ snapshots:
   '@types/babel__traverse@7.20.6':
     dependencies:
       '@babel/types': 7.24.7
+
+  '@types/bcrypt@5.0.2':
+    dependencies:
+      '@types/node': 18.16.9
 
   '@types/body-parser@1.19.5':
     dependencies:
@@ -16858,6 +16875,12 @@ snapshots:
       '@swc/core': 1.5.29(@swc/helpers@0.5.11)
 
   tsconfig-paths-webpack-plugin@4.0.0:
+    dependencies:
+      chalk: 4.1.2
+      enhanced-resolve: 5.17.0
+      tsconfig-paths: 4.2.0
+
+  tsconfig-paths-webpack-plugin@4.1.0:
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.17.0
