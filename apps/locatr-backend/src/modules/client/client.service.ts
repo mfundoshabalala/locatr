@@ -18,7 +18,7 @@ export class ClientService {
     return this.clientRepository.find();
   }
 
-  async findOne(id: string): Promise<Client> {
+  async findOne(id: string): Promise<Client | null> {
     return this.clientRepository.findOne({ where: { id } });
   }
 

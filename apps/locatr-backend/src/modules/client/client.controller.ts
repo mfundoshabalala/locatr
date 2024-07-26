@@ -23,7 +23,7 @@ export class ClientController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Client> {
+  findOne(@Param('id') id: string): Promise<Client | null> {
     return this.clientService.findOne(id);
   }
 
