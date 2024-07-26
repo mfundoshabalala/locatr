@@ -5,7 +5,7 @@ import { ClientService } from './client.service';
 import { Client } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { AuditFieldsInterceptor } from '../../interceptors/audit-fields/audit-fields.interceptor';
+import { AuditFieldsInterceptor } from '../../middleware/audit-fields/audit-fields.interceptor';
 
 @Controller('client')
 export class ClientController {
