@@ -9,21 +9,13 @@ export class CreateUserDto {
   @MaxLength(10)
   @IsString()
   @Unique(['username'])
-  readonly username: string;
+  readonly username!: string;
 
   @IsNotEmpty()
   @IsString()
-  password: string;
-
-  @IsOptional()
-  @IsUUID()
-  readonly roleID: string;
+  password!: string;
 
   @IsNotEmptyObject({ nullable: true })
   @IsObject()
-  readonly role: Role;
-
-  @IsNotEmptyObject({ nullable: true })
-  @IsObject()
-  readonly employee: CreateEmployeeDto;
+  readonly employee!: CreateEmployeeDto;
 }

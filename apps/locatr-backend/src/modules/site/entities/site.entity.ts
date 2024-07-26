@@ -3,35 +3,35 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 @Entity()
 export class Site {
   @PrimaryGeneratedColumn('uuid', { name: 'siteID' })
-  id: string;
+  id!: string;
 
   @Column({ unique: true, type: 'varchar', length: 255 })
-  name: string;
+  name!: string;
 
   @Column('text')
-  description: string;
+  description!: string;
 
   @Column({ default: true })
-  active: boolean;
+  active!: boolean;
 
   @Column({ type: 'varchar', length: 255, comment: 'Formatted address of the site from the Google Place API' })
-  address: string;
+  address!: string;
 
   @Column('decimal', { precision: 9, scale: 6, comment: 'Latitude of the site from the Google Place API' })
-  latitude: number;
+  latitude!: number;
 
   @Column('decimal', { precision: 9, scale: 6, comment: 'Longitude of the site from the Google Place API' })
-  longitude: number;
+  longitude!: number;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @Column({ nullable: false, update: false, length: 255, type: 'varchar', default: 'system' })
-  createdBy: string;
+  createdBy!: string;
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @Column({ nullable: true, length: 255, type: 'varchar', default: 'system' })
-  updatedBy: string;
+  updatedBy!: string;
 }

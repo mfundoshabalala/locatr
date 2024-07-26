@@ -8,31 +8,31 @@ export class CreateSiteDto {
   @MaxLength(100)
   @IsString()
   @Unique(['name'])
-  readonly name: string;
+  readonly name!: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly address: string;
+  readonly address!: string;
 
   @IsString()
   @IsNotEmpty()
-  readonly latitude: number;
+  readonly latitude!: number;
 
   @IsString()
   @IsNotEmpty()
-  readonly longitude: number;
+  readonly longitude!: number;
 
   @IsString()
   @IsNotEmpty()
-  readonly type: string;
+  readonly type!: string;
 
   @IsBoolean()
-  readonly active: boolean;
+  readonly active!: boolean;
 
   @IsString()
-  readonly description: string;
+  readonly description!: string;
 
 	@IsNotEmptyObject()
-	@IsObject()
-	readonly client: Client;
+  @IsObject()
+  readonly client!: Client;
 }

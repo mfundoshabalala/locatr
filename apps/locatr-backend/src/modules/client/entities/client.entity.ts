@@ -7,48 +7,48 @@ import { Industry } from '@migrations/industry/entities/industry.entity';
 @Entity()
 export class Client {
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
-  id: string;
+  id!: string;
 
   @Column({ unique: true, type: 'varchar', length: 255 })
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @ManyToOne(() => Industry)
   @JoinColumn({ name: 'industryID' })
-  industry: Industry;
+  industry!: Industry;
 
   @ManyToOne(() => Contact)
   @JoinColumn({ name: 'contactID' })
-  contact: Contact;
+  contact!: Contact;
 
   @ManyToOne(() => Site)
   @JoinColumn({ name: 'siteID' })
-  site: Site;
+  site!: Site;
 
   @Column({ type: 'jsonb', nullable: true })
   businessHours: any;
 
   @Column({ length: 255, nullable: true })
-  website: string;
+  website!: string;
 
   @Column({ type: 'text', nullable: true })
-  notes: string;
+  notes!: string;
 
   @Column({ type: 'text', nullable: true })
-  servicesProvided: string;
+  servicesProvided!: string;
 
   @Column({ length: 50 })
-  status: string;
+  status!: string;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @Column({ nullable: false, update: false, length: 255, type: 'varchar', default: 'system' })
-  createdBy: string;
+  createdBy!: string;
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @Column({ nullable: true, length: 255, type: 'varchar', default: 'system' })
-  updatedBy: string;
+  updatedBy!: string;
 }

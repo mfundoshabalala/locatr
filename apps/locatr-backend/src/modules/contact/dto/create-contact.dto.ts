@@ -3,15 +3,15 @@ import { IsString, IsNotEmpty, IsEmail } from "class-validator";
 export class CreateContactDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
 	@IsString()
-	phone: string;
+  phone!: string;
 
 	@IsEmail()
-	@IsNotEmpty()
-	email: string;
+  @IsNotEmpty()
+  email!: string;
 
 	@IsString()
-	position: string;
+  position!: string;
 }

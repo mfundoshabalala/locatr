@@ -3,23 +3,23 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 @Entity()
 export class Industry {
   @PrimaryGeneratedColumn('uuid', { name: 'industryID' })
-  id: string;
+  id!: string;
 
   @Column({ unique: true, type: 'varchar', length: 255 })
-  name: string;
+  name!: string;
 
   @Column('text')
-  description: string;
+  description!: string;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @Column({ nullable: false, update: false, length: 255, type: 'varchar', default: 'system' })
-  createdBy: string;
+  createdBy!: string;
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @Column({ nullable: true, length: 255, type: 'varchar', default: 'system' })
-  updatedBy: string;
+  updatedBy!: string;
 }

@@ -2,10 +2,10 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateIndustryDto {
 	@IsString()
-	@IsNotEmpty()
-	name: string;
+  @IsNotEmpty()
+  name!: string;
 
 	@IsString()
-	@IsNotEmpty()
-	description: string;
+  @IsNotEmpty()
+  description!: string;
 }

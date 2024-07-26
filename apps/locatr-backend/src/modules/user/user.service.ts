@@ -35,11 +35,11 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOneBy(username: string): Promise<User | undefined> {
+  findOneBy(username: string): Promise<User | null> {
     return this.userRepository.findOne({ where: { username } });
   }
 
-  findById(id: string): Promise<User | undefined> {
+  findById(id: string): Promise<User | null> {
     return this.userRepository.findOne({ where: { id } });
   }
 
