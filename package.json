@@ -9,7 +9,8 @@
     "typeorm": "ts-node -r tsconfig-paths/register -P apps/locatr-backend/tsconfig.app.json ./node_modules/typeorm/cli",
     "typeorm-build-config": "npx tsc src/typeorm.config.ts --outDir ./dist",
     "typeorm-generate-migrations": "npm run typeorm-build-config && typeorm -d dist/typeorm.config.js migration:generate",
-    "typeorm-run-migrations": "npm run typeorm-build-config && typeorm -d dist/typeorm.config.js migration:run"
+    "typeorm-run-migrations": "npm run typeorm-build-config && typeorm -d dist/typeorm.config.js migration:run",
+    "struct": "struct -o locatr.tree --silent --json"
   },
   "private": true,
   "dependencies": {
