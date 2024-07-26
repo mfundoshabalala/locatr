@@ -24,10 +24,6 @@ import { Role } from '../role/entities/role.entity';
   ],
   controllers: [AuthController],
   providers: [
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: AuthGuard,
-    // },
     AuthService,
     JwtStrategy,
     UserService,
@@ -35,8 +31,4 @@ import { Role } from '../role/entities/role.entity';
   ],
   exports: [AuthService],
 })
-export class AuthModule {
-  constructor() {
-    console.log('JWT Secret', process?.env?.JWT_SECRET);
-  }
-}
+export class AuthModule {}
