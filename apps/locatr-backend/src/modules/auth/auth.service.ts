@@ -14,8 +14,11 @@ export class AuthService {
 
   async signIn(username: string, pass: string): Promise<{ access_token: string }> {
     const user = await this.userService.findOneBy(username);
+    if (!user) {
+      throw new UnauthorizedException("User doesn't exist");
+    }
     if (user?.password !== pass) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("Invalid password");
     }
     const payload = { sub: user.id, username: user.username };
     return {
@@ -27,7 +30,7 @@ export class AuthService {
     try {
       return await this.userService.create(payload);
     } catch (error) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException((error as Error).message);
     }
   }
 

@@ -26,6 +26,50 @@
       "options": {
         "jestConfig": "apps/locatr-backend/jest.config.ts"
       }
+    },
+    "build-migration-config": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/locatr-backend",
+        "main": "apps/locatr-backend/src/typeorm.config.ts",
+        "tsConfig": "apps/locatr-backend/tsconfig.app.json",
+        "webpackConfig": "apps/locatr-backend/webpack.config.js"
+      }
+    },
+    "typeorm-create-migrations": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "apps/locatr-backend",
+        "commands": ["typeorm migration:create"]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "typeorm-generate-migrations": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "apps/locatr-backend",
+        "commands": ["typeorm -d ../../dist/typeorm.config.js migration:generate"]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "typeorm-run-migrations": {
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "cwd": "apps/locatr-backend",
+        "commands": ["typeorm -d ../../dist/apps/locatr-backend/main.js migration:run"]
+      },
+      "dependsOn": ["build-migration-config"]
+    },
+    "printhello": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "echo hello"
+      }
     }
   }
 }

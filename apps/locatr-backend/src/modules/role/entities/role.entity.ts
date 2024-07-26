@@ -1,13 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
 
+import { User } from '@migrations/user/entities/user.entity';
 
 @Entity()
 export class Role {
   @PrimaryGeneratedColumn('uuid', { name: 'roleID' })
   id!: string;
 
-  @Column()
+  @Column({ unique: true, type: 'varchar', length: 255 })
   name!: string;
+
+  @Column({ nullable: true, type: 'text' })
+  description?: string;
+
+  @ManyToMany(() => User, user => user.roles)
+  users!: User[];
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

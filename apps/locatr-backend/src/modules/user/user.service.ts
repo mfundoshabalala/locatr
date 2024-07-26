@@ -6,10 +6,22 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { Role } from '@migrations/role/entities/role.entity';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Role) private roleRepository: Repository<Role>,
+  ) {}
+
+  private async getUserDefaultRole() {
+    const headCount = await this.userRepository.count();
+    if (headCount === 0) {
+      return await this.roleRepository.findOne({ where: { name: 'owner' } });
+    }
+    return await this.roleRepository.findOne({ where: { name: 'user' } });
+  }
 
   async hashPassword(password: string): Promise<string> {
     const saltRounds = 10;
@@ -21,14 +33,10 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    try {
-      const user = this.userRepository.create(createUserDto);
-      console.log('User:', user);
-      return await this.userRepository.save(user);
-    } catch (error) {
-      console.error('Error creating user:', error);
-      throw error;
-    }
+    const user = this.userRepository.create(createUserDto);
+    const role = await this.getUserDefaultRole();
+    user.roles = [role as Role];
+    return this.userRepository.save(user);
   }
 
   findAll(): Promise<User[]> {

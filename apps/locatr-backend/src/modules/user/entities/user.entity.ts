@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 // entities
-import { Role } from "../../role/entities/role.entity";
-import { Employee } from "../../employee/entities/employee.entity";
+import { Employee } from "@migrations/employee/entities/employee.entity";
+import { Contact } from "@migrations/contact/entities/contact.entity";
+import { Role } from "@migrations/role/entities/role.entity";
 
 @Entity()
 export class User {
@@ -17,9 +18,19 @@ export class User {
   @Column({ type: 'varchar', length: 255 })
   password!: string;
 
-  @OneToOne(() => Employee, (employee) => employee.user, { cascade: true })
+  @Column({ type: 'boolean', default: false })
+  isVerified!: boolean;
+
+  @OneToOne(() => Employee, { cascade: true })
   @JoinColumn({ name: 'employeeID' })
   employee!: Employee;
+
+  @OneToOne(() => Contact, { cascade: true })
+  @JoinColumn({ name: 'contactID' })
+  contact!: Contact;
+
+  @ManyToMany(() => Role, role => role.users)
+  roles!: Role[];
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

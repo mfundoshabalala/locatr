@@ -20,9 +20,10 @@ export class DBConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get('POSTGRES_DATABASE'),
       migrations: [join(__dirname, `../../${sourcePath}/migrations/*{.ts,.js}`)],
       entities: [join(__dirname, `../../${sourcePath}/modules/**/*.entity{.ts,.js}`)],
-      synchronize: isProduction ? false : true,
+      synchronize: !isProduction,
       migrationsRun: true,
       autoLoadEntities: true,
+      logging: !isProduction,
     };
   }
 }

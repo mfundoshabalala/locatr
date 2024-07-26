@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4",
     "server": "nx serve locatr-backend",
-    "client": "nx serve locatr-frontend"
+    "client": "nx serve locatr-frontend",
+    "typeorm": "ts-node -r tsconfig-paths/register -P apps/locatr-backend/tsconfig.app.json ./node_modules/typeorm/cli",
+    "typeorm-build-config": "npx tsc src/typeorm.config.ts --outDir ./dist",
+    "typeorm-generate-migrations": "npm run typeorm-build-config && typeorm -d dist/typeorm.config.js migration:generate",
+    "typeorm-run-migrations": "npm run typeorm-build-config && typeorm -d dist/typeorm.config.js migration:run"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +52,7 @@
     "pg": "^8.12.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
+    "tsconfig-paths": "^4.2.0",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.20",
     "typeorm-extension": "^3.5.1",

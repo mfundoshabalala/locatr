@@ -11,11 +11,8 @@ export class Contact {
   @Column({ unique: true, type: 'varchar', length: 10, nullable: true })
   phone!: string;
 
-	@Column({ unique: true, type: 'varchar', length: 255 })
-  email!: string;
-
-	@Column()
-  position!: string;
+  @Column({ unique: true, type: 'varchar', length: 255 })
+  email?: string; // Optional if needed for additional contact details
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

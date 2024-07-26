@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from "typeorm";
 
-import { User } from "@migrations/user/entities/user.entity";
 import { Contact } from "@migrations/contact/entities/contact.entity";
 
 @Entity()
@@ -19,10 +18,6 @@ export class Employee {
 
   @Column({ length: 255, nullable: true })
   department!: string;
-
-  @OneToOne(() => User)
-  @JoinColumn({ name: 'userID' })
-  user!: User;
 
   @OneToOne(() => Contact, { cascade: true })
   @JoinColumn({ name: 'contactID' })

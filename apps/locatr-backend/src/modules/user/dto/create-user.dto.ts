@@ -1,21 +1,29 @@
 import { Unique } from 'typeorm';
-import { IsString, IsObject, MaxLength, MinLength, IsNotEmpty, IsNotEmptyObject, IsUUID, IsOptional } from 'class-validator';
+import { IsString, IsObject, MinLength, IsNotEmpty, IsNotEmptyObject, IsEmail } from 'class-validator';
 
-import { CreateEmployeeDto } from '../../employee/dto/create-employee.dto';
-import { Role } from '../../role/entities/role.entity';
+import { CreateContactDto } from '@migrations/contact/dto/create-contact.dto';
+import { CreateEmployeeDto } from '@migrations/employee/dto/create-employee.dto';
 
 export class CreateUserDto {
   @MinLength(4)
-  @MaxLength(10)
   @IsString()
   @Unique(['username'])
   readonly username!: string;
+
+  @IsEmail()
+  @Unique(['email'])
+  @IsString()
+  readonly email!: string;
 
   @IsNotEmpty()
   @IsString()
   password!: string;
 
-  @IsNotEmptyObject({ nullable: true })
+  @IsNotEmptyObject()
   @IsObject()
   readonly employee!: CreateEmployeeDto;
+
+  @IsNotEmptyObject()
+  @IsObject()
+  readonly contact!: CreateContactDto;
 }

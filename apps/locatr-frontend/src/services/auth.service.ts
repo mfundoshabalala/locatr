@@ -33,8 +33,8 @@ export class AuthenticationService {
     try {
       await lastValueFrom(this.http.post<any>(`${this.authUrl}/register`, user));
       this.router.navigate(['/auth/login']);
-    } catch (error) {
-      throw new Error('Registration failed: ' + error);
+    } catch (error: Error | any) {
+      throw new Error('Registration failed: ' + error.message);
     }
   }
 
@@ -42,8 +42,8 @@ export class AuthenticationService {
     try {
       const response = await lastValueFrom(this.http.post<any>(`${this.authUrl}/login`, user));
       sessionStorage.setItem('access_token', response?.access_token);
-    } catch (error) {
-      throw new Error('Login failed: ' + error);
+    } catch (error: Error | any) {
+      throw new Error('Login failed: ' + error.message);
     }
   }
 
