@@ -5,14 +5,14 @@ import { ClientService } from './client.service';
 import { Client } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { AuditFieldsInterceptor } from '../../middleware/audit-fields/audit-fields.interceptor';
+import { CurrentUserInterceptor } from '@middleware/index';
 
 @Controller('client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
   @Post()
-  @UseInterceptors(AuditFieldsInterceptor)
+  @UseInterceptors(CurrentUserInterceptor)
   create(@Body() createClientDto: CreateClientDto): Promise<Client> {
     return this.clientService.create(createClientDto);
   }
@@ -28,7 +28,7 @@ export class ClientController {
   }
 
   @Patch(':id')
-  @UseInterceptors(AuditFieldsInterceptor)
+  @UseInterceptors(CurrentUserInterceptor)
   update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto): Promise<UpdateResult> {
     return this.clientService.update(id, updateClientDto);
   }

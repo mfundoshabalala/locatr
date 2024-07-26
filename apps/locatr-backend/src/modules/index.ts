@@ -16,3 +16,8 @@ export * from './user/user.service';
 export * from './site/site.module';
 export * from './site/site.service';
 
+export * from './contact/contact.module';
+export * from './contact/contact.service';
+
+export * from './industry/industry.module';
+export * from './industry/industry.service';
