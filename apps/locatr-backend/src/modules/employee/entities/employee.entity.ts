@@ -21,7 +21,7 @@ export class Employee {
 
   @OneToOne(() => Contact, { cascade: true })
   @JoinColumn({ name: 'contactID' })
-  contact!: Contact;
+  contact?: Contact;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

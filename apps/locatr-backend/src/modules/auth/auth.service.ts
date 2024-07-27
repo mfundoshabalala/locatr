@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
@@ -12,13 +13,22 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async signIn(username: string, pass: string): Promise<{ access_token: string }> {
+  private async hashPassword(password: string): Promise<string> {
+    return await bcrypt.hash(password, 10);
+  }
+
+  private async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  }
+
+  async signIn(username: string, password: string): Promise<{ access_token: string }> {
     const user = await this.userService.findOneBy(username);
-    if (!user) {
+    if (!user || !user.password) {
       throw new UnauthorizedException("User doesn't exist");
     }
-    if (user?.password !== pass) {
-      throw new UnauthorizedException("Invalid password");
+
+    if (!await this.comparePasswords(password, user.password)) {
+      throw new UnauthorizedException('Invalid password');
     }
     const payload = { sub: user.id, username: user.username };
     return {
@@ -28,6 +38,7 @@ export class AuthService {
 
   async signUp(payload: CreateUserDto): Promise<User> {
     try {
+      payload = { ...payload, password: await this.hashPassword(payload.password) };
       return await this.userService.create(payload);
     } catch (error) {
       throw new UnauthorizedException((error as Error).message);
@@ -40,11 +51,6 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     return 'Password reset link sent to your email';
-  }
-
-  async verifyEmail(token: string): Promise<string> {
-    const payload = await this.jwtService.verifyAsync(token, { secret: process.env.JWT_SECRET });
-    return payload.username;
   }
 
   async validateToken(token: string): Promise<any> {

@@ -4,21 +4,25 @@ import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
 interface UserLogin {
-	username: string;
-	password: string;
+  username: string;
+  password: string;
 }
 
-export interface UserRegistration {
-	username: string;
-	password: string;
-	roleId?: string | null;
+interface ContactInterface {
+  name: string;
+  phone: string;
+  email: string | null;
+}
+
+export interface UserRegistration extends UserLogin {
+	email: string;
+  contact: ContactInterface;
 	employee: EmployeeInterface;
 }
 
 interface EmployeeInterface {
   firstName: string;
   lastName: string;
-  email: string;
   position: string;
   department: string | null;
 }

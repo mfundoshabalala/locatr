@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 // entities
 import { Employee } from "@migrations/employee/entities/employee.entity";
 import { Contact } from "@migrations/contact/entities/contact.entity";
@@ -29,7 +29,18 @@ export class User {
   @JoinColumn({ name: 'contactID' })
   contact!: Contact;
 
-  @ManyToMany(() => Role, role => role.users)
+  @ManyToMany(() => Role, (role) => role.users)
+  @JoinTable({
+    name: 'user_roles',
+    joinColumn: {
+      name: 'userID',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'roleID',
+      referencedColumnName: 'id',
+    }
+  })
   roles!: Role[];
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
