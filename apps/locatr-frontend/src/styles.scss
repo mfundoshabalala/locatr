@@ -1,5 +1,3 @@
-// @import '@angular/cdk/overlay-prebuilt.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,6 +46,7 @@ button.btn.btn-sm {
 button.btn-info {
   @apply bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800;
 }
+
 // .avatar {
 //   @apply ;
 // }

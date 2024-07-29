@@ -1,28 +1,45 @@
 <section class="p-6 overflow-hidden">
-	<table class="min-w-full divide-y divide-slate-200">
-		<thead>
-			<tr>
-				<th scope="col" class="px-2 py-2 text-xs font-medium text-gray-600 uppercase text-start">Name</th>
-				<th scope="col" class="px-2 py-2 text-xs font-medium text-gray-600 uppercase text-start">Email</th>
-				<th scope="col" class="px-2 py-2 text-xs font-medium text-gray-600 uppercase text-start">Phone</th>
-				<th scope="col" class="px-2 py-2 text-xs font-medium text-gray-600 uppercase text-start">Address</th>
-				<th scope="col" class="px-2 py-2 text-xs font-medium text-gray-600 uppercase text-start">Actions</th>
+	<!-- <table class="min-w-full divide-y divide-slate-200 border rounded-md table-zebra"> -->
+  <table class="table  table-pin-rows table-pin-cols text-pretty">
+		<thead class="">
+			<tr class="text-sm font-medium text-slate-500 capitalize">
+				<th scope="col" class="px-2 py-2 text-start">Client</th>
+				<th scope="col" class="px-2 py-2 text-start">Business Name</th>
+				<th scope="col" class="px-2 py-2 text-start">Industry</th>
+				<th scope="col" class="px-2 py-2 text-start">Status</th>
+				<th scope="col" class="px-2 py-2 text-start">action</th>
 			</tr>
 		</thead>
-		<tbody class="divide-y divide-gray-200">
+		<tbody class="divide-y divide-slate-200">
 			<tr *ngFor="let item of list()">
-				<td class="px-2 py-2 text-sm text-gray-800 whitespace-nowrap">{{ item.name }}</td>
-				<td class="px-2 py-2 text-sm text-gray-800 whitespace-nowrap">{{ item.email }}</td>
-				<td class="px-2 py-2 text-sm text-gray-800 whitespace-nowrap">{{ item.phone }}</td>
-				<td class="px-2 py-2 text-sm text-gray-800 whitespace-nowrap">{{ item.address }}</td>
-				<td class="flex gap-1 px-2 py-2 text-sm text-gray-800 whitespace-nowrap">
-					<button class="btn btn-sm size-8">
-						<img src="assets/icons/edit.svg" alt="Edit">
-					</button>
-					<button class="btn btn-sm size-8">
-						<img src="assets/icons/delete.svg" alt="Delete">
-					</button>
-				</td>
+				<td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ item?.contact?.name }}</span>
+          <span class="block text-xs text-slate-600 italic">{{ item?.contact?.email }}</span>
+        </td>
+				<td class="px-2 py-2 text-sm text-slate-800">
+          @if (item.website) {
+            <a [href]="item?.website" class="font-medium hover:underline hover:text-blue-600" target="_blank">{{ item.name }}</a>
+          } @else {
+            {{ item.name }}
+          }
+          <address class="block text-xs text-slate-600">{{item?.site?.address }}</address>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
+            {{ item?.industry?.name ?? "Unassigned"}}
+          </span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
+            {{ item.isActive ? "Active" : "Inactive" }}
+          </span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <div class="space-x-2 text-xs font-medium">
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center">View</button>
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center">...</button>
+          </div>
+        </td>
 			</tr>
 		</tbody>
 	</table>

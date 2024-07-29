@@ -11,7 +11,7 @@ export class Site {
   @Column('text')
   description!: string;
 
-  @Column({ default: true })
+  @Column({ default: true, type: 'boolean' })
   active!: boolean;
 
   @Column({ type: 'varchar', length: 255, comment: 'Formatted address of the site from the Google Place API' })

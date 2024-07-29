@@ -1,43 +1,67 @@
-import { Injectable } from '@angular/core';;
-import { firstValueFrom, lastValueFrom } from 'rxjs';
-
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';;
 
-interface ClientEntity {
-  clientID?: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  createdAt?: Date;
-  createdBy?: string;
-  updatedAt?: Date;
-  updatedBy?: string;
-}
+import { ClientEntity } from '@profolio/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
+  private http = inject(HttpClient);
+
   private clientUrl = 'http://localhost:3000/api/client';
+  clientList = signal<ClientEntity[]>([]);
 
-  constructor(private http: HttpClient) {}
-
-  getClientList(): Promise<ClientEntity[]> {
-    return lastValueFrom(this.http.get<ClientEntity[]>(this.clientUrl));
+  constructor() {
+    this.loadData();
   }
 
-  getClientByID(id: number): Promise<ClientEntity> {
-    return firstValueFrom(this.http.get<ClientEntity>(`${this.clientUrl}/${id}`));
+  private async loadData(): Promise<void> {
+    const entityList = await this.getClientList();
+    this.clientList.set(entityList);
   }
 
-  createClient(client: ClientEntity): Promise<ClientEntity> {
-    return firstValueFrom(this.http.post<ClientEntity>(this.clientUrl, client));
+  async getClientList(): Promise<ClientEntity[]> {
+    try {
+      const entityList = this.http.get<ClientEntity[]>(this.clientUrl);
+      return await lastValueFrom(entityList);
+    } catch (error) {
+      throw new Error(`Error getting client list: ${(error as Error).message}`);
+    }
   }
 
-  updateClient(id: number, client: ClientEntity): Promise<ClientEntity> {
-    return firstValueFrom(this.http.put<ClientEntity>(`${this.clientUrl}/${id}`, client));
+  async getClientByID(id: string): Promise<ClientEntity> {
+    try {
+      const entity = this.http.get<ClientEntity>(`${this.clientUrl}/${id}`);
+      return await firstValueFrom(entity);
+    } catch (error) {
+      throw new Error(`Error getting client by ID: ${(error as Error).message}`);
+    }
   }
 
-  deleteClient(id: number): Promise<void> {
-    return firstValueFrom(this.http.delete<void>(`${this.clientUrl}/${id}`));
+  async createClient(client: ClientEntity): Promise<void> {
+    try {
+      const entity = await firstValueFrom(this.http.post<ClientEntity>(this.clientUrl, client));
+      this.clientList.update((list) => [...list, entity]);
+    } catch (error) {
+      throw new Error(`Error creating client: ${(error as Error).message}`);
+    }
+  }
+
+  async updateClient(id: string, client: ClientEntity): Promise<void> {
+    try {
+      const entity = await firstValueFrom(this.http.put<ClientEntity>(`${this.clientUrl}/${id}`, client));
+      this.clientList.update((list) => list.map((item) => (item.id === id ? entity : item)));
+    } catch (error) {
+      throw new Error(`Error updating client: ${(error as Error).message}`);
+    }
+  }
+
+  async deleteClient(id: string): Promise<void> {
+    try {
+      await firstValueFrom(this.http.delete<ClientEntity>(`${this.clientUrl}/${id}`));
+      this.clientList.update((list) => list.filter((item) => item.id !== id));
+    } catch (error) {
+      throw new Error(`Error deleting client: ${(error as Error).message}`);
+    }
   }
 }

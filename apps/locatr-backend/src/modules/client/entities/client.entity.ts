@@ -1,9 +1,10 @@
 import { IsNotEmpty } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 import { Site } from '@migrations/site/entities/site.entity';
 import { Contact } from '@migrations/contact/entities/contact.entity';
 import { Industry } from '@migrations/industry/entities/industry.entity';
+
 @Entity()
 export class Client {
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
@@ -13,20 +14,8 @@ export class Client {
   @IsNotEmpty()
   name!: string;
 
-  @ManyToOne(() => Industry)
-  @JoinColumn({ name: 'industryID' })
-  industry!: Industry;
-
-  @ManyToOne(() => Contact)
-  @JoinColumn({ name: 'contactID' })
-  contact!: Contact;
-
-  @ManyToOne(() => Site)
-  @JoinColumn({ name: 'siteID' })
-  site!: Site;
-
-  @Column({ type: 'jsonb', nullable: true })
-  businessHours: any;
+  @Column({ type: 'simple-array', nullable: true })
+  businessHours: string[] = [];
 
   @Column({ length: 255, nullable: true })
   website!: string;
@@ -34,11 +23,23 @@ export class Client {
   @Column({ type: 'text', nullable: true })
   notes!: string;
 
-  @Column({ type: 'text', nullable: true })
-  servicesProvided!: string;
+  @Column({ type: 'simple-array', nullable: true })
+  services?: string[] = [];
 
-  @Column({ length: 50 })
-  status!: string;
+  @Column({ default: true, type: 'boolean' })
+  isActive!: boolean;
+
+  @OneToOne(() => Contact, { cascade: true, eager: true })
+  @JoinColumn({ name: 'contactID' })
+  contact!: Contact;
+
+  @OneToOne(() => Site, { cascade: true, eager: true })
+  @JoinColumn({ name: 'siteID' })
+  site!: Site;
+
+  @ManyToOne(() => Industry, { eager: true })
+  @JoinColumn({ name: 'industryID' })
+  industry!: Industry;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

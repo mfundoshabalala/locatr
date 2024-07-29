@@ -1,32 +1,150 @@
-<section class="">
-	<form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="p-4 space-y-6">
-		<div class="grid gap-2 employeeSection">
-			<div class="flex items-center gap-1">
-				<label class="w-20 text-sm font-medium leading-tight" for="name">Name</label>
-				<input type="text" id="name" formControlName="name" placeholder="Company Ltd"
-					class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
-			</div>
-			<div class="flex items-center gap-1 col-span-full">
-				<label class="w-20 text-sm font-medium leading-tight" for="email">Email</label>
-				<input type="email" id="email" formControlName="email" placeholder="info@company.co.za"
-					class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
-			</div>
-			<div class="flex items-center gap-1">
-				<label class="w-20 text-sm font-medium leading-tight" for="phone">Company Phone</label>
-				<input type="tel" id="phone" formControlName="phone" placeholder="Company Ltd"
-					class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
-			</div>
-			<div class="flex items-center gap-1 col-span-full">
-				<label class="w-20 text-sm font-medium leading-tight" for="address">Company Address</label>
-				<!-- <input type="text" id="text" formControlName="address" placeholder="12 Road Street, Suburb, City"
-					class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72"> -->
-				<app-search-box formControlName="address" type="address" (placeChange)="onPlaceChange($event)"
-					placeholder="12 Road Street, Suburb, City, 0000" class="col-span-full"></app-search-box>
-			</div>
-		</div>
+<section>
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <fieldset formGroupName="client" class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+      <legend class="text-sm font-medium text-gray-700">Client Information</legend>
 
-		<button type="submit" class="mx-auto btn">Submit</button>
-		<div class="flex">
-		</div>
-	</form>
+      <div class="mt-4">
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="name">Company
+            Name</label>
+          <input type="text" id="name" formControlName="name" placeholder="Company Ltd"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+        <div *ngIf="clientForm.get('name')?.hasError('required') && clientForm.get('name')?.touched"
+          class="text-red-500 text-xs mt-1">
+          Name is required
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="website">Website</label>
+          <input type="url" id="website" formControlName="website" placeholder="https://example.com"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+        <div *ngIf="clientForm.get('website')?.hasError('pattern')" class="text-red-500 text-xs mt-1">
+          Please enter a valid URL
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="businessHours">Business Hours</label>
+          <input type="text" id="businessHours" formControlName="businessHours" placeholder="9 AM - 5 PM"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="notes">Notes</label>
+          <textarea id="notes" formControlName="notes" placeholder="Notes"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm"></textarea>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="services">Services</label>
+          <textarea id="services" formControlName="services" placeholder="Services provided"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="contact" class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+      <legend class="text-sm font-medium text-gray-700">Contact Information</legend>
+
+      <div class="mt-4">
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="contactName">Contact Name</label>
+          <input id="contactName" type="text" formControlName="name" placeholder="Contact Name"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+        <div *ngIf="clientForm.get('contact.name')?.hasError('required') && clientForm.get('contact.name')?.touched" class="text-red-500 text-xs mt-1">
+          Contact name is required
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="contactEmail">Email</label>
+          <input id="contactEmail" type="email" formControlName="email" placeholder="email@example.com"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+        <div *ngIf="clientForm.get('contact.email')?.hasError('email')" class="text-red-500 text-xs mt-1">
+          Please enter a valid email
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="contactPhone">Phone</label>
+          <input id="contactPhone" type="text" formControlName="phone" placeholder="0123456789"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+        <div *ngIf="clientForm.get('contact.phone')?.hasError('pattern')" class="text-red-500 text-xs mt-1">
+          Phone number must be in the format 0123456789
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="site" class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+      <legend class="text-sm font-medium text-gray-700">Site Information</legend>
+
+      <div class="mt-4">
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteName">Site Name</label>
+          <input id="siteName" type="text" formControlName="name" placeholder="Site Name"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+        <div *ngIf="clientForm.get('site.name')?.hasError('required') && clientForm.get('site.name')?.touched" class="text-red-500 text-xs mt-1">
+          Site name is required
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteDescription">Description</label>
+          <input id="siteDescription" type="text" formControlName="description" placeholder="Description"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteAddress">Address</label>
+          <input id="siteAddress" type="text" formControlName="address" placeholder="Address"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+        </div>
+        <div *ngIf="clientForm.get('site.address')?.hasError('required') && clientForm.get('site.address')?.touched" class="text-red-500 text-xs mt-1">
+          Address is required
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLatitude">Latitude</label>
+            <input id="siteLatitude" type="text" formControlName="latitude" placeholder="Latitude"
+              class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-3">
+            <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLongitude">Longitude</label>
+            <input id="siteLongitude" type="text" formControlName="longitude" placeholder="Longitude"
+              class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm">
+          </div>
+        </div>
+
+      </div>
+    </fieldset>
+
+    <button type="submit"
+      class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+      Submit
+    </button>
+  </form>
 </section>

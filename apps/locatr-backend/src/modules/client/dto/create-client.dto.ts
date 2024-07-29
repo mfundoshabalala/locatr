@@ -1,19 +1,44 @@
-import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
+import { Contact } from '@migrations/contact/entities/contact.entity';
+import { Site } from '@migrations/site/entities/site.entity';
+import { IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, IsArray, IsObject } from 'class-validator';
 
 export class CreateClientDto {
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   name!: string;
 
-  @IsEmail()
-  @IsNotEmpty()
-  email!: string;
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  businessHours?: string[];
 
+  @IsOptional()
+  @IsUrl()
   @IsString()
-  @IsNotEmpty()
-  phoneNumber!: string;
+  website?: string;
 
+  @IsOptional()
   @IsString()
+  notes?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  services?: string[];
+
   @IsNotEmpty()
-  address!: string;
+  @IsString()
+  status!: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  industryID!: string;
+
+  @IsObject()
+  @IsNotEmpty()
+  contact!: Contact;
+
+  @IsObject()
+  @IsNotEmpty()
+  site!: Site;
 }

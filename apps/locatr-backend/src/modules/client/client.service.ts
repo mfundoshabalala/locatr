@@ -15,11 +15,11 @@ export class ClientService {
   }
 
   async findAll(): Promise<Client[]> {
-    return this.clientRepository.find();
+    return this.clientRepository.find({ relationLoadStrategy: 'join' });
   }
 
   async findOne(id: string): Promise<Client | null> {
-    return this.clientRepository.findOne({ where: { id } });
+    return this.clientRepository.findOne({ where: { id }, relationLoadStrategy: 'join' });
   }
 
   async update(id: string, updateClientDto: UpdateClientDto): Promise<UpdateResult> {

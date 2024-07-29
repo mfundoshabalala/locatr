@@ -8,7 +8,7 @@ export class Contact {
   @Column({ unique: true, type: 'varchar', length: 255 })
   name!: string;
 
-  @Column({ unique: true, type: 'varchar', length: 10, nullable: true })
+  @Column({ unique: true, type: 'varchar', nullable: true })
   phone!: string;
 
   @Column({ unique: true, type: 'varchar', length: 255 })
