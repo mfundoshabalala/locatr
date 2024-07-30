@@ -17,17 +17,13 @@ import { SearchService } from '../../services';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div>
-      <input
-        type="text"
-        class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72"
-        #searchQueryInput
-        [placeholder]="placeholder()"
-        (input)="onInput($event)"
-        (blur)="onTouched()"
-        [value]="value" />
-      <img src="assets/icons/search-map.svg" alt="Search Map Icon" />
-    </div>
+    <input
+      type="search" class="border-none"
+      #searchQueryInput
+      [placeholder]="placeholder()"
+      (input)="onInput($event)"
+      (blur)="onTouched($event)"
+      [value]="value" />
   `,
   styleUrls: ['./search-box.component.css'],
   providers: [
@@ -52,14 +48,26 @@ export class SearchBoxComponent implements ControlValueAccessor {
   @Output() placeChange = new EventEmitter<google.maps.places.PlaceResult>();
 
   value = '';
-  onChange: any;
-  onTouched: any;
+
+  onChange(str: string) {
+    if (this.searchType() === 'list') {
+      const filteredList = this.searchService.filterListBySearchQuery(str, this.filterList());
+      this.listChange.emit(filteredList);
+    } else if (this.searchType() === 'address') {
+      const element = this.searchQueryInput.nativeElement;
+      const callback = (place: google.maps.places.PlaceResult) => this.placeChange.emit(place);
+      this.searchService.initializeAutocomplete(element, callback);
+    }
+  }
+  
+  onTouched(event: Event) {
+    console.log('touched', event);
+  }
 
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.value = input.value;
     this.onChange(this.value);
-    this.handleSearchQueryUpdate(this.value);
   }
 
   writeValue(value: string): void {
@@ -80,19 +88,6 @@ export class SearchBoxComponent implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     if (this.searchQueryInput) {
       this.searchQueryInput.nativeElement.disabled = isDisabled;
-    }
-  }
-
-  handleSearchQueryUpdate(searchQuery: string) {
-    if (this.searchType() === 'list') {
-      const filteredList = this.searchService.filterListBySearchQuery(searchQuery, this.filterList());
-      this.listChange.emit(filteredList);
-    } else if (this.searchType() === 'address') {
-      const element = this.searchQueryInput.nativeElement;
-      const callback = (place: google.maps.places.PlaceResult) => this.placeChange.emit(place);
-      this.searchService.initializeAutocomplete(element, callback);
-    } else {
-      console.error('Invalid search type');
     }
   }
 }

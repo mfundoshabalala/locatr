@@ -24,9 +24,9 @@ app-root {
 //   @apply px-4 py-1.5 border rounded-md shadow-sm inline-block bg-white;
 // }
 
-// input[type="text"] {
-//   @apply rounded-md border shadow-md py-2 border-slate-300 pl-9 text-sm font-medium capitalize;
-// }
+input[type="search"], input[type="text"], input[type="email"], input[type="url"] {
+  @apply w-full border rounded border-slate-300 flex-1 bg-white shadow-sm;
+}
 
 // button inputs
 .btn {
@@ -36,6 +36,7 @@ app-root {
 .btn.btn-error {
   @apply hover:bg-red-500 text-slate-900;
 }
+
 button.btn {
   @apply py-3;
 }
