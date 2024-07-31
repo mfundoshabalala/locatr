@@ -6,7 +6,7 @@ import { GoogleMapsComponent } from '../../../components';
   selector: 'app-routing',
   standalone: true,
   imports: [CommonModule, GoogleMapsComponent],
-  template: ` <app-google-map [mapId]="mapId"></app-google-map> `,
+  template: ` <app-google-map [id]="mapId"></app-google-map> `,
   styleUrl: './routing.component.css',
 })
 export class RoutingComponent {

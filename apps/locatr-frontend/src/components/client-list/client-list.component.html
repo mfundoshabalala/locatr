@@ -36,11 +36,11 @@
         </td>
         <td class="px-2 py-2 text-sm text-slate-800">
           <div class="text-xs font-medium flex flex-nowrap gap-x-1">
-            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center">
-              <img src="assets/icons/eye.svg" alt="More" class="size-4">
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center" (click)="onEdit(item)">
+              <img src="assets/icons/eye.svg" alt="View" class="size-4">
             </button>
-            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center">
-              <img src="assets/icons/more-vertical.svg" alt="More" class="size-4">
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center" (click)="onDelete(item)">
+              <img src="assets/icons/delete.svg" alt="Delete" class="size-4">
             </button>
           </div>
         </td>

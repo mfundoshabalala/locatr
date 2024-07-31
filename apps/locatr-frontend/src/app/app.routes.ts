@@ -1,11 +1,12 @@
 import { Route } from '@angular/router';
 import { DashboardLayoutComponent } from '../layout';
 import { authGuard } from '../guards/auth.guard';
+import { clientResolver } from '../resolvers';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () => import('../pages').then((m) => m.LandingPageComponent)
+    loadComponent: () => import('../pages').then((m) => m.LandingPageComponent),
   },
   {
     path: 'dashboard',
@@ -20,6 +21,7 @@ export const appRoutes: Route[] = [
       {
         path: 'client',
         loadComponent: () => import('../pages').then((m) => m.ClientManagementComponent),
+        resolve: { clients: clientResolver },
         data: {
           entityName: 'client',
           title: 'Client Management',
@@ -59,6 +61,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'route',
+        resolve: { clients: clientResolver },
         loadComponent: () => import('../pages').then((m) => m.RoutePlanningComponent),
         data: {
           entityName: 'route',
@@ -117,5 +120,5 @@ export const appRoutes: Route[] = [
     path: '**',
     loadComponent: () => import('../pages').then((m) => m.ErrorComponent),
     data: { errorMessage: 'Page not found. Please check the URL and try again.' },
-  }
+  },
 ];

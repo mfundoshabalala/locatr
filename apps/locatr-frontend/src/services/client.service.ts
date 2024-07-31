@@ -11,19 +11,20 @@ export class ClientService {
   private clientUrl = 'http://localhost:3000/api/client';
   clientList = signal<ClientEntity[]>([]);
 
-  constructor() {
-    this.loadData();
-  }
-
-  private async loadData(): Promise<void> {
-    const entityList = await this.getClientList();
-    this.clientList.set(entityList);
-  }
-
-  async getClientList(): Promise<ClientEntity[]> {
+  async loadData(): Promise<void> {
+    let entityList: ClientEntity[] = [];
     try {
-      const entityList = this.http.get<ClientEntity[]>(this.clientUrl);
-      return await lastValueFrom(entityList);
+      entityList = await this.getClients();
+    } catch (error) {
+      throw new Error(`Error loading client data: ${(error as Error).message}`);
+    } finally {
+      this.clientList.set(entityList);
+    }
+  }
+
+  async getClients(): Promise<ClientEntity[]> {
+    try {
+      return await lastValueFrom(this.http.get<ClientEntity[]>(this.clientUrl));
     } catch (error) {
       throw new Error(`Error getting client list: ${(error as Error).message}`);
     }
@@ -31,8 +32,7 @@ export class ClientService {
 
   async getClientByID(id: string): Promise<ClientEntity> {
     try {
-      const entity = this.http.get<ClientEntity>(`${this.clientUrl}/${id}`);
-      return await firstValueFrom(entity);
+      return await firstValueFrom(this.http.get<ClientEntity>(`${this.clientUrl}/${id}`));
     } catch (error) {
       throw new Error(`Error getting client by ID: ${(error as Error).message}`);
     }
