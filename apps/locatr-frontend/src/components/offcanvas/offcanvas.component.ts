@@ -1,12 +1,8 @@
-import { Component, ViewContainerRef, OnInit, OnChanges, inject, input, viewChild } from '@angular/core';
+import { Component, ViewContainerRef, OnInit, OnChanges, inject, input, viewChild, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OffcanvasService } from '../../services';
 import { DynamicFormService } from '../../services/dynamic-form.service';
 
-export interface Entity {
-  id: number;
-  name: string;
-  type: string; // Use this field to distinguish between entity types
-}
 
 @Component({
   selector: 'app-offcanvas',
@@ -15,29 +11,41 @@ export interface Entity {
   templateUrl: './offcanvas.component.html',
   styleUrls: ['./offcanvas.component.css'],
 })
-export class OffcanvasComponent implements OnInit, OnChanges {
+export class OffcanvasComponent {
   formContainer = viewChild('formContainer', { read: ViewContainerRef });
 
-  title = input.required<string>();
-  entityName = input.required<string>();
-  isOpen = false;
+  title = input<string>();
+  entityName = signal<string>('');
+  isOpen = signal<boolean>(false);
+  entity = signal<Record<string, any>>({});
 
+  private readonly offcanvas = inject(OffcanvasService);
   private readonly dynamicFormService = inject(DynamicFormService);
 
-  ngOnInit() {
-    this.loadForm();
-  }
+  constructor() {
+    effect(() => {
+      this.isOpen.set(this.offcanvas.isOpen());
+      console.log('Offcanvas open:', this.isOpen());
+    }, { allowSignalWrites: true });
 
-  ngOnChanges() {
-    this.loadForm();
+    effect(() => {
+      this.entity.set(this.offcanvas.entity());
+      console.log('Entity:', this.entity());
+    }, { allowSignalWrites: true });
+
+    effect(() => {
+      this.entityName.set(this.offcanvas.entityName());
+      console.log('Entity name:', this.entityName());
+      this.loadForm();
+    }, { allowSignalWrites: true });
   }
 
   openOffcanvas() {
-    this.isOpen = true;
+    this.offcanvas.open(this.entityName(), this.entity());
   }
 
   closeOffcanvas() {
-    this.isOpen = false;
+    this.offcanvas.close();
   }
 
   loadForm() {
@@ -54,6 +62,7 @@ export class OffcanvasComponent implements OnInit, OnChanges {
     const componentRef = this.formContainer()?.createComponent(component);
     if (componentRef) {
       componentRef.instance.entityName = this.entityName();
+      componentRef.instance.entity = this.entity();
     }
 
     if (componentRef?.instance.formSubmitted) {

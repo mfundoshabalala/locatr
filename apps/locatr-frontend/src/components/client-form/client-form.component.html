@@ -106,7 +106,11 @@
       <div>
         <div class="flex items-center gap-3">
           <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteAddress">Address</label>
-          <app-search-box type="address" placeholder="Search for site address" (placeChange)="onPlaceChange($event)" class="border rounded border-slate-300 flex-1 bg-white shadow-sm"></app-search-box>
+          @if (entity?.site?.address) {
+            <input id="siteAddress" type="text" formControlName="address" placeholder="Address" [value]="entity?.site?.address">
+          } @else {
+            <app-search-box type="address" placeholder="Search for site address" (placeChange)="onPlaceChange($event)" class="border rounded border-slate-300 flex-1 bg-white shadow-sm"></app-search-box>
+          }
         </div>
       </div>
 
@@ -114,23 +118,56 @@
         <div>
           <div class="flex items-center gap-3">
             <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLatitude">Latitude</label>
-            <input id="siteLatitude" type="text" formControlName="latitude" placeholder="Latitude">
+            <input id="siteLatitude" type="text" formControlName="latitude" placeholder="Latitude" [disabled]="true" >
           </div>
         </div>
 
         <div>
           <div class="flex items-center gap-3">
             <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLongitude">Longitude</label>
-            <input id="siteLongitude" type="text" formControlName="longitude" placeholder="Longitude">
+            <input id="siteLongitude" type="text" formControlName="longitude" placeholder="Longitude" [disabled]="true" >
           </div>
         </div>
 
       </div>
     </fieldset>
 
-    <button type="submit"
-      class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-      Submit
-    </button>
+    <div class="grid md:grid-cols-4 gap-4 text-slate-800 font-medium text-sm">
+      <!-- submit button -->
+      <button type="submit" [disabled]="clientForm.invalid || clientForm.pristine"
+        class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-blue-600 px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          @if (clientForm.invalid) {
+            <img  src="assets/icons/error-16.svg" class="size-4" alt="Error">
+          } @else {
+            <img  src="assets/icons/submit-success.svg" class="size-4" alt="Success">
+          }
+        Submit
+      </button>
+      <!-- edit button -->
+      @if (entity?.id) {
+        <button type="button" (click)="onEdit()"
+          class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-slate-600 px-4 py-2 rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <img src="assets/icons/edit-2.svg" class="size-4" alt="Edit">
+          Edit
+        </button>
+      }
+      <!-- clear button -->
+      @if (clientForm.dirty && !entity?.id) {
+        <button type="button" (click)="onClear()" [disabled]="clientForm.enabled"
+          class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-yellow-600 px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <img src="assets/icons/clear.svg" class="size-4" alt="Clear">
+          Clear
+        </button>
+      }
+      <!-- delete button -->
+      @if (entity?.id) {
+        <button type="button" (click)="onDelete()"
+          class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-red-600 px-4 py-2 rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <img src="assets/icons/delete.svg" class="size-4" alt="Delete">
+          Delete
+        </button>
+      }
+    </div>
+
   </form>
 </section>

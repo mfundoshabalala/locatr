@@ -49,8 +49,8 @@ export class ClientService {
 
   async updateClient(id: string, client: ClientEntity): Promise<void> {
     try {
-      const entity = await firstValueFrom(this.http.put<ClientEntity>(`${this.clientUrl}/${id}`, client));
-      this.clientList.update((list) => list.map((item) => (item.id === id ? entity : item)));
+      await firstValueFrom(this.http.patch(`${this.clientUrl}/${id}`, client));
+      this.clientList.update((list) => list.map((item) => (item.id === id ? client : item)));
     } catch (error) {
       throw new Error(`Error updating client: ${(error as Error).message}`);
     }

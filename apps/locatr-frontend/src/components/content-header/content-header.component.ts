@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Component, inject, OnInit, output, ViewChild } from '@angular/core';
 
-import { Search, SearchBoxComponent } from "../search-box/search-box.component";
+import { OffcanvasService } from '../../services';
 import { OffcanvasComponent } from '../offcanvas/offcanvas.component';
+import { Search, SearchBoxComponent } from "../search-box/search-box.component";
 
 @Component({
   selector: 'app-content-header',
@@ -19,10 +20,9 @@ import { OffcanvasComponent } from '../offcanvas/offcanvas.component';
       </div>
       <div>
         @if (showSearchBox) {
-        <app-search-box [type]="searchType" />
+          <app-search-box [type]="searchType" />
         } @if (showCreateButton) {
-        <button (click)="offcanvas.openOffcanvas()" class="btn capitalize">{{ title }}</button>
-        <app-offcanvas #offcanvas [title]="title" [entityName]="entityName"></app-offcanvas>
+          <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
         }
       </div>
     </header>
@@ -31,7 +31,7 @@ import { OffcanvasComponent } from '../offcanvas/offcanvas.component';
 })
 export class ContentHeaderComponent implements OnInit {
   @ViewChild('offcanvas') offcanvas!: OffcanvasComponent;
-
+  onOpenOffcanvas = output();
   pageTitle = 'Default Title';
   pageSubtitle = 'Default Subtitle';
   searchType: Search = 'list';
@@ -40,11 +40,18 @@ export class ContentHeaderComponent implements OnInit {
   title = '';
   entityName = '';
 
-  constructor(private router: Router, private titleService: Title, private activatedRoute: ActivatedRoute) {}
+  private readonly router = inject(Router);
+  private readonly titleService = inject(Title);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  readonly offcanvasService = inject(OffcanvasService);
 
   ngOnInit(): void {
     this.setupRouterEventsSubscription();
     this.setInitialTitleAndSubtitle();
+  }
+
+  openCanvas() {
+    this.offcanvasService.open(this.entityName);
   }
 
   /**

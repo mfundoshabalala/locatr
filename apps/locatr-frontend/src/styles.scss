@@ -28,6 +28,34 @@ input[type="search"], input[type="text"], input[type="email"], input[type="url"]
   @apply w-full border rounded border-slate-300 flex-1 bg-white shadow-sm;
 }
 
+input[type="search"]:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus {
+  @apply border-cyan-500;
+}
+
+input[type="search"]::placeholder, input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="url"]::placeholder {
+  @apply text-slate-400;
+}
+
+input[type="search"]:disabled, input[type="text"]:disabled, input[type="email"]:disabled, input[type="url"]:disabled {
+  @apply bg-slate-200 cursor-not-allowed;
+}
+
+textarea {
+  @apply w-full border rounded border-slate-300 bg-white shadow-sm;
+}
+
+textarea:focus {
+  @apply border-cyan-500;
+}
+
+textarea::placeholder {
+  @apply text-slate-400;
+}
+
+textarea:disabled {
+  @apply bg-slate-200 cursor-not-allowed;
+}
+
 // button inputs
 .btn {
   @apply min-h-1 h-auto px-6 py-2 border border-slate-300 bg-slate-100 hover:bg-white;

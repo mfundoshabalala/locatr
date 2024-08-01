@@ -1,6 +1,6 @@
-<div *ngIf="isOpen" class="fixed inset-0 z-40 bg-black bg-opacity-75" (click)="closeOffcanvas()"></div>
+<div *ngIf="isOpen()" class="fixed inset-0 z-40 bg-black bg-opacity-75" (click)="closeOffcanvas()"></div>
 <div class="fixed inset-y-0 right-0 z-50 flex max-w-full transition-transform transform"
-	[class.translate-x-full]="!isOpen" [class.translate-x-0]="isOpen">
+	[class.translate-x-full]="!isOpen()" [class.translate-x-0]="isOpen()">
 	<div class="w-screen max-w-2xl min-w-[320px] bg-white shadow-lg overflow-auto px-8 py-4">
 		<div class="flex items-center justify-between p-4 border-b border-gray-200">
 			<h5 class="text-lg font-medium capitalize">{{ title() }}</h5>
