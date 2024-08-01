@@ -12,7 +12,7 @@ export class Contact {
   phone!: string;
 
   @Column({ unique: true, type: 'varchar', length: 255 })
-  email?: string; // Optional if needed for additional contact details
+  email?: string; // NOTE: Optional if needed for additional contact details
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;
