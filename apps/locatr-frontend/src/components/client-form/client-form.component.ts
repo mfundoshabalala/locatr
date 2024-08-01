@@ -50,7 +50,7 @@ export class ClientFormComponent implements OnInit {
         description: [''],
         address: ['', Validators.required],
         latitude: new FormControl({ value: '', disabled: true }, this.validateCoordinate),
-        longitude: new FormControl({ value: '', disabled: true }, this.validateCoordinate)
+        longitude: new FormControl({ value: '', disabled: true }, this.validateCoordinate),
       }),
     });
   }
@@ -101,36 +101,60 @@ export class ClientFormComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (this.clientForm.valid && !this.entity?.id) {
-      const clientEntity: ClientEntity = {
-        ...this.clientForm.value.client,
-        contact: { ...this.clientForm.value.contact },
-        site: { ...this.clientForm.value.site },
-      };
-      await this.clientService.createClient(clientEntity);
-      this.clientForm.reset();
-      this.formSubmitted.emit();
-    } else if (this.clientForm.valid && this.entity?.id) {
-      const entityID = this.entity?.id;
-      const entity = {
-        ...this.entity,
-        ...this.clientForm.value.client,
-        contact: {
-          ...this.entity.contact,
-          ...this.clientForm.value.contact
-        },
-        site: {
-          ...this.entity.site,
-          ...this.clientForm.value.site
-        },
-      }
-      if (entityID && entity ) {
-        await this.clientService.updateClient(entityID, entity);
-        this.formSubmitted.emit();
-      }
-    } else {
-      console.log('Form is invalid'); //TODO: put this in a toaster
+    if (!this.clientForm.valid) {
+      this.showInvalidFormNotification();
+      return;
     }
+
+    const clientData = this.extractClientData(this.clientForm.value);
+
+    try {
+      if (this.entity?.id) {
+        await this.updateExistingClient(this.entity.id, clientData);
+      } else {
+        await this.createNewClient(clientData);
+        this.clientForm.reset();
+      }
+      this.formSubmitted.emit();
+    } catch (error) {
+      this.handleFormSubmissionError(error);
+    }
+  }
+
+  private extractClientData(formValues: any): ClientEntity {
+    const { client, contact, site } = formValues;
+    return {
+      ...client,
+      contact: { ...contact },
+      site: { ...site },
+    };
+  }
+
+  private async updateExistingClient(entityId: string, clientData: ClientEntity): Promise<void> {
+    const updatedEntity = this.mergeWithExistingEntity(this.entity, clientData);
+    await this.clientService.updateClient(entityId, updatedEntity);
+  }
+
+  private async createNewClient(clientData: ClientEntity): Promise<void> {
+    await this.clientService.createClient(clientData);
+  }
+
+  private mergeWithExistingEntity(entity: any, clientData: ClientEntity): any {
+    const { contact, site } = clientData;
+    return {
+      ...entity,
+      ...clientData,
+      contact: { ...entity.contact, ...contact },
+      site: { ...entity.site, ...site },
+    };
+  }
+
+  private showInvalidFormNotification(): void {
+    console.log('Form is invalid'); // TODO: replace with a toaster notification
+  }
+
+  private handleFormSubmissionError(error: any): void {
+    console.error('Form submission failed', error); // TODO: replace with a toaster notification
   }
 
   onEdit() {
