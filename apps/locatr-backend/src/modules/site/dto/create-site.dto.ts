@@ -1,9 +1,13 @@
 import { Unique } from "typeorm";
-import { IsBoolean, IsNotEmpty, IsNotEmptyObject, IsObject, IsString, MaxLength, MinLength } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
 import { Client } from "../../client/entities/client.entity";
 
 export class CreateSiteDto {
+  @IsOptional()
+  @IsString()
+  id?: string;
+
   @MinLength(4)
   @MaxLength(100)
   @IsString()

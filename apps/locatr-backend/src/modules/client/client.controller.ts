@@ -29,7 +29,7 @@ export class ClientController {
 
   @Patch(':id')
   @UseInterceptors(CurrentUserInterceptor)
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto): Promise<UpdateResult> {
+  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto): Promise<Client> {
     return this.clientService.update(id, updateClientDto);
   }
 

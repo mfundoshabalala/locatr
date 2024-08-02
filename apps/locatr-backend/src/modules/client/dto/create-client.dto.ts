@@ -1,8 +1,14 @@
-import { Contact } from '@migrations/contact/entities/contact.entity';
-import { Site } from '@migrations/site/entities/site.entity';
-import { IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, IsArray, IsObject } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, IsArray, ValidateNested } from 'class-validator';
+
+import { CreateSiteDto } from '@migrations/site/dto/create-site.dto';
+import { CreateContactDto } from '@migrations/contact/dto/create-contact.dto';
 
 export class CreateClientDto {
+  @IsOptional()
+  @IsString()
+  id?: string;
+
   @IsNotEmpty()
   @IsString()
   name!: string;
@@ -34,11 +40,13 @@ export class CreateClientDto {
   @IsNotEmpty()
   industryID!: string;
 
-  @IsObject()
+  @ValidateNested()
+  @Type(() => CreateContactDto)
   @IsNotEmpty()
-  contact!: Contact;
+  contact!: CreateContactDto;
 
-  @IsObject()
+  @ValidateNested()
+  @Type(() => CreateSiteDto)
   @IsNotEmpty()
-  site!: Site;
+  site!: CreateSiteDto;
 }

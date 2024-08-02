@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, OneToOne, Unique } from 'typeorm';
 
 import { Site } from '@migrations/site/entities/site.entity';
 import { Contact } from '@migrations/contact/entities/contact.entity';
