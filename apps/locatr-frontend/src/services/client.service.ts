@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
 
-import { ClientEntity } from '@profolio/interfaces';
+import { ClientInterface } from '@profolio/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
@@ -10,33 +10,33 @@ export class ClientService {
 
   private clientUrl = 'http://localhost:3000/api/client';
 
-  async getClients(): Promise<ClientEntity[]> {
+  async getClients(): Promise<ClientInterface[]> {
     try {
-      return await lastValueFrom(this.http.get<ClientEntity[]>(this.clientUrl));
+      return await lastValueFrom(this.http.get<ClientInterface[]>(this.clientUrl));
     } catch (error) {
       throw new Error(`Error getting client list: ${(error as Error).message}`);
     }
   }
 
-  async getClientByID(id: string): Promise<ClientEntity> {
+  async getClientByID(id: string): Promise<ClientInterface> {
     try {
-      return await firstValueFrom(this.http.get<ClientEntity>(`${this.clientUrl}/${id}`));
+      return await firstValueFrom(this.http.get<ClientInterface>(`${this.clientUrl}/${id}`));
     } catch (error) {
       throw new Error(`Error getting client by ID: ${(error as Error).message}`);
     }
   }
 
-  async createClient(client: ClientEntity): Promise<ClientEntity> {
+  async createClient(client: ClientInterface): Promise<ClientInterface> {
     try {
-      return await firstValueFrom(this.http.post<ClientEntity>(this.clientUrl, client));
+      return await firstValueFrom(this.http.post<ClientInterface>(this.clientUrl, client));
     } catch (error) {
       throw new Error(`Error creating client: ${(error as Error).message}`);
     }
   }
 
-  async updateClient(id: string, client: ClientEntity): Promise<ClientEntity> {
+  async updateClient(id: string, client: ClientInterface): Promise<ClientInterface> {
     try {
-      return await firstValueFrom(this.http.patch<ClientEntity>(`${this.clientUrl}/${id}`, client));
+      return await firstValueFrom(this.http.patch<ClientInterface>(`${this.clientUrl}/${id}`, client));
     } catch (error) {
       throw new Error(`Error updating client: ${(error as Error).message}`);
     }
@@ -44,7 +44,7 @@ export class ClientService {
 
   async deleteClient(id: string): Promise<void> {
     try {
-      await firstValueFrom(this.http.delete<ClientEntity>(`${this.clientUrl}/${id}`));
+      await firstValueFrom(this.http.delete<ClientInterface>(`${this.clientUrl}/${id}`));
     } catch (error) {
       throw new Error(`Error deleting client: ${(error as Error).message}`);
     }

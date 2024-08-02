@@ -2,33 +2,34 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, Input, EventEmitter, Output, signal, effect } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { ClientEntity } from '@profolio/interfaces';
 import { SearchBoxComponent } from '../search-box/search-box.component';
+import { deepMerge, extractFormData } from '@profolio/utils';
+import { ClientInterface } from '@profolio/interfaces';
 
 export enum FormMode {
   CREATE = 'create',
   UPDATE = 'update',
   DELETE = 'delete',
-};
+}
 
-interface FormSubmission {
+export interface FormSubmission {
   mode: FormMode;
   entity: Record<string, any> | null;
   changed: boolean;
-};
+}
 
 @Component({
   selector: 'app-client-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SearchBoxComponent],
   templateUrl: './client-form.component.html',
-  styleUrl: './client-form.component.css'
+  styleUrl: './client-form.component.css',
 })
 export class ClientFormComponent implements OnInit {
   clientForm!: FormGroup;
 
-  @Input() entityName: string | null = null;  // TODO: change to input signal
-  @Input() entity: ClientEntity | null = null; // TODO: change to input signal
+  @Input() entityName: string | null = null; // TODO: change to input signal
+  @Input() entity: ClientInterface | null = null; // TODO: change to input signal
   @Output() formSubmitted = new EventEmitter<FormSubmission>(); //TODO: change output signal
   changed = signal<boolean>(false);
 
@@ -66,7 +67,7 @@ export class ClientFormComponent implements OnInit {
     });
   }
 
-  private populateForm(entity: ClientEntity | undefined): void {
+  private populateForm(entity: ClientInterface | undefined): void {
     if (!entity) {
       return;
     }
@@ -118,15 +119,12 @@ export class ClientFormComponent implements OnInit {
     }
 
     let mode: FormMode = FormMode.CREATE;
-    let entity = this.extractClientData(this.clientForm.value) as Record<string, any>;
+    let entity = extractFormData(this.clientForm.value) as any;
     if (this.entity && this.entity?.id) {
       mode = FormMode.UPDATE;
-      entity = {
-        ...this.entity,
-        ...entity,
-        site: {...this.entity.site, ...entity['site']},
-        contact:{...this.entity.contact, ...entity['contact']},
-      };
+      entity = deepMerge(this.entity, {...entity.client, contact: entity.contact, site: entity.site});
+    } else {
+      entity = { ...entity.client, contact: entity.contact, site: entity.site };
     }
     // see if the form has changed
     if (this.clientForm.touched) {
@@ -136,15 +134,6 @@ export class ClientFormComponent implements OnInit {
 
     this.formSubmitted.emit({ entity: entity, mode: mode, changed: this.changed() });
     this.clientForm.reset();
-  }
-
-  private extractClientData(formValues: Record<string, any>): ClientEntity {
-    const { client, contact, site } = formValues;
-    return {
-      ...client,
-      contact: { ...contact },
-      site: { ...site },
-    };
   }
 
   private showInvalidFormNotification(): void {
@@ -162,7 +151,11 @@ export class ClientFormComponent implements OnInit {
   onDelete() {
     const entityID = this.entity?.id;
     if (entityID !== undefined) {
-      this.formSubmitted.emit({ entity: this.entity as Record<string, any>, mode: FormMode.DELETE, changed: this.changed() });
+      this.formSubmitted.emit({
+        entity: this.entity as Record<string, any>,
+        mode: FormMode.DELETE,
+        changed: this.changed(),
+      });
     }
   }
 }

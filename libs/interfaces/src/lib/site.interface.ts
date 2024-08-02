@@ -1,4 +1,4 @@
-export class SiteEntity {
+export class SiteInterface {
   name!: string;
   description!: string;
   active!: boolean;

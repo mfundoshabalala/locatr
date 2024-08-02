@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 
-import { ClientEntity } from '@profolio/interfaces';
+import { ClientInterface } from '@profolio/interfaces';
 
 @Component({
   selector: 'app-client-list',
@@ -11,20 +11,20 @@ import { ClientEntity } from '@profolio/interfaces';
   styleUrl: './client-list.component.css',
 })
 export class ClientListComponent {
-  edit = output<ClientEntity>({ alias: 'onEdit' });
-  delete = output<ClientEntity>({ alias: 'onDelete' });
-  update =  output<ClientEntity>({ alias: 'onUpdate' });
-  list = input.required<ClientEntity[]>({ alias: 'list' });
+  edit = output<ClientInterface>({ alias: 'onEdit' });
+  delete = output<ClientInterface>({ alias: 'onDelete' });
+  update = output<ClientInterface>({ alias: 'onUpdate' });
+  list = input.required<ClientInterface[]>({ alias: 'list' });
 
-  onDelete(client: ClientEntity) {
+  onDelete(client: ClientInterface) {
     this.delete.emit(client);
   }
 
-  onEdit(client: ClientEntity) {
+  onEdit(client: ClientInterface) {
     this.edit.emit(client);
   }
 
-  onUpdate(client: ClientEntity) {
+  onUpdate(client: ClientInterface) {
     this.update.emit(client);
   }
 }

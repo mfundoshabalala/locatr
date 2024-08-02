@@ -23,7 +23,8 @@
       "@profolio/app/services/*": ["./apps/locatr-frontend/src/services/*"],
       "@profolio/frontend/maps": ["libs/frontend/maps/src/index.ts"],
       "@profolio/frontend/shared/ui": ["libs/frontend/shared/ui/src/index.ts"],
-      "@profolio/interfaces": ["libs/interfaces/src/index.ts"]
+      "@profolio/interfaces": ["libs/interfaces/src/index.ts"],
+      "@profolio/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

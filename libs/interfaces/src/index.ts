@@ -1,6 +1,4 @@
-export * from './lib/interfaces.module';
-
-
-export * from './lib/client.entity';
-export * from './lib/contact.entity';
-export * from './lib/site.entity';
+export * from './lib/client.interface';
+export * from './lib/contact.interface';
+export * from './lib/industry.interface';
+export * from './lib/site.interface';
