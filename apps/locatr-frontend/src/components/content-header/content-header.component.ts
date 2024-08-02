@@ -21,7 +21,8 @@ import { Search, SearchBoxComponent } from "../search-box/search-box.component";
       <div>
         @if (showSearchBox) {
           <app-search-box [type]="searchType" />
-        } @if (showCreateButton) {
+        }
+        @if (showCreateButton) {
           <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
         }
       </div>
@@ -31,7 +32,6 @@ import { Search, SearchBoxComponent } from "../search-box/search-box.component";
 })
 export class ContentHeaderComponent implements OnInit {
   @ViewChild('offcanvas') offcanvas!: OffcanvasComponent;
-  onOpenOffcanvas = output();
   pageTitle = 'Default Title';
   pageSubtitle = 'Default Subtitle';
   searchType: Search = 'list';

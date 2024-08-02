@@ -1,34 +1,45 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, output, OnInit, Input } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit, Input, EventEmitter, Output, signal, effect } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { ClientService } from '../../services';
 import { ClientEntity } from '@profolio/interfaces';
 import { SearchBoxComponent } from '../search-box/search-box.component';
+
+export enum FormMode {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+};
+
+interface FormSubmission {
+  mode: FormMode;
+  entity: Record<string, any> | null;
+  changed: boolean;
+};
 
 @Component({
   selector: 'app-client-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SearchBoxComponent],
   templateUrl: './client-form.component.html',
-  styleUrls: ['./client-form.component.css'],
+  styleUrl: './client-form.component.css'
 })
 export class ClientFormComponent implements OnInit {
   clientForm!: FormGroup;
-  readonly formSubmitted = output();
 
-  @Input() entity: ClientEntity | undefined;
-  @Input() entityName: string | undefined;
+  @Input() entityName: string | null = null;  // TODO: change to input signal
+  @Input() entity: ClientEntity | null = null; // TODO: change to input signal
+  @Output() formSubmitted = new EventEmitter<FormSubmission>(); //TODO: change output signal
+  changed = signal<boolean>(false);
 
   private readonly fb = inject(FormBuilder);
-  private readonly clientService = inject(ClientService);
 
   constructor() {
     this.createEmptyForm();
   }
 
   ngOnInit() {
-    if (this.entity && Object.values(this.entity).length) this.populateForm(this.entity);
+    if (this.entity) this.populateForm(this.entity);
   }
 
   private createEmptyForm(): void {
@@ -49,8 +60,8 @@ export class ClientFormComponent implements OnInit {
         name: ['', Validators.required],
         description: [''],
         address: ['', Validators.required],
-        latitude: new FormControl({ value: '', disabled: true }, this.validateCoordinate),
-        longitude: new FormControl({ value: '', disabled: true }, this.validateCoordinate),
+        latitude: ['', this.validateCoordinate],
+        longitude: ['', this.validateCoordinate],
       }),
     });
   }
@@ -106,22 +117,28 @@ export class ClientFormComponent implements OnInit {
       return;
     }
 
-    const clientData = this.extractClientData(this.clientForm.value);
-
-    try {
-      if (this.entity?.id) {
-        await this.updateExistingClient(this.entity.id, clientData);
-      } else {
-        await this.createNewClient(clientData);
-        this.clientForm.reset();
-      }
-      this.formSubmitted.emit();
-    } catch (error) {
-      this.handleFormSubmissionError(error);
+    let mode: FormMode = FormMode.CREATE;
+    let entity = this.extractClientData(this.clientForm.value) as Record<string, any>;
+    if (this.entity && this.entity?.id) {
+      mode = FormMode.UPDATE;
+      entity = {
+        ...this.entity,
+        ...entity,
+        site: {...this.entity.site, ...entity['site']},
+        contact:{...this.entity.contact, ...entity['contact']},
+      };
     }
+    // see if the form has changed
+    if (this.clientForm.touched) {
+      this.changed.set(true);
+    }
+    // TODO: add a confirmation dialog before submitting the form
+
+    this.formSubmitted.emit({ entity: entity, mode: mode, changed: this.changed() });
+    this.clientForm.reset();
   }
 
-  private extractClientData(formValues: any): ClientEntity {
+  private extractClientData(formValues: Record<string, any>): ClientEntity {
     const { client, contact, site } = formValues;
     return {
       ...client,
@@ -130,31 +147,8 @@ export class ClientFormComponent implements OnInit {
     };
   }
 
-  private async updateExistingClient(entityId: string, clientData: ClientEntity): Promise<void> {
-    const updatedEntity = this.mergeWithExistingEntity(this.entity, clientData);
-    await this.clientService.updateClient(entityId, updatedEntity);
-  }
-
-  private async createNewClient(clientData: ClientEntity): Promise<void> {
-    await this.clientService.createClient(clientData);
-  }
-
-  private mergeWithExistingEntity(entity: any, clientData: ClientEntity): any {
-    const { contact, site } = clientData;
-    return {
-      ...entity,
-      ...clientData,
-      contact: { ...entity.contact, ...contact },
-      site: { ...entity.site, ...site },
-    };
-  }
-
   private showInvalidFormNotification(): void {
     console.log('Form is invalid'); // TODO: replace with a toaster notification
-  }
-
-  private handleFormSubmissionError(error: any): void {
-    console.error('Form submission failed', error); // TODO: replace with a toaster notification
   }
 
   onEdit() {
@@ -167,6 +161,8 @@ export class ClientFormComponent implements OnInit {
 
   onDelete() {
     const entityID = this.entity?.id;
-    console.log(entityID);
+    if (entityID !== undefined) {
+      this.formSubmitted.emit({ entity: this.entity as Record<string, any>, mode: FormMode.DELETE, changed: this.changed() });
+    }
   }
 }

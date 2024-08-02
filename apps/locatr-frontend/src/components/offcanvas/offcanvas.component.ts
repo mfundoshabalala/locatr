@@ -1,8 +1,8 @@
-import { Component, ViewContainerRef, OnInit, OnChanges, inject, input, viewChild, effect, signal } from '@angular/core';
+import { Component, ViewContainerRef, inject, input, viewChild, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OffcanvasService } from '../../services';
 import { DynamicFormService } from '../../services/dynamic-form.service';
-
+import { FormMode } from '../client-form/client-form.component';
 
 @Component({
   selector: 'app-offcanvas',
@@ -15,60 +15,62 @@ export class OffcanvasComponent {
   formContainer = viewChild('formContainer', { read: ViewContainerRef });
 
   title = input<string>();
-  entityName = signal<string>('');
   isOpen = signal<boolean>(false);
-  entity = signal<Record<string, any>>({});
+  entityID = signal<string | null>(null);
+  entityName = signal<string>('');
+  entity = signal<Record<string, any> | null>({});
+  mode = signal<FormMode | null>(null);
 
-  private readonly offcanvas = inject(OffcanvasService);
+  private readonly offcanvasService = inject(OffcanvasService);
   private readonly dynamicFormService = inject(DynamicFormService);
 
   constructor() {
     effect(() => {
-      this.isOpen.set(this.offcanvas.isOpen());
-      console.log('Offcanvas open:', this.isOpen());
+      this.isOpen.set(this.offcanvasService.isOpen());
     }, { allowSignalWrites: true });
 
     effect(() => {
-      this.entity.set(this.offcanvas.entity());
-      console.log('Entity:', this.entity());
-    }, { allowSignalWrites: true });
-
-    effect(() => {
-      this.entityName.set(this.offcanvas.entityName());
-      console.log('Entity name:', this.entityName());
-      this.loadForm();
-    }, { allowSignalWrites: true });
+      if (this.isOpen()) {
+        this.loadForm();
+      }
+    })
   }
 
   openOffcanvas() {
-    this.offcanvas.open(this.entityName(), this.entity());
+    this.offcanvasService.open(this.entityName(), this.entity());  //TODO: try and remove the parameters
   }
 
   closeOffcanvas() {
-    this.offcanvas.close();
+    this.offcanvasService.close();
   }
 
   loadForm() {
     this.formContainer()?.clear();
-    if (!this.entityName()) {
+    if (!this.offcanvasService.entityName() || !this.offcanvasService.isOpen()) {
       return;
     }
 
-    const component = this.dynamicFormService.getFormComponent(this.entityName());
+    const component = this.dynamicFormService.getFormComponent(this.offcanvasService.entityName());
     if (!component) {
       return;
     }
 
     const componentRef = this.formContainer()?.createComponent(component);
     if (componentRef) {
-      componentRef.instance.entityName = this.entityName();
-      componentRef.instance.entity = this.entity();
+      componentRef.instance.mode = this.offcanvasService.mode();
+      componentRef.instance.entity = this.offcanvasService.entity();
+      componentRef.instance.entityName = this.offcanvasService.entityName();
     }
 
     if (componentRef?.instance.formSubmitted) {
-      componentRef.instance.formSubmitted.subscribe(() => {
-        this.closeOffcanvas();
-      });
+      componentRef.instance.formSubmitted.subscribe(
+        ({ entity, mode, changed }: { entity: Record<string, any>; mode: FormMode, changed: boolean }) => {
+          this.offcanvasService.mode.set(mode);
+          this.offcanvasService.entity.set(entity);
+          this.offcanvasService.hasChanges.set(changed);
+          this.offcanvasService.close();
+        }
+      );
     }
   }
 }

@@ -1,9 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ClientEntity } from '@profolio/interfaces';
 import { GoogleMapsComponent } from "../../../components";
-import { ClientService } from '../../../services/client.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -23,7 +21,7 @@ export class RoutePlanningComponent implements OnInit {
     this.activatedRoute.data.subscribe((data) => this.loadData(data['clients']));
   }
 
-  loadData(list: any[]): void {
+  private loadData(list: any[]): void {
     const data = list
       .filter(client => client.isActive && client.site?.latitude && client.site?.longitude)
       .map(client => ({

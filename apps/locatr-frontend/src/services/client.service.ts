@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { inject, Injectable, signal } from '@angular/core';;
 
 import { ClientEntity } from '@profolio/interfaces';
 
@@ -9,18 +9,6 @@ export class ClientService {
   private http = inject(HttpClient);
 
   private clientUrl = 'http://localhost:3000/api/client';
-  clientList = signal<ClientEntity[]>([]);
-
-  async loadData(): Promise<void> {
-    let entityList: ClientEntity[] = [];
-    try {
-      entityList = await this.getClients();
-    } catch (error) {
-      throw new Error(`Error loading client data: ${(error as Error).message}`);
-    } finally {
-      this.clientList.set(entityList);
-    }
-  }
 
   async getClients(): Promise<ClientEntity[]> {
     try {
@@ -38,19 +26,17 @@ export class ClientService {
     }
   }
 
-  async createClient(client: ClientEntity): Promise<void> {
+  async createClient(client: ClientEntity): Promise<ClientEntity> {
     try {
-      const entity = await firstValueFrom(this.http.post<ClientEntity>(this.clientUrl, client));
-      this.clientList.update((list) => [...list, entity]);
+      return await firstValueFrom(this.http.post<ClientEntity>(this.clientUrl, client));
     } catch (error) {
       throw new Error(`Error creating client: ${(error as Error).message}`);
     }
   }
 
-  async updateClient(id: string, client: ClientEntity): Promise<void> {
+  async updateClient(id: string, client: ClientEntity): Promise<ClientEntity> {
     try {
-      await firstValueFrom(this.http.patch(`${this.clientUrl}/${id}`, client));
-      this.clientList.update((list) => list.map((item) => (item.id === id ? client : item)));
+      return await firstValueFrom(this.http.patch<ClientEntity>(`${this.clientUrl}/${id}`, client));
     } catch (error) {
       throw new Error(`Error updating client: ${(error as Error).message}`);
     }
@@ -59,7 +45,6 @@ export class ClientService {
   async deleteClient(id: string): Promise<void> {
     try {
       await firstValueFrom(this.http.delete<ClientEntity>(`${this.clientUrl}/${id}`));
-      this.clientList.update((list) => list.filter((item) => item.id !== id));
     } catch (error) {
       throw new Error(`Error deleting client: ${(error as Error).message}`);
     }
