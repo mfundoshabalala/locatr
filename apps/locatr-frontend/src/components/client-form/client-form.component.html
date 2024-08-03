@@ -114,21 +114,24 @@
         </div>
       </div>
 
-      <div class="flex gap-4">
+      <div class="grid grid-cols-2 gap-x-4">
         <div>
           <div class="flex items-center gap-3">
             <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLatitude">Latitude</label>
             <input id="siteLatitude" type="text" formControlName="latitude" placeholder="Latitude" >
           </div>
         </div>
-
+        
         <div>
           <div class="flex items-center gap-3">
             <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLongitude">Longitude</label>
             <input id="siteLongitude" type="text" formControlName="longitude" placeholder="Longitude" >
           </div>
         </div>
-
+        
+        <div *ngIf="(clientForm.get('site.latitude')?.invalid && clientForm.get('site.latitude')?.dirty) || (clientForm.get('site.longitude')?.invalid && clientForm.get('site.longitude')?.dirty)" class="text-red-500 text-xs mt-1 col-span-2">
+          Site coordinates are incorrect.
+        </div>
       </div>
     </fieldset>
 

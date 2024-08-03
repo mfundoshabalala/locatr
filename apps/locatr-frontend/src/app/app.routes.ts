@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { DashboardLayoutComponent } from '../layout';
 import { authGuard } from '../guards/auth.guard';
-import { clientResolver } from '../resolvers';
+import { clientResolver, industryResolver } from '../resolvers';
 
 export const appRoutes: Route[] = [
   {
@@ -21,7 +21,7 @@ export const appRoutes: Route[] = [
       {
         path: 'client',
         loadComponent: () => import('../pages').then((m) => m.ClientManagementComponent),
-        resolve: { clients: clientResolver },
+        resolve: { clients: clientResolver, industry: industryResolver },
         data: {
           entityName: 'client',
           title: 'Client Management',

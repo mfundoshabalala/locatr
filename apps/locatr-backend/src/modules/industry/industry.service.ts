@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateIndustryDto } from './dto/create-industry.dto';
 import { UpdateIndustryDto } from './dto/update-industry.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Industry } from './entities/industry.entity';
 
 @Injectable()
 export class IndustryService {
+  constructor(@InjectRepository(Industry) private industryRepository: Repository<Industry>) {}
+
   create(createIndustryDto: CreateIndustryDto) {
     return 'This action adds a new industry';
   }
 
   findAll() {
-    return `This action returns all industry`;
+    return this.industryRepository.find();
   }
 
   findOne(id: number) {

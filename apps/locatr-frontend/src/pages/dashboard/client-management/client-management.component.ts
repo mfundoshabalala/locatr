@@ -41,13 +41,9 @@ export class ClientManagementComponent implements OnInit {
         } catch (error: any) {
           console.log(error.message);
         } finally {
-          // this.offcanvasService.entityName.set('');
-          // this.offcanvasService.entity.set(null);
-          // this.offcanvasService.mode.set(null);
           this.offcanvasService.hasChanges.set(false);
         }
-      },
-      { allowSignalWrites: true }
+      }, { allowSignalWrites: true }
     );
   }
 
