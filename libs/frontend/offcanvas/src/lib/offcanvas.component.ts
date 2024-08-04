@@ -1,15 +1,15 @@
-import { Component, ViewContainerRef, inject, input, viewChild, effect, signal } from '@angular/core';
+import { Component, effect, inject, input, signal, viewChild, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OffcanvasService } from '../../services';
-import { DynamicFormService } from '../../services/dynamic-form.service';
-import { FormMode } from '../client-form/client-form.component';
+import { FormMode } from '@profolio/interfaces';
+import { OffcanvasService } from '../services/offcanvas.service';
+import { DynamicFormService } from '@profolio/frontend/shared/ui';
 
 @Component({
-  selector: 'app-offcanvas',
+  selector: 'lib-offcanvas',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './offcanvas.component.html',
-  styleUrls: ['./offcanvas.component.css'],
+  styleUrl: './offcanvas.component.css',
 })
 export class OffcanvasComponent {
   formContainer = viewChild('formContainer', { read: ViewContainerRef });
@@ -25,11 +25,9 @@ export class OffcanvasComponent {
   private readonly dynamicFormService = inject(DynamicFormService);
 
   constructor() {
-    effect(
-      () => {
+    effect(() => {
         this.isOpen.set(this.offcanvasService.isOpen());
-      },
-      { allowSignalWrites: true }
+      }, { allowSignalWrites: true }
     );
 
     effect(() => {

@@ -1,4 +1,6 @@
 // components
+export * from './components/search-box/search-box.component';
+
 export * from './lib/shared-ui/shared-ui.component';
 export * from './components/toast/toast.component';
 export * from './components/toast-display/toast-display.component';
@@ -16,4 +18,5 @@ export * from './directives/click-outside/click-outside.directive';
 
 // services
 export * from './services/toast.service';
-
+export * from './services/search.service';
+export * from './services/dynamic-form.service';

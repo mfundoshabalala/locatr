@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { FormMode } from '../components/client-form/client-form.component';
+import { FormMode } from '@profolio/interfaces';
 
 @Injectable({
   providedIn: 'root',

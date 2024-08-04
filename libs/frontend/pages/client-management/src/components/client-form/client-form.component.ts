@@ -2,17 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, Input, EventEmitter, Output, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { SearchBoxComponent } from '../search-box/search-box.component';
 import { deepMerge, extractFormData } from '@profolio/utils';
 import { ClientInterface } from '@profolio/interfaces';
-import { GoogleMapsService } from '../../services';
-
-export enum FormMode {
-  CREATE = 'create',
-  UPDATE = 'update',
-  DELETE = 'delete',
-  CLOSE = 'close'
-}
+import { SearchBoxComponent } from '@profolio/frontend/shared/ui';
+import { FormMode } from '@profolio/interfaces';
 
 export interface FormSubmission {
   mode: FormMode;
@@ -21,7 +14,7 @@ export interface FormSubmission {
 }
 
 @Component({
-  selector: 'app-client-form',
+  selector: 'lib-client-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SearchBoxComponent],
   templateUrl: './client-form.component.html',
@@ -36,7 +29,6 @@ export class ClientFormComponent implements OnInit {
   changed = signal<boolean>(false);
 
   private readonly fb = inject(FormBuilder);
-  private googleMapsService = inject(GoogleMapsService);
 
   constructor() {
     this.createEmptyForm();

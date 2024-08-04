@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastComponent } from '@profolio/frontend/shared/ui';
 import { LoaderComponent } from '../components';
-import { OffcanvasComponent } from '../components';
+import { OffcanvasComponent } from '@profolio/offcanvas';
+
 
 @Component({
   standalone: true,
@@ -12,7 +13,7 @@ import { OffcanvasComponent } from '../components';
     <router-outlet></router-outlet>
     <lib-toast></lib-toast>
     <app-loader></app-loader>
-    <app-offcanvas></app-offcanvas>
+    <lib-offcanvas></lib-offcanvas>
   `,
   styleUrl: './app.component.scss',
 })

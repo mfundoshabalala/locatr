@@ -20,7 +20,7 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'client',
-        loadComponent: () => import('../pages').then((m) => m.ClientManagementComponent),
+        loadComponent: () => import('@profolio/frontend/pages/client-management').then((m) => m.ClientManagementComponent),
         resolve: { clients: clientResolver, industry: industryResolver },
         data: {
           title: 'Client Management',

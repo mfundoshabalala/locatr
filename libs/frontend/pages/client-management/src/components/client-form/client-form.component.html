@@ -109,7 +109,7 @@
           @if (entity?.site?.address) {
             <input id="siteAddress" type="text" formControlName="address" placeholder="Address" [value]="entity?.site?.address">
           } @else {
-            <app-search-box type="address" placeholder="Search for site address" (placeChange)="onPlaceChange($event)" class="border rounded border-slate-300 flex-1 bg-white shadow-sm"></app-search-box>
+            <lib-search-box type="address" placeholder="Search for site address" (placeChange)="onPlaceChange($event)" class="border rounded border-slate-300 flex-1 bg-white shadow-sm"></lib-search-box>
           }
         </div>
       </div>

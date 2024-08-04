@@ -1,20 +1,21 @@
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { Component, inject, signal, OnInit, effect } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit, signal, inject, effect } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 
-import { ClientService } from '../../../services/client.service';
-import { OffcanvasService } from '../../../services/offcanvas.service';
-import { ClientListComponent } from '../../../components/client-list/client-list.component';
-import { ClientInterface } from '@profolio/interfaces';
+import { ClientInterface } from "@profolio/interfaces";
+import { OffcanvasService } from "@profolio/offcanvas";
+import { DynamicFormService } from "@profolio/frontend/shared/ui";
+
+import { ClientService } from "../services/client.service";
+import { ClientListComponent } from "../components/client-list/client-list.component";
+import { ClientFormComponent } from "../components/client-form/client-form.component";
 
 @Component({
-  selector: 'app-client-management',
+  selector: 'lib-client-management',
   standalone: true,
   imports: [CommonModule, ClientListComponent],
   template: `
-    <app-client-list [list]="clientList()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)">
-      <!-- FIXME: move these out of the template and use ofcanvas instead -->
-    </app-client-list>
+    <lib-client-list [list]="clientList()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)"></lib-client-list>
   `,
   styleUrl: './client-management.component.css',
 })
@@ -24,8 +25,10 @@ export class ClientManagementComponent implements OnInit {
   private readonly clientService = inject(ClientService);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly offcanvasService = inject(OffcanvasService);
+  dynamicFormService = inject(DynamicFormService);
 
   constructor() {
+    this.dynamicFormService.registerFormComponent('client', ClientFormComponent);
     effect(
       async () => {
         try {
@@ -43,7 +46,8 @@ export class ClientManagementComponent implements OnInit {
         } finally {
           this.offcanvasService.hasChanges.set(false);
         }
-      }, { allowSignalWrites: true }
+      },
+      { allowSignalWrites: true }
     );
   }
 

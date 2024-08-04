@@ -4,9 +4,9 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 
-import { OffcanvasService } from '../../services';
-import { OffcanvasComponent } from '../offcanvas/offcanvas.component';
-import { Search, SearchBoxComponent } from '../search-box/search-box.component';
+
+import { SearchBoxComponent, Search } from '@profolio/frontend/shared/ui';
+import { OffcanvasComponent, OffcanvasService } from '@profolio/offcanvas';
 
 @Component({
   selector: 'app-content-header',
@@ -20,7 +20,7 @@ import { Search, SearchBoxComponent } from '../search-box/search-box.component';
       </div>
       <div>
         @if (showSearchBox) {
-          <app-search-box [type]="searchType" />
+          <lib-search-box [type]="searchType" />
         } @if (showCreateButton) {
           <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
         }

@@ -22,8 +22,11 @@
       "@profolio/app/pages/*": ["./apps/locatr-frontend/src/pages/*"],
       "@profolio/app/services/*": ["./apps/locatr-frontend/src/services/*"],
       "@profolio/frontend/maps": ["libs/frontend/maps/src/index.ts"],
+      "@profolio/frontend/pages/client-management": ["libs/frontend/pages/client-management/src/index.ts"],
+      "@profolio/frontend/pages/employee-management": ["libs/frontend/pages/employee-management/src/index.ts"],
       "@profolio/frontend/shared/ui": ["libs/frontend/shared/ui/src/index.ts"],
       "@profolio/interfaces": ["libs/interfaces/src/index.ts"],
+      "@profolio/offcanvas": ["libs/frontend/offcanvas/src/index.ts"],
       "@profolio/utils": ["libs/utils/src/index.ts"]
     }
   },

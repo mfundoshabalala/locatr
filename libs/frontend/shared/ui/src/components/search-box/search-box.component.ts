@@ -1,10 +1,10 @@
 import { Component, ViewChild, ElementRef, forwardRef, inject, input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { SearchService } from '../../services';
+import { SearchService } from '../..';
 
 @Component({
-  selector: 'app-search-box',
+  selector: 'lib-search-box',
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `

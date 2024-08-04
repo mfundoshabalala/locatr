@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ClientInterface } from '@profolio/interfaces';
 
 @Component({
-  selector: 'app-client-list',
+  selector: 'lib-client-list',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './client-list.component.html',
