@@ -10,8 +10,8 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'dashboard',
-    component: DashboardLayoutComponent,
     canActivate: [authGuard],
+    component: DashboardLayoutComponent,
     data: {
       title: 'Dashboard',
       subtitle: 'Overview of your route planning activities.',
@@ -19,10 +19,16 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
+        path: '',
+        loadComponent: () => import('../pages').then((m) => m.DashboardComponent),
+        resolve: { clients: clientResolver },
+      },
+      {
         path: 'client',
         loadComponent: () => import('../pages').then((m) => m.ClientManagementComponent),
         resolve: { clients: clientResolver, industry: industryResolver },
         data: {
+          entityName: 'client',
           title: 'Client Management',
           entityName: 'client',
           subtitle: 'Manage and track client information and locations.',
