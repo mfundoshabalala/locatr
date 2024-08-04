@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Component, inject, OnInit, output, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 
 import { OffcanvasService } from '../../services';
 import { OffcanvasComponent } from '../offcanvas/offcanvas.component';
-import { Search, SearchBoxComponent } from "../search-box/search-box.component";
+import { Search, SearchBoxComponent } from '../search-box/search-box.component';
 
 @Component({
   selector: 'app-content-header',
@@ -20,10 +20,9 @@ import { Search, SearchBoxComponent } from "../search-box/search-box.component";
       </div>
       <div>
         @if (showSearchBox) {
-          <app-search-box [type]="searchType" />
-        }
-        @if (showCreateButton) {
-          <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
+        <app-search-box [type]="searchType" />
+        } @if (showCreateButton) {
+        <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
         }
       </div>
     </header>
@@ -36,6 +35,9 @@ export class ContentHeaderComponent implements OnInit {
   pageSubtitle = 'Default Subtitle';
   searchType: Search = 'list';
   showSearchBox = false;
+  showCreateButton = false;
+  title = '';
+  entityName = '';
 
   private readonly router = inject(Router);
   private readonly titleService = inject(Title);
@@ -76,6 +78,11 @@ export class ContentHeaderComponent implements OnInit {
     this.searchType = data['searchType'] || 'none';
     this.pageTitle = data['title'] || 'Default Title';
     this.pageSubtitle = data['subtitle'] || 'Default Subtitle';
+    this.title = 'Add ' + data['entityName'];
+    if (data['entityName'] !== undefined) {
+      this.entityName = data['entityName'];
+      this.showCreateButton = true;
+    }
     this.titleService.setTitle(this.pageTitle);
   }
 
@@ -89,6 +96,12 @@ export class ContentHeaderComponent implements OnInit {
     const initialTitle = route.data['title'] || 'Default Title';
     const initialSubtitle = route.data['subtitle'] || 'Default Subtitle';
     const initialSearchType = route.data['searchType'] || 'none';
+    const title = 'Add ' + route.data['entityName'];
+    if (route.data['entityName'] !== undefined) {
+      this.entityName = route.data['entityName'];
+      this.showCreateButton = true;
+    }
+    this.title = title;
     this.pageTitle = initialTitle;
     this.pageSubtitle = initialSubtitle;
     this.searchType = initialSearchType;

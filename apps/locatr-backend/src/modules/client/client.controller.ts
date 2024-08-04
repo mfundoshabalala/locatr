@@ -1,5 +1,5 @@
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 
 import { ClientService } from './client.service';
 import { Client } from './entities/client.entity';

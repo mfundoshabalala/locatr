@@ -1,15 +1,17 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { join } from 'path';
 
 @Injectable()
 export class DBConfigService implements TypeOrmOptionsFactory {
-	constructor (private readonly configService: ConfigService) {
-    console.log(__dirname + '/../../**/*.entity{.ts,.js}');
-  }
+  constructor(private readonly configService: ConfigService) {}
 
-	createTypeOrmOptions(): TypeOrmModuleOptions {
-		return {
+  createTypeOrmOptions(): TypeOrmModuleOptions {
+    const isProduction = process.env.NODE_ENV === 'production';
+    const sourcePath = isProduction ? 'dist' : 'src';
+
+    return {
       type: 'postgres',
       host: this.configService.get('POSTGRES_HOST'),
       port: +this.configService.get('POSTGRES_PORT'),
@@ -23,5 +25,5 @@ export class DBConfigService implements TypeOrmOptionsFactory {
       autoLoadEntities: true,
       logging: !isProduction,
     };
-	}
+  }
 }

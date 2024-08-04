@@ -8,11 +8,7 @@ import { User } from '@migrations/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly userService: UserService,
-    private readonly jwtService: JwtService,
-    private readonly roleService: RoleService
-  ) {}
+  constructor(private readonly jwtService: JwtService, private readonly userService: UserService) {}
 
   private async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(password, 10);
@@ -28,26 +24,22 @@ export class AuthService {
       throw new UnauthorizedException("User doesn't exist");
     }
 
-    if (!await this.comparePasswords(password, user.password)) {
+    if (!(await this.comparePasswords(password, user.password))) {
       throw new UnauthorizedException('Invalid password');
     }
-
     const payload = { sub: user.id, username: user.username };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync(payload, { secret: process.env.JWT_SECRET }),
     };
   }
 
   async signUp(payload: CreateUserDto): Promise<User> {
-    let user: User;
-    console.log(payload);
     try {
       payload = { ...payload, password: await this.hashPassword(payload.password) };
       return await this.userService.create(payload);
     } catch (error) {
       throw new UnauthorizedException((error as Error).message);
     }
-    return user;
   }
 
   async forgotPassword(username: string): Promise<string> {
@@ -55,7 +47,6 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
-
     return 'Password reset link sent to your email';
   }
 

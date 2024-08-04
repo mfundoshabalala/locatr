@@ -1,5 +1,15 @@
 import { IsNotEmpty } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, OneToOne, Unique } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  Unique,
+} from 'typeorm';
 
 import { Site } from '@migrations/site/entities/site.entity';
 import { Contact } from '@migrations/contact/entities/contact.entity';
@@ -7,11 +17,10 @@ import { Industry } from '@migrations/industry/entities/industry.entity';
 
 @Entity()
 export class Client {
-
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
   id!: string;
 
-  @Column()
+  @Column({ unique: true, type: 'varchar', length: 255 })
   @IsNotEmpty()
   name!: string;
 

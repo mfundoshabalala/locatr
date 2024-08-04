@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, Input, EventEmitter, Output, signal, effect } from '@angular/core';
+import { Component, inject, OnInit, Input, EventEmitter, Output, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { SearchBoxComponent } from '../search-box/search-box.component';

@@ -12,7 +12,7 @@ import { OffcanvasComponent } from '../components';
     <router-outlet></router-outlet>
     <lib-toast></lib-toast>
     <app-loader></app-loader>
-    <app-offcanvas></app-offcanvas> 
+    <app-offcanvas></app-offcanvas>
   `,
   styleUrl: './app.component.scss',
 })
