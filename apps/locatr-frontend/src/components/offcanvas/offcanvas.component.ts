@@ -69,8 +69,13 @@ export class OffcanvasComponent {
       componentRef.instance.formSubmitted.subscribe(
         ({ entity, mode, changed }: { entity: Record<string, any>; mode: FormMode; changed: boolean }) => {
           this.offcanvasService.mode.set(mode);
-          this.offcanvasService.entity.set(entity);
-          this.offcanvasService.hasChanges.set(changed);
+          if (mode !== FormMode.CLOSE) {
+            this.offcanvasService.entity.set(entity);
+            this.offcanvasService.hasChanges.set(changed);
+          } else {
+            this.offcanvasService.entity.set(null);
+            this.offcanvasService.hasChanges.set(false);
+          }
           this.offcanvasService.close();
         }
       );

@@ -10,6 +10,7 @@ export enum FormMode {
   CREATE = 'create',
   UPDATE = 'update',
   DELETE = 'delete',
+  CLOSE = 'close'
 }
 
 export interface FormSubmission {
@@ -157,5 +158,13 @@ export class ClientFormComponent implements OnInit {
         changed: this.changed(),
       });
     }
+  }
+
+  onClose() {
+    this.formSubmitted.emit({
+      entity: this.entity as Record<string, any>,
+      mode: FormMode.CLOSE,
+      changed: this.changed(),
+    });
   }
 }
