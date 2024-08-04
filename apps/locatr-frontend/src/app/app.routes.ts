@@ -28,6 +28,7 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('../pages').then((m) => m.ClientManagementComponent),
         resolve: { clients: clientResolver, industry: industryResolver },
         data: {
+          entityName: 'client',
           title: 'Client Management',
           subtitle: 'Manage and track client information and locations.',
           searchType: 'list',
