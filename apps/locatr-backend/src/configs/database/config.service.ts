@@ -16,9 +16,12 @@ export class DBConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get('POSTGRES_USER'),
       password: this.configService.get('POSTGRES_PASSWORD'),
       database: this.configService.get('POSTGRES_DATABASE'),
-      entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
-      synchronize: true,
-      autoLoadEntities: true
+      migrations: [join(__dirname, `../../${sourcePath}/migrations/*{.ts,.js}`)],
+      entities: [join(__dirname, `../../${sourcePath}/modules/**/*.entity{.ts,.js}`)],
+      synchronize: !isProduction,
+      migrationsRun: true,
+      autoLoadEntities: true,
+      logging: !isProduction,
     };
 	}
 }

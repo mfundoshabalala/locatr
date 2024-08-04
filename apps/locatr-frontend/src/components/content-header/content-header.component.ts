@@ -1,33 +1,54 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Component, inject, OnInit, output, ViewChild } from '@angular/core';
 
+import { OffcanvasService } from '../../services';
+import { OffcanvasComponent } from '../offcanvas/offcanvas.component';
 import { Search, SearchBoxComponent } from "../search-box/search-box.component";
 
 @Component({
   selector: 'app-content-header',
   standalone: true,
-  imports: [CommonModule, SearchBoxComponent],
-  templateUrl: './content-header.component.html',
+  imports: [CommonModule, SearchBoxComponent, OffcanvasComponent],
+  template: `
+    <header>
+      <div class="prose text-pretty">
+        <h2 class="mb-1">{{ pageTitle }}</h2>
+        <h3>{{ pageSubtitle }}</h3>
+      </div>
+      <div>
+        @if (showSearchBox) {
+          <app-search-box [type]="searchType" />
+        }
+        @if (showCreateButton) {
+          <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
+        }
+      </div>
+    </header>
+  `,
   styleUrls: ['./content-header.component.css'],
 })
 export class ContentHeaderComponent implements OnInit {
+  @ViewChild('offcanvas') offcanvas!: OffcanvasComponent;
   pageTitle = 'Default Title';
   pageSubtitle = 'Default Subtitle';
   searchType: Search = 'list';
   showSearchBox = false;
 
-  constructor(
-    private router: Router,
-    private titleService: Title,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  private readonly router = inject(Router);
+  private readonly titleService = inject(Title);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  readonly offcanvasService = inject(OffcanvasService);
 
   ngOnInit(): void {
     this.setupRouterEventsSubscription();
     this.setInitialTitleAndSubtitle();
+  }
+
+  openCanvas() {
+    this.offcanvasService.open(this.entityName);
   }
 
   /**

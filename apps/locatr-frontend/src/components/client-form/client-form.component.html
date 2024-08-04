@@ -1,0 +1,176 @@
+<section>
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <fieldset formGroupName="client" class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+      <legend class="text-sm font-medium text-gray-700">Client Information</legend>
+
+      <div class="mt-4">
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="name">Company
+            Name</label>
+          <input type="text" id="name" formControlName="name" placeholder="Company Ltd">
+        </div>
+        <div *ngIf="clientForm.get('name')?.hasError('required') && clientForm.get('name')?.touched"
+          class="text-red-500 text-xs mt-1">
+          Name is required
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="website">Website</label>
+          <input type="url" id="website" formControlName="website" placeholder="https://example.com">
+        </div>
+        <div *ngIf="clientForm.get('website')?.hasError('pattern')" class="text-red-500 text-xs mt-1">
+          Please enter a valid URL
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="businessHours">Business Hours</label>
+          <input type="text" id="businessHours" formControlName="businessHours" placeholder="9 AM - 5 PM">
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="notes">Notes</label>
+          <textarea id="notes" formControlName="notes" placeholder="Notes"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm"></textarea>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="services">Services</label>
+          <textarea id="services" formControlName="services" placeholder="Services provided"
+            class="border rounded py-1.5 border-slate-300 flex-1 bg-white shadow-sm"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="contact" class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+      <legend class="text-sm font-medium text-gray-700">Contact Information</legend>
+
+      <div class="mt-4">
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="contactName">Contact Name</label>
+          <input id="contactName" type="text" formControlName="name" placeholder="Contact Name">
+        </div>
+        <div *ngIf="clientForm.get('contact.name')?.hasError('required') && clientForm.get('contact.name')?.touched" class="text-red-500 text-xs mt-1">
+          Contact name is required
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="contactEmail">Email</label>
+          <input id="contactEmail" type="email" formControlName="email" placeholder="email@example.com">
+        </div>
+        <div *ngIf="clientForm.get('contact.email')?.hasError('email')" class="text-red-500 text-xs mt-1">
+          Please enter a valid email
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="contactPhone">Phone</label>
+          <input id="contactPhone" type="text" formControlName="phone" placeholder="0123456789">
+        </div>
+        <div *ngIf="clientForm.get('contact.phone')?.hasError('pattern')" class="text-red-500 text-xs mt-1">
+          Phone number must be in the format 0123456789
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="site" class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+      <legend class="text-sm font-medium text-gray-700">Site Information</legend>
+
+      <div class="mt-4">
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteName">Site Name</label>
+          <input id="siteName" type="text" formControlName="name" placeholder="Site Name">
+        </div>
+        <div *ngIf="clientForm.get('site.name')?.hasError('required') && clientForm.get('site.name')?.touched" class="text-red-500 text-xs mt-1">
+          Site name is required
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteDescription">Description</label>
+          <input id="siteDescription" type="text" formControlName="description" placeholder="Description">
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3">
+          <label class="w-28 text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteAddress">Address</label>
+          @if (entity?.site?.address) {
+            <input id="siteAddress" type="text" formControlName="address" placeholder="Address" [value]="entity?.site?.address">
+          } @else {
+            <app-search-box type="address" placeholder="Search for site address" (placeChange)="onPlaceChange($event)" class="border rounded border-slate-300 flex-1 bg-white shadow-sm"></app-search-box>
+          }
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-x-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLatitude">Latitude</label>
+            <input id="siteLatitude" type="text" formControlName="latitude" placeholder="Latitude" >
+          </div>
+        </div>
+        
+        <div>
+          <div class="flex items-center gap-3">
+            <label class="text-sm text-pretty font-medium leading-tight text-slate-600 text-right" for="siteLongitude">Longitude</label>
+            <input id="siteLongitude" type="text" formControlName="longitude" placeholder="Longitude" >
+          </div>
+        </div>
+        
+        <div *ngIf="(clientForm.get('site.latitude')?.invalid && clientForm.get('site.latitude')?.dirty) || (clientForm.get('site.longitude')?.invalid && clientForm.get('site.longitude')?.dirty)" class="text-red-500 text-xs mt-1 col-span-2">
+          Site coordinates are incorrect.
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="grid md:grid-cols-4 gap-4 text-slate-800 font-medium text-sm">
+      <!-- submit button -->
+      <button type="submit" [disabled]="clientForm.invalid || clientForm.pristine"
+        class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-blue-600 px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          @if (clientForm.invalid) {
+            <img  src="assets/icons/error-16.svg" class="size-4" alt="Error">
+          } @else {
+            <img  src="assets/icons/submit-success.svg" class="size-4" alt="Success">
+          }
+        Submit
+      </button>
+      <!-- edit button -->
+      @if (entity?.id) {
+        <button type="button" (click)="onEdit()"
+          class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-slate-600 px-4 py-2 rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <img src="assets/icons/edit-2.svg" class="size-4" alt="Edit">
+          Edit
+        </button>
+      }
+      <!-- clear button -->
+      @if (clientForm.dirty && !entity?.id) {
+        <button type="button" (click)="onClear()" [disabled]="clientForm.enabled"
+          class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-yellow-600 px-4 py-2 rounded-md shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <img src="assets/icons/clear.svg" class="size-4" alt="Clear">
+          Clear
+        </button>
+      }
+      <!-- delete button -->
+      @if (entity?.id) {
+        <button type="button" (click)="onDelete()"
+          class="flex flex-nowrap justify-center items-center gap-x-1 cursor-pointer mt-6 bg-red-600 px-4 py-2 rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <img src="assets/icons/delete.svg" class="size-4" alt="Delete">
+          Delete
+        </button>
+      }
+    </div>
+
+  </form>
+</section>

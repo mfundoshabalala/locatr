@@ -1,5 +1,3 @@
-// @import '@angular/cdk/overlay-prebuilt.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,9 +20,37 @@ app-root {
 //   @apply px-4 py-1.5 border rounded-md shadow-sm inline-block bg-white;
 // }
 
-// input[type="text"] {
-//   @apply rounded-md border shadow-md py-2 border-slate-300 pl-9 text-sm font-medium capitalize;
-// }
+input[type="search"], input[type="text"], input[type="email"], input[type="url"] {
+  @apply w-full border rounded border-slate-300 flex-1 bg-white shadow-sm;
+}
+
+input[type="search"]:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus {
+  @apply border-cyan-500;
+}
+
+input[type="search"]::placeholder, input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="url"]::placeholder {
+  @apply text-slate-400;
+}
+
+input[type="search"]:disabled, input[type="text"]:disabled, input[type="email"]:disabled, input[type="url"]:disabled {
+  @apply bg-slate-200 cursor-not-allowed;
+}
+
+textarea {
+  @apply w-full border rounded border-slate-300 bg-white shadow-sm;
+}
+
+textarea:focus {
+  @apply border-cyan-500;
+}
+
+textarea::placeholder {
+  @apply text-slate-400;
+}
+
+textarea:disabled {
+  @apply bg-slate-200 cursor-not-allowed;
+}
 
 // button inputs
 .btn {
@@ -34,6 +60,7 @@ app-root {
 .btn.btn-error {
   @apply hover:bg-red-500 text-slate-900;
 }
+
 button.btn {
   @apply py-3;
 }
@@ -41,6 +68,7 @@ button.btn {
 button.btn-info {
   @apply bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800;
 }
+
 // .avatar {
 //   @apply ;
 // }

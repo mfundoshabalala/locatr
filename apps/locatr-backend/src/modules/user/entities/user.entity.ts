@@ -1,36 +1,57 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 // entities
-import { Role } from "../../role/entities/role.entity";
-import { Employee } from "../../employee/entities/employee.entity";
+import { Employee } from "@migrations/employee/entities/employee.entity";
+import { Contact } from "@migrations/contact/entities/contact.entity";
+import { Role } from "@migrations/role/entities/role.entity";
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid', { name: 'userID' })
   id!: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, type: 'varchar', length: 255 })
   username!: string;
 
-  @Column()
+  @Column({ unique: true, type: 'varchar', length: 255 })
+  email!: string;
+
+  @Column({ type: 'varchar', length: 255 })
   password!: string;
 
-  @OneToOne(() => Role, (role) => role.user)
-  @JoinColumn()
-  role!: Role; // assigned based on department and position
+  @Column({ type: 'boolean', default: false })
+  isVerified!: boolean;
 
-  @OneToOne(() => Employee, (employee) => employee.user, { cascade: true })
-  @JoinColumn()
+  @OneToOne(() => Employee, { cascade: true })
+  @JoinColumn({ name: 'employeeID' })
   employee!: Employee;
 
-  @CreateDateColumn({ type: 'timestamp', name: 'createdAt' })
+  @OneToOne(() => Contact, { cascade: true })
+  @JoinColumn({ name: 'contactID' })
+  contact!: Contact;
+
+  @ManyToMany(() => Role, (role) => role.users)
+  @JoinTable({
+    name: 'user_roles',
+    joinColumn: {
+      name: 'userID',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'roleID',
+      referencedColumnName: 'id',
+    }
+  })
+  roles!: Role[];
+
+  @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false, update: false, length: 255, type: 'varchar', default: 'system' })
   createdBy!: string;
 
-  @UpdateDateColumn({ type: 'timestamp', name: 'updatedAt' })
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt!: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 255, type: 'varchar', default: 'system' })
   updatedBy!: string;
 }

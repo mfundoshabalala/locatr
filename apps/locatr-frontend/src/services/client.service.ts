@@ -1,32 +1,52 @@
-import { Injectable } from '@angular/core';;
-import { Observable } from 'rxjs';
-
-import { IClient } from '@profolio/interfaces';
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+
+import { ClientInterface } from '@profolio/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
-  private apiUrl = 'http://localhost:3000/api/clients';
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private clientUrl = 'http://localhost:3000/api/client';
 
-  getClients(): Observable<IClient[]> {
-    return this.http.get<IClient[]>(this.apiUrl);
+  async getClients(): Promise<ClientInterface[]> {
+    try {
+      return await lastValueFrom(this.http.get<ClientInterface[]>(this.clientUrl));
+    } catch (error) {
+      throw new Error(`Error getting client list: ${(error as Error).message}`);
+    }
   }
 
-  getClient(id: number): Observable<IClient> {
-    return this.http.get<IClient>(`${this.apiUrl}/${id}`);
+  async getClientByID(id: string): Promise<ClientInterface> {
+    try {
+      return await firstValueFrom(this.http.get<ClientInterface>(`${this.clientUrl}/${id}`));
+    } catch (error) {
+      throw new Error(`Error getting client by ID: ${(error as Error).message}`);
+    }
   }
 
-  createClient(client: IClient): Observable<IClient> {
-    return this.http.post<IClient>(this.apiUrl, client);
+  async createClient(client: ClientInterface): Promise<ClientInterface> {
+    try {
+      return await firstValueFrom(this.http.post<ClientInterface>(this.clientUrl, client));
+    } catch (error) {
+      throw new Error(`Error creating client: ${(error as Error).message}`);
+    }
   }
 
-  updateClient(id: number, client: IClient): Observable<IClient> {
-    return this.http.put<IClient>(`${this.apiUrl}/${id}`, client);
+  async updateClient(id: string, client: ClientInterface): Promise<ClientInterface> {
+    try {
+      return await firstValueFrom(this.http.patch<ClientInterface>(`${this.clientUrl}/${id}`, client));
+    } catch (error) {
+      throw new Error(`Error updating client: ${(error as Error).message}`);
+    }
   }
 
-  deleteClient(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  async deleteClient(id: string): Promise<void> {
+    try {
+      await firstValueFrom(this.http.delete<ClientInterface>(`${this.clientUrl}/${id}`));
+    } catch (error) {
+      throw new Error(`Error deleting client: ${(error as Error).message}`);
+    }
   }
 }

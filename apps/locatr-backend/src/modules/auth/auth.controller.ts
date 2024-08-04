@@ -24,9 +24,9 @@ export class AuthController {
     const payload: CreateUserDto = {
       username: signUpDto.username,
       password: signUpDto.password,
-      roleID: signUpDto.roleID,
+      email: signUpDto.email,
       employee: signUpDto.employee,
-      role: null,
+      contact: signUpDto.contact
     };
     return this.authService.signUp(payload);
   }

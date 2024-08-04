@@ -1,193 +1,50 @@
-<!-- Backdrop -->
-<div *ngIf="isOpen" class="fixed inset-0 z-40 bg-opacity-50 bg-slate-900" (click)="closeOffcanvas()"></div>
-
-<!-- Offcanvas -->
-<div *ngIf="isOpen" [@slideInOut] class="fixed inset-y-0 right-0 z-50 w-1/2 overflow-auto bg-white shadow-lg">
-	<div class="p-6">
-		<h2 class="mb-4 text-xl font-bold">Create New Client</h2>
-		<form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-			<div class="mb-4">
-				<label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-				<input type="text" id="name" name="name" class="block w-full mt-1 border border-gray-300 rounded-md shadow-sm"
-					[(ngModel)]="newClient.name" required>
-			</div>
-			<div class="mb-4">
-				<label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-				<input type="email" id="email" name="email"
-					class="block w-full mt-1 border border-gray-300 rounded-md shadow-sm" [(ngModel)]="newClient.email" required>
-			</div>
-			<div class="mb-4">
-				<label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-				<input type="tel" id="phone" name="phone" class="block w-full mt-1 border border-gray-300 rounded-md shadow-sm"
-					[(ngModel)]="newClient.phone" required>
-			</div>
-			<div class="mb-4">
-				<label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-				<input type="text" id="address" name="address"
-					class="block w-full mt-1 border border-gray-300 rounded-md shadow-sm" [(ngModel)]="newClient.address"
-					required>
-			</div>
-			<button type="submit" class="px-4 py-2 mt-4 text-white bg-blue-600 rounded-md" [disabled]="clientForm.invalid">Add
-				Client</button>
-		</form>
-	</div>
-</div>
-
-<button class="px-4 py-2 mt-4 text-white bg-green-600 rounded-md" (click)="openOffcanvas()">Open Offcanvas</button>
-
-<!-- Client list -->
-<!-- <div *ngFor="let client of clients">
-	<p>{{ client.name }} - {{ client.email }}</p>
-</div> -->
-
-<div class="flex flex-col">
-	<div class="-m-1.5 overflow-x-auto">
-		<div class="p-1.5 min-w-full inline-block align-middle">
-			<div class="border divide-y divide-gray-200 rounded-lg">
-				<div class="px-4 py-3">
-					<div class="relative max-w-xs">
-						<label class="sr-only">Search</label>
-						<input type="text" name="hs-table-with-pagination-search" id="hs-table-with-pagination-search"
-							class="block w-full px-3 py-2 text-sm border-gray-200 rounded-lg shadow-sm ps-9 focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-							placeholder="Search for items">
-						<div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
-							<svg class="text-gray-400 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-								viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round">
-								<circle cx="11" cy="11" r="8"></circle>
-								<path d="m21 21-4.3-4.3"></path>
-							</svg>
-						</div>
-					</div>
-				</div>
-				<div class="overflow-hidden">
-					<table class="min-w-full divide-y divide-gray-200">
-						<thead class="bg-gray-50">
-							<tr>
-								<th scope="col" class="px-4 py-3 pe-0">
-									<div class="flex items-center h-5">
-										<input id="hs-table-pagination-checkbox-all" type="checkbox"
-											class="text-blue-600 border-gray-200 rounded focus:ring-blue-500">
-										<label for="hs-table-pagination-checkbox-all" class="sr-only">Checkbox</label>
-									</div>
-								</th>
-								<th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">Name</th>
-								<th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">Age</th>
-								<th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-start">Address</th>
-								<th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase text-end">Action</th>
-							</tr>
-						</thead>
-						<tbody class="divide-y divide-gray-200">
-							<tr>
-								<td class="py-3 ps-4">
-									<div class="flex items-center h-5">
-										<input id="hs-table-pagination-checkbox-1" type="checkbox"
-											class="text-blue-600 border-gray-200 rounded focus:ring-blue-500">
-										<label for="hs-table-pagination-checkbox-1" class="sr-only">Checkbox</label>
-									</div>
-								</td>
-								<td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">John Brown</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">45</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">New York No. 1 Lake Park</td>
-								<td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-									<button type="button"
-										class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-								</td>
-							</tr>
-
-							<tr>
-								<td class="py-3 ps-4">
-									<div class="flex items-center h-5">
-										<input id="hs-table-pagination-checkbox-2" type="checkbox"
-											class="text-blue-600 border-gray-200 rounded focus:ring-blue-500">
-										<label for="hs-table-pagination-checkbox-2" class="sr-only">Checkbox</label>
-									</div>
-								</td>
-								<td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">Jim Green</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">27</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">London No. 1 Lake Park</td>
-								<td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-									<button type="button"
-										class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-								</td>
-							</tr>
-
-							<tr>
-								<td class="py-3 ps-4">
-									<div class="flex items-center h-5">
-										<input id="hs-table-pagination-checkbox-3" type="checkbox"
-											class="text-blue-600 border-gray-200 rounded focus:ring-blue-500">
-										<label for="hs-table-pagination-checkbox-3" class="sr-only">Checkbox</label>
-									</div>
-								</td>
-								<td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">Joe Black</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">31</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">Sidney No. 1 Lake Park</td>
-								<td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-									<button type="button"
-										class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-								</td>
-							</tr>
-
-							<tr>
-								<td class="py-3 ps-4">
-									<div class="flex items-center h-5">
-										<input id="hs-table-pagination-checkbox-4" type="checkbox"
-											class="text-blue-600 border-gray-200 rounded focus:ring-blue-500">
-										<label for="hs-table-pagination-checkbox-4" class="sr-only">Checkbox</label>
-									</div>
-								</td>
-								<td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">Edward King</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">16</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">LA No. 1 Lake Park</td>
-								<td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-									<button type="button"
-										class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-								</td>
-							</tr>
-
-							<tr>
-								<td class="py-3 ps-4">
-									<div class="flex items-center h-5">
-										<input id="hs-table-pagination-checkbox-5" type="checkbox"
-											class="text-blue-600 border-gray-200 rounded focus:ring-blue-500">
-										<label for="hs-table-pagination-checkbox-5" class="sr-only">Checkbox</label>
-									</div>
-								</td>
-								<td class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">Jim Red</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">45</td>
-								<td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">Melbourne No. 1 Lake Park</td>
-								<td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-									<button type="button"
-										class="inline-flex items-center text-sm font-semibold text-blue-600 border border-transparent rounded-lg gap-x-2 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="px-4 py-1">
-					<nav class="flex items-center space-x-1">
-						<button type="button"
-							class="p-2.5 min-w-[40px] inline-flex justify-center items-center gap-x-2 text-sm rounded-full text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
-							<span aria-hidden="true">«</span>
-							<span class="sr-only">Previous</span>
-						</button>
-						<button type="button"
-							class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none"
-							aria-current="page">1</button>
-						<button type="button"
-							class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none">2</button>
-						<button type="button"
-							class="min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2.5 text-sm rounded-full disabled:opacity-50 disabled:pointer-events-none">3</button>
-						<button type="button"
-							class="p-2.5 min-w-[40px] inline-flex justify-center items-center gap-x-2 text-sm rounded-full text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
-							<span class="sr-only">Next</span>
-							<span aria-hidden="true">»</span>
-						</button>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
+<section class="p-6 overflow-hidden">
+	<!-- <table class="min-w-full divide-y divide-slate-200 border rounded-md table-zebra"> -->
+  <table class="table  table-pin-rows table-pin-cols text-pretty">
+		<thead class="">
+			<tr class="text-sm font-medium text-slate-500 capitalize">
+				<th scope="col" class="px-2 py-2 text-start">Client</th>
+				<th scope="col" class="px-2 py-2 text-start">Business Name</th>
+				<th scope="col" class="px-2 py-2 text-start">Industry</th>
+				<th scope="col" class="px-2 py-2 text-start">Status</th>
+				<th scope="col" class="px-2 py-2 text-start">action</th>
+			</tr>
+		</thead>
+		<tbody class="divide-y divide-slate-200">
+			<tr *ngFor="let item of list()">
+				<td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ item?.contact?.name }}</span>
+          <span class="block text-xs text-slate-600 italic">{{ item?.contact?.email }}</span>
+        </td>
+				<td class="px-2 py-2 text-sm text-slate-800">
+          @if (item.website) {
+            <a [href]="item?.website" class="font-medium hover:underline hover:text-blue-600" target="_blank">{{ item.name }}</a>
+          } @else {
+            {{ item.name }}
+          }
+          <address class="block text-xs text-slate-600">{{item?.site?.address }}</address>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
+            {{ item?.industry?.name ?? "Unassigned"}}
+          </span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
+            {{ item.isActive ? "Active" : "Inactive" }}
+          </span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <div class="text-xs font-medium flex flex-nowrap gap-x-1">
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center" (click)="onEdit(item)">
+              <img src="assets/icons/eye.svg" alt="View" class="size-4">
+            </button>
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center" (click)="onDelete(item)">
+              <img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+            </button>
+          </div>
+        </td>
+			</tr>
+		</tbody>
+	</table>
+</section>

@@ -10,10 +10,10 @@
 	</header>
 
 	<!-- form section -->
-	<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="p-8 bg-white border rounded-md shadow-md border-slate-300">
+	<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="p-6 bg-white border rounded-md shadow-md border-slate-300 min-w-96 max-w-3xl w-full">
 		<!-- Step 1: Employee Section -->
 		@if (currentStep === 1) {
-			<div class="grid gap-2 employeeSection md:grid-cols-2">
+			<div class="grid gap-y-2 gap-x-4 employeeSection md:grid-cols-2">
 				<div class="flex items-center gap-1">
 					<label class="w-20 text-sm font-medium leading-tight" for="firstName">First Name</label>
 					<input type="text" id="firstName" formControlName="firstName" placeholder="Simphiwe" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
@@ -22,11 +22,15 @@
 					<label class="w-20 text-sm font-medium leading-tight" for="lastName">Last Name</label>
 					<input type="text" id="lastName" formControlName="lastName" placeholder="Mabaso" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
 				</div>
-				<div class="flex items-center gap-1 col-span-full">
-					<label class="w-20 text-sm font-medium leading-tight" for="email">Email</label>
-					<input type="email" id="email" formControlName="email" placeholder="simphiwe.mabaso@gmail.co.za" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="businessEmail">Business Email</label>
+					<input type="email" id="businessEmail" formControlName="businessEmail" placeholder="simphiwe.mabaso@gmail.co.za" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
 				</div>
-				<div class="flex items-center gap-1 col-span-full">
+				<div class="flex items-center gap-1">
+					<label class="w-20 text-sm font-medium leading-tight" for="personalEmail">Personal Email</label>
+					<input type="email" id="personalEmail" formControlName="personalEmail" placeholder="simphiwe.mabaso@gmail.co.za" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
+				</div>
+				<div class="flex items-center gap-1">
 					<label class="w-20 text-sm font-medium leading-tight" for="phone">Phone Number</label>
 					<input type="tel" id="phone" formControlName="phone" placeholder="0123456789" class="border rounded-sm bg-slate-100 py-1.5 border-slate-300 flex-1 max-w-72">
 				</div>
@@ -62,13 +66,37 @@
 			</div>
 		}
 
+    <!-- Error Sections -->
+    <article class="text-xs text-center font-medium w-full mt-2">
+      <ul class="grid md:grid-cols-3 px-6 py-3">
+        <li *ngIf="isControlError('firstName')" class="text-red-500">First Name is required</li>
+        <li *ngIf="isControlError('lastName')" class="text-red-500">Last Name is required</li>
+        <li *ngIf="isControlError('businessEmail')" class="text-red-500">Business Email is required</li>
+        <li *ngIf="isControlError('personalEmail')" class="text-red-500">Personal Email is required</li>
+        <li *ngIf="isControlError('phone')" class="text-red-500">Phone Number is required</li>
+        <li *ngIf="isControlError('position')" class="text-red-500">Position is required</li>
+        <li *ngIf="isControlError('department')" class="text-red-500">Department is required</li>
+        <li *ngIf="isControlError('username')" class="text-red-500">Username is required</li>
+        <li *ngIf="isControlError('password')" class="text-red-500">
+          <ul class="text-start">
+            <li>The password is required.</li>
+            <li>The password must be at least 8 characters long.</li>
+            <li>The password must contain at least one lowercase letter.</li>
+            <li>The password must contain at least one uppercase letter.</li>
+            <li>The password must contain at least one digit.</li>
+          </ul>
+        </li>
+        <li *ngIf="isControlError('confirmPassword')" class="text-red-500">Confirm Password is required</li>
+        <li *ngIf="registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value" class="text-red-500">Passwords do not match</li>
+      </ul>
+    </article>
 		<!-- Navigation Buttons -->
-		<div class="flex justify-between py-8">
+		<div class="flex justify-between pt-8">
 			<button type="button" class="btn" (click)="previousStep()" [disabled]="currentStep === 1">Previous</button>
+      <button type="submit" [disabled]="registerForm.invalid" class="btn" *ngIf="currentStep === 2 && registerForm.valid">Complete Registration</button>
 			<button type="button" class="btn" (click)="nextStep()" [disabled]="currentStep === 2">Next</button>
 		</div>
 
 		<!-- Submit Button -->
-		<button type="submit" [disabled]="registerForm.invalid" class="btn" *ngIf="currentStep === 2">Complete Registration</button>
 	</form>
 </section>

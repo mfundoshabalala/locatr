@@ -8,7 +8,7 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
 @Injectable()
 export class EmployeeService {
-  constructor (@InjectRepository(Employee) private employeeRepository: Repository<Employee>){}
+  constructor(@InjectRepository(Employee) private employeeRepository: Repository<Employee>) {}
 
   create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
     return this.employeeRepository.save(createEmployeeDto);
@@ -18,7 +18,7 @@ export class EmployeeService {
     return this.employeeRepository.find();
   }
 
-  findOne(id: string): Promise<Employee> {
+  findOne(id: string): Promise<Employee | null> {
     return this.employeeRepository.findOne({ where: { id } });
   }
 

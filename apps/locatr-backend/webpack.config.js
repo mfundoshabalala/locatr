@@ -1,5 +1,6 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const workspaceRoot = path.join(__dirname, '../..');
 
@@ -10,6 +11,13 @@ module.exports = {
       const rel = path.relative(workspaceRoot, info.absoluteResourcePath);
       return `webpack:///./${rel}`;
     },
+  },
+  resolve: {
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.join(__dirname, './tsconfig.app.json'),
+      }),
+    ],
   },
   module: {
     rules: [

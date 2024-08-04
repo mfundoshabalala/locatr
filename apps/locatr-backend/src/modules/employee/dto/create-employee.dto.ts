@@ -3,25 +3,25 @@ import { IsString, IsEmail, IsOptional, IsNotEmpty } from 'class-validator';
 export class CreateEmployeeDto {
   @IsNotEmpty()
   @IsString()
-  readonly firstName: string;
+  readonly firstName!: string;
 
   @IsNotEmpty()
   @IsString()
-  readonly lastName: string;
+  readonly lastName!: string;
 
   @IsNotEmpty()
   @IsEmail()
-  readonly email: string;
+  readonly email!: string;
 
   @IsOptional()
   @IsString()
-  readonly phone: string;
+  readonly phone!: string;
 
   @IsOptional()
   @IsString()
-  readonly position: string;
+  readonly position!: string;
 
   @IsOptional()
   @IsString()
-  readonly department: string;
+  readonly department!: string;
 }

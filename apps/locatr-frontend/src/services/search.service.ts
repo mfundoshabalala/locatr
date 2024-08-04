@@ -18,7 +18,7 @@ export class SearchService {
     const autocomplete = new google.maps.places.Autocomplete(element);
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
-      console.log('place', place);
+      // console.log('place', place);
       placeChangeCallback(place);
     });
   }

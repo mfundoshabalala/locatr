@@ -1,12 +1,10 @@
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { UserService } from '../user/user.service';
-import { User } from '../user/entities/user.entity';
-import { CreateUserDto } from '../user/dto/create-user.dto';
-import { RoleService } from '../role/role.service';
-// import { CreateAuthDto } from './dto/create-auth.dto';
-// import { UpdateAuthDto } from './dto/update-auth.dto';
+import { UserService } from '@migrations/user/user.service';
+import { CreateUserDto } from '@migrations/user/dto/create-user.dto';
+import { User } from '@migrations/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -16,10 +14,22 @@ export class AuthService {
     private readonly roleService: RoleService
   ) {}
 
-  async signIn(username: string, pass: string): Promise<{ access_token: string }> {
+  private async hashPassword(password: string): Promise<string> {
+    return await bcrypt.hash(password, 10);
+  }
+
+  private async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  }
+
+  async signIn(username: string, password: string): Promise<{ access_token: string }> {
     const user = await this.userService.findOneBy(username);
-    if (user?.password !== pass) {
-      throw new UnauthorizedException();
+    if (!user || !user.password) {
+      throw new UnauthorizedException("User doesn't exist");
+    }
+
+    if (!await this.comparePasswords(password, user.password)) {
+      throw new UnauthorizedException('Invalid password');
     }
 
     const payload = { sub: user.id, username: user.username };
@@ -32,17 +42,10 @@ export class AuthService {
     let user: User;
     console.log(payload);
     try {
-      if (payload.roleID) {
-        const role = await this.roleService.findOne(payload.roleID);
-        if (!role) {
-          throw new Error("Role not found");
-        }
-        user = await this.userService.create({...payload, role });
-      } else {
-        user = await this.userService.create(payload);
-      }
+      payload = { ...payload, password: await this.hashPassword(payload.password) };
+      return await this.userService.create(payload);
     } catch (error) {
-      throw new Error(error);
+      throw new UnauthorizedException((error as Error).message);
     }
     return user;
   }
@@ -56,28 +59,11 @@ export class AuthService {
     return 'Password reset link sent to your email';
   }
 
-  async verifyEmail(token: string): Promise<string> {
-    const payload = await this.jwtService.verifyAsync(token);
-    return payload.username;
+  async validateToken(token: string): Promise<any> {
+    try {
+      return this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+    } catch (error) {
+      throw new Error('Invalid token');
+    }
   }
-
-  // create(createAuthDto: CreateAuthDto) {
-  //   return 'This action adds a new auth';
-  // }
-
-  // findAll() {
-  //   return `This action returns all auth`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} auth`;
-  // }
-
-  // update(id: number, updateAuthDto: UpdateAuthDto) {
-  //   return `This action updates a #${id} auth`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} auth`;
-  // }
 }

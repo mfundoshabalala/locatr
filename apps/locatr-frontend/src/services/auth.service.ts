@@ -4,21 +4,25 @@ import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
 interface UserLogin {
-	username: string;
-	password: string;
+  username: string;
+  password: string;
 }
 
-export interface UserRegistration {
-	username: string;
-	password: string;
-	roleId?: string | null;
+interface ContactInterface {
+  name: string;
+  phone: string;
+  email: string | null;
+}
+
+export interface UserRegistration extends UserLogin {
+	email: string;
+  contact: ContactInterface;
 	employee: EmployeeInterface;
 }
 
 interface EmployeeInterface {
   firstName: string;
   lastName: string;
-  email: string;
   position: string;
   department: string | null;
 }
@@ -33,8 +37,8 @@ export class AuthenticationService {
     try {
       await lastValueFrom(this.http.post<any>(`${this.authUrl}/register`, user));
       this.router.navigate(['/auth/login']);
-    } catch (error) {
-      throw new Error('Registration failed: ' + error);
+    } catch (error: Error | any) {
+      throw new Error('Registration failed: ' + error.message);
     }
   }
 
@@ -42,8 +46,8 @@ export class AuthenticationService {
     try {
       const response = await lastValueFrom(this.http.post<any>(`${this.authUrl}/login`, user));
       sessionStorage.setItem('access_token', response?.access_token);
-    } catch (error) {
-      throw new Error('Login failed: ' + error);
+    } catch (error: Error | any) {
+      throw new Error('Login failed: ' + error.message);
     }
   }
 
@@ -52,6 +56,10 @@ export class AuthenticationService {
 	}
 
   isAuthenticated(): boolean {
-		return !!sessionStorage.getItem('access_token');
-	}
+    return !!sessionStorage.getItem('access_token');
+  }
+
+  getAuthToken(): string | null {
+    return sessionStorage.getItem('access_token');
+  }
 }

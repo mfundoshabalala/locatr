@@ -9,6 +9,7 @@ export * from './components/navbar/navbar.component';
 export * from './components/footer/footer.component';
 export * from './components/header/header.component';
 export * from './components/date-picker/date-picker.component';
+export * from './components/badge/badge.component';
 
 // directives
 export * from './directives/click-outside/click-outside.directive';
@@ -16,4 +17,3 @@ export * from './directives/click-outside/click-outside.directive';
 // services
 export * from './services/toast.service';
 
-export * from './components/badge/badge.component';
