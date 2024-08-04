@@ -1,4 +1,5 @@
 // dashboard pages
+export * from './dashboard/dashboard.component';
 export * from './dashboard/client-management/client-management.component';
 export * from './dashboard/driver-management/driver-management.component';
 export * from './dashboard/route-planning/route-planning.component';
