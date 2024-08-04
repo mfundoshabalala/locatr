@@ -5,6 +5,7 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validator
 import { SearchBoxComponent } from '../search-box/search-box.component';
 import { deepMerge, extractFormData } from '@profolio/utils';
 import { ClientInterface } from '@profolio/interfaces';
+import { GoogleMapsService } from '../../services';
 
 export enum FormMode {
   CREATE = 'create',
@@ -35,6 +36,7 @@ export class ClientFormComponent implements OnInit {
   changed = signal<boolean>(false);
 
   private readonly fb = inject(FormBuilder);
+  private googleMapsService = inject(GoogleMapsService);
 
   constructor() {
     this.createEmptyForm();
@@ -123,7 +125,7 @@ export class ClientFormComponent implements OnInit {
     let entity = extractFormData(this.clientForm.value) as any;
     if (this.entity && this.entity?.id) {
       mode = FormMode.UPDATE;
-      entity = deepMerge(this.entity, {...entity.client, contact: entity.contact, site: entity.site});
+      entity = deepMerge(this.entity, { ...entity.client, contact: entity.contact, site: entity.site });
     } else {
       entity = { ...entity.client, contact: entity.contact, site: entity.site };
     }

@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, inject } from '@angular/core';
 import { LoaderService } from '../../services/loader.service';
 
-
-
 @Component({
   selector: 'app-loader',
   standalone: true,

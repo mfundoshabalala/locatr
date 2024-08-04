@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+
 import { ContentHeaderComponent } from '../../components';
-
-
 
 @Component({
   selector: 'app-dashboard-content',
