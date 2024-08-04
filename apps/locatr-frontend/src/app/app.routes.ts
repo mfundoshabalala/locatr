@@ -24,6 +24,7 @@ export const appRoutes: Route[] = [
         resolve: { clients: clientResolver, industry: industryResolver },
         data: {
           title: 'Client Management',
+          entityName: 'client',
           subtitle: 'Manage and track client information and locations.',
           searchType: 'list',
         },

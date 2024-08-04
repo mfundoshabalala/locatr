@@ -20,9 +20,9 @@ import { Search, SearchBoxComponent } from '../search-box/search-box.component';
       </div>
       <div>
         @if (showSearchBox) {
-        <app-search-box [type]="searchType" />
+          <app-search-box [type]="searchType" />
         } @if (showCreateButton) {
-        <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
+          <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
         }
       </div>
     </header>

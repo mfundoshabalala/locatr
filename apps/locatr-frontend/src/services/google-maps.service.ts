@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
-import { IconService } from './icon.service';
 
 @Injectable({ providedIn: 'root' })
 export class GoogleMapsService {
@@ -12,7 +11,7 @@ export class GoogleMapsService {
     zoom: 6,
   };
 
-  constructor(private iconService: IconService) {
+  constructor() {
     this.initializeLoader();
   }
 
