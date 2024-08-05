@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, Up
 
 import { Order } from '@migrations/order/entities/order.entity';
 import { User } from '@migrations/user/entities/user.entity';
+import { Vehicle } from '@migrations/vehicle/entities/vehicle.entity';
 
 @Entity()
 export class Route {
@@ -14,6 +15,9 @@ export class Route {
 
   @ManyToOne(() => User)
   driver!: User;
+
+  @ManyToOne(() => Vehicle)
+  vehicle!: Vehicle;
 
   @Column({ nullable: true })
   startTime!: Date;
