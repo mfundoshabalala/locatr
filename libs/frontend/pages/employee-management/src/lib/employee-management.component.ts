@@ -1,10 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { AbstractDashboardComponent } from "@profolio/frontend/pages/abstract-dashboard";
+import { AbstractDashboardComponent } from "@pages/abstract-dashboard";
 import { EmployeeInterface } from "@profolio/interfaces";
 import { EmployeeFormComponent } from "../components/employee-form/employee-form.component";
 import { EmployeeListComponent } from "../components/employee-list/employee-list.component";
-import { EmployeeService } from "../services/employee.service";
+import { EmployeeService } from "@profolio/frontend/services";
 
 @Component({
   selector: 'lib-employee-management',

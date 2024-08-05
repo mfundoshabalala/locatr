@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, Injector, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { DynamicFormService } from '@profolio/frontend/shared/ui';
 import { OffcanvasService } from '@profolio/offcanvas';
 
@@ -26,37 +25,31 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
 
   entityList = signal<T[]>([]);
   dynamicFormService = inject(DynamicFormService);
-  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly offcanvasService = inject(OffcanvasService);
 
   constructor() {
-    effect(
-      async () => {
-        try {
-          if (this.offcanvasService.mode() === 'update' && this.offcanvasService.hasChanges()) {
-            await this.onUpdate(this.offcanvasService.entity() as T);
-          } else if (this.offcanvasService.mode() === 'create' && this.offcanvasService.entity()) {
-            await this.onCreate(this.offcanvasService.entity() as T);
-          } else if (this.offcanvasService.mode() === 'delete' && this.offcanvasService.entity()?.['id']) {
-            await this.onDelete(this.offcanvasService.entity() as T);
-          } else {
-            console.log('No action taken');
-          }
-        } catch (error: any) {
-          console.log(error.message);
-        } finally {
-          this.offcanvasService.hasChanges.set(false);
+    effect(async () => {
+      try {
+        if (this.offcanvasService.mode() === 'update' && this.offcanvasService.hasChanges()) {
+          await this.onUpdate(this.offcanvasService.entity() as T);
+        } else if (this.offcanvasService.mode() === 'create' && this.offcanvasService.entity()) {
+          await this.onCreate(this.offcanvasService.entity() as T);
+        } else if (this.offcanvasService.mode() === 'delete' && this.offcanvasService.entity()?.['id']) {
+          await this.onDelete(this.offcanvasService.entity() as T);
+        } else {
+          console.log('No action taken');
         }
-      },
-      { allowSignalWrites: true }
-    );
+      } catch (error: any) {
+        console.log(error.message);
+      } finally {
+        this.offcanvasService.hasChanges.set(false);
+      }
+    }, { allowSignalWrites: true });
   }
 
   ngOnInit() {
     this.dynamicFormService.registerFormComponent(this.formComponent.name, this.formComponent);
-    this.activatedRoute.data.subscribe((data) => {
-      if (data['list']) this.entityList.set(data['list']);
-    });
+    this.service.getAll().then((list: T[]) => this.entityList.set(list));
   }
 
   onEdit(entity: T) {

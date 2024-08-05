@@ -1,0 +1,43 @@
+<section class="p-6 overflow-hidden">
+  <table class="table table-pin-rows table-pin-cols text-pretty">
+    <thead>
+      <tr class="text-sm font-medium text-slate-500 capitalize">
+        <th scope="col" class="px-2 py-2 text-start">Destination</th>
+        <th scope="col" class="px-2 py-2 text-start">Start Time</th>
+        <th scope="col" class="px-2 py-2 text-start">End Time</th>
+        <th scope="col" class="px-2 py-2 text-start">Status</th>
+        <th scope="col" class="px-2 py-2 text-start">Action</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-200">
+      <tr *ngFor="let trip of trips()">
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ trip.destination }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ trip.startTime | date: 'short' }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ trip.endTime | date: 'short' }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
+            {{ trip.status }}
+          </span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <div class="text-xs font-medium flex flex-nowrap gap-x-1">
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
+              (click)="onEdit(trip)">
+              <img src="assets/icons/eye.svg" alt="View" class="size-4">
+            </button>
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
+              (click)="onDelete(trip)">
+              <img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

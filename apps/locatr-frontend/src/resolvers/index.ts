@@ -1,2 +1,2 @@
-export * from './client.resolver';
-export * from './industry.resolver';
+// export * from './client.resolver';
+// export * from './industry.resolver';

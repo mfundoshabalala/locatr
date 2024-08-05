@@ -1,10 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { AbstractDashboardComponent } from "@profolio/frontend/pages/abstract-dashboard";
+import { AbstractDashboardComponent } from "@pages/abstract-dashboard";
 import { ClientInterface } from "@profolio/interfaces";
 import { ClientFormComponent } from "../components/client-form/client-form.component";
 import { ClientListComponent } from "../components/client-list/client-list.component";
-import { ClientService } from "../services/client.service";
+import { ClientService } from "@profolio/frontend/services";
 
 @Component({
   selector: 'lib-client-management',

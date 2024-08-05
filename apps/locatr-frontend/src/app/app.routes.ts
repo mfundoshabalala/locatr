@@ -1,7 +1,6 @@
 import { Route } from '@angular/router';
 import { authGuard } from '../guards/auth.guard';
 import { DashboardLayoutComponent } from '../layout';
-import { clientResolver } from '../resolvers';
 
 export const appRoutes: Route[] = [
   {
@@ -20,9 +19,7 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'client',
-        loadComponent: () =>
-          import('@profolio/frontend/pages/client-management').then((m) => m.ClientManagementComponent),
-        resolve: { list: clientResolver },
+        loadComponent: () => import('@pages/client-management').then((m) => m.ClientManagementComponent),
         data: {
           title: 'Client Management',
           entityName: 'client',
@@ -32,8 +29,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'employee',
-        loadComponent: () =>
-          import('@profolio/frontend/pages/employee-management').then((m) => m.EmployeeManagementComponent),
+        loadComponent: () => import('@pages/employee-management').then((m) => m.EmployeeManagementComponent),
         data: {
           entityName: 'employee',
           title: 'Employee Management',
@@ -43,18 +39,20 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'vehicle',
-        loadComponent: () => import('../pages').then((m) => m.VehicleManagementComponent),
+        loadComponent: () => import('@pages/vehicle-management').then((m) => m.VehicleManagementComponent),
         data: {
           title: 'Vehicle Management',
+          entityName: 'vehicle',
           subtitle: 'Keep your fleet information up-to-date.',
           searchType: 'list',
         },
       },
       {
         path: 'trip',
-        loadComponent: () => import('../pages').then((m) => m.TripManagementComponent),
+        loadComponent: () => import('@pages/trip-management').then((m) => m.TripManagementComponent),
         data: {
           title: 'Trip Management',
+          entityName: 'trip',
           subtitle: 'Schedule and oversee your trips.',
           searchType: 'list',
         },
@@ -62,7 +60,6 @@ export const appRoutes: Route[] = [
       {
         path: 'route',
         loadComponent: () => import('../pages').then((m) => m.RoutePlanningComponent),
-        resolve: { list: clientResolver },
         data: {
           title: 'Route Planning',
           subtitle: 'Plan and optimize routes for efficiency.',
@@ -72,7 +69,6 @@ export const appRoutes: Route[] = [
       {
         path: 'routing',
         loadComponent: () => import('../pages').then((m) => m.RoutingComponent),
-        resolve: { list: clientResolver },
         data: {
           title: 'Routing',
           subtitle: 'Manage and adjust route details.',

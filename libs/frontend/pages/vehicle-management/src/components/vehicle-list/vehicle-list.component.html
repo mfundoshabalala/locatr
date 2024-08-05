@@ -1,0 +1,49 @@
+<section class="p-6 overflow-hidden">
+  <table class="table table-pin-rows table-pin-cols text-pretty">
+    <thead>
+      <tr class="text-sm font-medium text-slate-500 capitalize">
+        <th scope="col" class="px-2 py-2 text-start">Make</th>
+        <th scope="col" class="px-2 py-2 text-start">Model</th>
+        <th scope="col" class="px-2 py-2 text-start">Year</th>
+        <th scope="col" class="px-2 py-2 text-start">License Plate</th>
+        <th scope="col" class="px-2 py-2 text-start">Capacity</th>
+        <th scope="col" class="px-2 py-2 text-start">Current Location</th>
+        <th scope="col" class="px-2 py-2 text-start">Action</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-200">
+      <tr *ngFor="let vehicle of list()">
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ vehicle.make }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ vehicle.model }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ vehicle.year }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ vehicle.licensePlate }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ vehicle.capacity }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <span class="font-medium">{{ vehicle.currentLocation || 'N/A' }}</span>
+        </td>
+        <td class="px-2 py-2 text-sm text-slate-800">
+          <div class="text-xs font-medium flex flex-nowrap gap-x-1">
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
+              (click)="onEdit(vehicle)">
+              <img src="assets/icons/eye.svg" alt="View" class="size-4">
+            </button>
+            <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
+              (click)="onDelete(vehicle)">
+              <img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

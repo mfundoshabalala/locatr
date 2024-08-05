@@ -1,11 +1,17 @@
-import { inject } from '@angular/core';
-import type { ResolveFn } from '@angular/router';
-import { ClientService } from '../services';
-
+import { ResolveFn } from '@angular/router';
 import { ClientInterface } from '@profolio/interfaces';
+import { Injector, inject } from '@angular/core';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const clientResolver: ResolveFn<ClientInterface[]> = async (_route, _state) => {
-  const clientService = inject(ClientService);
-  return await clientService.getClients();
+  // Dynamically import the ClientService and the module it belongs to
+  const { ClientService } = await import('@pages/client-management');
+
+  // Get an instance of the Angular injector
+  const injector = inject(Injector);
+
+  // Create an instance of the ClientService
+  const clientService = injector.get(ClientService);
+
+  // Use the service to fetch the list of clients
+  return await clientService.getAll();
 };
