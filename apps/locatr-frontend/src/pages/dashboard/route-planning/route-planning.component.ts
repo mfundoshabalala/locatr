@@ -18,7 +18,7 @@ export class RoutePlanningComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe((data) => this.loadData(data['clients']));
+    this.activatedRoute.data.subscribe((data) => this.loadData(data['list']));
   }
 
   private loadData(list: any[]): void {

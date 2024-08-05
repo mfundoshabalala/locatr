@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
-import { DashboardLayoutComponent } from '../layout';
 import { authGuard } from '../guards/auth.guard';
-import { clientResolver, industryResolver } from '../resolvers';
+import { DashboardLayoutComponent } from '../layout';
+import { clientResolver } from '../resolvers';
 
 export const appRoutes: Route[] = [
   {
@@ -20,8 +20,9 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'client',
-        loadComponent: () => import('@profolio/frontend/pages/client-management').then((m) => m.ClientManagementComponent),
-        resolve: { clients: clientResolver, industry: industryResolver },
+        loadComponent: () =>
+          import('@profolio/frontend/pages/client-management').then((m) => m.ClientManagementComponent),
+        resolve: { list: clientResolver },
         data: {
           title: 'Client Management',
           entityName: 'client',
@@ -30,11 +31,13 @@ export const appRoutes: Route[] = [
         },
       },
       {
-        path: 'driver',
-        loadComponent: () => import('../pages').then((m) => m.DriverManagementComponent),
+        path: 'employee',
+        loadComponent: () =>
+          import('@profolio/frontend/pages/employee-management').then((m) => m.EmployeeManagementComponent),
         data: {
-          title: 'Driver Management',
-          subtitle: 'Organize and monitor your drivers.',
+          entityName: 'employee',
+          title: 'Employee Management',
+          subtitle: 'Organize and monitor your employees.',
           searchType: 'list',
         },
       },
@@ -58,8 +61,8 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'route',
-        resolve: { clients: clientResolver },
         loadComponent: () => import('../pages').then((m) => m.RoutePlanningComponent),
+        resolve: { list: clientResolver },
         data: {
           title: 'Route Planning',
           subtitle: 'Plan and optimize routes for efficiency.',
@@ -69,6 +72,7 @@ export const appRoutes: Route[] = [
       {
         path: 'routing',
         loadComponent: () => import('../pages').then((m) => m.RoutingComponent),
+        resolve: { list: clientResolver },
         data: {
           title: 'Routing',
           subtitle: 'Manage and adjust route details.',

@@ -14,7 +14,7 @@ export class DashboardSidebarComponent {
   public menuItems: MenuItem[] = [
     { label: 'Dashboard', path: '/dashboard', icon: 'dashboard.svg' },
     { label: 'Clients', path: '/dashboard/client', icon: 'company.svg' },
-    { label: 'Team', path: '/dashboard/driver', icon: 'team.svg' },
+    { label: 'Employees', path: '/dashboard/employee', icon: 'team.svg' },
     { label: 'Vehicles', path: '/dashboard/vehicle', icon: 'truck-weight-max-loading.svg' },
     { label: 'Trips', path: '/dashboard/trip', icon: 'trip.svg' },
     { label: 'Planning', path: '/dashboard/route', icon: 'calendar.svg' },
