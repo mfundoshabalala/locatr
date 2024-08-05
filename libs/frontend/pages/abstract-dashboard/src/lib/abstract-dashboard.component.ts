@@ -24,27 +24,34 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
   protected abstract readonly formComponent: any; // Specific form component for each entity
 
   entityList = signal<T[]>([]);
-  dynamicFormService = inject(DynamicFormService);
   private readonly offcanvasService = inject(OffcanvasService);
+  private readonly dynamicFormService = inject(DynamicFormService);
 
   constructor() {
-    effect(async () => {
-      try {
-        if (this.offcanvasService.mode() === 'update' && this.offcanvasService.hasChanges()) {
-          await this.onUpdate(this.offcanvasService.entity() as T);
-        } else if (this.offcanvasService.mode() === 'create' && this.offcanvasService.entity()) {
-          await this.onCreate(this.offcanvasService.entity() as T);
-        } else if (this.offcanvasService.mode() === 'delete' && this.offcanvasService.entity()?.['id']) {
-          await this.onDelete(this.offcanvasService.entity() as T);
-        } else {
-          console.log('No action taken');
+    effect(
+      async () => {
+        try {
+          if (this.offcanvasService.mode() === 'update' && this.offcanvasService.hasChanges()) {
+            await this.onUpdate(this.offcanvasService.entity() as T);
+          } else if (this.offcanvasService.mode() === 'create' && this.offcanvasService.entity()) {
+            await this.onCreate(this.offcanvasService.entity() as T);
+          } else if (this.offcanvasService.mode() === 'delete' && this.offcanvasService.entity()?.['id']) {
+            await this.onDelete(this.offcanvasService.entity() as T);
+          } else {
+            console.log('No action taken');
+          }
+        } catch (error: any) {
+          console.log(error.message);
+        } finally {
+          this.offcanvasService.hasChanges.set(false);
         }
-      } catch (error: any) {
-        console.log(error.message);
-      } finally {
-        this.offcanvasService.hasChanges.set(false);
-      }
-    }, { allowSignalWrites: true });
+      },
+      { allowSignalWrites: true }
+    );
+  }
+
+  protected get componentInjector() {
+    return Injector.create({ providers: [{ provide: AbstractDashboardComponent, useValue: this }] });
   }
 
   ngOnInit() {
@@ -71,9 +78,5 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
   private async onCreate(entity: T) {
     const newEntity = await this.service.create(entity);
     this.entityList.update((list) => [...list, newEntity]);
-  }
-
-  protected get componentInjector() {
-    return Injector.create({ providers: [{ provide: AbstractDashboardComponent, useValue: this }] });
   }
 }
