@@ -2,7 +2,6 @@
 
 export interface EntityInterface extends Record<string, any> {
   id?: any;
-  // [key: string]: any;
   createdBy?: string;
   createdAt?: Date;
   updatedBy?: string;
@@ -54,7 +53,7 @@ export enum OrderNotification {
 export enum OrderStatus {
   CANCELLED = 'cancelled',
   DELIVERED = 'delivered',
-  IN_PROGRESS = 'in_progress',
+  IN_PROGRESS = 'in progress',
   PENDING = 'pending',
 }
 
@@ -86,14 +85,14 @@ export enum UserStatus {
 }
 
 export enum VehicleType {
-  CAR = 'CAR',
-  TRUCK = 'TRUCK',
-  BIKE = 'BIKE',
-  SCOOTER = 'SCOOTER',
-  BUS = 'BUS',
-  TRAIN = 'TRAIN',
-  SHIP = 'SHIP',
-  PLANE = 'PLANE',
-  HELICOPTER = 'HELICOPTER',
-  OTHER = 'OTHER',
+  CAR = 'car',
+  TRUCK = 'truck',
+  BIKE = 'bike',
+  SCOOTER = 'scooter',
+  BUS = 'bus',
+  TRAIN = 'train',
+  SHIP = 'ship',
+  PLANE = 'plane',
+  HELICOPTER = 'helicopter',
+  OTHER = 'other',
 }

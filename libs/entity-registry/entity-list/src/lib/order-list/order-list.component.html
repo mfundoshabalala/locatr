@@ -21,9 +21,9 @@
       <td>{{ order.type }}</td>
       <td>{{ order.status }}</td>
       <td>{{ order.priority }}</td>
-      <td>
-        <button (click)="onEntitySelected(order)">Edit</button>
-        <button (click)="onEntityDeleted(order)">Delete</button>
+      <td class="flex gap-2">
+        <button class="border px-2 py-1" (click)="onEntitySelected(order)">Edit</button>
+        <button class="border px-2 py-1" (click)="onEntityDeleted(order)">Delete</button>
       </td>
     </tr>
   </tbody>

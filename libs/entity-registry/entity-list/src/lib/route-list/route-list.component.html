@@ -18,9 +18,9 @@
       <td>{{ route.startTime }}</td>
       <td>{{ route.endTime }}</td>
       <td>{{ route.routePath }}</td>
-      <td>
-        <button (click)="onEntitySelected(route)">Edit</button>
-        <button (click)="onEntityDeleted(route)">Delete</button>
+      <td class="flex gap-2">
+        <button class="border px-2 py-1" (click)="onEntitySelected(route)">Edit</button>
+        <button class="border px-2 py-1" (click)="onEntityDeleted(route)">Delete</button>
       </td>
     </tr>
   </tbody>
