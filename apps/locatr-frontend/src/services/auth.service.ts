@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserRole } from '@profolio/interfaces';
 import { lastValueFrom } from 'rxjs';
 
 interface UserLogin {
@@ -49,6 +50,10 @@ export class AuthenticationService {
     } catch (error: Error | any) {
       throw new Error('Login failed: ' + error.message);
     }
+  }
+
+  getUserRole(): string {
+    return UserRole.ADMIN;
   }
 
 	logout() {

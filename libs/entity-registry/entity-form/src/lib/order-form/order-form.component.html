@@ -1,0 +1,45 @@
+<!-- create-order.component.html -->
+<form [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
+  <fieldset>
+    <legend>Order Information</legend>
+    <div>
+      <label for="orderNumber">Order Number:</label>
+      <input id="orderNumber" formControlName="orderNumber" type="text">
+    </div>
+    <div>
+      <label for="customer">Customer:</label>
+      <select id="customer" formControlName="customer">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="pickupAddress">Pickup Address:</label>
+      <input id="pickupAddress" formControlName="pickupAddress" type="text">
+    </div>
+    <div>
+      <label for="deliveryAddress">Delivery Address:</label>
+      <input id="deliveryAddress" formControlName="deliveryAddress" type="text">
+    </div>
+    <div>
+      <label for="type">Type:</label>
+      <select id="type" formControlName="type">
+        <option *ngFor="let type of orderTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="status">Status:</label>
+      <select id="status" formControlName="status">
+        <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="priority">Priority:</label>
+      <select id="priority" formControlName="priority">
+        <option *ngFor="let priority of orderPriorities" [value]="priority">{{ priority }}</option>
+      </select>
+    </div>
+  </fieldset>
+
+  <button type="submit" [disabled]="!createOrderForm.valid">Create Order</button>
+</form>
+

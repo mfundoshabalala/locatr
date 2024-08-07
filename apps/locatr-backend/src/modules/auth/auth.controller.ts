@@ -26,6 +26,7 @@ export class AuthController {
       email: signUpDto.email,
       employee: signUpDto.employee,
       contact: signUpDto.contact,
+      role: signUpDto.role,
     };
     return this.authService.signUp(payload);
   }

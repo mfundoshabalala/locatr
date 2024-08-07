@@ -9,6 +9,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 @Injectable()
 export class OrderService {
   constructor(@InjectRepository(Order) private orderRepository: Repository<Order>) {}
+  
   create(createOrderDto: CreateOrderDto): Promise<Order> {
     return this.orderRepository.save(createOrderDto);
   }

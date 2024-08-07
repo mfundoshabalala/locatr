@@ -1,5 +1,5 @@
 {
-  "name": "frontend-pages-employee-management",
+  "name": "employee-management",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/pages/employee-management/src",
   "prefix": "lib",

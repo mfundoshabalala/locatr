@@ -1,8 +1,8 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-// entities
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
 import { Employee } from "@migrations/employee/entities/employee.entity";
 import { Contact } from "@migrations/contact/entities/contact.entity";
-import { Role } from "@migrations/role/entities/role.entity";
+import { UserRole, UserStatus } from "@common/enums";
 
 @Entity()
 export class User {
@@ -21,27 +21,19 @@ export class User {
   @Column({ type: 'boolean', default: false })
   isVerified!: boolean;
 
-  @OneToOne(() => Employee, { cascade: true })
+  @OneToOne(() => Employee, { cascade: true, eager: true })
   @JoinColumn({ name: 'employeeID' })
   employee!: Employee;
 
-  @OneToOne(() => Contact, { cascade: true })
+  @OneToOne(() => Contact, { cascade: true, eager: true })
   @JoinColumn({ name: 'contactID' })
   contact!: Contact;
 
-  @ManyToMany(() => Role, (role) => role.users)
-  @JoinTable({
-    name: 'user_roles',
-    joinColumn: {
-      name: 'userID',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'roleID',
-      referencedColumnName: 'id',
-    }
-  })
-  roles!: Role[];
+  @Column({ type: 'enum', enum: UserStatus, default: UserStatus.ACTIVE })
+  status!: UserStatus;
+
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.CUSTOMER })
+  role!: UserRole;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

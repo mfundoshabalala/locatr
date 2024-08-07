@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { join } from 'path';
+
 import { User } from '@migrations/user/entities/user.entity';
 import { Vehicle } from '@migrations/vehicle/entities/vehicle.entity';
 import { Client } from '@migrations/client/entities/client.entity';
@@ -11,12 +11,13 @@ import { Industry } from '@migrations/industry/entities/industry.entity';
 import { Role } from '@migrations/role/entities/role.entity';
 import { Site } from '@migrations/site/entities/site.entity';
 import { Trip } from '@migrations/trip/entities/trip.entity';
+import { Order } from '@migrations/order/entities/order.entity';
+import { Route } from '@migrations/route/entities/route.entity';
+import { Notification } from '@migrations/notification/entities/notification.entity';
 
 @Injectable()
 export class DBConfigService implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) {
-    console.log(__dirname);
-  }
+  constructor(private readonly configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const isProduction = process.env.NODE_ENV === 'production';
@@ -31,7 +32,7 @@ export class DBConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get('POSTGRES_DATABASE'),
       // migrations: [join(__dirname, `../../../${sourcePath}/migrations/*{.ts,.js}`)],
       // entities: [join(__dirname, `../../../${sourcePath}/modules/**/*.entity{.ts,.js}`)],
-      entities: [User, Vehicle, Client, Contact, Employee, Industry, Role, Site, Trip],
+      entities: [User, Vehicle, Client, Contact, Employee, Industry, Role, Site, Trip, Notification, Order, Route],
       synchronize: !isProduction,
       migrationsRun: true,
       autoLoadEntities: true,

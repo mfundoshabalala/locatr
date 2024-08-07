@@ -1,0 +1,33 @@
+<table class="table table-auto">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Role</th>
+      <th>Verified</th>
+      <th>Position</th>
+      <th>Department</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of entities">
+      <td>{{ user.username }}</td>
+      <td>{{ user.employee.firstName }}</td>
+      <td>{{ user.employee.lastName }}</td>
+      <td>{{ user.email ? user.email : user.contact ? user.contact.email : user.employee.contact?.email }}</td>
+      <td>{{ user.contact ? user.contact.phone : user.employee.contact?.phone }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.isVerified }}</td>
+      <td>{{ user.employee.position }}</td>
+      <td>{{ user.employee.department }}</td>
+      <td class="flex gap-2">
+        <button class="border px-2 py-1" (click)="onEntitySelected(user)">Edit</button>
+        <button class="border px-2 py-1" (click)="onEntityDeleted(user)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

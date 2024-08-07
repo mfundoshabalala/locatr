@@ -28,3 +28,12 @@ export * from './vehicle/vehicle.service';
 
 export * from './trip/trip.module';
 export * from './trip/trip.service';
+
+export * from './order/order.module';
+export * from './order/order.service';
+
+export * from './notification/notification.module';
+export * from './notification/notification.service';
+
+export * from './route/route.module';
+export * from './route/route.service';

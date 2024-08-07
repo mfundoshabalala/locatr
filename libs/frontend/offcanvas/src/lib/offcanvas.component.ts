@@ -26,14 +26,11 @@ export class OffcanvasComponent {
 
   constructor() {
     effect(() => {
-        this.isOpen.set(this.offcanvasService.isOpen());
-      }, { allowSignalWrites: true }
-    );
+      this.isOpen.set(this.offcanvasService.isOpen());
+    }, { allowSignalWrites: true });
 
     effect(() => {
-      if (this.isOpen()) {
-        this.loadForm();
-      }
+      if (this.isOpen()) this.loadForm();
     });
   }
 

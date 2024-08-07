@@ -1,0 +1,66 @@
+<!-- create-user.component.html -->
+<form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+  <fieldset class="border p-4 rounded-md">
+    <legend>User Information</legend>
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" formControlName="username" type="text" autocomplete="username">
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" autocomplete="email">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" formControlName="password" type="password" autocomplete="new-password">
+    </div>
+    <div>
+      <label for="role">Role:</label>
+      <select id="role" formControlName="role"
+        class="">
+        <option selected="">Open this select menu</option>
+        <option value="admin">Admin</option>
+        <option value="driver">Driver</option>
+        <option value="customer">Customer</option>
+      </select>
+    </div>
+  </fieldset>
+
+  <fieldset formGroupName="employee" class="border p-4 rounded-md">
+    <legend>Employee Information</legend>
+    <div class="inline-block w-1/2">
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName" type="text">
+    </div>
+    <div class="inline-block w-1/2">
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" formControlName="lastName" type="text">
+    </div>
+    <div class="inline-block w-1/2">
+      <label for="position">Position:</label>
+      <input id="position" formControlName="position" type="text">
+    </div>
+    <div class="inline-block w-1/2">
+      <label for="department">Department:</label>
+      <input id="department" formControlName="department" type="text">
+    </div>
+  </fieldset>
+
+  <fieldset formGroupName="contact" class="border p-4 rounded-md">
+    <legend>Contact Information</legend>
+    <div class="inline-block w-1/2">
+      <label for="contactName">Name:</label>
+      <input id="contactName" formControlName="name" type="text">
+    </div>
+    <div class="inline-block w-1/2">
+      <label for="phone">Phone:</label>
+      <input id="phone" formControlName="phone" type="text">
+    </div>
+    <div>
+      <label for="contactEmail">Email:</label>
+      <input id="contactEmail" formControlName="email" type="email">
+    </div>
+  </fieldset>
+
+  <button type="submit" [disabled]="!createUserForm.valid" class="border px-4 py-1.5">Create User</button>
+</form>

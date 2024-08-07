@@ -13,8 +13,8 @@ export class Role  {
   @Column({ nullable: true, type: 'text' })
   description?: string;
 
-  @ManyToMany(() => User, user => user.roles)
-  users!: User[];
+  // @ManyToMany(() => User, user => user.roles)
+  // users!: User[];
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

@@ -18,10 +18,11 @@ import {
   IndustryModule,
   VehicleModule,
   TripModule,
-  AuthService
+  AuthService,
+  NotificationModule,
+  OrderModule,
+  RouteModule
 } from '@migrations/index';
-import { Order } from '@migrations/order/entities/order.entity';
-import { Route } from '@migrations/route/entities/route.entity';
 
 @Module({
   imports: [
@@ -41,9 +42,9 @@ import { Route } from '@migrations/route/entities/route.entity';
     IndustryModule,
     VehicleModule,
     TripModule,
-    Notification,
-    Order,
-    Route,
+    NotificationModule,
+    OrderModule,
+    RouteModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

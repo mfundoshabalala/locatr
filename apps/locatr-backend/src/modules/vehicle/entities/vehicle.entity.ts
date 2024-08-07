@@ -1,4 +1,5 @@
 // src/vehicle/vehicle.entity.ts
+import { VehicleType } from '@common/enums';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
@@ -11,6 +12,9 @@ export class Vehicle {
 
   @Column()
   model!: string;
+
+  @Column({ type: 'enum', enum: VehicleType })
+  type!: VehicleType;
 
   @Column()
   year!: number;

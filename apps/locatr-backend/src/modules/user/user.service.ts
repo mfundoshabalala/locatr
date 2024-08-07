@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Role } from '@migrations/role/entities/role.entity';
+import { UserRole } from '@common/enums';
 
 @Injectable()
 export class UserService {
@@ -23,8 +24,7 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const role = await this.getUserDefaultRole();
-    if (role) createUserDto.roles = [role];
+    createUserDto.role = UserRole.ADMIN;
     return this.userRepository.save(createUserDto);
   }
 

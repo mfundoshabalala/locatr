@@ -1,0 +1,38 @@
+<!-- order-list.component.html -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Order Number</th>
+      <th>Customer</th>
+      <th>Pickup Address</th>
+      <th>Delivery Address</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Created At</th>
+      <th>Created By</th>
+      <th>Updated At</th>
+      <th>Updated By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of entities">
+      <td>{{ order.orderNumber }}</td>
+      <td>{{ order.customer.username }}</td>
+      <td>{{ order.pickupAddress }}</td>
+      <td>{{ order.deliveryAddress }}</td>
+      <td>{{ order.type }}</td>
+      <td>{{ order.status }}</td>
+      <td>{{ order.priority }}</td>
+      <td>{{ order.createdAt | date:'long' }}</td>
+      <td>{{ order.createdBy }}</td>
+      <td>{{ order.updatedAt | date:'short' }}</td>
+      <td>{{ order.updatedBy }}</td>
+      <td>
+        <button (click)="onEntitySelected(order)">Edit</button>
+        <button (click)="onEntityDeleted(order)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

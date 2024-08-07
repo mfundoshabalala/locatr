@@ -8,32 +8,24 @@ app-root {
   @apply min-h-screen m-0 block text-slate-800 bg-slate-100;
 }
 
-// h1 {
-//   @apply text-3xl font-bold font-serif px-2;
-// }
-
-// h2 {
-//   @apply text-xl font-medium font-serif;
-// }
-
-// a {
-//   @apply px-4 py-1.5 border rounded-md shadow-sm inline-block bg-white;
-// }
-
-input[type="search"], input[type="text"], input[type="email"], input[type="url"] {
-  @apply w-full border rounded border-slate-300 flex-1 bg-white shadow-sm;
+input[type="search"], input[type="text"], input[type="email"], input[type="url"], input[type="password"] {
+  @apply w-full border rounded border-slate-300 flex-1 bg-white shadow-sm py-1.5;
 }
 
-input[type="search"]:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus {
+input[type="search"]:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="password"]:focus {
   @apply border-cyan-500;
 }
 
-input[type="search"]::placeholder, input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="url"]::placeholder {
+input[type="search"]::placeholder, input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="url"]::placeholder, input[type="password"]::placeholder {
   @apply text-slate-400;
 }
 
-input[type="search"]:disabled, input[type="text"]:disabled, input[type="email"]:disabled, input[type="url"]:disabled {
+input[type="search"]:disabled, input[type="text"]:disabled, input[type="email"]:disabled, input[type="url"]:disabled, input[type="password"]:disabled {
   @apply bg-slate-200 cursor-not-allowed;
+}
+
+select {
+  @apply px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none py-2;
 }
 
 textarea {

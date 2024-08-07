@@ -1,0 +1,38 @@
+<!-- vehicle-list.component.html -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Type</th>
+      <th>Year</th>
+      <th>License Plate</th>
+      <th>Capacity</th>
+      <th>Current Location</th>
+      <th>Created At</th>
+      <th>Created By</th>
+      <th>Updated At</th>
+      <th>Updated By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vehicle of entities">
+      <td>{{ vehicle.make }}</td>
+      <td>{{ vehicle.model }}</td>
+      <td>{{ vehicle.type }}</td>
+      <td>{{ vehicle.year }}</td>
+      <td>{{ vehicle.licensePlate }}</td>
+      <td>{{ vehicle.capacity || 'N/A' }}</td>
+      <td>{{ vehicle.currentLocation || 'N/A' }}</td>
+      <td>{{ vehicle.createdAt | date:'short' }}</td>
+      <td>{{ vehicle.createdBy }}</td>
+      <td>{{ vehicle.updatedAt | date:'short' }}</td>
+      <td>{{ vehicle.updatedBy }}</td>
+      <td class="flex gap-2">
+        <button class="border px-2 py-1" (click)="onEntitySelected(vehicle)">Edit</button>
+        <button class="border px-2 py-1" (click)="onEntityDeleted(vehicle)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

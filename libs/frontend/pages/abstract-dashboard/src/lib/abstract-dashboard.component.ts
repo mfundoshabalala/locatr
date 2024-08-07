@@ -16,12 +16,12 @@ type EntityInterface = Record<string, any>;
     </ng-container>
     }
   `,
-  styleUrl: './abstract-dashboard.component.css',
 })
 export abstract class AbstractDashboardComponent<T extends EntityInterface> implements OnInit {
   protected abstract readonly service: any; // Specific service for each entity
   protected abstract readonly listComponent: any; // Specific list component for each entity
   protected abstract readonly formComponent: any; // Specific form component for each entity
+  protected abstract readonly entityName: string; // Specific entity name for each entity
 
   entityList = signal<T[]>([]);
   private readonly offcanvasService = inject(OffcanvasService);
@@ -32,11 +32,11 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
       async () => {
         try {
           if (this.offcanvasService.mode() === 'update' && this.offcanvasService.hasChanges()) {
-            await this.onUpdate(this.offcanvasService.entity() as T);
+            await this.onEntityUpdate(this.offcanvasService.entity() as T);
           } else if (this.offcanvasService.mode() === 'create' && this.offcanvasService.entity()) {
             await this.onCreate(this.offcanvasService.entity() as T);
           } else if (this.offcanvasService.mode() === 'delete' && this.offcanvasService.entity()?.['id']) {
-            await this.onDelete(this.offcanvasService.entity() as T);
+            await this.onEntityDelete(this.offcanvasService.entity() as T);
           } else {
             console.log('No action taken');
           }
@@ -55,22 +55,21 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
   }
 
   ngOnInit() {
-    this.dynamicFormService.registerFormComponent(this.formComponent.name, this.formComponent);
-    this.service.getAll().then((list: T[]) => this.entityList.set(list));
+    this.dynamicFormService.registerFormComponent(this.entityName, this.formComponent);
   }
 
-  onEdit(entity: T) {
-    this.offcanvasService.open(this.formComponent.name, entity);
+  onEntitySelect(entity: T) {
+    this.offcanvasService.open(this.entityName, entity);
   }
 
-  async onDelete(entity: T) {
+  async onEntityDelete(entity: T) {
     if (entity['id'] !== undefined) {
       await this.service.delete(entity['id']);
       this.entityList.update((list) => list.filter((item) => item['id'] !== entity['id']));
     }
   }
 
-  private async onUpdate(entity: T) {
+  async onEntityUpdate(entity: T) {
     const updatedEntity = await this.service.update(entity['id'] as string, entity);
     this.entityList.update((list) => list.map((item) => (item['id'] === updatedEntity.id ? updatedEntity : item)));
   }

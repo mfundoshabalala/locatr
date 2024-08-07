@@ -1,5 +1,5 @@
 {
-  "name": "frontend-pages-abstract-dashboard",
+  "name": "abstract-dashboard",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/pages/abstract-dashboard/src",
   "prefix": "lib",
