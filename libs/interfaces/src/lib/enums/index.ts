@@ -40,59 +40,59 @@ export enum UserNotification {
 }
 
 export enum NotificationType {
-  USER = 'user',
-  ORDER = 'order',
+  USER = 'User',
+  ORDER = 'Order',
 }
 
 export enum OrderNotification {
-  SENT = 'sent',
-  DELIVERED = 'delivered',
-  READ = 'read',
+  SENT = 'Sent',
+  DELIVERED = 'Delivered',
+  READ = 'Read',
 }
 
 export enum OrderStatus {
-  CANCELLED = 'cancelled',
-  DELIVERED = 'delivered',
-  IN_PROGRESS = 'in progress',
-  PENDING = 'pending',
+  CANCELLED = 'Cancelled',
+  DELIVERED = 'Delivered',
+  IN_PROGRESS = 'In Progress',
+  PENDING = 'Pending',
 }
 
 export enum OrderType {
-  DELIVERY = 'delivery',
-  PICKUP = 'pickup',
-  TRANSFER = 'transfer',
+  DELIVERY = 'Delivery',
+  PICKUP = 'Pickup',
+  TRANSFER = 'Transfer',
 }
 
 export enum OrderPriority {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  HIGH = 'high',
+  LOW = 'Low',
+  MEDIUM = 'Medium',
+  HIGH = 'High',
 }
 
 export enum UserRole {
-  ADMIN = 'admin',
-  CUSTOMER = 'customer',
-  DISPATCHER = 'dispatcher',
-  DRIVER = 'driver',
-  OWNER = 'owner',
+  ADMIN = 'Admin',
+  CUSTOMER = 'Customer',
+  DISPATCHER = 'Dispatcher',
+  DRIVER = 'Driver',
+  OWNER = 'Owner',
 }
 
 export enum UserStatus {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
-  SUSPENDED = 'suspended',
-  DELETED = 'deleted',
+  ACTIVE = 'Active',
+  INACTIVE = 'Inactive',
+  SUSPENDED = 'Suspended',
+  DELETED = 'Deleted',
 }
 
 export enum VehicleType {
-  CAR = 'car',
-  TRUCK = 'truck',
-  BIKE = 'bike',
-  SCOOTER = 'scooter',
-  BUS = 'bus',
-  TRAIN = 'train',
-  SHIP = 'ship',
-  PLANE = 'plane',
-  HELICOPTER = 'helicopter',
-  OTHER = 'other',
+  CAR = 'Car',
+  TRUCK = 'Truck',
+  BIKE = 'Bike',
+  SCOOTER = 'Scooter',
+  BUS = 'Bus',
+  TRAIN = 'Train',
+  SHIP = 'Ship',
+  PLANE = 'Plane',
+  HELICOPTER = 'Helicopter',
+  OTHER = 'Other',
 }

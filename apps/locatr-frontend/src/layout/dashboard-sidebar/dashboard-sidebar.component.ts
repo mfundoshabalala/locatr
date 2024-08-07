@@ -27,80 +27,37 @@ export class DashboardSidebarComponent implements OnInit {
   userRole!: string;
   sidebarItems: SidebarItem[] = [
     // Common Sections
+    { icon: 'dashboard', route: '/dashboard', label: 'Dashboard', roles: ['admin', 'dispatcher', 'driver'] },
+    { icon: 'person', route: '/profile', label: 'Profile', roles: ['admin', 'dispatcher', 'driver'] },
     {
-      icon: 'dashboard.svg',
-      route: '/dashboard',
-      label: 'Dashboard',
-      roles: ['admin', 'dispatcher', 'driver', 'customer'],
-    },
-    {
-      icon: 'user.svg',
-      route: '/profile',
-      label: 'Profile',
-      roles: ['admin', 'dispatcher', 'driver', 'customer'] },
-    {
-      icon: 'bell.svg',
+      icon: 'notifications',
       route: '/notifications',
       label: 'Notifications',
-      roles: ['admin', 'dispatcher', 'driver', 'customer'],
+      roles: ['admin', 'dispatcher', 'driver'],
     },
+
     // Admin Sections
-    {
-      icon: 'team.svg',
-      route: '/users',
-      label: 'User Management',
-      roles: ['admin']
-    },
-    {
-      icon: 'directions_car',
-      route: '/vehicles',
-      label: 'Vehicle Management',
-      roles: ['admin']
-    },
+    { icon: 'group', route: '/users', label: 'User Management', roles: ['admin'] },
+    { icon: 'directions_car', route: '/vehicles', label: 'Vehicle Management', roles: ['admin'] },
+    { icon: 'bar_chart', route: '/analytics', label: 'Business Analytics', roles: ['admin'] },
+    { icon: 'account_balance', route: '/accounts', label: 'Account Management', roles: ['admin'] },
+    { icon: 'business', route: '/clients', label: 'Client Management', roles: ['admin'] },
+
     // Dispatcher Sections
-    {
-      icon: 'cart-check.svg',
-      route: '/orders',
-      label: 'Orders',
-      roles: ['dispatcher']
-    },
-    {
-      icon: 'map',
-      route: '/routes',
-      label: 'Route Planning',
-      roles: ['dispatcher']
-    },
-    {
-      icon: 'location_on',
-      route: '/drivers',
-      label: 'Driver Tracking',
-      roles: ['dispatcher']
-    },
+    { icon: 'assignment', route: '/orders', label: 'Orders', roles: ['dispatcher'] },
+    { icon: 'map', route: '/routes', label: 'Route Planning', roles: ['dispatcher'] },
+    { icon: 'location_on', route: '/drivers', label: 'Driver Tracking', roles: ['dispatcher'] },
+    { icon: 'optimize', route: '/optimize', label: 'Route Optimization', roles: ['dispatcher'] },
+
     // Driver Sections
-    {
-      icon: 'map',
-      route: '/my-routes',
-      label: 'My Routes',
-      roles: ['driver']
-    },
-    {
-      icon: 'assignment',
-      route: '/my-orders',
-      label: 'Order Management',
-      roles: ['driver']
-    },
-    // Customer Sections
-    {
-      icon: 'assignment',
-      route: '/my-orders',
-      label: 'My Orders',
-      roles: ['customer']
-    },
+    { icon: 'map', route: '/my-routes', label: 'My Routes', roles: ['driver'] },
+    { icon: 'assignment', route: '/my-orders', label: 'My Assignments', roles: ['driver'] },
   ];
 
   //NOTE: icons are from https://www.svgrepo.com/public
   menuItems: MenuItem[] = [
-    { label: 'Dashboard', path: '/dashboard', icon: 'dashboard.svg' },
+    { label: 'Overview', path: '/dashboard/overview', icon: 'dashboard.svg' },
+    { label: 'Clients', path: '/dashboard/client', icon: 'business.svg' },
     { label: 'Orders', path: '/dashboard/order', icon: 'cart-check.svg' },
     { label: 'Employees', path: '/dashboard/employee', icon: 'team.svg' },
     { label: 'Vehicles', path: '/dashboard/vehicle', icon: 'truck-weight-max-loading.svg' },

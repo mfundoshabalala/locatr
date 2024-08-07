@@ -1,4 +1,3 @@
-import { IsNotEmpty } from 'class-validator';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,19 +8,21 @@ import {
   ManyToOne,
   OneToOne,
   Unique,
+  OneToMany,
 } from 'typeorm';
 
 import { Site } from '@migrations/site/entities/site.entity';
 import { Contact } from '@migrations/contact/entities/contact.entity';
 import { Industry } from '@migrations/industry/entities/industry.entity';
+import { Order } from '@migrations/order/entities/order.entity';
 
 @Entity()
 export class Client {
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
   id!: string;
 
-  @Column({ unique: true, type: 'varchar', length: 255 })
-  @IsNotEmpty()
+  @Unique('clientName', ['name'])
+  @Column({ name: 'clientName', unique: true, type: 'varchar', length: 255 })
   name!: string;
 
   @Column({ type: 'simple-array', nullable: true })
@@ -47,8 +48,10 @@ export class Client {
   @JoinColumn({ name: 'siteID' })
   site!: Site;
 
+  @OneToMany(() => Order, (order) => order.client, { nullable: true, orphanedRowAction: 'delete' })
+  orders!: Order[];
+
   @ManyToOne(() => Industry, { eager: true })
-  @JoinColumn({ name: 'industryID' })
   industry!: Industry;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })

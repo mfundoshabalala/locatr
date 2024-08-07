@@ -1,5 +1,5 @@
 <!-- create-order.component.html -->
-<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="capitalize">
   <fieldset>
     <legend>Order Information</legend>
     <div>
@@ -7,9 +7,9 @@
       <input id="orderNumber" formControlName="orderNumber" type="text">
     </div>
     <div>
-      <label for="customer">Customer:</label>
-      <select id="customer" formControlName="customer">
-        <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+      <label for="client">Client:</label>
+      <select id="client" formControlName="client">
+        <option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</option>
       </select>
     </div>
     <div>
@@ -22,19 +22,19 @@
     </div>
     <div>
       <label for="type">Type:</label>
-      <select id="type" formControlName="type">
+      <select id="type" formControlName="type" class="capitalize">
         <option *ngFor="let type of orderTypes" [value]="type">{{ type }}</option>
       </select>
     </div>
     <div>
       <label for="status">Status:</label>
-      <select id="status" formControlName="status">
+      <select id="status" formControlName="status" class="capitalize">
         <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
       </select>
     </div>
     <div>
       <label for="priority">Priority:</label>
-      <select id="priority" formControlName="priority">
+      <select id="priority" formControlName="priority" class="capitalize">
         <option *ngFor="let priority of orderPriorities" [value]="priority">{{ priority }}</option>
       </select>
     </div>

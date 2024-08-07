@@ -1,5 +1,5 @@
 <!-- order-list.component.html -->
-<table class="table">
+<table class="table capitalize">
   <thead>
     <tr>
       <th>Order Number</th>
@@ -14,16 +14,22 @@
   </thead>
   <tbody>
     <tr *ngFor="let order of entities">
-      <td>{{ order.orderNumber }}</td>
-      <td>{{ order.customer.username }}</td>
-      <td>{{ order.pickupAddress }}</td>
-      <td>{{ order.deliveryAddress }}</td>
-      <td>{{ order.type }}</td>
-      <td>{{ order.status }}</td>
-      <td>{{ order.priority }}</td>
-      <td class="flex gap-2">
-        <button class="border px-2 py-1" (click)="onEntitySelected(order)">Edit</button>
-        <button class="border px-2 py-1" (click)="onEntityDeleted(order)">Delete</button>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order.orderNumber }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order.client?.name }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order.pickupAddress }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order.client?.site?.address }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order.type }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order.status }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order.priority }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">
+        <div class="text-xs font-medium flex flex-nowrap gap-x-1">
+          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex clients-center"
+            (click)="onEntitySelected(order)"><img src="assets/icons/eye.svg" alt="View" class="size-4">
+          </button>
+          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex clients-center"
+            (click)="onEntityDeleted(order)"><img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

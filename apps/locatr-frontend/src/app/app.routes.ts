@@ -18,6 +18,25 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
+        path: 'overview',
+        loadComponent: () => import('../pages').then((m) => m.RoutingComponent),
+        data: {
+          title: 'Dashboard',
+          subtitle: 'Overview of your route planning activities.',
+          searchType: 'none',
+        },
+      },
+      {
+        path: 'client',
+        loadComponent: () => import('@pages/client-management').then((m) => m.ClientManagementComponent),
+        data: {
+          entityName: 'client',
+          title: 'Client Management',
+          subtitle: 'Manage your client information.',
+          searchType: 'list',
+        }
+      },
+      {
         path: 'employee',
         loadComponent: () => import('@pages/employee-management').then((m) => m.EmployeeManagementComponent),
         data: {
@@ -59,9 +78,9 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'routing',
-        loadComponent: () => import('../pages').then((m) => m.RoutingComponent),
+        loadComponent: () => import('@pages/route-optimisation').then((m) => m.RouteOptimisationComponent),
         data: {
-          title: 'Routing',
+          title: 'Route Optimization',
           subtitle: 'Manage and adjust route details.',
           searchType: 'address',
         },

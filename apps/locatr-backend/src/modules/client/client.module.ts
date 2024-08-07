@@ -13,5 +13,6 @@ import { Site } from '@migrations/site/entities/site.entity';
   imports: [TypeOrmModule.forFeature([Client, Industry, Contact, Site])],
   controllers: [ClientController],
   providers: [ClientService],
+  exports: [ClientService],
 })
 export class ClientModule {}
