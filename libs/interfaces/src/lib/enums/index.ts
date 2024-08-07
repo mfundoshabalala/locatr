@@ -1,3 +1,20 @@
+// export type EntityInterface = Record<string, any> | null;
+
+export interface EntityInterface extends Record<string, any> {
+  id?: any;
+  // [key: string]: any;
+  createdBy?: string;
+  createdAt?: Date;
+  updatedBy?: string;
+  updatedAt?: Date;
+}
+
+export interface FormSubmission {
+  mode: FormMode;
+  entity: Record<string, any> | null;
+  changed: boolean;
+}
+
 export enum FormMode {
   CREATE = 'create',
   READ = 'read',

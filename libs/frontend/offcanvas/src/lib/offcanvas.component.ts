@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, signal, viewChild, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormMode } from '@profolio/interfaces';
+import { EntityInterface, FormMode, FormSubmission } from '@profolio/interfaces';
 import { OffcanvasService } from '../services/offcanvas.service';
 import { DynamicFormService } from '@profolio/frontend/shared/ui';
 
@@ -18,7 +18,7 @@ export class OffcanvasComponent {
   isOpen = signal<boolean>(false);
   entityID = signal<string | null>(null);
   entityName = signal<string>('');
-  entity = signal<Record<string, any> | null>({});
+  entity = signal<EntityInterface | null>({});
   mode = signal<FormMode | null>(null);
 
   private readonly offcanvasService = inject(OffcanvasService);
@@ -55,25 +55,23 @@ export class OffcanvasComponent {
 
     const componentRef = this.formContainer()?.createComponent(component);
     if (componentRef) {
-      componentRef.instance.mode = this.offcanvasService.mode();
-      componentRef.instance.entity = this.offcanvasService.entity();
-      componentRef.instance.entityName = this.offcanvasService.entityName();
+      // componentRef.instance.mode = this.offcanvasService.mode;
+      componentRef.instance.entity = this.offcanvasService.entity;
+      // componentRef.instance.entityName = this.offcanvasService.entityName();
     }
 
     if (componentRef?.instance.formSubmitted) {
-      componentRef.instance.formSubmitted.subscribe(
-        ({ entity, mode, changed }: { entity: Record<string, any>; mode: FormMode; changed: boolean }) => {
-          this.offcanvasService.mode.set(mode);
-          if (mode !== FormMode.CLOSE) {
-            this.offcanvasService.entity.set(entity);
-            this.offcanvasService.hasChanges.set(changed);
-          } else {
-            this.offcanvasService.entity.set(null);
-            this.offcanvasService.hasChanges.set(false);
-          }
-          this.offcanvasService.close();
+      componentRef.instance.formSubmitted.subscribe(({ entity, mode, changed }: FormSubmission) => {
+        this.offcanvasService.mode.set(mode);
+        if (mode !== FormMode.CLOSE) {
+          this.offcanvasService.entity.set(entity);
+          this.offcanvasService.hasChanges.set(changed);
+        } else {
+          this.offcanvasService.entity.set(null);
+          this.offcanvasService.hasChanges.set(false);
         }
-      );
+        this.offcanvasService.close();
+      });
     }
   }
 }

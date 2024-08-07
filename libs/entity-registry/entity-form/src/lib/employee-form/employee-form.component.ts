@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '@profolio/frontend/services';
+import { FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AbstractFormComponent } from '../abstract-form.component';
 
 @Component({
   selector: 'lib-employee-form',
@@ -10,13 +10,9 @@ import { UserService } from '@profolio/frontend/services';
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.css',
 })
-export class EmployeeFormComponent implements OnInit {
-  createUserForm!: FormGroup;
-
-  constructor(private fb: FormBuilder, private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.createUserForm = this.fb.group({
+export class EmployeeFormComponent extends AbstractFormComponent {
+  protected override createForm(): FormGroup {
+    return this.fb.group({
       username: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
       password: ['', [Validators.required, Validators.maxLength(255)]],
@@ -25,25 +21,13 @@ export class EmployeeFormComponent implements OnInit {
         firstName: ['', [Validators.required, Validators.maxLength(255)]],
         lastName: ['', [Validators.required, Validators.maxLength(255)]],
         position: ['', [Validators.required, Validators.maxLength(255)]],
-        department: ['', Validators.maxLength(255)],
-        createdBy: ['system'],
-        updatedBy: ['system'],
+        department: ['', Validators.maxLength(255)]
       }),
       contact: this.fb.group({
         name: ['', [Validators.required, Validators.maxLength(255)]],
         phone: ['', [Validators.maxLength(255)]],
-        email: ['', [Validators.email, Validators.maxLength(255)]],
-        createdBy: ['system'],
-        updatedBy: ['system'],
+        email: ['', [Validators.email, Validators.maxLength(255)]]
       }),
     });
-  }
-
-  onSubmit(): void {
-    if (this.createUserForm.valid) {
-      this.userService.create(this.createUserForm.value).then((user) => {
-        console.log('User created', user);
-      })
-    }
   }
 }

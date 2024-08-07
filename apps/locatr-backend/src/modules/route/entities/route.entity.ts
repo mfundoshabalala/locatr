@@ -9,14 +9,16 @@ export class Route {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id!: number;
 
-  @ManyToOne(() => Order)
+  @ManyToOne(() => Order, { eager: true })
   @JoinColumn({ name: 'orderID' })
   order!: Order;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
+  @JoinColumn({ name: 'driverID' })
   driver!: User;
 
-  @ManyToOne(() => Vehicle)
+  @ManyToOne(() => Vehicle, { eager: true })
+  @JoinColumn({ name: 'vehicleID' })
   vehicle!: Vehicle;
 
   @Column({ nullable: true })

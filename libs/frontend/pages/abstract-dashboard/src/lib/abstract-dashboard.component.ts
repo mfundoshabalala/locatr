@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, Injector, OnInit, signal } from '@angular/core';
 import { DynamicFormService } from '@profolio/frontend/shared/ui';
+import { EntityInterface } from '@profolio/interfaces';
 import { OffcanvasService } from '@profolio/offcanvas';
-
-type EntityInterface = Record<string, any>;
 
 @Component({
   selector: 'lib-abstract-dashboard',
@@ -40,8 +39,8 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
           } else {
             console.log('No action taken');
           }
-        } catch (error: any) {
-          console.log(error.message);
+        } catch (error) {
+          console.log((error as any).message);
         } finally {
           this.offcanvasService.hasChanges.set(false);
         }

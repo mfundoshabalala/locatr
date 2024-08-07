@@ -1,9 +1,8 @@
 import { ContactInterface } from "./contact.interface";
 import { EmployeeInterface } from "./employee.interface";
-import { UserRole, UserStatus } from "./enums";
+import { EntityInterface, UserRole, UserStatus } from "./enums";
 
-export interface UserInterface {
-  id?: string;
+export interface UserInterface extends EntityInterface {
   username: string;
   email: string;
   password: string;
@@ -12,8 +11,4 @@ export interface UserInterface {
   contact: ContactInterface;
   status: UserStatus;
   role: UserRole;
-  createdAt?: Date;
-  createdBy?: string;
-  updatedAt?: Date;
-  updatedBy?: string;
 }

@@ -1,8 +1,7 @@
-import { OrderPriority, OrderStatus, OrderType } from "./enums";
+import { EntityInterface, OrderPriority, OrderStatus, OrderType } from "./enums";
 import { UserInterface } from "./user.interface";
 
-export interface OrderInterface {
-  id?: string;
+export interface OrderInterface extends EntityInterface {
   orderNumber: number;
   customer: UserInterface;
   pickupAddress: string;
@@ -10,8 +9,4 @@ export interface OrderInterface {
   type: OrderType;
   status: OrderStatus;
   priority: OrderPriority;
-  createdAt?: Date;
-  createdBy?: string;
-  updatedAt?: Date;
-  updatedBy?: string;
 }

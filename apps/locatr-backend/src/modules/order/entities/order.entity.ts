@@ -1,12 +1,13 @@
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn, Unique } from 'typeorm';
 import { User } from '@migrations/user/entities/user.entity';
 import { OrderPriority, OrderStatus, OrderType } from '@common/enums';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn('uuid', { name: 'orderID' })
   id!: string;
 
+  @Unique(['orderNumber'])
   @Column({ type: 'bigint', generated: 'identity', name: 'orderNumber' })
   orderNumber!: number;
 
@@ -26,7 +27,7 @@ export class Order {
   @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.PENDING })
   status!: OrderStatus;
 
-  @Column({ type: 'enum', enum: OrderPriority, default: OrderPriority.LOW })
+  @Column({ type: 'enum', enum: OrderPriority, default: OrderPriority.MEDIUM })
   priority!: OrderPriority;
 
   @CreateDateColumn()

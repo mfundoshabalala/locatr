@@ -1,5 +1,5 @@
 <!-- create-vehicle.component.html -->
-<form [formGroup]="createVehicleForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
   <fieldset>
     <legend>Vehicle Information</legend>
     <div>
@@ -38,5 +38,5 @@
     </div>
   </fieldset>
 
-  <button type="submit" [disabled]="!createVehicleForm.valid">Create Vehicle</button>
+  <button type="submit" [disabled]="!entityForm.valid">Create Vehicle</button>
 </form>

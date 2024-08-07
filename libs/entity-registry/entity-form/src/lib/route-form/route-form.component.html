@@ -1,1 +1,57 @@
-<p>route-form works!</p>
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="order">Order:</label>
+    <select id="order" formControlName="order">
+      <option *ngFor="let order of orders()" [value]="order.id">{{ order.orderNumber }}</option>
+    </select>
+    <div *ngIf="entityForm.get('order')?.invalid && entityForm.get('order')?.touched">
+      Order is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="driver">Driver:</label>
+    <select id="driver" formControlName="driver">
+      <option *ngFor="let driver of drivers()" [value]="driver.id">{{ driver.username }}</option>
+    </select>
+    <div *ngIf="entityForm.get('driver')?.invalid && entityForm.get('driver')?.touched">
+      Driver is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="vehicle">Vehicle:</label>
+    <select id="vehicle" formControlName="vehicle">
+      <option *ngFor="let vehicle of vehicles()" [value]="vehicle.id">{{ vehicle.licensePlate }}</option>
+    </select>
+    <div *ngIf="entityForm.get('vehicle')?.invalid && entityForm.get('vehicle')?.touched">
+      Vehicle is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="startTime">Start Time:</label>
+    <input id="startTime" formControlName="startTime" type="datetime-local" />
+    <div *ngIf="entityForm.get('startTime')?.invalid && entityForm.get('startTime')?.touched">
+      Start Time is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="endTime">End Time:</label>
+    <input id="endTime" formControlName="endTime" type="datetime-local" />
+    <div *ngIf="entityForm.get('endTime')?.invalid && entityForm.get('endTime')?.touched">
+      End Time is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="routePath">Route Path:</label>
+    <input id="routePath" formControlName="routePath" />
+    <div *ngIf="entityForm.get('routePath')?.invalid && entityForm.get('routePath')?.touched">
+      Route Path is required.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="entityForm.invalid">Submit</button>
+</form>

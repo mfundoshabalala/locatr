@@ -1,5 +1,6 @@
 import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractService } from '@profolio/frontend/services';
+import { EntityInterface } from '@profolio/interfaces';
 
 @Directive()
 export abstract class AbstractListComponent<T> implements OnInit {
@@ -17,7 +18,7 @@ export abstract class AbstractListComponent<T> implements OnInit {
     try {
       this.entities = await this.service.getAll();
     } catch (error) {
-      console.error('Error loading entities', error);
+      console.error('Error loading entities', (error as any).message);
     }
   }
 
@@ -27,19 +28,19 @@ export abstract class AbstractListComponent<T> implements OnInit {
 
   async onEntityDeleted(entity: T) {
     try {
-      await this.service.delete((entity as any).id);
-      await this.getList();
+      await this.service.delete((entity as EntityInterface)?.['id']);
+      this.entities = this.entities.filter((e) => e !== entity);
     } catch (error) {
-      console.error('Error deleting entity', error);
+      console.error('Error deleting entity', (error as any).message);
     }
   }
 
   async onEntityUpdated(entity: T) {
     try {
-      await this.service.update((entity as any).id, entity);
-      await this.getList(); //FIXME: This is not efficient
+      entity = await this.service.update((entity as EntityInterface)?.['id'], entity);
+      this.entities = this.entities.map((e) => (e === entity ? entity : e));
     } catch (error) {
-      console.error('Error updating entity', error);
+      console.error('Error updating entity', (error as any).message);
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { FormMode } from '@profolio/interfaces';
+import { EntityInterface, FormMode } from '@profolio/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +7,7 @@ import { FormMode } from '@profolio/interfaces';
 export class OffcanvasService {
   entityName = signal<string>('');
   entityID = signal<string | null>(null);
-  entity = signal<Record<string, any> | null>(null);
+  entity = signal<EntityInterface | null>(null);
   mode = signal<FormMode | null>(null);
   hasChanges = signal<boolean>(false);
   private openOffcanvas = signal<boolean>(false);
@@ -20,7 +20,7 @@ export class OffcanvasService {
     this.openOffcanvas.set(false);
   }
 
-  open(entityName: string, entity?: Record<string, any> | null): void {
+  open(entityName: string, entity: EntityInterface | null = null): void {
     this.entityName.set(entityName);
     if (entity) {
       this.mode.set(FormMode.UPDATE);

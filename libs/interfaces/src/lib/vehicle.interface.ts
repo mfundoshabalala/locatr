@@ -1,7 +1,6 @@
-import { VehicleType } from "./enums";
+import { EntityInterface, VehicleType } from "./enums";
 
-export interface VehicleInterface {
-  id: number;
+export interface VehicleInterface extends EntityInterface {
   make: string;
   model: string;
   year: number;
@@ -9,8 +8,4 @@ export interface VehicleInterface {
   licensePlate: string;
   capacity: number;
   currentLocation?: string; // Optional field
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: string;
-  updatedBy: string;
 }

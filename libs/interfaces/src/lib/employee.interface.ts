@@ -1,14 +1,10 @@
+import { EntityInterface } from "./enums";
 import { ContactInterface } from "./contact.interface";
 
-export interface EmployeeInterface {
-  id: string;
+export interface EmployeeInterface extends EntityInterface {
   firstName: string;
   lastName: string;
   position: string;
   department?: string;
   contact?: ContactInterface;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy?: string;
 }

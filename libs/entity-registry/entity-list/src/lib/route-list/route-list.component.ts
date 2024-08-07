@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouteInterface } from '@profolio/interfaces';
+import { AbstractListComponent } from '../abstract-list.component';
+import { RouteService } from '@profolio/frontend/services';
 
 @Component({
   selector: 'lib-route-list',
@@ -8,4 +11,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './route-list.component.html',
   styleUrl: './route-list.component.css',
 })
-export class RouteListComponent {}
+export class RouteListComponent extends AbstractListComponent<RouteInterface> {
+  protected service = inject(RouteService);
+}

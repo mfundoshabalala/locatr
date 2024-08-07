@@ -52,6 +52,7 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('@pages/route-management').then((m) => m.RouteManagementComponent),
         data: {
           title: 'Route Planning',
+          entityName: 'route',
           subtitle: 'Plan and optimize routes for efficiency.',
           searchType: 'address',
         },

@@ -1,5 +1,5 @@
 <!-- create-user.component.html -->
-<form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
   <fieldset class="border p-4 rounded-md">
     <legend>User Information</legend>
     <div>
@@ -62,5 +62,5 @@
     </div>
   </fieldset>
 
-  <button type="submit" [disabled]="!createUserForm.valid" class="border px-4 py-1.5">Create User</button>
+  <button type="submit" [disabled]="!entityForm.valid" class="border px-4 py-1.5">Create User</button>
 </form>

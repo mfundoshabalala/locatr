@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { OrderType, OrderStatus, OrderPriority, UserInterface } from '@profolio/interfaces';
-import { OrderService, UserService } from '@profolio/frontend/services';
+import { UserService } from '@profolio/frontend/services';
+import { AbstractFormComponent } from '@entity/form';
 
 @Component({
   selector: 'lib-order-form',
@@ -11,19 +12,19 @@ import { OrderService, UserService } from '@profolio/frontend/services';
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css',
 })
-export class OrderFormComponent implements OnInit {
-  createOrderForm!: FormGroup;
+export class OrderFormComponent extends AbstractFormComponent {
   orderTypes = Object.values(OrderType);
   orderStatuses = Object.values(OrderStatus);
   orderPriorities = Object.values(OrderPriority);
   users: UserInterface[] = [];
 
-  constructor(private fb: FormBuilder, private orderService: OrderService, private userService: UserService) {
+  constructor(private userService: UserService) {
+    super();
     this.userService.getAll().then((users) => this.users = users);
   }
 
-  ngOnInit(): void {
-    this.createOrderForm = this.fb.group({
+  protected override createForm(): FormGroup {
+    return this.fb.group({
       orderNumber: ['', [Validators.required]],
       customer: ['', [Validators.required]],
       pickupAddress: ['', [Validators.required]],
@@ -32,13 +33,5 @@ export class OrderFormComponent implements OnInit {
       status: ['', [Validators.required]],
       priority: ['', [Validators.required]],
     });
-  }
-
-  onSubmit(): void {
-    if (this.createOrderForm.valid) {
-      this.orderService.create(this.createOrderForm.value).then((order) => {
-        console.log('Order created', order);
-      });
-    }
   }
 }

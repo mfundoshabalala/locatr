@@ -9,10 +9,6 @@
       <th>Type</th>
       <th>Status</th>
       <th>Priority</th>
-      <th>Created At</th>
-      <th>Created By</th>
-      <th>Updated At</th>
-      <th>Updated By</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -25,10 +21,6 @@
       <td>{{ order.type }}</td>
       <td>{{ order.status }}</td>
       <td>{{ order.priority }}</td>
-      <td>{{ order.createdAt | date:'long' }}</td>
-      <td>{{ order.createdBy }}</td>
-      <td>{{ order.updatedAt | date:'short' }}</td>
-      <td>{{ order.updatedBy }}</td>
       <td>
         <button (click)="onEntitySelected(order)">Edit</button>
         <button (click)="onEntityDeleted(order)">Delete</button>

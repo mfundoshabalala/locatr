@@ -1,5 +1,5 @@
 <!-- create-order.component.html -->
-<form [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
   <fieldset>
     <legend>Order Information</legend>
     <div>
@@ -40,6 +40,6 @@
     </div>
   </fieldset>
 
-  <button type="submit" [disabled]="!createOrderForm.valid">Create Order</button>
+  <button type="submit" [disabled]="!entityForm.valid">Create Order</button>
 </form>
 

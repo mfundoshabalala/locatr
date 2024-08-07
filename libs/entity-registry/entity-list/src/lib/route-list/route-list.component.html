@@ -1,1 +1,27 @@
-<p>route-list works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Order Number</th>
+      <th>Driver</th>
+      <th>Vehicle</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Route Path</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let route of entities">
+      <td>{{ route.order.orderNumber }}</td>
+      <td>{{ route.driver.username }}</td>
+      <td>{{ route.vehicle.licensePlate }}</td>
+      <td>{{ route.startTime }}</td>
+      <td>{{ route.endTime }}</td>
+      <td>{{ route.routePath }}</td>
+      <td>
+        <button (click)="onEntitySelected(route)">Edit</button>
+        <button (click)="onEntityDeleted(route)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
