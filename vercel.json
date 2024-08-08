@@ -16,27 +16,22 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "dist/apps/locatr-backend/main.js"
-    }
-  ],
-  "redirects": [
+      "source": "/api/(.*)",
+      "destination": "/dist/apps/locatr-backend/main.js"
+    },
     {
       "source": "/auth/:path*",
-      "destination": "/index.html",
-      "statusCode": 200
+      "destination": "/index.html"
     },
     {
       "source": "/dashboard/:path*",
-      "destination": "/index.html",
-      "statusCode": 200
+      "destination": "/index.html"
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html",
-      "statusCode": 200
+      "destination": "/index.html"
     }
   ]
 }
