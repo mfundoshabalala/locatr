@@ -20,10 +20,23 @@
     {
       "src": "/api/(.*)",
       "dest": "dist/apps/locatr-backend/main.js"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/auth/:path*",
+      "destination": "/index.html",
+      "statusCode": 200
     },
     {
-      "src": "/(.*)",
-      "dest": "dist/apps/locatr-frontend/browser/index.html"
+      "source": "/dashboard/:path*",
+      "destination": "/index.html",
+      "statusCode": 200
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html",
+      "statusCode": 200
     }
   ]
 }
