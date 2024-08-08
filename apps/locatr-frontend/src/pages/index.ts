@@ -9,9 +9,6 @@ export * from './dashboard/support-management/support-management.component';
 export * from './authentication/login/login.component';
 export * from './authentication/logout/logout.component';
 export * from './authentication/register/register.component';
-// export * from './authentication/reset-password/reset-password.component';
-// export * from './authentication/verify-email/verify-email.component';
-
 
 // other pages
 export * from './error/error.component';
