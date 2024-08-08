@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "build": "nx run-many --target=build --all",
     "preinstall": "npx only-allow pnpm",
     "dev": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4",
     "server": "nx serve locatr-backend",
