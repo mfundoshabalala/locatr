@@ -13,7 +13,8 @@ interface SidebarItem {
 interface MenuItem {
   label: string;
   path: string;
-  icon?: string;
+  icon: string;
+  roles: string[];
 }
 
 @Component({
@@ -56,18 +57,18 @@ export class DashboardSidebarComponent implements OnInit {
 
   //NOTE: icons are from https://www.svgrepo.com/public
   menuItems: MenuItem[] = [
-    { label: 'Overview', path: '/dashboard/overview', icon: 'dashboard.svg' },
-    { label: 'Clients', path: '/dashboard/client', icon: 'business.svg' },
-    { label: 'Orders', path: '/dashboard/order', icon: 'cart-check.svg' },
-    { label: 'Employees', path: '/dashboard/employee', icon: 'team.svg' },
-    { label: 'Vehicles', path: '/dashboard/vehicle', icon: 'truck-weight-max-loading.svg' },
-    { label: 'Planning', path: '/dashboard/route', icon: 'calendar.svg' },
-    { label: 'Routing', path: '/dashboard/routing', icon: 'route-start.svg' },
+    { label: 'Overview', path: '/dashboard/overview', icon: 'stats.svg', roles: ['admin', 'dispatcher', 'driver'] },
+    { label: 'Client Management', path: '/dashboard/client', icon: 'business.svg', roles: ['admin'] },
+    { label: 'Order Management', path: '/dashboard/order', icon: 'trolley.svg', roles: ['admin', 'dispatcher'] },
+    { label: 'User Management', path: '/dashboard/employee', icon: 'figure.svg', roles: ['admin'] },
+    { label: 'Vehicle Management', path: '/dashboard/vehicle', icon: 'delivery-truck.svg', roles: ['admin'] },
+    { label: 'Route Planning', path: '/dashboard/route', icon: 'calendar-date.svg', roles: ['admin', 'dispatcher'] },
+    { label: 'Route Optimization', path: '/dashboard/routing', icon: 'map-marker.svg', roles: ['admin', 'dispatcher'] },
   ];
 
   public footerItems: MenuItem[] = [
-    { label: 'Settings', path: '/dashboard/settings', icon: 'settings.svg' },
-    { label: 'Support', path: '/dashboard/support', icon: 'headset-support.svg' },
+    { label: 'Settings', path: '/dashboard/settings', icon: 'settings-gear.svg', roles: ['admin'] },
+    { label: 'Support', path: '/dashboard/support', icon: 'lifebuoy-help.svg', roles: ['admin', 'dispatcher', 'driver'] },
   ];
 
   constructor(private authService: AuthenticationService) {}

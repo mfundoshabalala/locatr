@@ -51,22 +51,22 @@ export enum OrderNotification {
 }
 
 export enum OrderStatus {
-  CANCELLED = 'Cancelled',
-  DELIVERED = 'Delivered',
-  IN_PROGRESS = 'In Progress',
-  PENDING = 'Pending',
+  CANCELLED = 'cancelled',
+  DELIVERED = 'delivered',
+  IN_PROGRESS = 'in_progress',
+  PENDING = 'pending',
 }
 
 export enum OrderType {
-  DELIVERY = 'Delivery',
-  PICKUP = 'Pickup',
-  TRANSFER = 'Transfer',
+  DELIVERY = 'delivery',
+  PICKUP = 'pickup',
+  TRANSFER = 'transfer',
 }
 
 export enum OrderPriority {
-  LOW = 'Low',
-  MEDIUM = 'Medium',
-  HIGH = 'High',
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high',
 }
 
 export enum UserRole {

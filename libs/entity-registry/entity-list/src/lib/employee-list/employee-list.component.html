@@ -1,32 +1,52 @@
 <table class="table table-auto">
   <thead>
     <tr>
-      <th>Username</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Role</th>
-      <th>Verified</th>
-      <th>Position</th>
-      <th>Department</th>
-      <th>Actions</th>
+      <th class="px-2 py-2 text-slate-600">Username</th>
+      <th class="px-2 py-2 text-slate-600">Full Name</th>
+      <th class="px-2 py-2 text-slate-600">Email</th>
+      <th class="px-2 py-2 text-slate-600">Phone</th>
+      <th class="px-2 py-2 text-slate-600">Role</th>
+      <th class="px-2 py-2 text-slate-600">Verified</th>
+      <th class="px-2 py-2 text-slate-600">Position</th>
+      <th class="px-2 py-2 text-slate-600">Department</th>
+      <th class="px-2 py-2 text-slate-600">Created</th>
+      <th class="px-2 py-2 text-slate-600">Updated</th>
+      <th class="px-2 py-2 text-slate-600">Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of entities">
-      <td>{{ user.username }}</td>
-      <td>{{ user.employee.firstName }}</td>
-      <td>{{ user.employee.lastName }}</td>
-      <td>{{ user.email ? user.email : user.contact ? user.contact.email : user.employee.contact?.email }}</td>
-      <td>{{ user.contact ? user.contact.phone : user.employee.contact?.phone }}</td>
-      <td>{{ user.role }}</td>
-      <td>{{ user.isVerified }}</td>
-      <td>{{ user.employee.position }}</td>
-      <td>{{ user.employee.department }}</td>
-      <td class="flex gap-2">
-        <button class="border px-2 py-1" (click)="onEntitySelected(user)">Edit</button>
-        <button class="border px-2 py-1" (click)="onEntityDeleted(user)">Delete</button>
+      <td class="px-2 py-2 text-sm text-slate-800">
+        <span class="font-medium uppercase">{{ user.username }}</span>
+      </td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ user.employee.firstName + ' ' + user.employee.lastName }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ user.email ? user.email : user.contact ? user.contact.email : user.employee.contact?.email }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ user.contact ? user.contact.phone : user.employee.contact?.phone }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">
+        <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium capitalize">
+          {{ user.role }}
+        </span>
+      </td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ user.isVerified }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ user.employee.position }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ user.employee.department }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">
+        <span class="block text-xs uppercase">{{ user.createdBy }}</span>
+        <span class="block text-xs">{{ user.createdAt| date: 'medium' }}</span>
+      </td>
+      <td class="px-2 py-2 text-sm text-slate-800">
+        <span class="block text-xs uppercase">{{ user.updatedBy }}</span>
+        <span class="block text-xs">{{ user.updatedAt| date: 'medium' }}</span>
+      </td>
+      <td class="px-2 py-2 text-sm text-slate-800">
+        <div class="text-xs font-medium flex flex-nowrap gap-x-1">
+          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
+            (click)="onEntitySelected(user)"><img src="assets/icons/eye.svg" alt="View" class="size-4">
+          </button>
+          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
+            (click)="onEntityDeleted(user)"><img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>
