@@ -23,7 +23,8 @@
     },
     {
       "src": "/(.*)",
-      "dest": "dist/apps/locatr-frontend/browser/index.html"
+      "dest": "dist/apps/locatr-frontend/browser/index.html",
+      "fallback": true
     }
   ]
 }
