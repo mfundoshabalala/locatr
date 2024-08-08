@@ -5,7 +5,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/apps/locatr-frontend"
+        "distDir": "dist/apps/locatr-frontend/browser"
       }
     },
     {
@@ -19,11 +19,11 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/dist/apps/locatr-backend/main.js"
+      "dest": "dist/apps/locatr-backend/main.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/apps/locatr-frontend/index.html"
+      "dest": "dist/apps/locatr-frontend/browser/index.html"
     }
   ]
 }
