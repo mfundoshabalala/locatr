@@ -5,30 +5,28 @@
   "devCommand": "pnpm run dev",
   "builds": [
     {
-      "src": "apps/locatr-frontend/src/main.ts",
+      "src": "apps/locatr-frontend/**/!(main).ts",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/apps/locatr-frontend"
       }
     },
     {
-      "src": "apps/locatr-backend/src/main.ts",
+      "src": "apps/locatr-backend/main.ts",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb",
-        "runtime": "nodejs18.x"
+        "includeFiles": "dist/apps/locatr-backend/**"
       }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/apps/locatr-backend/src/$1",
-      "methods": ["GET", "POST", "PUT", "DELETE"]
+      "dest": "/dist/apps/locatr-backend/main.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/apps/locatr-frontend/dist/$1"
+      "dest": "/dist/apps/locatr-frontend/index.html"
     }
   ]
 }
