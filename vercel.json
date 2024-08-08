@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "npx nx build",
-  "installCommand": "pnpm install",
-  "devCommand": "pnpm run dev",
   "builds": [
     {
       "src": "apps/locatr-frontend/**/!(main).ts",
@@ -28,5 +25,8 @@
       "src": "/(.*)",
       "dest": "/dist/apps/locatr-frontend/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
