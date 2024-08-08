@@ -23,15 +23,15 @@
     },
     {
       "source": "/auth/:path*",
-      "destination": "/index.html"
+      "destination": "/dist/apps/locatr-frontend/browser/index.html"
     },
     {
       "source": "/dashboard/:path*",
-      "destination": "/index.html"
+      "destination": "/dist/apps/locatr-frontend/browser/index.html"
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/dist/apps/locatr-frontend/browser/index.html"
     }
   ]
 }
