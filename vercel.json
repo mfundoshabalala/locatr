@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "apps/locatr-frontend/**/!(main).ts",
+      "src": "apps/locatr-frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/apps/locatr-frontend"
       }
     },
     {
-      "src": "apps/locatr-backend/main.ts",
+      "src": "apps/locatr-backend/package.json",
       "use": "@vercel/node",
       "config": {
         "includeFiles": "dist/apps/locatr-backend/**"
