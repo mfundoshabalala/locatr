@@ -86,6 +86,9 @@ importers:
       '@vercel/analytics':
         specifier: ^1.3.1
         version: 1.3.1
+      '@vercel/speed-insights':
+        specifier: ^1.0.12
+        version: 1.0.12
       axios:
         specifier: ^1.6.0
         version: 1.7.3
@@ -258,6 +261,9 @@ importers:
       '@typescript-eslint/utils':
         specifier: 7.16.0
         version: 7.16.0(eslint@8.57.0)(typescript@5.5.4)
+      '@vercel/remote-nx':
+        specifier: ^2.0.0
+        version: 2.0.0(encoding@0.1.13)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.12))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.12)))
       autoprefixer:
         specifier: ^10.4.0
         version: 10.4.19(postcss@8.4.40)
@@ -3057,6 +3063,35 @@ packages:
       react:
         optional: true
 
+  '@vercel/remote-nx@2.0.0':
+    resolution: {integrity: sha512-lO5zIXnfg6Igi3Zpsf6uzSPXassO7j4udA5Jn++qKyUTqtzpn0rUav5VmNxDTS4nEDJhrYyRJwx7oUNp7yQyTQ==}
+
+  '@vercel/remote@1.0.1':
+    resolution: {integrity: sha512-5iUXUO/DBsNPFPq1tuIndhq+x14Nec1lyj0F2IelWm/cVFl7q8dnXsAPtMnr1129RD8hbOTqI2XgXKo8orAlpA==}
+
+  '@vercel/speed-insights@1.0.12':
+    resolution: {integrity: sha512-ZGQ+a7bcfWJD2VYEp2R1LHvRAMyyaFBYytZXsfnbOMkeOvzGNVxUL7aVUvisIrTZjXTSsxG45DKX7yiw6nq2Jw==}
+    peerDependencies:
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19
+      svelte: ^4
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
+
   '@vitejs/plugin-basic-ssl@1.1.0':
     resolution: {integrity: sha512-wO4Dk/rm8u7RNhOf95ZzcEmC9rYOncYgvq4z3duaJrCgjN8BxAnDVyndanfcJZ0O6XZzHz6Q0hTimxTg8Y9g/A==}
     engines: {node: '>=14.6.0'}
@@ -3746,6 +3781,10 @@ packages:
   concat-stream@1.6.2:
     resolution: {integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==}
     engines: {'0': node >= 0.8}
+
+  concat-stream@2.0.0:
+    resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
+    engines: {'0': node >= 6.0}
 
   confusing-browser-globals@1.0.11:
     resolution: {integrity: sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==}
@@ -5948,6 +5987,11 @@ packages:
 
   nwsapi@2.2.12:
     resolution: {integrity: sha512-qXDmcVlZV4XRtKFzddidpfVP4oMSGhga+xdMc25mv8kaLUHtgzCDhUxkrN8exkGdTlLNaXj7CV3GtON7zuGZ+w==}
+
+  nx-remotecache-custom@17.1.1:
+    resolution: {integrity: sha512-p9ccy0piga2rAb22ULV1ZyRaC6No2hIh3UIN2uQJ7WP1kM+NF7Gk3K2hQo4urnYxSF6QzQI71KcKS5DVLsqOLQ==}
+    peerDependencies:
+      nx: ^17.0.0
 
   nx@19.5.6:
     resolution: {integrity: sha512-qjP17aa5ViXSpo0bDgJ7O3b8EY/0+PbX7ZIKvG1g6qasohtfM1y4Sx2bbSow0zCKU0+r1LnR53Q0lyX4OOgtUg==}
@@ -12177,6 +12221,26 @@ snapshots:
     dependencies:
       server-only: 0.0.1
 
+  '@vercel/remote-nx@2.0.0(encoding@0.1.13)(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.12))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.12)))':
+    dependencies:
+      '@vercel/remote': 1.0.1(encoding@0.1.13)
+      chalk: 4.1.2
+      nx-remotecache-custom: 17.1.1(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.12))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.12)))
+    transitivePeerDependencies:
+      - encoding
+      - nx
+
+  '@vercel/remote@1.0.1(encoding@0.1.13)':
+    dependencies:
+      ci-info: 3.9.0
+      concat-stream: 2.0.0
+      node-fetch: 2.7.0(encoding@0.1.13)
+      raw-body: 2.5.2
+    transitivePeerDependencies:
+      - encoding
+
+  '@vercel/speed-insights@1.0.12': {}
+
   '@vitejs/plugin-basic-ssl@1.1.0(vite@5.3.2(@types/node@18.16.9)(less@4.2.0)(sass@1.77.6)(stylus@0.59.0)(terser@5.29.2))':
     dependencies:
       vite: 5.3.2(@types/node@18.16.9)(less@4.1.3)(sass@1.77.8)(stylus@0.59.0)(terser@5.29.2)
@@ -12977,6 +13041,13 @@ snapshots:
       buffer-from: 1.1.2
       inherits: 2.0.4
       readable-stream: 2.3.8
+      typedarray: 0.0.6
+
+  concat-stream@2.0.0:
+    dependencies:
+      buffer-from: 1.1.2
+      inherits: 2.0.4
+      readable-stream: 3.6.2
       typedarray: 0.0.6
 
   confusing-browser-globals@1.0.11: {}
@@ -15604,6 +15675,13 @@ snapshots:
 
   nwsapi@2.2.12: {}
 
+  nx-remotecache-custom@17.1.1(nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.12))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.12))):
+    dependencies:
+      chalk: 4.1.2
+      dotenv: 16.4.5
+      nx: 19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.12))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.12))
+      tar: 6.2.1
+
   nx@19.5.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.12))(@swc/types@0.1.12)(typescript@5.5.4))(@swc/core@1.5.29(@swc/helpers@0.5.12)):
     dependencies:
       '@napi-rs/wasm-runtime': 0.2.4
@@ -17411,6 +17489,17 @@ snapshots:
     optionalDependencies:
       webpack: 5.92.1(@swc/core@1.5.29(@swc/helpers@0.5.12))(esbuild@0.21.5)(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.93.0))
 
+  webpack-dev-middleware@7.2.1(webpack@5.93.0(@swc/core@1.5.29(@swc/helpers@0.5.12))(esbuild@0.19.12)(webpack-cli@5.1.4)):
+    dependencies:
+      colorette: 2.0.20
+      memfs: 4.11.1
+      mime-types: 2.1.35
+      on-finished: 2.4.1
+      range-parser: 1.2.1
+      schema-utils: 4.2.0
+    optionalDependencies:
+      webpack: 5.93.0(@swc/core@1.5.29(@swc/helpers@0.5.12))(esbuild@0.19.12)(webpack-cli@5.1.4)
+
   webpack-dev-server@4.15.2(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.93.0))(webpack@5.93.0(@swc/core@1.5.29(@swc/helpers@0.5.12))(esbuild@0.19.12)(webpack-cli@5.1.4)):
     dependencies:
       '@types/bonjour': 3.5.13
@@ -17482,7 +17571,7 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 7.2.1(webpack@5.92.1(@swc/core@1.5.29(@swc/helpers@0.5.12))(esbuild@0.21.5)(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.93.0)))
+      webpack-dev-middleware: 7.2.1(webpack@5.93.0(@swc/core@1.5.29(@swc/helpers@0.5.12))(esbuild@0.19.12)(webpack-cli@5.1.4))
       ws: 8.18.0
     optionalDependencies:
       webpack: 5.92.1(@swc/core@1.5.29(@swc/helpers@0.5.12))(esbuild@0.21.5)(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.93.0))

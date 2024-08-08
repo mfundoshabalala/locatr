@@ -91,5 +91,13 @@
       "style": "css"
     }
   },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheDirectory": "/tmp/nx-cache"
+      }
+    }
+  },
   "nxCloudAccessToken": "NjkxZTNiOTEtMmQzYS00M2JhLTkzMDMtOGY2MGU2ZjVlZTM2fHJlYWQtd3JpdGU="
 }
