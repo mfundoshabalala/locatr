@@ -18,12 +18,12 @@ export interface UserRegistration extends UserLogin {
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private authUrl = process.env["LOCATR_API_URL"] + 'auth';
+  private authUrl = process.env["LOCATR_API_URL"] + 'auth/';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   async register(user: UserRegistration) {
-    const url = `${this.authUrl}/register`;
+    const url = this.authUrl + 'register'
     try {
       await lastValueFrom(this.http.post<UserRegistration>(url, user));
       this.router.navigate(['/auth/login']);
@@ -37,7 +37,7 @@ export class AuthenticationService {
   }
 
   async login(user: UserLogin) {
-    const url = `${this.authUrl}/login`;
+    const url = this.authUrl + 'login';
     try {
       const response = await lastValueFrom(this.http.post<UserLogin>(url, user));
       if (!response?.access_token) {
