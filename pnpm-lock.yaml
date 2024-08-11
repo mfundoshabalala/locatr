@@ -113,6 +113,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      esbuild-plugin-env:
+        specifier: ^1.1.1
+        version: 1.1.1
       passport:
         specifier: ^0.7.0
         version: 0.7.0
@@ -140,6 +143,9 @@ importers:
       typeorm-extension:
         specifier: ^3.5.1
         version: 3.6.0(typeorm@0.3.20(pg@8.12.0)(ts-node@10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.12))(@types/node@18.16.9)(typescript@5.5.4)))
+      url-join:
+        specifier: ^5.0.0
+        version: 5.0.0
       zone.js:
         specifier: ~0.14.3
         version: 0.14.8
@@ -252,6 +258,9 @@ importers:
       '@types/passport-jwt':
         specifier: ^4.0.1
         version: 4.0.1
+      '@types/url-join':
+        specifier: ^4.0.3
+        version: 4.0.3
       '@typescript-eslint/eslint-plugin':
         specifier: 7.16.0
         version: 7.16.0(@typescript-eslint/parser@7.16.0(eslint@8.57.0)(typescript@5.5.4))(eslint@8.57.0)(typescript@5.5.4)
@@ -2939,6 +2948,9 @@ packages:
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
 
+  '@types/url-join@4.0.3':
+    resolution: {integrity: sha512-3l1qMm3wqO0iyC5gkADzT95UVW7C/XXcdvUcShOideKF0ddgVRErEQQJXBd2kvQm+aSgqhBGHGB38TgMeT57Ww==}
+
   '@types/validator@13.12.0':
     resolution: {integrity: sha512-nH45Lk7oPIJ1RVOF6JgFI6Dy0QpHEzq4QecZhvguxYPDwT8c93prCMqAtiIttm39voZ+DDR+qkNnMpJmMBRqag==}
 
@@ -4313,6 +4325,9 @@ packages:
 
   es-module-lexer@1.5.4:
     resolution: {integrity: sha512-MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==}
+
+  esbuild-plugin-env@1.1.1:
+    resolution: {integrity: sha512-xM8peq9LLzvrQ/1czyj1HLhbJgtD0UzlKuNuTvPySdFGc77ysYsqo3oxDBOyQVSaa4YQU4wjrPpbeeDX1z0eHA==}
 
   esbuild-wasm@0.21.5:
     resolution: {integrity: sha512-L/FlOPMMFtw+6qPAbuPvJXdrOYOp9yx/PEwSrIZW0qghY4vgV003evdYDwqQ/9ENMQI0B6RMod9xT4FHtto6OQ==}
@@ -7613,6 +7628,10 @@ packages:
 
   url-join@4.0.1:
     resolution: {integrity: sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==}
+
+  url-join@5.0.0:
+    resolution: {integrity: sha512-n2huDr9h9yzd6exQVnH/jU5mr+Pfx08LRXXZhkLLetAMESRj+anQsTAh940iMrIetKAmry9coFuZQ2jY8/p3WA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   url-parse@1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
@@ -12070,6 +12089,8 @@ snapshots:
 
   '@types/tough-cookie@4.0.5': {}
 
+  '@types/url-join@4.0.3': {}
+
   '@types/validator@13.12.0': {}
 
   '@types/wrap-ansi@3.0.0': {}
@@ -13540,6 +13561,10 @@ snapshots:
   es-errors@1.3.0: {}
 
   es-module-lexer@1.5.4: {}
+
+  esbuild-plugin-env@1.1.1:
+    dependencies:
+      dotenv: 16.4.5
 
   esbuild-wasm@0.21.5: {}
 
@@ -17364,6 +17389,8 @@ snapshots:
       punycode: 2.3.1
 
   url-join@4.0.1: {}
+
+  url-join@5.0.0: {}
 
   url-parse@1.5.10:
     dependencies:

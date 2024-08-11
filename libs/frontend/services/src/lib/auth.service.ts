@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContactInterface, EmployeeInterface, UserRole } from '@profolio/interfaces';
 import { lastValueFrom } from 'rxjs';
+import urlJoin from 'url-join';
 
 interface UserLogin {
   username: string;
@@ -18,12 +19,14 @@ export interface UserRegistration extends UserLogin {
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private authUrl = process.env["LOCATR_API_URL"] + 'auth/';
+  // private authUrl = process.env["LOCATR_API_URL"] + 'auth/';
+  private authUrl = urlJoin(process.env["LOCATR_API_URL"] as string, 'auth');
 
   constructor(private http: HttpClient, private router: Router) {}
 
   async register(user: UserRegistration) {
-    const url = this.authUrl + 'register'
+    // const url = this.authUrl + 'register'
+    const url = urlJoin(this.authUrl, 'register');
     try {
       await lastValueFrom(this.http.post<UserRegistration>(url, user));
       this.router.navigate(['/auth/login']);
@@ -37,7 +40,7 @@ export class AuthenticationService {
   }
 
   async login(user: UserLogin) {
-    const url = this.authUrl + 'login';
+    const url = urlJoin(this.authUrl, 'login');
     try {
       const response = await lastValueFrom(this.http.post<UserLogin>(url, user));
       if (!response?.access_token) {
