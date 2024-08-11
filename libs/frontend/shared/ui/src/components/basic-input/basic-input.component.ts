@@ -2,6 +2,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { applyPhoneMask, applyPointMask } from '@profolio/utils';
 
 @Component({
   selector: 'lib-basic-input',
@@ -20,7 +21,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
         {{ label }}
       </label>
       <input
-        [type]="type"
+        [type]="getInputType()"
         [id]="label"
         [value]="value"
         (input)="handleInput($event)"
@@ -48,21 +49,21 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class BasicInputComponent implements ControlValueAccessor {
   @Input() label!: string;
-  @Input() type: 'text' | 'number' | 'phone' | 'password' | 'email' | 'url' | 'datetime-local' = 'text';
+  @Input() type: 'text' | 'number' | 'phone' | 'password' | 'email' | 'url' | 'datetime-local' | 'point' = 'text';
   @Input() placeholder = '';
 
-  value: any;
+  value = '';
   isDisabled = false;
 
-  onChange: (value: any) => void = () => {};
+  onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this.value = value;
     this.onChange(this.value);
   }
 
-  registerOnChange(fn: (value: any) => void): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
@@ -74,10 +75,21 @@ export class BasicInputComponent implements ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
+  getInputType(): string {
+    return this.type === 'point' ? 'text' : this.type;
+  }
+
   handleInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     if (target) {
-      this.onChange(target.value);
+      let inputValue = target.value;
+      if (this.type === 'phone') {
+        inputValue = applyPhoneMask(inputValue);
+      } else if (this.type === 'point') {
+        inputValue = applyPointMask(inputValue, this.label);
+      }
+      this.value = inputValue;
+      this.onChange(this.value);
     }
   }
 }
