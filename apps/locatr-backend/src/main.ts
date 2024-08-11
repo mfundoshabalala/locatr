@@ -10,8 +10,10 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const isProduction = process.env.NODE_ENV === 'production';
+
   app.enableCors({
-    origin: 'http://localhost:4200', // Allow requests from this origin
+    origin: isProduction ? process.env.CORS_ORIGIN : 'http://localhost:4200',
     credentials: true, // Allow sending credentials (cookies, authorization headers)
   });
   const globalPrefix = 'api';

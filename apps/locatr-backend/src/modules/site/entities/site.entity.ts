@@ -8,7 +8,7 @@ export class Site {
   @Column({ unique: true, type: 'varchar', length: 255 })
   name!: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   description!: string;
 
   @Column({ default: true, type: 'boolean' })

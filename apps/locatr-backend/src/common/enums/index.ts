@@ -60,14 +60,14 @@ export enum UserStatus {
 }
 
 export enum VehicleType {
-  CAR = 'CAR',
-  TRUCK = 'TRUCK',
-  BIKE = 'BIKE',
-  SCOOTER = 'SCOOTER',
-  BUS = 'BUS',
-  TRAIN = 'TRAIN',
-  SHIP = 'SHIP',
-  PLANE = 'PLANE',
-  HELICOPTER = 'HELICOPTER',
-  OTHER = 'OTHER',
+  CAR = 'car',
+  TRUCK = 'truck',
+  BIKE = 'bike',
+  SCOOTER = 'scooter',
+  BUS = 'bus',
+  TRAIN = 'train',
+  SHIP = 'ship',
+  PLANE = 'plane',
+  HELICOPTER = 'helicopter',
+  OTHER = 'other',
 }

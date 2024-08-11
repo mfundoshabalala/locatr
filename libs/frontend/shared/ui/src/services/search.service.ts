@@ -10,17 +10,6 @@ export class SearchService {
       return Object.keys(item).some((key) => (item[key] as string).toLowerCase().includes(searchQuery));
     });
   }
-
-  initializeAutocomplete(
-    element: HTMLInputElement,
-    placeChangeCallback: (place: google.maps.places.PlaceResult) => void
-  ) {
-    const autocomplete = new google.maps.places.Autocomplete(element);
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      placeChangeCallback(place);
-    });
-  }
 }
 
 // move to a shared module

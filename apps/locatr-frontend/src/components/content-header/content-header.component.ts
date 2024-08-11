@@ -4,14 +4,12 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 
-
-import { SearchBoxComponent, Search } from '@profolio/frontend/shared/ui';
 import { OffcanvasComponent, OffcanvasService } from '@profolio/offcanvas';
 
 @Component({
   selector: 'app-content-header',
   standalone: true,
-  imports: [CommonModule, SearchBoxComponent, OffcanvasComponent],
+  imports: [CommonModule, OffcanvasComponent],
   template: `
     <header>
       <div class="prose text-pretty">
@@ -19,9 +17,7 @@ import { OffcanvasComponent, OffcanvasService } from '@profolio/offcanvas';
         <h3>{{ pageSubtitle }}</h3>
       </div>
       <div>
-        @if (showSearchBox) {
-          <lib-search-box [type]="searchType" />
-        } @if (showCreateButton) {
+        @if (showCreateButton) {
           <button (click)="openCanvas()" class="btn capitalize">{{ title }}</button>
         }
       </div>
@@ -33,8 +29,6 @@ export class ContentHeaderComponent implements OnInit {
   @ViewChild('offcanvas') offcanvas!: OffcanvasComponent;
   pageTitle = 'Default Title';
   pageSubtitle = 'Default Subtitle';
-  searchType: Search = 'list';
-  showSearchBox = false;
   showCreateButton = false;
   title = '';
   entityName = '';
@@ -75,13 +69,14 @@ export class ContentHeaderComponent implements OnInit {
    * @param data - The data from the route.
    */
   private updatePageInfo(data: any): void {
-    this.searchType = data['searchType'] || 'none';
     this.pageTitle = data['title'] || 'Default Title';
     this.pageSubtitle = data['subtitle'] || 'Default Subtitle';
     this.title = 'Add ' + data['entityName'];
     if (data['entityName'] !== undefined) {
       this.entityName = data['entityName'];
       this.showCreateButton = true;
+    } else {
+      this.showCreateButton = false;
     }
     this.titleService.setTitle(this.pageTitle);
   }
@@ -95,16 +90,14 @@ export class ContentHeaderComponent implements OnInit {
     const route = this.getPrimaryRoute(currentRoute);
     const initialTitle = route.data['title'] || 'Default Title';
     const initialSubtitle = route.data['subtitle'] || 'Default Subtitle';
-    const initialSearchType = route.data['searchType'] || 'none';
     const title = 'Add ' + route.data['entityName'];
     if (route.data['entityName'] !== undefined) {
       this.entityName = route.data['entityName'];
       this.showCreateButton = true;
-    }
+    } 
     this.title = title;
     this.pageTitle = initialTitle;
     this.pageSubtitle = initialSubtitle;
-    this.searchType = initialSearchType;
     this.titleService.setTitle(initialTitle);
   }
 

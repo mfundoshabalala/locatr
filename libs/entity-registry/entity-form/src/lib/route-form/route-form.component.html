@@ -1,57 +1,19 @@
-<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="order">Order:</label>
-    <select id="order" formControlName="order">
-      <option *ngFor="let order of orders()" [value]="order.id">{{ order.orderNumber }}</option>
-    </select>
-    <div *ngIf="entityForm.get('order')?.invalid && entityForm.get('order')?.touched">
-      Order is required.
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="flex flex-col">
+  <!-- Order Information -->
+  <fieldset class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+    <legend class="text-sm font-medium text-gray-700">Order Assignment</legend>
+    <div class="grid grid-cols-2 gap-4">
+      <lib-drop-down formControlName="order" [label]="'Order'" entityName="order" fieldName="orderNumber" key="id" [options]="orders()"></lib-drop-down>
+      <lib-drop-down formControlName="driver" [label]="'Driver'" entityName="driver" fieldName="username" key="id" [options]="drivers()"></lib-drop-down>
+      <lib-drop-down formControlName="vehicle" [label]="'Vehicle'" entityName="vehicle" fieldName="licensePlate" key="id" [options]="vehicles()"></lib-drop-down>
+      <lib-basic-input formControlName="startTime" [label]="'Start Time'" type="datetime-local"></lib-basic-input>
+      <lib-basic-input formControlName="endTime" [label]="'End Time'" type="datetime-local"></lib-basic-input>
+      <lib-basic-input formControlName="routePath" [label]="'Route Path'" type="text"></lib-basic-input>
     </div>
-  </div>
+  </fieldset>
 
-  <div>
-    <label for="driver">Driver:</label>
-    <select id="driver" formControlName="driver">
-      <option *ngFor="let driver of drivers()" [value]="driver.id">{{ driver.username }}</option>
-    </select>
-    <div *ngIf="entityForm.get('driver')?.invalid && entityForm.get('driver')?.touched">
-      Driver is required.
-    </div>
-  </div>
-
-  <div>
-    <label for="vehicle">Vehicle:</label>
-    <select id="vehicle" formControlName="vehicle">
-      <option *ngFor="let vehicle of vehicles()" [value]="vehicle.id">{{ vehicle.licensePlate }}</option>
-    </select>
-    <div *ngIf="entityForm.get('vehicle')?.invalid && entityForm.get('vehicle')?.touched">
-      Vehicle is required.
-    </div>
-  </div>
-
-  <div>
-    <label for="startTime">Start Time:</label>
-    <input id="startTime" formControlName="startTime" type="datetime-local" />
-    <div *ngIf="entityForm.get('startTime')?.invalid && entityForm.get('startTime')?.touched">
-      Start Time is required.
-    </div>
-  </div>
-
-  <div>
-    <label for="endTime">End Time:</label>
-    <input id="endTime" formControlName="endTime" type="datetime-local" />
-    <div *ngIf="entityForm.get('endTime')?.invalid && entityForm.get('endTime')?.touched">
-      End Time is required.
-    </div>
-  </div>
-
-  <div>
-    <label for="routePath">Route Path:</label>
-    <input id="routePath" formControlName="routePath" />
-    <div *ngIf="entityForm.get('routePath')?.invalid && entityForm.get('routePath')?.touched">
-      Route Path is required.
-    </div>
-  </div>
-
-  <button type="submit" [disabled]="entityForm.invalid">Submit</button>
+  <!-- Form Buttons -->
+  <lib-form-buttons [canClear]="canClear()" [canDelete]="canDelete()" [canCancel]="canCancel()" [canSave]="canSave()"
+    (clear)="onClear()" (delete)="onDelete()" (cancel)="onCancel()" (close)="onClose()" (save)="onSubmit()">
+  </lib-form-buttons>
 </form>

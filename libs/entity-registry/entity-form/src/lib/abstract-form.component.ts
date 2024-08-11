@@ -1,37 +1,78 @@
-import { Component, OnInit, input, EventEmitter, Output, inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, inject, input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { EntityInterface, FormMode, FormSubmission } from '@profolio/interfaces';
 import { deepMerge, extractFormData } from '@profolio/utils';
+import { ReactiveFormsModule } from '@angular/forms'; // Add this line
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-abstract-form',
-  template: '',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  template: ``,
 })
-export abstract class AbstractFormComponent implements OnInit {
-  protected fb = inject(FormBuilder);
-  entity = input<EntityInterface | null>(null);
-  @Output() formSubmitted = new EventEmitter<FormSubmission>();
-
+export abstract class AbstractFormComponent<T extends EntityInterface> implements OnInit, OnChanges {
+  entity = input<T | null>(null);
+  @Output() formSubmitted = new EventEmitter<FormSubmission<T>>();
   entityForm!: FormGroup;
+
+  protected fb = inject(FormBuilder);
 
   ngOnInit(): void {
     this.entityForm = this.createForm();
     this.initializeForm(this.entity());
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['entity']) {
+      this.initializeForm(changes['entity'].currentValue);
+    }
+  }
+
+  /**
+   * Creates the form structure.
+   * Must be implemented by derived classes.
+   */
   protected abstract createForm(): FormGroup;
 
-  protected initializeForm(data: EntityInterface | null): void {
+  /**
+   * Populates the form with data from the entity.
+   */
+  protected initializeForm(data: T | null): void {
     if (data) {
       this.entityForm.patchValue(data);
     }
   }
 
+  editMode() {
+    return !!this.entity();
+  }
+
+  canSave() {
+    return this.entityForm.valid && this.entityForm.touched;
+  }
+
+  canDelete() {
+    return this.editMode();
+  }
+
+  canCancel() {
+    return this.entityForm.touched && this.entityForm.dirty;
+  }
+
+  canClear() {
+    return this.entityForm.touched && this.entityForm.dirty;
+  }
+
+  /**
+   * Handles form submission.
+   * Merges entity data if it's an update.
+   */
   onSubmit(): void {
     if (this.entityForm.valid) {
-      let entity = extractFormData(this.entityForm.value) as EntityInterface | null;
-      const mode = this.entity() ? FormMode.UPDATE : FormMode.CREATE;
-      entity = this.entity() ? deepMerge(this.entity(), entity) : entity;
+      let entity = extractFormData(this.entityForm.value) as T | null;
+      const mode = this.editMode() ? FormMode.UPDATE : FormMode.CREATE;
+      entity = this.editMode() ? deepMerge(this.entity(), entity) : entity;
       this.emitFormSubmission(mode, entity);
       this.entityForm.reset();
     } else {
@@ -39,8 +80,11 @@ export abstract class AbstractFormComponent implements OnInit {
     }
   }
 
-  private emitFormSubmission(mode: FormMode, entity: EntityInterface | null): void {
-    const submission: FormSubmission = {
+  /**
+   * Emits form submission event with mode and entity data.
+   */
+  private emitFormSubmission(mode: FormMode, entity: T | null): void {
+    const submission: FormSubmission<T> = {
       mode: mode,
       entity: entity,
       changed: this.entityForm.touched,
@@ -48,29 +92,38 @@ export abstract class AbstractFormComponent implements OnInit {
     this.formSubmitted.emit(submission);
   }
 
-  onEntityEdit(): void {
+  /**
+   * Enables form editing.
+   */
+  onEdit(): void {
     this.entityForm.enable();
   }
 
-  onEntityClear(): void {
+  /**
+   * Clears the form.
+   */
+  onClear(): void {
     this.entityForm.reset();
   }
 
+  /**
+   * Emits deletion event.
+   */
   onDelete(): void {
     if (this.entity) {
       this.emitFormSubmission(FormMode.DELETE, this.entity());
     }
   }
 
+  /**
+   * Emits close event.
+   */
   onClose(): void {
     this.emitFormSubmission(FormMode.CLOSE, this.entity());
   }
+
+  onCancel(): void {
+    this.emitFormSubmission(FormMode.CANCEL, this.entity());
+  }
 }
 
-//   onPlaceChange = (place: google.maps.places.PlaceResult) => {
-//     this.entityForm.get('site')?.patchValue({
-//       address: place.formatted_address,
-//       latitude: place.geometry?.location?.lat(),
-//       longitude: place.geometry?.location?.lng(),
-//     });
-//   };

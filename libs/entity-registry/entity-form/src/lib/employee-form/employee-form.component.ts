@@ -2,15 +2,17 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AbstractFormComponent } from '../abstract-form.component';
+import { UserInterface } from '@profolio/interfaces';
+import { BasicInputComponent, DropDownComponent, FormButtonsComponent } from '@profolio/frontend/shared/ui';
 
 @Component({
   selector: 'lib-employee-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormButtonsComponent, BasicInputComponent, DropDownComponent],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.css',
 })
-export class EmployeeFormComponent extends AbstractFormComponent {
+export class EmployeeFormComponent extends AbstractFormComponent<UserInterface> {
   protected override createForm(): FormGroup {
     return this.fb.group({
       username: ['', [Validators.required, Validators.maxLength(255)]],

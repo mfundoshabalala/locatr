@@ -25,7 +25,6 @@
       "@pages/route-management": ["libs/frontend/pages/route-management/src/index.ts"],
       "@pages/route-optimisation": ["libs/frontend/pages/route-optimisation/src/index.ts"],
       "@pages/vehicle-management": ["libs/frontend/pages/vehicle-management/src/index.ts"],
-      "@profolio/route-map": ["libs/route-map/src/index.ts"],
       "@profolio/app/components/*": ["./apps/locatr-frontend/src/components/*"],
       "@profolio/app/guards/*": ["./apps/locatr-frontend/src/guards/*"],
       "@profolio/app/layout/*": ["./apps/locatr-frontend/src/layout/*"],
@@ -37,6 +36,7 @@
       "@profolio/frontend/shared/ui": ["libs/frontend/shared/ui/src/index.ts"],
       "@profolio/interfaces": ["libs/interfaces/src/index.ts"],
       "@profolio/offcanvas": ["libs/frontend/offcanvas/src/index.ts"],
+      "@profolio/route-map": ["libs/route-map/src/index.ts"],
       "@profolio/utils": ["libs/utils/src/index.ts"]
     }
   },

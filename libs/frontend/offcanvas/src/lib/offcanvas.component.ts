@@ -61,8 +61,8 @@ export class OffcanvasComponent {
     }
 
     if (componentRef?.instance.formSubmitted) {
-      componentRef.instance.formSubmitted.subscribe(({ entity, mode, changed }: FormSubmission) => {
-        this.offcanvasService.mode.set(mode);
+      componentRef.instance.formSubmitted.subscribe(({ entity, mode, changed }: FormSubmission<EntityInterface>) => {
+        this.offcanvasService.mode.set(mode as FormMode | null);
         if (mode !== FormMode.CLOSE) {
           this.offcanvasService.entity.set(entity);
           this.offcanvasService.hasChanges.set(changed);

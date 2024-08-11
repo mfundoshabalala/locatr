@@ -8,9 +8,9 @@ export interface EntityInterface extends Record<string, any> {
   updatedAt?: Date;
 }
 
-export interface FormSubmission {
-  mode: FormMode;
-  entity: Record<string, any> | null;
+export interface FormSubmission<T> {
+  mode: string;
+  entity: T | null;
   changed: boolean;
 }
 
@@ -20,6 +20,7 @@ export enum FormMode {
   UPDATE = 'update',
   DELETE = 'delete',
   CLOSE = 'close',
+  CANCEL = 'cancel'
 }
 
 export enum Days {
@@ -70,29 +71,29 @@ export enum OrderPriority {
 }
 
 export enum UserRole {
-  ADMIN = 'Admin',
-  CUSTOMER = 'Customer',
-  DISPATCHER = 'Dispatcher',
-  DRIVER = 'Driver',
-  OWNER = 'Owner',
+  ADMIN = 'admin',
+  CUSTOMER = 'customer',
+  DISPATCHER = 'dispatcher',
+  DRIVER = 'driver',
+  OWNER = 'owner',
 }
 
 export enum UserStatus {
-  ACTIVE = 'Active',
-  INACTIVE = 'Inactive',
-  SUSPENDED = 'Suspended',
-  DELETED = 'Deleted',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  SUSPENDED = 'suspended',
+  DELETED = 'deleted',
 }
 
 export enum VehicleType {
-  CAR = 'Car',
-  TRUCK = 'Truck',
-  BIKE = 'Bike',
-  SCOOTER = 'Scooter',
-  BUS = 'Bus',
-  TRAIN = 'Train',
-  SHIP = 'Ship',
-  PLANE = 'Plane',
-  HELICOPTER = 'Helicopter',
-  OTHER = 'Other',
+  CAR = 'car',
+  TRUCK = 'truck',
+  BIKE = 'bike',
+  SCOOTER = 'scooter',
+  BUS = 'bus',
+  TRAIN = 'train',
+  SHIP = 'ship',
+  PLANE = 'plane',
+  HELICOPTER = 'helicopter',
+  OTHER = 'other',
 }

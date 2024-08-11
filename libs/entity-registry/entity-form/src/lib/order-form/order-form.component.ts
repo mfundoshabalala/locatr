@@ -1,27 +1,29 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { OrderType, OrderStatus, OrderPriority, ClientInterface } from '@profolio/interfaces';
-
-import { AbstractFormComponent } from '../abstract-form.component';
-import { ClientService } from '@profolio/frontend/services';
+import { CommonModule } from "@angular/common";
+import { Component, inject, OnInit } from "@angular/core";
+import { FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { OrderType, OrderStatus, OrderPriority, ClientInterface, OrderInterface } from "@profolio/interfaces";
+import { AbstractFormComponent } from "../abstract-form.component";
+import { ClientService } from "@profolio/frontend/services";
+import { BasicInputComponent, DropDownComponent, FormButtonsComponent } from "@profolio/frontend/shared/ui";
 
 @Component({
   selector: 'lib-order-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormButtonsComponent, DropDownComponent, BasicInputComponent],
   templateUrl: './order-form.component.html',
-  styleUrl: './order-form.component.css',
+  styleUrls: ['./order-form.component.css'],
 })
-export class OrderFormComponent extends AbstractFormComponent {
+export class OrderFormComponent extends AbstractFormComponent<OrderInterface> implements OnInit {
   orderTypes = Object.values(OrderType);
   orderStatuses = Object.values(OrderStatus);
   orderPriorities = Object.values(OrderPriority);
   clients: ClientInterface[] = [];
 
-  constructor(private clientService: ClientService) {
-    super();
-    this.clientService.getAll().then((clients) => this.clients = clients);
+  private clientService = inject(ClientService);
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.loadClients();
   }
 
   protected override createForm(): FormGroup {
@@ -34,5 +36,9 @@ export class OrderFormComponent extends AbstractFormComponent {
       status: ['', [Validators.required]],
       priority: ['', [Validators.required]],
     });
+  }
+
+  private loadClients(): void {
+    this.clientService.getAll().then((clients) => (this.clients = clients));
   }
 }

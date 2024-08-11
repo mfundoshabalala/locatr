@@ -1,45 +1,19 @@
-<!-- create-order.component.html -->
-<form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="capitalize">
-  <fieldset>
-    <legend>Order Information</legend>
-    <div>
-      <label for="orderNumber">Order Number:</label>
-      <input id="orderNumber" formControlName="orderNumber" type="text">
-    </div>
-    <div>
-      <label for="client">Client:</label>
-      <select id="client" formControlName="client">
-        <option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</option>
-      </select>
-    </div>
-    <div>
-      <label for="pickupAddress">Pickup Address:</label>
-      <input id="pickupAddress" formControlName="pickupAddress" type="text">
-    </div>
-    <div>
-      <label for="deliveryAddress">Delivery Address:</label>
-      <input id="deliveryAddress" formControlName="deliveryAddress" type="text">
-    </div>
-    <div>
-      <label for="type">Type:</label>
-      <select id="type" formControlName="type" class="capitalize">
-        <option *ngFor="let type of orderTypes" [value]="type">{{ type }}</option>
-      </select>
-    </div>
-    <div>
-      <label for="status">Status:</label>
-      <select id="status" formControlName="status" class="capitalize">
-        <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
-      </select>
-    </div>
-    <div>
-      <label for="priority">Priority:</label>
-      <select id="priority" formControlName="priority" class="capitalize">
-        <option *ngFor="let priority of orderPriorities" [value]="priority">{{ priority }}</option>
-      </select>
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="flex flex-col">
+  <fieldset class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+    <legend class="text-sm font-medium text-gray-700">Order Information</legend>
+    <div class="grid grid-cols-2 gap-4">
+      <lib-basic-input formControlName="orderNumber" [label]="'order number'" type="number"></lib-basic-input>
+      <lib-drop-down formControlName="client" [label]="'client'" entityName="client" key="id" [options]="clients"></lib-drop-down>
+      <lib-basic-input formControlName="pickupAddress" [label]="'pickup address'" type="text"></lib-basic-input>
+      <lib-basic-input formControlName="deliveryAddress" [label]="'delivery address'" type="text"></lib-basic-input>
+      <lib-drop-down formControlName="type" [label]="'type'" entityName="" [options]="orderTypes"></lib-drop-down>
+      <lib-drop-down formControlName="status" [label]="'status'" entityName="" [options]="orderStatuses"></lib-drop-down>
+      <lib-drop-down formControlName="priority" [label]="'priority'" entityName="" [options]="orderPriorities"></lib-drop-down>
     </div>
   </fieldset>
 
-  <button type="submit" [disabled]="!entityForm.valid">Create Order</button>
+  <lib-form-buttons
+    [canClear]="canClear()" [canDelete]="canDelete()" [canCancel]="canCancel()" [canSave]="canSave()"
+    (clear)="onClear()" (delete)="onDelete()" (cancel)="onCancel()" (close)="onClose()" (save)="onSubmit()">
+  </lib-form-buttons>
 </form>
-

@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { VehicleType } from '@profolio/interfaces';
-import { AbstractFormComponent } from '@entity/form';
+import { VehicleType, VehicleInterface } from '@profolio/interfaces';
+import { AbstractFormComponent } from '../abstract-form.component';
+import { BasicInputComponent, DropDownComponent, FormButtonsComponent } from '@profolio/frontend/shared/ui';
 
 @Component({
   selector: 'lib-vehicle-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormButtonsComponent, BasicInputComponent, DropDownComponent],
   templateUrl: './vehicle-form.component.html',
-  styleUrl: './vehicle-form.component.css',
 })
-export class VehicleFormComponent extends AbstractFormComponent {
+export class VehicleFormComponent extends AbstractFormComponent<VehicleInterface> {
   vehicleTypes = Object.values(VehicleType);
 
   protected override createForm(): FormGroup {

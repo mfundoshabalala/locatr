@@ -33,6 +33,12 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/locatr-frontend/src/environments/environment.ts",
+              "with": "apps/locatr-frontend/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -48,6 +54,12 @@
           "outputHashing": "all"
         },
         "development": {
+          "fileReplacements": [
+            {
+              "replace": "apps/locatr-frontend/src/environments/environment.ts",
+              "with": "apps/locatr-frontend/src/environments/environment.ts"
+            }
+          ],
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true

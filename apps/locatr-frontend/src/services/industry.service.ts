@@ -2,12 +2,14 @@ import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IndustryInterface } from '@profolio/interfaces';
+import { environment } from '../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class IndustryService {
   private http = inject(HttpClient);
 
-  private industryUrl = 'http://localhost:3000/api/industry';
+  // private industryUrl = 'http://localhost:3000/api/industry';
+  private industryUrl = environment.apiUrl + '/industry';
 
   async getIndustryList(): Promise<IndustryInterface[]> {
     try {

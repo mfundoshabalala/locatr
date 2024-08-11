@@ -1,42 +1,32 @@
-<!-- create-vehicle.component.html -->
-<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
-  <fieldset>
-    <legend>Vehicle Information</legend>
-    <div>
-      <label for="make">Make:</label>
-      <input id="make" formControlName="make" type="text">
-    </div>
-    <div>
-      <label for="model">Model:</label>
-      <input id="model" formControlName="model" type="text">
-    </div>
-    <div>
-      <label for="type">Type:</label>
-      <select id="type" formControlName="type">
-        <option *ngFor="let type of vehicleTypes" [value]="type">{{ type }}</option>
-      </select>
-    </div>
-    <div>
-      <label for="year">Year:</label>
-      <input id="year" formControlName="year" type="number">
-    </div>
-    <div>
-      <label for="licensePlate">License Plate:</label>
-      <input id="licensePlate" formControlName="licensePlate" type="text">
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-6">
+  <!-- Vehicle Information -->
+  <fieldset class="border border-gray-200 p-4 rounded-md space-y-4 bg-slate-50">
+    <legend class="text-sm font-medium text-gray-700">Vehicle Information</legend>
+    <div class="grid grid-cols-2 gap-4">
+      <lib-basic-input formControlName="make" [label]="'Make'" type="text"
+        placeholder="Enter vehicle make"></lib-basic-input>
+      <lib-basic-input formControlName="model" [label]="'Model'" type="text"
+        placeholder="Enter vehicle model"></lib-basic-input>
+      <lib-drop-down formControlName="type" [label]="'Type'" [options]="vehicleTypes"></lib-drop-down>
+      <lib-basic-input formControlName="year" [label]="'Year'" type="number" placeholder="Enter year"></lib-basic-input>
+      <lib-basic-input formControlName="licensePlate" [label]="'License Plate'" type="text"
+        placeholder="Enter license plate"></lib-basic-input>
     </div>
   </fieldset>
 
-  <fieldset>
-    <legend>Additional Information</legend>
-    <div>
-      <label for="capacity">Capacity:</label>
-      <input id="capacity" formControlName="capacity" type="number">
-    </div>
-    <div>
-      <label for="currentLocation">Current Location:</label>
-      <input id="currentLocation" formControlName="currentLocation" type="text">
+  <!-- Additional Information -->
+  <fieldset class="border border-gray-200 p-4 rounded-md space-y-4 bg-slate-50">
+    <legend class="text-sm font-medium text-gray-700">Additional Information</legend>
+    <div class="grid grid-cols-2 gap-4">
+      <lib-basic-input formControlName="capacity" [label]="'Capacity'" type="number"
+        placeholder="Enter capacity"></lib-basic-input>
+      <lib-basic-input formControlName="currentLocation" [label]="'Current Location'" type="text"
+        placeholder="Enter current location"></lib-basic-input>
     </div>
   </fieldset>
 
-  <button type="submit" [disabled]="!entityForm.valid">Create Vehicle</button>
+  <!-- Form Buttons -->
+  <lib-form-buttons [canClear]="canClear()" [canDelete]="canDelete()" [canCancel]="canCancel()" [canSave]="canSave()"
+    (clear)="onClear()" (delete)="onDelete()" (cancel)="onCancel()" (close)="onClose()" (save)="onSubmit()">
+  </lib-form-buttons>
 </form>

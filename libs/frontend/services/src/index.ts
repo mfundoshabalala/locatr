@@ -6,3 +6,4 @@ export * from './lib/order.service';
 export * from './lib/user.service';
 export * from './lib/route.service';
 export * from './lib/client.service';
+export * from './lib/google.service'

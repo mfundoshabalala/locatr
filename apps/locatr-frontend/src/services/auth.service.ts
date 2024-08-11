@@ -1,18 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserRole } from '@profolio/interfaces';
+import { ContactInterface, EmployeeInterface, UserRole } from '@profolio/interfaces';
 import { lastValueFrom } from 'rxjs';
+import { environment } from '../environments/environment';
 
 interface UserLogin {
   username: string;
   password: string;
-}
-
-interface ContactInterface {
-  name: string;
-  phone: string;
-  email: string | null;
 }
 
 export interface UserRegistration extends UserLogin {
@@ -21,16 +16,10 @@ export interface UserRegistration extends UserLogin {
 	employee: EmployeeInterface;
 }
 
-interface EmployeeInterface {
-  firstName: string;
-  lastName: string;
-  position: string;
-  department: string | null;
-}
-
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private authUrl = 'http://localhost:3000/api/auth';
+  // private authUrl = 'http://localhost:3000/api/auth';
+  private authUrl = environment.apiUrl + '/auth';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -56,9 +45,9 @@ export class AuthenticationService {
     return UserRole.ADMIN;
   }
 
-	logout() {
-		sessionStorage.removeItem('access_token');
-	}
+  logout() {
+    sessionStorage.removeItem('access_token');
+  }
 
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem('access_token');
