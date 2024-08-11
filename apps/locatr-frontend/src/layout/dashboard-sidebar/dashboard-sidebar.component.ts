@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthenticationService } from '../../services';
+import { AuthenticationService } from '@profolio/frontend/services';
+
+
 
 interface SidebarItem {
   icon: string;
@@ -67,6 +69,7 @@ export class DashboardSidebarComponent implements OnInit {
   ];
 
   public footerItems: MenuItem[] = [
+    { label: 'Notifications', path: '/dashboard/notifications', icon: 'notification-bell.svg', roles: ['admin', 'dispatcher', 'driver'] },
     { label: 'Settings', path: '/dashboard/settings', icon: 'settings-gear.svg', roles: ['admin'] },
     { label: 'Support', path: '/dashboard/support', icon: 'lifebuoy-help.svg', roles: ['admin', 'dispatcher', 'driver'] },
   ];

@@ -14,7 +14,8 @@
         "tsConfig": "libs/frontend/services/tsconfig.lib.json",
         "assets": [],
         "generatePackageJson": true,
-        "format": ["cjs"]
+        "format": ["cjs"],
+        "plugins": ["apps/locatr-frontend/plugins/env-var-plugin.js"]
       }
     },
     "test": {

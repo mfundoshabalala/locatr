@@ -5,5 +5,5 @@ import { RouteInterface } from '@profolio/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class RouteService extends AbstractService<RouteInterface> {
-  protected baseUrl = 'http://localhost:3000/api/route';
+  protected baseUrl = process.env["LOCATR_API_URL"] + 'route';
 }

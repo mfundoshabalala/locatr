@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { AuthenticationService } from '../../services';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+
+import { AuthenticationService } from '@profolio/frontend/services';
 
 @Component({
   selector: 'app-landing-page',

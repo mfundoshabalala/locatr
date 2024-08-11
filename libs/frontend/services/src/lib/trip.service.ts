@@ -5,5 +5,5 @@ import { TripInterface } from '@profolio/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class TripService extends AbstractService<TripInterface> {
-  protected baseUrl = 'http://localhost:3000/api/trip';
+  protected baseUrl = process.env["LOCATR_API_URL"] + 'trip';
 }

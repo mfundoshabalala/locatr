@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContactInterface, EmployeeInterface, UserRole } from '@profolio/interfaces';
 import { lastValueFrom } from 'rxjs';
-import { environment } from '../environments/environment';
 
 interface UserLogin {
   username: string;
   password: string;
+  access_token?: string;
 }
 
 export interface UserRegistration extends UserLogin {
@@ -18,26 +18,38 @@ export interface UserRegistration extends UserLogin {
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  // private authUrl = 'http://localhost:3000/api/auth';
-  private authUrl = environment.apiUrl + '/auth';
+  private authUrl = process.env["LOCATR_API_URL"] + 'auth';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   async register(user: UserRegistration) {
+    const url = `${this.authUrl}/register`;
     try {
-      await lastValueFrom(this.http.post<any>(`${this.authUrl}/register`, user));
+      await lastValueFrom(this.http.post<UserRegistration>(url, user));
       this.router.navigate(['/auth/login']);
-    } catch (error: Error | any) {
-      throw new Error('Registration failed: ' + error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error('Registration failed: ' + error.message);
+      } else {
+        throw new Error('Registration failed: Unknown error');
+      }
     }
   }
 
   async login(user: UserLogin) {
+    const url = `${this.authUrl}/login`;
     try {
-      const response = await lastValueFrom(this.http.post<any>(`${this.authUrl}/login`, user));
+      const response = await lastValueFrom(this.http.post<UserLogin>(url, user));
+      if (!response?.access_token) {
+        throw new Error('Login failed: No access token received');
+      }
       sessionStorage.setItem('access_token', response?.access_token);
-    } catch (error: Error | any) {
-      throw new Error('Login failed: ' + error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error('Login failed: ' + error.message);
+      } else {
+        throw new Error('Login failed: Unknown error');
+      }
     }
   }
 

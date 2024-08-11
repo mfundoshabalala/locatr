@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthenticationService } from '../../../services';
+import { AuthenticationService } from '@profolio/frontend/services';
 
 interface LoginInterface {
   username: string;

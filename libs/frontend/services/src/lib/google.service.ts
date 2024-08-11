@@ -5,7 +5,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 export class GoogleService {
   loader!: Loader;
   private map: google.maps.Map | null = null;
-  private readonly apiKey = 'AIzaSyBC_xFYzPzcK2zQoVAvwk93X1lNFzXuU_U';
+  // private readonly apiKey = 'AIzaSyBC_xFYzPzcK2zQoVAvwk93X1lNFzXuU_U';
   private readonly defaultMapOptions: google.maps.MapOptions = {
     center: { lat: -28.4793, lng: 24.6727 },
     zoom: 6,
@@ -17,7 +17,7 @@ export class GoogleService {
 
   private initializeLoader(): void {
     this.loader = new Loader({
-      apiKey: this.apiKey,
+      apiKey: process.env["GOOGLE_MAP_API_KEY"] as string,
       version: 'beta',
       libraries: ['places', 'marker'],
     });

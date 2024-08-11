@@ -5,5 +5,5 @@ import { AbstractService } from './abstract.service';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService extends AbstractService<EmployeeInterface> {
-  protected baseUrl = 'http://localhost:3000/api/employee';
+  protected baseUrl = process.env["LOCATR_API_URL"] + 'employee';
 }
