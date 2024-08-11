@@ -24,7 +24,8 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    createUserDto.role = UserRole.ADMIN;
+    if (await this.hasActiveUsers()) createUserDto.role = UserRole.CUSTOMER;
+    else createUserDto.role = UserRole.ADMIN;
     return this.userRepository.save(createUserDto);
   }
 
@@ -46,5 +47,9 @@ export class UserService {
 
   remove(id: string): Promise<DeleteResult> {
     return this.userRepository.delete(id);
+  }
+
+  private hasActiveUsers() {
+    return this.userRepository.count();
   }
 }
