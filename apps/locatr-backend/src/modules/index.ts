@@ -37,3 +37,6 @@ export * from './notification/notification.service';
 
 export * from './route/route.module';
 export * from './route/route.service';
+
+export * from './depot/depot.module';
+export * from './depot/depot.service';

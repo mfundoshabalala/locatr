@@ -14,6 +14,7 @@ import { Trip } from '@migrations/trip/entities/trip.entity';
 import { Order } from '@migrations/order/entities/order.entity';
 import { Route } from '@migrations/route/entities/route.entity';
 import { Notification } from '@migrations/notification/entities/notification.entity';
+import { Depot } from '@migrations/depot/entities/depot.entity';
 
 @Injectable()
 export class DBConfigService implements TypeOrmOptionsFactory {
@@ -32,7 +33,7 @@ export class DBConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get('POSTGRES_DATABASE'),
       // migrations: [join(__dirname, `../../../${sourcePath}/migrations/*{.ts,.js}`)],
       // entities: [join(__dirname, `../../../${sourcePath}/modules/**/*.entity{.ts,.js}`)],
-      entities: [User, Vehicle, Client, Contact, Employee, Industry, Role, Site, Trip, Notification, Order, Route],
+      entities: [User, Vehicle, Client, Contact, Employee, Industry, Role, Site, Trip, Notification, Order, Route, Depot],
       // synchronize: !isProduction,
       synchronize: true,
       migrationsRun: true,
