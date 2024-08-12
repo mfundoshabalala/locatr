@@ -5,9 +5,9 @@ import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-import { DBConfigModule } from '@config/database/config.module';
-import { DBConfigService } from '@config/database/config.service';
-import { AuthMiddleware } from '@middleware/index';
+
+
+
 import {
   AuthModule,
   ClientModule,
@@ -24,6 +24,9 @@ import {
   OrderModule,
   RouteModule
 } from '@migrations/index';
+import { DBConfigModule } from '../configs';
+import { DBConfigService } from '../configs';
+import { AuthMiddleware } from '../middleware';
 
 @Module({
   imports: [
