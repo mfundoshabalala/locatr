@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "nx run-many --target=build --all && pnpm sentry:sourcemaps",
     "preinstall": "npx only-allow pnpm",
-    "start": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4",
+    "start:all": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4",
     "server": "nx serve locatr-backend",
     "client": "nx serve locatr-frontend",
     "typeorm": "ts-node -r tsconfig-paths/register -P apps/locatr-backend/tsconfig.app.json ./node_modules/typeorm/cli",
