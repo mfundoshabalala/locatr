@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "nx run-many --target=build --all",
+    "build": "nx run-many --target=build --all && pnpm sentry:sourcemaps",
     "preinstall": "npx only-allow pnpm",
     "dev": "nx run-many -t=serve -p locatr-frontend locatr-backend --parallel=4",
     "server": "nx serve locatr-backend",
@@ -12,7 +12,8 @@
     "typeorm-build-config": "npx tsc src/typeorm.config.ts --outDir ./dist",
     "typeorm-generate-migrations": "npm run typeorm-build-config && typeorm -d dist/typeorm.config.js migration:generate",
     "typeorm-run-migrations": "npm run typeorm-build-config && typeorm -d dist/typeorm.config.js migration:run",
-    "struct": "struct -o locatr.tree --silent --json"
+    "struct": "struct -o locatr.tree --silent --json",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org blacklist-p0 --project javascript-angular dist/apps && sentry-cli sourcemaps upload --org blacklist-p0 --project javascript-angular dist/apps"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +42,8 @@
     "@ng-icons/core": "^25.1.0",
     "@ng-icons/lucide": "^26.3.0",
     "@nx/angular": "19.5.6",
+    "@sentry/angular": "^8.25.0",
+    "@sentry/cli": "^2.33.1",
     "@sentry/nestjs": "^8.25.0",
     "@sentry/profiling-node": "^8.25.0",
     "@vercel/analytics": "^1.3.1",
