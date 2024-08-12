@@ -9,9 +9,13 @@ import { RolesGuard } from '../modules/auth/guard/role/roles.guard';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Get("/debug-sentry")
+  getError() {
+    throw new Error("My first Sentry error!");
+  }
+
   @Get()
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  // @Roles('admin')
+  // @UseGuards(AuthGuard('jwt'), RolesGuard)
   getApp(): string {
     return 'Protected Route Accessed Successfully!';
   }
