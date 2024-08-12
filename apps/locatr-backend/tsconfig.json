@@ -20,7 +20,10 @@
       "@middleware/*": ["./src/middleware/*"],
       "@modules/*": ["./src/modules/*"],
       "@services/*": ["./src/services/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@config/*": ["./src/configs/*"],
+      "@interceptor/*": ["./src/interceptors/*"],
+      "@migrations/*": ["./src/modules/*"]
     }
   }
 }
