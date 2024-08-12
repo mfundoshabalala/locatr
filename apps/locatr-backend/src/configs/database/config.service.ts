@@ -26,19 +26,23 @@ export class DBConfigService implements TypeOrmOptionsFactory {
 
     return {
       type: 'postgres',
-      host: this.configService.get('POSTGRES_HOST'),
-      port: +this.configService.get('POSTGRES_PORT'),
-      username: this.configService.get('POSTGRES_USER'),
-      password: this.configService.get('POSTGRES_PASSWORD'),
-      database: this.configService.get('POSTGRES_DATABASE'),
+      url: process.env.POSTGRES_URL,
+      host: process.env.POSTGRES_HOST,
+      port: 5432,
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
       // migrations: [join(__dirname, `../../../${sourcePath}/migrations/*{.ts,.js}`)],
       // entities: [join(__dirname, `../../../${sourcePath}/modules/**/*.entity{.ts,.js}`)],
       entities: [User, Vehicle, Client, Contact, Employee, Industry, Role, Site, Trip, Notification, Order, Route, Depot],
-      // synchronize: !isProduction,
-      synchronize: true,
+      synchronize: !isProduction,
+      // synchronize: true,
       migrationsRun: true,
       autoLoadEntities: true,
       logging: !isProduction,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     };
   }
 }
