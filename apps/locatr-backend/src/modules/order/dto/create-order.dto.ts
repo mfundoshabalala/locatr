@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { OrderPriority, OrderStatus, OrderType } from "@common/enums";
+import { OrderType, OrderStatus, OrderPriority } from "src/common/enums";
 
 export class CreateOrderDto {
   @IsNumber()

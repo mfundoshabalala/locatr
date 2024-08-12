@@ -5,8 +5,8 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Role } from '@migrations/role/entities/role.entity';
-import { UserRole } from '@common/enums';
+import { UserRole } from 'src/common/enums';
+import { Role } from '../role/entities/role.entity';
 
 @Injectable()
 export class UserService {

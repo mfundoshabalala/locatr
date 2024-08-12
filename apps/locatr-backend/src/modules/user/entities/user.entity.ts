@@ -1,8 +1,7 @@
+import { UserStatus, UserRole } from "src/common/enums";
+import { Contact } from "src/modules/contact/entities/contact.entity";
+import { Employee } from "src/modules/employee/entities/employee.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
-import { Employee } from "@migrations/employee/entities/employee.entity";
-import { Contact } from "@migrations/contact/entities/contact.entity";
-import { UserRole, UserStatus } from "@common/enums";
 
 @Entity()
 export class User {

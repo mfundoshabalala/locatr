@@ -1,3 +1,7 @@
+import { Contact } from 'src/modules/contact/entities/contact.entity';
+import { Industry } from 'src/modules/industry/entities/industry.entity';
+import { Order } from 'src/modules/order/entities/order.entity';
+import { Site } from 'src/modules/site/entities/site.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -10,11 +14,6 @@ import {
   Unique,
   OneToMany,
 } from 'typeorm';
-
-import { Site } from '@migrations/site/entities/site.entity';
-import { Contact } from '@migrations/contact/entities/contact.entity';
-import { Industry } from '@migrations/industry/entities/industry.entity';
-import { Order } from '@migrations/order/entities/order.entity';
 
 @Entity()
 export class Client {

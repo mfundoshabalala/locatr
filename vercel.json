@@ -1,15 +1,19 @@
 {
   "version": 2,
+  "buildCommand": "nx build locatr-backend",
   "builds": [
     {
-      "src": "dist/apps/locatr-backend/main.js",
-      "use": "@vercel/node"
+      "src": "apps/locatr-backend/src/main.ts",
+      "use": "@vercel/node",
+      "config": {
+        "outputDirectory": "dist/apps/locatr-backend"
+      }
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "dist/apps/locatr-backend/main.js",
+      "src": "/api/(.*)",
+      "dest": "/dist/apps/locatr-backend/main.js",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
     }
   ]

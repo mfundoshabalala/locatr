@@ -5,7 +5,7 @@ import { ClientService } from './client.service';
 import { Client } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { CurrentUserInterceptor } from '@middleware/index';
+import { CurrentUserInterceptor } from 'src/middleware';
 
 @Controller('client')
 export class ClientController {

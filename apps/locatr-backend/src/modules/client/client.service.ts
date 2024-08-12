@@ -5,9 +5,8 @@ import { DeleteResult, Repository } from 'typeorm';
 import { Client } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { Site } from '@migrations/site/entities/site.entity';
-import { Contact } from '@migrations/contact/entities/contact.entity';
-
+import { Contact } from '../contact/entities/contact.entity';
+import { Site } from '../site/entities/site.entity';
 @Injectable()
 export class ClientService {
   constructor(

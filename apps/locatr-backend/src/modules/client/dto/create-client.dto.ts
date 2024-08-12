@@ -1,8 +1,8 @@
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, IsArray, ValidateNested } from 'class-validator';
+import { CreateContactDto } from 'src/modules/contact/dto/create-contact.dto';
+import { CreateSiteDto } from 'src/modules/site/dto/create-site.dto';
 
-import { CreateSiteDto } from '@migrations/site/dto/create-site.dto';
-import { CreateContactDto } from '@migrations/contact/dto/create-contact.dto';
 
 export class CreateClientDto {
   @IsOptional()

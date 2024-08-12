@@ -1,5 +1,5 @@
-import { User } from '@migrations/user/entities/user.entity';
-import { UserNotification } from '@common/enums';
+import { UserNotification } from 'src/common/enums';
+import { User } from 'src/modules/user/entities/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 
 @Entity()

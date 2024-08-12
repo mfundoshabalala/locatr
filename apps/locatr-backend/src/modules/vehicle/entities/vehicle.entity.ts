@@ -1,7 +1,6 @@
 // src/vehicle/vehicle.entity.ts
-import { VehicleType } from '@common/enums';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
+import { VehicleType } from 'src/common/enums';
 @Entity()
 export class Vehicle {
   @PrimaryGeneratedColumn('uuid', { name: 'vehicleID' })

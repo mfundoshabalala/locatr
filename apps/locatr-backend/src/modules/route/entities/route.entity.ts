@@ -1,8 +1,7 @@
+import { Order } from 'src/modules/order/entities/order.entity';
+import { User } from 'src/modules/user/entities/user.entity';
+import { Vehicle } from 'src/modules/vehicle/entities/vehicle.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
-
-import { Order } from '@migrations/order/entities/order.entity';
-import { User } from '@migrations/user/entities/user.entity';
-import { Vehicle } from '@migrations/vehicle/entities/vehicle.entity';
 
 @Entity()
 export class Route {

@@ -1,6 +1,6 @@
 import { Optional } from "@nestjs/common";
 import { IsEnum, IsNumber, IsString } from "class-validator";
-import { VehicleType } from "@common/enums";
+import { VehicleType } from "src/common/enums";
 
 export class CreateVehicleDto {
   @IsString()

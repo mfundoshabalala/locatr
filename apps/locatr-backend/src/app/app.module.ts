@@ -7,26 +7,10 @@ import { AppService } from './app.service';
 import { AppController } from './app.controller';
 
 
-
-import {
-  AuthModule,
-  ClientModule,
-  EmployeeModule,
-  RoleModule,
-  UserModule,
-  SiteModule,
-  ContactModule,
-  IndustryModule,
-  VehicleModule,
-  TripModule,
-  AuthService,
-  NotificationModule,
-  OrderModule,
-  RouteModule
-} from '@migrations/index';
 import { DBConfigModule } from '../configs';
 import { DBConfigService } from '../configs';
 import { AuthMiddleware } from '../middleware';
+import { AuthModule, ClientModule, EmployeeModule, RoleModule, UserModule, SiteModule, ContactModule, IndustryModule, VehicleModule, TripModule, NotificationModule, OrderModule, RouteModule, AuthService } from 'src/modules';
 
 @Module({
   imports: [

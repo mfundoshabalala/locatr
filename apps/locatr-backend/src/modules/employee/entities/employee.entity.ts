@@ -1,7 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from "typeorm";
-
-import { Contact } from "@migrations/contact/entities/contact.entity";
-
+import { Contact } from "src/modules/contact/entities/contact.entity";
 @Entity()
 export class Employee {
   @PrimaryGeneratedColumn('uuid', { name: 'employeeID' })

@@ -1,9 +1,8 @@
 import { Unique } from 'typeorm';
 import { IsString, IsObject, MinLength, IsNotEmpty, IsNotEmptyObject, IsEmail, IsEnum, IsAlphanumeric } from 'class-validator';
-
-import { CreateContactDto } from '@migrations/contact/dto/create-contact.dto';
-import { CreateEmployeeDto } from '@migrations/employee/dto/create-employee.dto';
-import { UserRole } from '@common/enums';
+import { CreateContactDto } from 'src/modules/contact/dto/create-contact.dto';
+import { UserRole } from 'src/common/enums';
+import { CreateEmployeeDto } from 'src/modules/employee/dto/create-employee.dto';
 
 export class CreateUserDto {
   @MinLength(8)

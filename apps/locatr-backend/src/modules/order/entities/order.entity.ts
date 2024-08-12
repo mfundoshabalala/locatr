@@ -1,8 +1,6 @@
+import { OrderType, OrderStatus, OrderPriority } from 'src/common/enums';
+import { Client } from 'src/modules/client/entities/client.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn, Unique, Relation } from 'typeorm';
-import { User } from '@migrations/user/entities/user.entity';
-import { Client } from '@migrations/client/entities/client.entity';
-import { OrderPriority, OrderStatus, OrderType } from '@common/enums';
-
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn('uuid', { name: 'orderID' })
