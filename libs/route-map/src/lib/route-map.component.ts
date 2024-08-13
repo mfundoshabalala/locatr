@@ -33,25 +33,22 @@ export class RouteMapComponent implements OnInit {
   private routeService = inject(RouteService);
 
   constructor() {
-    effect(
-      () => {
-        const routes = this.routeData()
-          .map((route) => {
-            if (!route.order.client?.site) return undefined;
-            return {
-              position: {
-                lat: +route.order.client?.site.latitude,
-                lng: +route.order.client?.site.longitude,
-              },
-              address: route.order.client?.site.address,
-              name: route.order.client?.name,
-            };
-          })
-          .filter((route) => route?.position.lat && route?.position.lng);
+    effect(() => {
+      const routes = this.routeData()
+        .map((route) => {
+          if (!route.order['site'] || !route.order['customer']) return undefined;
+          return {
+            position: {
+              lat: +route.order['site'].latitude,
+              lng: +route.order['site'].longitude,
+            },
+            address: route.order['site'].address,
+            name: route.order['customer'].name,
+          };
+        })
+        .filter((route) => route?.position.lat && route?.position.lng);
         this.routes.set(routes);
-      },
-      { allowSignalWrites: true }
-    );
+      }, { allowSignalWrites: true });
   }
 
   async ngOnInit() {

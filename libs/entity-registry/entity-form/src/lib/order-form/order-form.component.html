@@ -3,9 +3,9 @@
     <legend class="text-sm font-medium text-gray-700">Order Information</legend>
     <div class="grid grid-cols-2 gap-4">
       <lib-basic-input formControlName="orderNumber" [label]="'order number'" type="number"></lib-basic-input>
-      <lib-drop-down formControlName="client" [label]="'client'" entityName="client" key="id" [options]="clients"></lib-drop-down>
-      <lib-basic-input formControlName="pickupAddress" [label]="'pickup address'" type="text"></lib-basic-input>
-      <lib-basic-input formControlName="deliveryAddress" [label]="'delivery address'" type="text"></lib-basic-input>
+      <lib-drop-down formControlName="customer" [label]="'client'" entityName="client" key="id" [options]="clients()"></lib-drop-down>
+      <lib-drop-down formControlName="depot" [label]="'pickup address'" entityName="depot" key="id" [options]="depots()"></lib-drop-down>
+      <lib-drop-down formControlName="site" [label]="'delivery address'" entityName="site" key="id" [options]="sites()"></lib-drop-down>
       <lib-drop-down formControlName="type" [label]="'type'" entityName="" [options]="orderTypes"></lib-drop-down>
       <lib-drop-down formControlName="status" [label]="'status'" entityName="" [options]="orderStatuses"></lib-drop-down>
       <lib-drop-down formControlName="priority" [label]="'priority'" entityName="" [options]="orderPriorities"></lib-drop-down>

@@ -22,10 +22,10 @@
         </a>
       </td>
       <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="font-medium text-pretty">{{ order.client?.name }}</span>
+        <span class="font-medium text-pretty">{{ order['client']?.name }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ order.pickupAddress }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ order.client?.site?.address }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order['depot']?.address }}</td>
+      <td class="px-2 py-2 text-sm text-slate-800">{{ order['site']?.address }}</td>
       <td class="px-2 py-2 text-sm text-slate-800">
         <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium block text-center">{{ order.type }}</span>
       </td>
