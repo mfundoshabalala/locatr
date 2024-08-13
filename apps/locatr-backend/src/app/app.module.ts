@@ -9,7 +9,7 @@ import { AppController } from './app.controller';
 import { DBConfigModule } from '../configs';
 import { DBConfigService } from '../configs';
 import { AuthMiddleware } from '../middleware';
-import { AuthModule, ClientModule, EmployeeModule, UserModule, SiteModule, ContactModule, IndustryModule, VehicleModule, TripModule, NotificationModule, OrderModule, RouteModule, AuthService } from 'src/modules';
+import { AuthModule, ClientModule, EmployeeModule, UserModule, SiteModule, ContactModule, IndustryModule, VehicleModule, TripModule, NotificationModule, OrderModule, RouteModule, AuthService, DepotModule } from 'src/modules';
 
 @Module({
   imports: [
@@ -32,6 +32,7 @@ import { AuthModule, ClientModule, EmployeeModule, UserModule, SiteModule, Conta
     NotificationModule,
     OrderModule,
     RouteModule,
+    DepotModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

@@ -12,3 +12,4 @@ export * from './lib/trip.interface';
 export * from './lib/order.interface';
 export * from './lib/route.interface';
 export * from './lib/user.interface';
+export * from './lib/depot.interface';

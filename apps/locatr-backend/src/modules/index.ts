@@ -19,7 +19,6 @@ export * from './contact/contact.service';
 export * from './industry/industry.module';
 export * from './industry/industry.service';
 
-
 export * from './vehicle/vehicle.module';
 export * from './vehicle/vehicle.service';
 

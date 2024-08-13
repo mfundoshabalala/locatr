@@ -1,0 +1,29 @@
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
+  <fieldset class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+    <legend class="text-sm font-medium text-gray-700">Depot Information</legend>
+    <div class="grid grid-cols-2 gap-4">
+      <lib-basic-input formControlName="name" [label]="'Name'" type="text" autocomplete="off"></lib-basic-input>
+      <lib-basic-input formControlName="capacity" [label]="'Capacity'" type="number" autocomplete="off"></lib-basic-input>
+    </div>
+    <!-- <lib-basic-input formControlName="address" [label]="'Address'" type="text" autocomplete="off"></lib-basic-input> -->
+    <lib-search-box formControlName="address" type="address" placeholder="Search for site address" label="Search address" (placeChange)="onPlaceChange($event)"></lib-search-box>
+    <div class="grid grid-cols-2 gap-4">
+      <lib-basic-input formControlName="latitude" [label]="'Latitude'" type="text" autocomplete="off"></lib-basic-input>
+      <lib-basic-input formControlName="longitude" [label]="'Longitude'" type="text" autocomplete="off"></lib-basic-input>
+    </div>
+  </fieldset>
+
+  <!-- <fieldset class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
+    <legend class="text-sm font-medium text-gray-700">Metadata</legend>
+    <div class="grid grid-cols-2 gap-4">
+      <lib-basic-input formControlName="createdBy" [label]="'Created By'" type="text" autocomplete="off"></lib-basic-input>
+      <lib-basic-input formControlName="createdAt" [label]="'Created At'" type="datetime-local" autocomplete="off"></lib-basic-input>
+      <lib-basic-input formControlName="updatedBy" [label]="'Updated By'" type="text" autocomplete="off"></lib-basic-input>
+      <lib-basic-input formControlName="updatedAt" [label]="'Updated At'" type="datetime-local" autocomplete="off"></lib-basic-input>
+    </div>
+  </fieldset> -->
+
+  <lib-form-buttons [canClear]="canClear()" [canDelete]="canDelete()" [canCancel]="canCancel()" [canSave]="canSave()"
+    (clear)="onClear()" (delete)="onDelete()" (cancel)="onCancel()" (close)="onClose()" (save)="onSubmit()">
+  </lib-form-buttons>
+</form>
