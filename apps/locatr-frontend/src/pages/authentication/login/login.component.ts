@@ -1,11 +1,11 @@
 // login.component.ts
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { LoginInterface } from '@profolio/interfaces';
 import { AuthenticationService } from '@profolio/frontend/services';
+import { ToasterService } from '@toaster';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +15,16 @@ import { AuthenticationService } from '@profolio/frontend/services';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
-  returnUrl = '';
-  credentials: LoginInterface = {
-    username: '',
-    password: '',
-  };
+  private returnUrl = '';
+  private fb = inject(FormBuilder);
+  private toasterService = inject(ToasterService);
+  private authService = inject(AuthenticationService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthenticationService) {
+  loginForm!: FormGroup
+
+  constructor() {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -30,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || ('/dashboard' as string);
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
   }
 
   async onSubmit() {
@@ -38,10 +40,19 @@ export class LoginComponent implements OnInit {
       try {
         await this.authService.login(this.loginForm.value);
       } catch (error) {
-        console.error('Login failed: ', error);
+        this.errorToast();
       } finally {
+        this.successToast();
         this.router.navigateByUrl(this.returnUrl);
       }
     }
+  }
+
+  private successToast() {
+    this.toasterService.addToast('Login successful', 'success');
+  }
+
+  private errorToast() {
+    this.toasterService.addToast('Login failed', 'error');
   }
 }
