@@ -1,5 +1,10 @@
 // export type EntityInterface = Record<string, any> | null;
 
+export interface LoginInterface {
+  username: string;
+  password: string;
+}
+
 export interface EntityInterface extends Record<string, any> {
   id?: any;
   createdBy?: string;
