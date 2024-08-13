@@ -6,22 +6,12 @@ import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRole } from 'src/common/enums';
-import { Role } from '../role/entities/role.entity';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
-    @InjectRepository(Role) private roleRepository: Repository<Role>,
+    @InjectRepository(User) private userRepository: Repository<User>
   ) {}
-
-  private async getUserDefaultRole() {
-    const headCount = await this.userRepository.count();
-    if (headCount === 0) {
-      return await this.roleRepository.findOne({ where: { name: 'owner' } });
-    }
-    return await this.roleRepository.findOne({ where: { name: 'user' } });
-  }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     if (await this.hasActiveUsers()) createUserDto.role = UserRole.CUSTOMER;

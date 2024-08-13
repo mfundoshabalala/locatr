@@ -2,8 +2,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 
-import { Role } from '../role/entities/role.entity';
-import { RoleService } from '../role/role.service';
 import { User } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
@@ -18,10 +16,10 @@ import { JwtStrategy } from './strategy/jwt-strategy';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
-    TypeOrmModule.forFeature([User, Role]),
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, UserService, RoleService],
+  providers: [AuthService, JwtStrategy, UserService],
   exports: [AuthService],
 })
 export class AuthModule implements NestModule {
