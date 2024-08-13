@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ToastComponent } from '@profolio/frontend/shared/ui';
 import { LoaderComponent } from '../components';
 import { OffcanvasComponent } from '@profolio/offcanvas';
+import { ToasterComponent } from '@toaster';
 
 
 @Component({
   standalone: true,
-  imports: [RouterModule, ToastComponent, LoaderComponent, OffcanvasComponent],
+  imports: [RouterModule, ToasterComponent, LoaderComponent, OffcanvasComponent],
   selector: 'app-root',
   template: `
     <router-outlet></router-outlet>
-    <lib-toast></lib-toast>
+    <lib-toaster></lib-toaster>
     <app-loader></app-loader>
     <lib-offcanvas></lib-offcanvas>
   `,

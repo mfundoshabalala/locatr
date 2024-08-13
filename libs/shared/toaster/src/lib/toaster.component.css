@@ -1,0 +1,40 @@
+/* toaster.component.css */
+.toaster {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.toast {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+  cursor: pointer;
+}
+
+.toast.success {
+  background-color: #28a745;
+}
+
+.toast.error {
+  background-color: #dc3545;
+}
+
+.toast.info {
+  background-color: #17a2b8;
+}
+
+.toast.warning {
+  background-color: #ffc107;
+}
+
+.toast button {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  margin-left: 1rem;
+}

@@ -17,15 +17,15 @@ export const appRoutes: Route[] = [
       searchType: 'none',
     },
     children: [
-      {
-        path: 'overview',
-        loadComponent: () => import('../pages').then((m) => m.RoutingComponent),
-        data: {
-          title: 'Dashboard',
-          subtitle: 'Overview of your route planning activities.',
-          searchType: 'none',
-        },
-      },
+      // {
+      //   path: 'overview',
+      //   loadComponent: () => import('../pages').then((m) => m.RoutingComponent),
+      //   data: {
+      //     title: 'Dashboard',
+      //     subtitle: 'Overview of your route planning activities.',
+      //     searchType: 'none',
+      //   },
+      // },
       {
         path: 'client',
         loadComponent: () => import('@pages/client-management').then((m) => m.ClientManagementComponent),
@@ -85,24 +85,24 @@ export const appRoutes: Route[] = [
           searchType: 'address',
         },
       },
-      {
-        path: 'settings',
-        loadComponent: () => import('../pages').then((m) => m.SettingsManagementComponent),
-        data: {
-          title: 'Settings Management',
-          subtitle: 'Configure your application settings.',
-          searchType: 'none',
-        },
-      },
-      {
-        path: 'support',
-        loadComponent: () => import('../pages').then((m) => m.SupportManagementComponent),
-        data: {
-          title: 'Support Management',
-          subtitle: 'Handle support requests and issues.',
-          searchType: 'none',
-        },
-      },
+      // {
+      //   path: 'settings',
+      //   loadComponent: () => import('../pages').then((m) => m.SettingsManagementComponent),
+      //   data: {
+      //     title: 'Settings Management',
+      //     subtitle: 'Configure your application settings.',
+      //     searchType: 'none',
+      //   },
+      // },
+      // {
+      //   path: 'support',
+      //   loadComponent: () => import('../pages').then((m) => m.SupportManagementComponent),
+      //   data: {
+      //     title: 'Support Management',
+      //     subtitle: 'Handle support requests and issues.',
+      //     searchType: 'none',
+      //   },
+      // },
     ],
   },
   {

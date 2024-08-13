@@ -1,3 +1,0 @@
-.toast-wrapper {
-  @apply absolute z-50 w-full max-w-xs bg-white border border-gray-200 rounded-md shadow-lg top-5 right-10 text-slate-950;
-}

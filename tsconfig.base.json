@@ -37,7 +37,8 @@
       "@profolio/interfaces": ["libs/interfaces/src/index.ts"],
       "@profolio/offcanvas": ["libs/frontend/offcanvas/src/index.ts"],
       "@profolio/route-map": ["libs/route-map/src/index.ts"],
-      "@profolio/utils": ["libs/utils/src/index.ts"]
+      "@profolio/utils": ["libs/utils/src/index.ts"],
+      "@toaster": ["libs/shared/toaster/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
