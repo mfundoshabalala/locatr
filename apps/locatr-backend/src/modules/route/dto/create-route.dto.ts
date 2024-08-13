@@ -1,8 +1,8 @@
 import { IsDate, IsNumber, IsObject, IsString } from "class-validator";
 
 export class CreateRouteDto {
-  @IsNumber()
-  orderID!: number;
+  @IsString()
+  orderID!: string;
 
   @IsString()
   driverID!: string;

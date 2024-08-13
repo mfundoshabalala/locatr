@@ -6,13 +6,13 @@ export class CreateOrderDto {
   orderNumber!: number;
 
   @IsString()
-  customerId!: string;
+  customerID!: string;
 
   @IsString()
-  pickupAddress!: string;
+  depotID!: string;
 
   @IsString()
-  deliveryAddress!: string;
+  siteID!: string;
 
   @IsEnum(OrderType)
   type!: OrderType;

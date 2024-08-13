@@ -47,7 +47,7 @@ export class Client {
   @JoinColumn({ name: 'siteID' })
   site!: Site;
 
-  @OneToMany(() => Order, (order) => order.client, { nullable: true, orphanedRowAction: 'delete' })
+  @OneToMany(() => Order, (order) => order.customer, { nullable: true, orphanedRowAction: 'delete' })
   orders!: Order[];
 
   @ManyToOne(() => Industry, { eager: true })

@@ -1,6 +1,10 @@
 import { OrderType, OrderStatus, OrderPriority } from 'src/common/enums';
-import { Client } from 'src/modules/client/entities/client.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn, Unique, Relation } from 'typeorm';
+
+import { Site } from 'src/modules/site/entities/site.entity';
+import { Depot } from 'src/modules/depot/entities/depot.entity';
+import { Client } from 'src/modules/client/entities/client.entity';
+
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn('uuid', { name: 'orderID' })
@@ -10,19 +14,17 @@ export class Order {
   @Column({ type: 'bigint', generated: 'identity', name: 'orderNumber' })
   orderNumber!: number;
 
-  // @ManyToOne(() => User, (user) => user.order,  { eager: true })
-  // @JoinColumn({ name: 'customerID' })
-  // customer!: User;
+  @ManyToOne(() => Client, (client) => client.orders, { eager: true })
+  @JoinColumn({ name: 'customerID' })
+  customer!: Relation<Client>;
 
-  @ManyToOne(() => Client, (client)=> client.orders, { eager: true })
-  @JoinColumn({ name: 'clientID' })
-  client!: Relation<Client>;
+  @ManyToOne(() => Depot, { eager: true })
+  @JoinColumn({ name: 'depotID' })
+  depot!: Relation<Depot>;
 
-  @Column()
-  pickupAddress!: string;
-
-  @Column()
-  deliveryAddress!: string;
+  @ManyToOne(() => Site, { eager: true })
+  @JoinColumn({ name: 'siteID' })
+  site!: Relation<Site>;
 
   @Column({ type: 'enum', enum: OrderType })
   type!: OrderType;

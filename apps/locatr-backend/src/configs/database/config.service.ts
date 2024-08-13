@@ -23,6 +23,9 @@ export class DBConfigService implements TypeOrmOptionsFactory {
     const isProduction = process.env.NODE_ENV === 'production';
     const sourcePath = isProduction ? 'dist' : 'apps/locatr-backend/src';
 
+    console.log('isProduction', isProduction);
+    console.log('sourcePath', sourcePath);
+
     return {
       type: 'postgres',
       url: process.env.POSTGRES_URL,
@@ -39,9 +42,9 @@ export class DBConfigService implements TypeOrmOptionsFactory {
       migrationsRun: true,
       autoLoadEntities: true,
       logging: !isProduction,
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      // ssl: {
+      //   rejectUnauthorized: false,
+      // },
     };
   }
 }

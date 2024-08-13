@@ -14,7 +14,7 @@ import { AuthModule, ClientModule, EmployeeModule, UserModule, SiteModule, Conta
 @Module({
   imports: [
     SentryModule.forRoot(),
-    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
+    ConfigModule.forRoot({ envFilePath: ['.env.local','.env'], isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [DBConfigModule],
       useClass: DBConfigService,
