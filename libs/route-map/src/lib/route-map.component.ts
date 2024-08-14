@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, inject, effect } from '@angular/core';
 
 import { RouteInterface } from '@profolio/interfaces';
-import { RouteService } from '@profolio/frontend/services';
 import { GoogleMapComponent } from './google-map.component';
+import { RouteService } from '@features/route-management';
 
 @Component({
   selector: 'lib-route-map',

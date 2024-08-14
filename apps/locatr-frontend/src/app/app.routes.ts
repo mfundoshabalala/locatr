@@ -19,7 +19,7 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'overview',
-        loadComponent: () => import('@pages/dashboard-overview').then((m) => m.DashboardOverviewComponent),
+        loadComponent: () => import('@features/dashboard-overview').then((m) => m.DashboardOverviewComponent),
         data: {
           title: 'Dashboard',
           subtitle: 'Overview of your route planning activities.',
@@ -28,17 +28,17 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'client',
-        loadComponent: () => import('@pages/client-management').then((m) => m.ClientManagementComponent),
+        loadComponent: () => import('@features/client-management').then((m) => m.ClientManagementComponent),
         data: {
           entityName: 'client',
           title: 'Client Management',
           subtitle: 'Manage your client information.',
           searchType: 'list',
-        }
+        },
       },
       {
         path: 'employee',
-        loadComponent: () => import('@pages/employee-management').then((m) => m.EmployeeManagementComponent),
+        loadComponent: () => import('@features/employee-management').then((m) => m.EmployeeManagementComponent),
         data: {
           entityName: 'user',
           title: 'Employee Management',
@@ -48,7 +48,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'depot',
-        loadComponent: () => import('@pages/depot-management').then((m) => m.DepotManagementComponent),
+        loadComponent: () => import('@features/depot-management').then((m) => m.DepotManagementComponent),
         data: {
           title: 'Depot Management',
           entityName: 'depot',
@@ -58,7 +58,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'vehicle',
-        loadComponent: () => import('@pages/vehicle-management').then((m) => m.VehicleManagementComponent),
+        loadComponent: () => import('@features/vehicle-management').then((m) => m.VehicleManagementComponent),
         data: {
           title: 'Vehicle Management',
           entityName: 'vehicle',
@@ -68,7 +68,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'order',
-        loadComponent: () => import('@pages/order-management').then((m) => m.OrderManagementComponent),
+        loadComponent: () => import('@features/order-management').then((m) => m.OrderManagementComponent),
         data: {
           title: 'Order Management',
           entityName: 'order',
@@ -78,7 +78,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'route',
-        loadComponent: () => import('@pages/route-management').then((m) => m.RouteManagementComponent),
+        loadComponent: () => import('@features/route-management').then((m) => m.RouteManagementComponent),
         data: {
           title: 'Route Planning',
           entityName: 'route',
@@ -88,7 +88,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'routing',
-        loadComponent: () => import('@pages/route-optimisation').then((m) => m.RouteOptimisationComponent),
+        loadComponent: () => import('@features/route-optimisation').then((m) => m.RouteOptimisationComponent),
         data: {
           title: 'Route Optimization',
           subtitle: 'Manage and adjust route details.',
@@ -97,7 +97,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'notification',
-        loadComponent: () => import('@pages/notification-management').then((m) => m.NotificationManagementComponent),
+        loadComponent: () => import('@features/notification-management').then((m) => m.NotificationManagementComponent),
         data: {
           title: 'Notification Management',
           subtitle: 'Send and manage notifications.',
@@ -106,7 +106,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'settings',
-        loadComponent: () => import('@pages/settings-management').then((m) => m.SettingsManagementComponent),
+        loadComponent: () => import('@features/settings-management').then((m) => m.SettingsManagementComponent),
         data: {
           title: 'Settings Management',
           subtitle: 'Configure your application settings.',
@@ -115,7 +115,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'support',
-        loadComponent: () => import('@pages/support-management').then((m) => m.SupportManagementComponent),
+        loadComponent: () => import('@features/support-management').then((m) => m.SupportManagementComponent),
         data: {
           title: 'Support Management',
           subtitle: 'Handle support requests and issues.',
