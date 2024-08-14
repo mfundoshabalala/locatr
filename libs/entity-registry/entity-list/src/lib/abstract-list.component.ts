@@ -1,6 +1,7 @@
-import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { AbstractService } from '@profolio/frontend/services';
 import { EntityInterface } from '@profolio/interfaces';
+import { ToasterService } from '@toaster';
 
 @Directive()
 export abstract class AbstractListComponent<T> implements OnInit {
@@ -10,6 +11,8 @@ export abstract class AbstractListComponent<T> implements OnInit {
   @Output() entityUpdated = new EventEmitter<T>();
   protected abstract service: AbstractService<T>;
 
+  private toasterService = inject(ToasterService);
+
   async ngOnInit() {
     await this.getList();
   }
@@ -18,7 +21,7 @@ export abstract class AbstractListComponent<T> implements OnInit {
     try {
       this.entities = await this.service.getAll();
     } catch (error) {
-      console.error('Error loading entities', (error as any).message);
+      this.toasterService.addToast('Error loading entities', 'error', (error as any).message);
     }
   }
 
@@ -31,7 +34,7 @@ export abstract class AbstractListComponent<T> implements OnInit {
       await this.service.delete((entity as EntityInterface)?.['id']);
       this.entities = this.entities.filter((e) => e !== entity);
     } catch (error) {
-      console.error('Error deleting entity', (error as any).message);
+      this.toasterService.addToast('Error deleting entity', 'error', (error as any).message);
     }
   }
 
@@ -40,7 +43,7 @@ export abstract class AbstractListComponent<T> implements OnInit {
       entity = await this.service.update((entity as EntityInterface)?.['id'], entity);
       this.entities = this.entities.map((e) => (e === entity ? entity : e));
     } catch (error) {
-      console.error('Error updating entity', (error as any).message);
+      this.toasterService.addToast('Error updating entity', 'error', (error as any).message);
     }
   }
 }

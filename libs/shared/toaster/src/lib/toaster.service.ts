@@ -4,7 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 export interface Toast {
   id: string;
-  message: string;
+  title: string;
+  message?: string;
   type: 'success' | 'error' | 'info' | 'warning';
 }
 
@@ -15,9 +16,9 @@ export class ToasterService {
   private toastsSubject = new BehaviorSubject<Toast[]>([]);
   private toasts: Toast[] = [];
 
-  addToast(message: string, type: 'success' | 'error' | 'info' | 'warning'): void {
+  addToast(title: string, type: 'success' | 'error' | 'info' | 'warning', message?: string): void {
     const id = uuidv4();
-    const newToast: Toast = { id, message, type };
+    const newToast: Toast = { id, title, message, type };
     this.toasts.push(newToast);
     this.toastsSubject.next([...this.toasts]);
 
