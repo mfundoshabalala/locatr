@@ -8,7 +8,7 @@ export class Depot {
   @Column({ unique: true })
   name!: string;
 
-  @Column()
+  @Column({ unique: true })
   address!: string;
 
   @Column()

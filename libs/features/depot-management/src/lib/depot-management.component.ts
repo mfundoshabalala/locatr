@@ -13,8 +13,9 @@ import { AbstractDashboardComponent } from '@profolio/core';
   imports: [CommonModule, DepotListComponent],
   template: `
     <lib-depot-list
+      [entities]="entityList()"
       (entityUpdated)="onEntityUpdate($event)"
-      (entitySelected)="onEntitySelect($event)"
+      (entitySelected)="onEntityRead($event)"
       (entityDeleted)="onEntityDelete($event)">
     </lib-depot-list>
   `,

@@ -12,7 +12,13 @@ import { AbstractDashboardComponent } from '@profolio/core';
   selector: 'lib-order-management',
   standalone: true,
   imports: [CommonModule, OrderListComponent],
-  template: ` <lib-order-list></lib-order-list> `,
+  template: `
+    <lib-order-list
+      [entities]="entityList()"
+      (entityUpdated)="onEntityUpdate($event)"
+      (entitySelected)="onEntityRead($event)"
+      (entityDeleted)="onEntityDelete($event)">
+    </lib-order-list> `,
   styleUrl: './order-management.component.css',
 })
 export class OrderManagementComponent extends AbstractDashboardComponent<OrderInterface> {

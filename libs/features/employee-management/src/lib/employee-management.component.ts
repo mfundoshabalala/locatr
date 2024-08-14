@@ -14,8 +14,9 @@ import { AbstractDashboardComponent } from '@profolio/core';
   imports: [CommonModule, EmployeeListComponent],
   template: `
     <lib-employee-list
+      [entities]="entityList()"
       (entityUpdated)="onEntityUpdate($event)"
-      (entitySelected)="onEntitySelect($event)"
+      (entitySelected)="onEntityRead($event)"
       (entityDeleted)="onEntityDelete($event)">
     </lib-employee-list>
   `,

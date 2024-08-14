@@ -23,6 +23,14 @@ export abstract class AbstractService<T> {
     }
   }
 
+  async read(id: string): Promise<T> {
+    try {
+      return await firstValueFrom(this.http.get<T>(`${this.baseUrl}/${id}`));
+    } catch (error) {
+      throw new Error(`Error getting entity: ${(error as Error).message}`);
+    }
+  }
+
   async update(id: string, entity: T): Promise<T> {
     try {
       return await firstValueFrom(this.http.patch<T>(`${this.baseUrl}/${id}`, entity));

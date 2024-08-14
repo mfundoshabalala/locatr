@@ -13,7 +13,12 @@ import { AbstractDashboardComponent } from '@profolio/core';
   standalone: true,
   imports: [CommonModule, RouteListComponent],
   template: `
-    <lib-route-list></lib-route-list>
+    <lib-route-list
+      [entities]="entityList()"
+      (entityUpdated)="onEntityUpdate($event)"
+      (entitySelected)="onEntityRead($event)"
+      (entityDeleted)="onEntityDelete($event)">
+    </lib-route-list>
   `,
   styleUrl: './route-management.component.css',
 })

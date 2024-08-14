@@ -1,10 +1,11 @@
 import { Directive, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { AbstractService } from '@profolio/core';
+
 import { EntityInterface } from '@profolio/interfaces';
 import { ToasterService } from '@toaster';
+import { AbstractService } from '../services/abstract-service.service';
 
 @Directive()
-export abstract class AbstractListComponent<T> implements OnInit {
+export abstract class AbstractListComponent<T> {
   @Input() entities: T[] = [];
   @Output() entitySelected = new EventEmitter<T>();
   @Output() entityDeleted = new EventEmitter<T>();
@@ -12,10 +13,6 @@ export abstract class AbstractListComponent<T> implements OnInit {
   protected abstract service: AbstractService<T>;
 
   private toasterService = inject(ToasterService);
-
-  async ngOnInit() {
-    await this.getList();
-  }
 
   async getList() {
     try {

@@ -13,8 +13,9 @@ import { AbstractDashboardComponent } from '@profolio/core';
   imports: [CommonModule, ClientListComponent, ClientFormComponent],
   template: `
     <lib-client-list
+      [entities]="entityList()"
       (entityUpdated)="onEntityUpdate($event)"
-      (entitySelected)="onEntitySelect($event)"
+      (entitySelected)="onEntityRead($event)"
       (entityDeleted)="onEntityDelete($event)">
     </lib-client-list>
     <!-- <lib-client-form></lib-client-form> -->
@@ -26,4 +27,3 @@ export class ClientManagementComponent extends AbstractDashboardComponent<Client
   protected override listComponent = ClientListComponent;
   protected override formComponent = ClientFormComponent;
 }
-  

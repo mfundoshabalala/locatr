@@ -11,7 +11,14 @@ import { AbstractDashboardComponent } from '@profolio/core';
   selector: 'lib-vehicle-management',
   standalone: true,
   imports: [CommonModule, VehicleListComponent],
-  template: ` <lib-vehicle-list></lib-vehicle-list> `,
+  template: `
+    <lib-vehicle-list
+      [entities]="entityList()"
+      (entityUpdated)="onEntityUpdate($event)"
+      (entitySelected)="onEntityRead($event)"
+      (entityDeleted)="onEntityDelete($event)">
+    </lib-vehicle-list>
+  `,
   styleUrl: './vehicle-management.component.css',
 })
 export class VehicleManagementComponent extends AbstractDashboardComponent<VehicleInterface> {
