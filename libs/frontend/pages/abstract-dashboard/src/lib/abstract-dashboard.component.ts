@@ -3,6 +3,7 @@ import { Component, effect, inject, Injector, OnInit, signal } from '@angular/co
 import { DynamicFormService } from '@profolio/frontend/shared/ui';
 import { EntityInterface } from '@profolio/interfaces';
 import { OffcanvasService } from '@profolio/offcanvas';
+import { ToasterService } from '@toaster';
 
 @Component({
   selector: 'lib-abstract-dashboard',
@@ -25,6 +26,7 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
   entityList = signal<T[]>([]);
   private readonly offcanvasService = inject(OffcanvasService);
   private readonly dynamicFormService = inject(DynamicFormService);
+  private readonly toasterService = inject(ToasterService);
 
   constructor() {
     effect(
@@ -40,7 +42,7 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
             console.log('No action taken');
           }
         } catch (error) {
-          console.log((error as any).message);
+          this.toasterService.addToast('Error updating entity', 'error', (error as any).message);
         } finally {
           this.offcanvasService.hasChanges.set(false);
         }

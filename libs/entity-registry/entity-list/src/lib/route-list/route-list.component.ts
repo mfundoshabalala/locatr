@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouteInterface } from '@profolio/interfaces';
-import { AbstractListComponent } from '../abstract-list.component';
+import { AbstractListComponent } from '@profolio/core';
 import { RouteService } from '@profolio/frontend/services';
 
 @Component({

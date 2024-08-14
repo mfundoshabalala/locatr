@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractListComponent } from '../abstract-list.component';
+
 import { ClientInterface } from '@profolio/interfaces';
 import { ClientService } from '@profolio/frontend/services';
+import { AbstractListComponent } from '@profolio/core';
 
 @Component({
   selector: 'lib-client-list',

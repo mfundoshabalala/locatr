@@ -10,7 +10,7 @@ import {
   OrderInterface,
   DepotInterface,
 } from '@profolio/interfaces';
-import { AbstractFormComponent } from '../abstract-form.component';
+import { AbstractFormComponent } from '@profolio/core';
 import { ClientService, DepotService } from '@profolio/frontend/services';
 import { BasicInputComponent, DropDownComponent, FormButtonsComponent } from '@profolio/frontend/shared/ui';
 

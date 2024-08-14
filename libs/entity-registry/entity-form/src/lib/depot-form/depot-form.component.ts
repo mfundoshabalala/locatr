@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DepotInterface } from '@profolio/interfaces';
-import { AbstractFormComponent } from '../abstract-form.component';
+
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormButtonsComponent, BasicInputComponent, DropDownComponent, SearchBoxComponent } from '@profolio/frontend/shared/ui';
+import { AbstractFormComponent } from '@profolio/core';
 
 @Component({
   selector: 'lib-depot-form',

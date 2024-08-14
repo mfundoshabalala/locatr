@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { AbstractService } from '@profolio/frontend/services';
+import { AbstractService } from '@profolio/core';
 import { EntityInterface } from '@profolio/interfaces';
 import { ToasterService } from '@toaster';
 

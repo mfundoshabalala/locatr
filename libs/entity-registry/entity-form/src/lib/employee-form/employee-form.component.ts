@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AbstractFormComponent } from '../abstract-form.component';
 import { UserInterface } from '@profolio/interfaces';
 import { BasicInputComponent, DropDownComponent, FormButtonsComponent } from '@profolio/frontend/shared/ui';
+import { AbstractFormComponent } from '@profolio/core';
 
 @Component({
   selector: 'lib-employee-form',

@@ -4,6 +4,7 @@ import { EntityInterface, FormMode, FormSubmission } from '@profolio/interfaces'
 import { deepMerge, extractFormData } from '@profolio/utils';
 import { ReactiveFormsModule } from '@angular/forms'; // Add this line
 import { CommonModule } from '@angular/common';
+import { ToasterService } from '@toaster';
 
 @Component({
   selector: 'lib-abstract-form',
@@ -17,6 +18,7 @@ export abstract class AbstractFormComponent<T extends EntityInterface> implement
   entityForm!: FormGroup;
 
   protected fb = inject(FormBuilder);
+  private toasterService = inject(ToasterService);
 
   ngOnInit(): void {
     this.entityForm = this.createForm();
@@ -76,7 +78,34 @@ export abstract class AbstractFormComponent<T extends EntityInterface> implement
       this.emitFormSubmission(mode, entity);
       this.entityForm.reset();
     } else {
-      console.log('Form is invalid', this.entityForm.errors);
+      // Collect all error messages
+      const errorMessages: string[] = [];
+      // Loop through the errors on the form group
+      Object.keys(this.entityForm.errors || {}).forEach((errorKey) => {
+        const errorValue = this.entityForm.errors?.[errorKey];
+        switch (errorKey) {
+          case 'required':
+            errorMessages.push('Some required fields are missing.');
+            break;
+          case 'minlength':
+            errorMessages.push(`Minimum length required: ${errorValue.requiredLength}.`);
+            break;
+          case 'maxlength':
+            errorMessages.push(`Maximum length exceeded: ${errorValue.requiredLength}.`);
+            break;
+          case 'pattern':
+            errorMessages.push('Invalid pattern.');
+            break;
+          default:
+            errorMessages.push(`${errorKey}: ${JSON.stringify(errorValue)}`);
+            break;
+        }
+      });
+
+      // Add a toast for each error message
+      errorMessages.forEach((message) => {
+        this.toasterService.addToast('Form is invalid', 'error', message);
+      });
     }
   }
 

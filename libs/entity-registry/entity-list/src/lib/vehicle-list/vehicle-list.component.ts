@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { VehicleInterface } from '@profolio/interfaces';
 import { VehicleService } from '@profolio/frontend/services';
-import { AbstractListComponent } from '../abstract-list.component';
+import { AbstractListComponent } from '@profolio/core';
 
 @Component({
   selector: 'lib-vehicle-list',

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClientInterface } from '@profolio/interfaces';
-import { AbstractFormComponent } from '../abstract-form.component';
+import { AbstractFormComponent } from '@profolio/core';
 import { BasicInputComponent, BasicTextAreaComponent, DropDownComponent, FormButtonsComponent, SearchBoxComponent } from '@profolio/frontend/shared/ui';
 
 @Component({

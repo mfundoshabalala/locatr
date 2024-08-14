@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UserInterface } from '@profolio/interfaces';
 import { UserService } from '@profolio/frontend/services';
-import { AbstractListComponent } from '../abstract-list.component';
+import { AbstractListComponent } from '@profolio/core';
 
 @Component({
   selector: 'lib-employee-list',

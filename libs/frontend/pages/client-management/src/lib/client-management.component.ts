@@ -9,13 +9,14 @@ import { ClientFormComponent } from '@entity/form';
 @Component({
   selector: 'lib-client-management',
   standalone: true,
-  imports: [CommonModule, ClientListComponent],
+  imports: [CommonModule, ClientListComponent, ClientFormComponent],
   template: `
     <lib-client-list
       (entityUpdated)="onEntityUpdate($event)"
       (entitySelected)="onEntitySelect($event)"
       (entityDeleted)="onEntityDelete($event)">
     </lib-client-list>
+    <!-- <lib-client-form></lib-client-form> -->
   `,
 })
 export class ClientManagementComponent extends AbstractDashboardComponent<ClientInterface> {
@@ -24,3 +25,4 @@ export class ClientManagementComponent extends AbstractDashboardComponent<Client
   protected override listComponent = ClientListComponent;
   protected override formComponent = ClientFormComponent;
 }
+  

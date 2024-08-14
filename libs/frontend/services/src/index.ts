@@ -1,4 +1,3 @@
-export * from './lib/abstract.service';
 export * from './lib/auth.service';
 export * from './lib/client.service';
 export * from './lib/employee.service';

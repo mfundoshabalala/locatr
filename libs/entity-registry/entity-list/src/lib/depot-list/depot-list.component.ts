@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DepotService } from '@profolio/frontend/services';
 import { DepotInterface } from '@profolio/interfaces';
-import { AbstractListComponent } from '../abstract-list.component';
+import { AbstractListComponent } from '@profolio/core';
 
 @Component({
   selector: 'lib-depot-list',

@@ -1,6 +1,6 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractFormComponent } from '../abstract-form.component';
+import { AbstractFormComponent } from '@profolio/core';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderService, UserService, VehicleService } from '@profolio/frontend/services';
 import { OrderInterface, RouteInterface, UserInterface, VehicleInterface } from '@profolio/interfaces';

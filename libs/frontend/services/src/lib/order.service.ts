@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AbstractService } from './abstract.service';
+import { AbstractService } from '@profolio/core';
 import { OrderInterface } from '@profolio/interfaces';
 
 @Injectable({ providedIn: 'root' })
