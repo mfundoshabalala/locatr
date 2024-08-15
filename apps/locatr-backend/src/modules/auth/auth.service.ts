@@ -18,18 +18,21 @@ export class AuthService {
   }
 
   async signIn(username: string, password: string): Promise<{ access_token: string }> {
-    const user = await this.userService.findOneBy(username);
-    if (!user || !user.password) {
-      throw new UnauthorizedException("User doesn't exist");
+    try {
+      const user = await this.userService.findOneBy(username);
+      if (!user || !user.password) {
+        throw new UnauthorizedException("User doesn't exist");
+      }
+      if (!(await this.comparePasswords(password, user.password))) {
+        throw new UnauthorizedException('Invalid password');
+      }
+      const payload = { sub: user.id, username: user.username };
+      return {
+        access_token: await this.jwtService.signAsync(payload, { secret: process.env.JWT_SECRET }),
+      };
+    } catch (error) {
+      throw new UnauthorizedException((error as Error).message);
     }
-
-    if (!(await this.comparePasswords(password, user.password))) {
-      throw new UnauthorizedException('Invalid password');
-    }
-    const payload = { sub: user.id, username: user.username };
-    return {
-      access_token: await this.jwtService.signAsync(payload, { secret: process.env.JWT_SECRET }),
-    };
   }
 
   async signUp(payload: CreateUserDto): Promise<User> {
