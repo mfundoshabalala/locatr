@@ -6,7 +6,7 @@ import { EntityInterface, FormMode } from '@profolio/interfaces';
 })
 export class OffcanvasService {
   entityName = signal<string>('');
-  entityID = signal<string | null>(null);
+  entityID = signal<string | null | undefined>(null);
   entity = signal<EntityInterface | null>(null);
   mode = signal<FormMode | null>(null);
   hasChanges = signal<boolean>(false);

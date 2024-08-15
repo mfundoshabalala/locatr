@@ -6,7 +6,7 @@ export interface LoginInterface {
 }
 
 export interface EntityInterface extends Record<string, any> {
-  id?: any;
+  id?: string;
   createdBy?: string;
   createdAt?: Date;
   updatedBy?: string;
