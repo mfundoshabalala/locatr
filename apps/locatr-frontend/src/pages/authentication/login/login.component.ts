@@ -39,11 +39,10 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       try {
         await this.authService.login(this.loginForm.value);
-      } catch (error) {
-        this.errorToast();
-      } finally {
         this.successToast();
         this.router.navigateByUrl(this.returnUrl);
+      } catch (error) {
+        this.errorToast();
       }
     }
   }
