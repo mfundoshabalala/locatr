@@ -39,8 +39,10 @@
       "@profolio/interfaces": ["libs/interfaces/src/index.ts"],
       "@profolio/offcanvas": ["libs/frontend/offcanvas/src/index.ts"],
       "@profolio/route-map": ["libs/route-map/src/index.ts"],
+      "@profolio/shared/badge": ["libs/shared/badge/src/index.ts"],
       "@profolio/shared/chart-card": ["libs/shared/chart-card/src/index.ts"],
       "@profolio/shared/stat-card": ["libs/shared/stat-card/src/index.ts"],
+      "@profolio/shared/toggle-switch": ["libs/shared/toggle-switch/src/index.ts"],
       "@profolio/utils": ["libs/utils/src/index.ts"],
       "@toaster": ["libs/shared/toaster/src/index.ts"]
     }
