@@ -1,20 +1,20 @@
 <table class="table">
   <thead>
     <tr>
-      <!-- <th class="px-2 py-2 text-slate-600">Client ID</th> -->
-      <th class="px-2 py-2 text-slate-600">Client Name</th>
-      <th class="px-2 py-2 text-slate-600">Client Contact</th>
-      <th class="px-2 py-2 text-slate-600">Industry</th>
-      <th class="px-2 py-2 text-slate-600">Client Status</th>
-      <th class="px-2 py-2 text-slate-600"># Orders</th>
-      <th class="px-2 py-2 text-slate-600">Created</th>
-      <th class="px-2 py-2 text-slate-600">Updated</th>
-      <th class="px-2 py-2 text-slate-600">Actions</th>
+      <!-- <th>Client ID</th> -->
+      <th>Client Name</th>
+      <th>Client Contact</th>
+      <th>Industry</th>
+      <th>Client Status</th>
+      <th># Orders</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let client of entities">
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         @if (client.website) {
           <a [href]="client?.website" class="font-medium hover:underline hover:text-blue-600" target="_blank">{{ client.name }}</a>
         } @else {
@@ -22,40 +22,42 @@
         }
         <address class="block text-xs text-slate-700 max-w-56 text-pretty">{{client?.site?.address }}</address>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <span class="font-medium">{{ client?.contact?.name }}</span>
         <span class="block text-xs text-slate-600 italic">{{ client?.contact?.email }}</span>
         <span class="block text-xs text-slate-600 italic">{{ client?.contact?.phone }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
           {{ client?.industry?.name ?? "Unassigned"}}
         </span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
-          {{ client.isActive ? "Active" : "Inactive" }}
-        </span>
+      <td>
+        @if(client.isActive) {
+          <lib-badge [color]="'success'" [text]="'Active'"></lib-badge>
+        } @else {
+          <lib-badge [color]="'warning'" [text]="'Inactive'"></lib-badge>
+        }
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium">
           {{ client.orders?.length || 0 }}
         </span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs">{{ client.createdBy }}</span>
-        <span class="block text-xs">{{ client.createdAt| date: 'medium' }}</span>
+      <td>
+        <span class="block text-xs font-semibold">{{ client.createdAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ client.createdBy }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs">{{ client.updatedBy }}</span>
-        <span class="block text-xs">{{ client.updatedAt| date: 'medium' }}</span>
+      <td>
+        <span class="block text-xs font-semibold">{{ client.updatedAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ client.updatedBy }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <div class="text-xs font-medium flex flex-nowrap gap-x-1">
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex clients-center"
+          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
             (click)="onEntitySelected(client)"><img src="assets/icons/eye.svg" alt="View" class="size-4">
           </button>
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex clients-center"
+          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
             (click)="onEntityDeleted(client)"><img src="assets/icons/delete.svg" alt="Delete" class="size-4">
           </button>
         </div>

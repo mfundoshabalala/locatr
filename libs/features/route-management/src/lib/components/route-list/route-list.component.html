@@ -1,41 +1,45 @@
 <table class="table">
   <thead>
     <tr>
-      <th class="px-2 py-2 text-slate-600">Order #</th>
-      <th class="px-2 py-2 text-slate-600">Driver</th>
-      <th class="px-2 py-2 text-slate-600">Vehicle</th>
-      <th class="px-2 py-2 text-slate-600">Start Time</th>
-      <th class="px-2 py-2 text-slate-600">End Time</th>
-      <th class="px-2 py-2 text-slate-600">Route Path</th>
-      <th class="px-2 py-2 text-slate-600">Created</th>
-      <th class="px-2 py-2 text-slate-600">Updated</th>
-      <th class="px-2 py-2 text-slate-600">Actions</th>
+      <th>Order #</th>
+      <th>Driver</th>
+      <th>Vehicle</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Route Path</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let route of entities">
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <a href="#"
           class="hover:underline underline-offset-2 border rounded px-3 py-1 text-xs bg-slate-100 font-medium capitalize">
           {{ '#' + route.order.orderNumber }}
         </a>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <span class="font-medium uppercase">{{ route.driver.username }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ route.vehicle.licensePlate }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ route.startTime | date: 'medium' }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ route.endTime | date: 'medium' }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ route.routePath }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs uppercase">{{ route.createdBy }}</span>
-        <span class="block text-xs">{{ route.createdAt | date: 'medium' }}</span>
+      <td>{{ route.vehicle.licensePlate }}</td>
+      <td>
+        <time datetime="route.startTime">{{ route.startTime | date: 'medium' }}</time>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs uppercase">{{ route.updatedBy }}</span>
-        <span class="block text-xs">{{ route.updatedAt | date: 'medium' }}</span>
+      <td>
+        <time datetime="route.endTime">{{ route.endTime | date: 'medium' }}</time>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>{{ route.routePath }}</td>
+      <td>
+        <span class="block text-xs font-semibold">{{ route.createdAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ route.createdBy }}</span>
+      </td>
+      <td>
+        <span class="block text-xs font-semibold">{{ route.updatedAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ route.updatedBy }}</span>
+      </td>
+      <td>
         <div class="text-xs font-medium flex flex-nowrap gap-x-1">
           <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
             (click)="onEntitySelected(route)"><img src="assets/icons/eye.svg" alt="View" class="size-4">

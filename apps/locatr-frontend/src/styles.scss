@@ -8,41 +8,27 @@ app-root {
   @apply min-h-screen m-0 block text-slate-800 bg-slate-100;
 }
 
-// input[type="search"], input[type="text"], input[type="email"], input[type="url"], input[type="password"] {
-//   @apply w-full border rounded border-slate-300 flex-1 bg-white shadow-sm py-1.5;
-// }
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  top: auto;
+  overflow: hidden;
+}
 
-// input[type="search"]:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="password"]:focus {
-//   @apply border-cyan-500;
-// }
+// table styles
+.table {
+  @apply w-full bg-white border border-slate-100 border-separate;
+}
 
-// input[type="search"]::placeholder, input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="url"]::placeholder, input[type="password"]::placeholder {
-//   @apply text-slate-400;
-// }
+.table th {
+  @apply text-center border border-slate-300 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 uppercase tracking-wider;
+}
 
-// input[type="search"]:disabled, input[type="text"]:disabled, input[type="email"]:disabled, input[type="url"]:disabled, input[type="password"]:disabled {
-//   @apply bg-slate-200 cursor-not-allowed;
-// }
-
-// select {
-//   @apply px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none py-2;
-// }
-
-// textarea {
-//   @apply w-full border rounded border-slate-300 bg-white shadow-sm;
-// }
-
-// textarea:focus {
-//   @apply border-cyan-500;
-// }
-
-// textarea::placeholder {
-//   @apply text-slate-400;
-// }
-
-// textarea:disabled {
-//   @apply bg-slate-200 cursor-not-allowed;
-// }
+.table td {
+  @apply text-center px-3 py-2 border border-slate-200 rounded-sm text-xs text-slate-800;
+}
 
 // button inputs
 .btn {
@@ -59,6 +45,10 @@ button.btn {
 
 button.btn-info {
   @apply bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800;
+}
+
+time {
+  @apply text-slate-600 text-xs font-medium;
 }
 
 // .avatar {

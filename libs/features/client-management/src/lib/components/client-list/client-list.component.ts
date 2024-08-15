@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ClientInterface } from '@profolio/interfaces';
 import { AbstractListComponent } from '@profolio/core';
 import { ClientService } from '../../services/client.service';
+import { BadgeComponent } from '@profolio/shared/badge';
 
 @Component({
   selector: 'lib-client-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BadgeComponent],
   templateUrl: './client-list.component.html',
   styleUrl: './client-list.component.css',
 })

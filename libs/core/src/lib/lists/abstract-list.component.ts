@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, inject, Input, Output } from '@angular/core';
 
 import { EntityInterface } from '@profolio/interfaces';
 import { ToasterService } from '@toaster';
@@ -28,8 +28,11 @@ export abstract class AbstractListComponent<T> {
 
   async onEntityDeleted(entity: T) {
     try {
-      await this.service.delete((entity as EntityInterface)?.['id']);
-      this.entities = this.entities.filter((e) => e !== entity);
+      const entityId = (entity as EntityInterface)?.['id'];
+      if (entityId !== undefined) {
+        await this.service.delete(entityId);
+        this.entities = this.entities.filter((e) => e !== entity);
+      }
     } catch (error) {
       this.toasterService.addToast('Error deleting entity', 'error', (error as any).message);
     }
@@ -37,8 +40,11 @@ export abstract class AbstractListComponent<T> {
 
   async onEntityUpdated(entity: T) {
     try {
-      entity = await this.service.update((entity as EntityInterface)?.['id'], entity);
-      this.entities = this.entities.map((e) => (e === entity ? entity : e));
+      const entityId = (entity as EntityInterface)?.['id'];
+      if (entityId !== undefined) {
+        entity = await this.service.update(entityId, entity);
+        this.entities = this.entities.map((e) => (e === entity ? entity : e));
+      }
     } catch (error) {
       this.toasterService.addToast('Error updating entity', 'error', (error as any).message);
     }

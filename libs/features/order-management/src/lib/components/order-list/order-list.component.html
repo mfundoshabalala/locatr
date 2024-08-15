@@ -1,49 +1,69 @@
 <!-- order-list.component.html -->
-<table class="table capitalize">
+<table class="table border-collapse capitalize border border-slate-100 rounded-md shadow-sm">
   <thead>
     <tr>
-      <th class="px-2 py-2 text-slate-600">Order #</th>
-      <th class="px-2 py-2 text-slate-600">Customer</th>
-      <th class="px-2 py-2 text-slate-600">Pickup Address</th>
-      <th class="px-2 py-2 text-slate-600">Delivery Address</th>
-      <th class="px-2 py-2 text-slate-600">Type</th>
-      <th class="px-2 py-2 text-slate-600">Status</th>
-      <th class="px-2 py-2 text-slate-600">Priority</th>
-      <th class="px-2 py-2 text-slate-600">Created</th>
-      <th class="px-2 py-2 text-slate-600">Updated</th>
-      <th class="px-2 py-2 text-slate-600">Actions</th>
+      <th>Order #</th>
+      <!-- <th>Customer</th> -->
+      <th>Pickup Address</th>
+      <th>Delivery Address</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let order of entities">
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <a href="#" class="hover:underline underline-offset-2 border rounded px-3 py-1 text-xs bg-slate-100 font-medium capitalize">
           {{ '#' + order.orderNumber }}
         </a>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="font-medium text-pretty">{{ order['client']?.name }}</span>
+      <!-- <td>
+      </td> -->
+      <td>
+        <span class="font-medium">{{ order.depot?.name }}</span>
+        <address class="block text-xs text-slate-700 max-w-56 text-pretty">{{ order.depot?.address }}</address>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ order['depot']?.address }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ order['site']?.address }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
+        <span class="font-medium text-pretty">{{ order.customer?.name }}</span>
+        <address class="block text-xs text-slate-700 max-w-56 text-pretty">{{ order.site?.address }}</address>
+      </td>
+      <td>
         <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium block text-center">{{ order.type }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium block text-center">{{ order.status }}</span>
+      <td>
+        <!-- <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium block text-center">{{ order.status }}</span> -->
+        @if(order.status === 'pending') {
+          <lib-badge [color]="'warning'" [text]="order.status"></lib-badge>
+        } @else if (order.status === 'cancelled') {
+          <lib-badge [color]="'error'" [text]="order.status"></lib-badge>
+        } @else if (order.status === 'delivered') {
+          <lib-badge [color]="'success'" [text]="order.status"></lib-badge>
+        } @else {
+          <lib-badge [color]="'info'" [text]="order.status"></lib-badge>
+        }
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium block text-center">{{ order.priority }}</span>
+      <td>
+        @if (order.priority === 'high') {
+          <lib-badge [color]="'error'" [text]="order.priority"></lib-badge>
+        } @else if (order.priority === 'medium') {
+          <lib-badge [color]="'warning'" [text]="order.priority"></lib-badge>
+        } @else if (order.priority === 'low') {
+          <lib-badge [color]="'info'" [text]="order.priority"></lib-badge>
+        }
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs uppercase">{{ order.createdBy }}</span>
-        <span class="block text-xs">{{ order.createdAt| date: 'medium' }}</span>
+      <td>
+        <span class="block text-xs font-semibold">{{ order.createdAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ order.createdBy }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs uppercase">{{ order.updatedBy }}</span>
-        <span class="block text-xs">{{ order.updatedAt| date: 'medium' }}</span>
+      <td>
+        <span class="block text-xs font-semibold">{{ order.updatedAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ order.updatedBy }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <div class="text-xs font-medium flex flex-nowrap gap-x-1">
           <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
             (click)="onEntitySelected(order)"><img src="assets/icons/eye.svg" alt="View" class="size-4">

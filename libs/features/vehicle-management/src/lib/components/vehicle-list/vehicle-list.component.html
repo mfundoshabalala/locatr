@@ -2,36 +2,36 @@
 <table class="table">
   <thead>
     <tr>
-      <th class="px-2 py-2 text-slate-600">Make</th>
-      <th class="px-2 py-2 text-slate-600">Model</th>
-      <th class="px-2 py-2 text-slate-600">Type</th>
-      <th class="px-2 py-2 text-slate-600">Year</th>
-      <th class="px-2 py-2 text-slate-600">License Plate</th>
-      <th class="px-2 py-2 text-slate-600">Capacity</th>
-      <th class="px-2 py-2 text-slate-600">Current Location</th>
-      <th class="px-2 py-2 text-slate-600">Created</th>
-      <th class="px-2 py-2 text-slate-600">Updated</th>
-      <th class="px-2 py-2 text-slate-600">Actions</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Type</th>
+      <th>Year</th>
+      <th>License Plate</th>
+      <th>Capacity</th>
+      <th>Current Location</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let vehicle of entities">
-      <td class="px-2 py-2 text-sm text-slate-800">{{ vehicle.make }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ vehicle.model }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ vehicle.type }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ vehicle.year }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ vehicle.licensePlate }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ vehicle.capacity || 'N/A' }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">{{ vehicle.currentLocation || 'N/A' }}</td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs uppercase">{{ vehicle.createdBy }}</span>
-        <span class="block text-xs">{{ vehicle.createdAt | date: 'medium' }}</span>
+      <td>{{ vehicle.make }}</td>
+      <td>{{ vehicle.model }}</td>
+      <td>{{ vehicle.type }}</td>
+      <td>{{ vehicle.year }}</td>
+      <td>{{ vehicle.licensePlate }}</td>
+      <td>{{ vehicle.capacity || 'N/A' }}</td>
+      <td>{{ vehicle.currentLocation || 'N/A' }}</td>
+      <td>
+        <span class="block text-xs font-semibold">{{ vehicle.createdAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ vehicle.createdBy }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
-        <span class="block text-xs uppercase">{{ vehicle.updatedBy }}</span>
-        <span class="block text-xs">{{ vehicle.updatedAt | date: 'medium' }}</span>
+      <td>
+        <span class="block text-xs font-semibold">{{ vehicle.updatedAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs capitalize italic">{{ vehicle.updatedBy }}</span>
       </td>
-      <td class="px-2 py-2 text-sm text-slate-800">
+      <td>
         <div class="text-xs font-medium flex flex-nowrap gap-x-1">
           <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
             (click)="onEntitySelected(vehicle)"><img src="assets/icons/eye.svg" alt="View" class="size-4">
