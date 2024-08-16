@@ -52,14 +52,18 @@ export class BasicInputComponent implements ControlValueAccessor {
   @Input() type: 'text' | 'number' | 'phone' | 'password' | 'email' | 'url' | 'datetime-local' | 'point' = 'text';
   @Input() placeholder = '';
 
-  value = '';
+  value!:string;
   isDisabled = false;
 
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};
 
   writeValue(value: string): void {
-    this.value = value;
+    if (this.type === 'datetime-local') {
+      this.value = this.formatDateTime(value);
+    } else {
+      this.value = value;
+    }
     this.onChange(this.value);
   }
 
@@ -77,6 +81,13 @@ export class BasicInputComponent implements ControlValueAccessor {
 
   getInputType(): string {
     return this.type === 'point' ? 'text' : this.type;
+  }
+
+  formatDateTime(value: string): string {
+    if (this.type === 'datetime-local' && value) {
+      return new Date(value).toISOString().slice(0, 16); // Convert to 'YYYY-MM-DDTHH:mm'
+    }
+    return value;
   }
 
   handleInput(event: Event): void {

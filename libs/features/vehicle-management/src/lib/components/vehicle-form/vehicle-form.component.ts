@@ -25,4 +25,10 @@ export class VehicleFormComponent extends AbstractFormComponent<VehicleInterface
       currentLocation: ['', Validators.maxLength(255)],
     });
   }
+
+  protected override initializeForm(entity: VehicleInterface): void {
+    if (entity) {
+      this.entityForm.patchValue(entity);
+    }
+  }
 }

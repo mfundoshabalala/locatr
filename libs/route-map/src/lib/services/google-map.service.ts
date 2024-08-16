@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 
 @Injectable({ providedIn: 'root' })
-export class GoogleMapsService {
-  loader!: Loader;
+export class GoogleMapService {
+  private loader!: Loader;
   private map: google.maps.Map | null = null;
-  private readonly apiKey = 'AIzaSyBC_xFYzPzcK2zQoVAvwk93X1lNFzXuU_U';
   private readonly defaultMapOptions: google.maps.MapOptions = {
     center: { lat: -28.4793, lng: 24.6727 },
     zoom: 6,
@@ -17,7 +16,7 @@ export class GoogleMapsService {
 
   private initializeLoader(): void {
     this.loader = new Loader({
-      apiKey: this.apiKey,
+      apiKey: process.env["GOOGLE_MAP_API_KEY"] as string,
       version: 'beta',
       libraries: ['places', 'marker'],
     });
@@ -31,50 +30,41 @@ export class GoogleMapsService {
     });
   }
 
-  private createMarker = async (markerData: any, markerLibrary: google.maps.MarkerLibrary) => {
+  private async createMarker(markerData: any, markerLibrary: google.maps.MarkerLibrary): Promise<void> {
     const { AdvancedMarkerElement, PinElement } = markerLibrary;
-    const position = { lat: markerData.lat, lng: markerData.lng };
+    const position = markerData.position;
     const pinScaled = new PinElement({
       scale: 0.875,
     });
 
     const marker = new AdvancedMarkerElement({
-      position,
+      position: position,
       map: this.map,
       content: pinScaled.element,
-      title: markerData.label,
+      title: markerData.name,
       gmpClickable: true,
       collisionBehavior: google.maps.CollisionBehavior.REQUIRED,
     });
 
-    // marker.addListener('click', ({ domEvent, latLng }) => {
-    marker.addListener('click', ({ domEvent }: google.maps.MapMouseEvent) => {
-      const { target } = domEvent;
+    marker.addListener('click', () => {
       const infoWindow = new google.maps.InfoWindow();
-
       infoWindow.close();
       infoWindow.setContent(marker.title);
       infoWindow.open(marker.map, marker);
     });
+  }
 
-    return position;
-  };
-
-  loadMapData = async (data: any) => {
-    if (this.map && data?.length) {
+  async loadMapData(data: any[]): Promise<void> {
+    if (this.map && data.length > 0) {
       const markerLibrary = (await google.maps.importLibrary('marker')) as google.maps.MarkerLibrary;
       const bounds = new google.maps.LatLngBounds();
 
       for (const marker of data) {
-        const position = await this.createMarker(marker, markerLibrary);
-        bounds.extend(position);
+        await this.createMarker(marker, markerLibrary);
+        bounds.extend(marker.position);
       }
 
-      // Animating the fitBounds action
       this.map.fitBounds(bounds);
-      setTimeout(() => {
-        this.map?.panToBounds(bounds);
-      }, 1000);
     }
-  };
+  }
 }

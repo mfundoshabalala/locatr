@@ -35,7 +35,7 @@ export class OrderFormComponent extends AbstractFormComponent<OrderInterface> im
   depots = signal<DepotInterface[]>([], { equal: _.isEqual });
   sites = computed(() => {
     if (!this.selectedClientID()) return [];
-    const selectedClient:ClientInterface | undefined = this.clients().find((client) => client.id === this.selectedClientID());
+    const selectedClient: ClientInterface | undefined = this.clients().find((client) => client.id === this.selectedClientID());
     return selectedClient ? [selectedClient.site] : [];
   });
 
@@ -59,6 +59,17 @@ export class OrderFormComponent extends AbstractFormComponent<OrderInterface> im
       status: ['', Validators.required],
       priority: ['', Validators.required]
     });
+  }
+
+  protected override initializeForm(entity: OrderInterface): void {
+    if (entity) {
+      this.entityForm.patchValue({
+        ...entity,
+        customer: entity.customer.id,
+        depot: entity.depot.id,
+        site: entity.site.id
+      });
+    }
   }
 
   private loadClients(): void {

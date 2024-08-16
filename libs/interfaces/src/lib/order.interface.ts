@@ -6,9 +6,9 @@ import { SiteInterface } from "./site.interface";
 
 export interface OrderInterface extends EntityInterface {
   orderNumber: number;
-  customer?: ClientInterface;
-  depot?: DepotInterface;
-  site?: SiteInterface;
+  customer: ClientInterface;
+  depot: DepotInterface;
+  site: SiteInterface;
   type: OrderType;
   status: OrderStatus;
   priority: OrderPriority;

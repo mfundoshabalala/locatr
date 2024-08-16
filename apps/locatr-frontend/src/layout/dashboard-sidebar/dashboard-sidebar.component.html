@@ -5,11 +5,13 @@
 
 	<main>
 		<nav>
-			<ul class="w-56 font-medium space-y-1 menu rounded-box">
+			<ul class="w-48 font-medium space-y-1 menu rounded-box">
 				<li *ngFor="let item of menuItems">
 					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
 						class="justify-start border border-slate-200 flex-nowrap text-sm text-nowrap">
-						<img src="assets/icons/{{ item.icon }}" alt="" class="w-5 h-5">
+            @if (item.icon) {
+              <img src="assets/icons/{{ item.icon }}" alt="" class="w-5 h-5">
+            }
 						<span>{{ item.label }}</span>
 					</a>
 				</li>
@@ -19,11 +21,13 @@
 
 	<footer class="flex flex-col justify-between flex-1 mt-10">
 		<nav class="h-full">
-			<ul class="w-56 font-medium h-full menu rounded-box gap-y-1">
+			<ul class="w-48 font-medium h-full menu rounded-box gap-y-1">
 				<li *ngFor="let item of footerItems">
 					<a [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
 						class="justify-start border border-slate-200 flex-nowrap text-sm text-nowrap">
-						<img src="assets/icons/{{ item.icon }}" alt="" class="w-5 h-5">
+            @if (item.icon) {
+              <img src="assets/icons/{{ item.icon }}" alt="" class="w-5 h-5">
+            }
 						<span>{{ item.label }}</span>
 					</a>
 				</li>

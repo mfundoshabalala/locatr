@@ -59,28 +59,28 @@ export class DashboardSidebarComponent implements OnInit {
 
   //NOTE: icons are from https://www.svgrepo.com/public
   menuItems: MenuItem[] = [
-    { label: 'Overview', path: '/dashboard/overview', icon: 'stats.svg', roles: ['admin', 'dispatcher', 'driver'] },
-    { label: 'Depot Management', path: '/dashboard/depot', icon: 'cart-check.svg', roles: ['admin'] },
-    { label: 'Client Management', path: '/dashboard/client', icon: 'business.svg', roles: ['admin'] },
-    { label: 'Order Management', path: '/dashboard/order', icon: 'trolley.svg', roles: ['admin', 'dispatcher'] },
-    { label: 'User Management', path: '/dashboard/employee', icon: 'figure.svg', roles: ['admin'] },
-    { label: 'Vehicle Management', path: '/dashboard/vehicle', icon: 'delivery-truck.svg', roles: ['admin'] },
-    { label: 'Route Planning', path: '/dashboard/route', icon: 'calendar-date.svg', roles: ['admin', 'dispatcher'] },
-    { label: 'Route Optimization', path: '/dashboard/routing', icon: 'map-marker.svg', roles: ['admin', 'dispatcher'] },
+    { label: 'Overview', path: '/dashboard/overview', icon: '', roles: ['admin', 'dispatcher', 'driver'] },
+    { label: 'Depot Management', path: '/dashboard/depot', icon: '', roles: ['admin'] },
+    { label: 'Client Management', path: '/dashboard/client', icon: '', roles: ['admin'] },
+    { label: 'Order Management', path: '/dashboard/order', icon: '', roles: ['admin', 'dispatcher'] },
+    { label: 'User Management', path: '/dashboard/employee', icon: '', roles: ['admin'] },
+    { label: 'Vehicle Management', path: '/dashboard/vehicle', icon: '', roles: ['admin'] },
+    { label: 'Route Planning', path: '/dashboard/route', icon: '', roles: ['admin', 'dispatcher'] },
+    { label: 'Route Optimization', path: '/dashboard/routing', icon: '', roles: ['admin', 'dispatcher'] },
   ];
 
   public footerItems: MenuItem[] = [
     {
       label: 'Notifications',
       path: '/dashboard/notification',
-      icon: 'notification-bell.svg',
+      icon: '',
       roles: ['admin', 'dispatcher', 'driver'],
     },
-    { label: 'Settings', path: '/dashboard/settings', icon: 'settings-gear.svg', roles: ['admin'] },
+    { label: 'Settings', path: '/dashboard/settings', icon: '', roles: ['admin'] },
     {
       label: 'Support',
       path: '/dashboard/support',
-      icon: 'lifebuoy-help.svg',
+      icon: '',
       roles: ['admin', 'dispatcher', 'driver'],
     },
   ];

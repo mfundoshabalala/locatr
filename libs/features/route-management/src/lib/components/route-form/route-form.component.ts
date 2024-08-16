@@ -40,6 +40,19 @@ export class RouteFormComponent extends AbstractFormComponent<RouteInterface> im
     });
   }
 
+  protected override initializeForm(entity: RouteInterface): void {
+    if (entity) {
+      this.entityForm.patchValue({
+        order: entity.order.id,
+        driver: entity.driver.id,
+        vehicle: entity.vehicle.id,
+        startTime: entity.startTime,
+        endTime: entity.endTime,
+        routePath: entity.routePath
+      });
+    }
+  }
+
   private loadData(): void {
     this.userService.getAll().then((drivers) => {
       this.drivers.update(() => drivers);

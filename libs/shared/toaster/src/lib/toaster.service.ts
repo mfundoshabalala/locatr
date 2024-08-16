@@ -16,7 +16,7 @@ export class ToasterService {
   private toastsSubject = new BehaviorSubject<Toast[]>([]);
   private toasts: Toast[] = [];
 
-  addToast(title: string, type: 'success' | 'error' | 'info' | 'warning', message?: string): void {
+  addToast(title: string, type: 'success' | 'error' | 'info' | 'warning', message?: any): void {
     const id = uuidv4();
     const newToast: Toast = { id, title, message, type };
     this.toasts.push(newToast);

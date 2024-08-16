@@ -43,6 +43,12 @@ export class ClientFormComponent extends AbstractFormComponent<ClientInterface> 
     });
   }
 
+  protected override initializeForm(entity: ClientInterface): void {
+    if (entity) {
+      this.entityForm.patchValue(entity);
+    }
+  }
+
   onPlaceChange = (place: google.maps.places.PlaceResult) => {
     this.entityForm.get('site')?.patchValue({
       address: place.formatted_address,

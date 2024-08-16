@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 import { RouteInterface } from '@profolio/interfaces';
 import { RouteFormComponent } from './components/route-form/route-form.component';
 import { RouteListComponent } from './components/route-list/route-list.component';
-import { RouteService } from './services/route.service';
 import { AbstractDashboardComponent } from '@profolio/core';
+import { RouteService } from '@features/route-optimisation';
 
 @Component({
   selector: 'lib-route-management',

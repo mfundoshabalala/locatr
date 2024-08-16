@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, effect, inject, Injector, OnInit, signal } from '@angular/core';
+import { AfterViewInit, Component, effect, inject, Injector, OnInit, signal, Type } from '@angular/core';
 import { DynamicFormService } from '@profolio/frontend/shared/ui';
 import { OffcanvasService } from '@profolio/offcanvas';
 import { EntityInterface, FormMode } from '@profolio/interfaces';
@@ -25,10 +26,10 @@ export interface EntityService<T extends EntityInterface> {
   `,
 })
 export abstract class AbstractDashboardComponent<T extends EntityInterface> implements OnInit, AfterViewInit {
-  protected abstract readonly service: EntityService<T>; // Specific service for each entity
-  protected abstract readonly listComponent: any; // Specific list component for each entity
-  protected abstract readonly formComponent: any; // Specific form component for each entity
-  protected abstract readonly entityName: string; // Specific entity name for each entity
+  protected abstract readonly service: EntityService<T>;
+  protected abstract readonly listComponent: Type<any> | null;
+  protected abstract readonly formComponent: Type<any> | null;
+  protected abstract readonly entityName?: string;
 
   entityList = signal<T[]>([]);
   private readonly offcanvasService = inject(OffcanvasService);
@@ -59,7 +60,9 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
   }
 
   ngAfterViewInit() {
-    this.dynamicFormService.registerFormComponent(this.entityName, this.formComponent);
+    if (this.formComponent && this.entityName) {
+      this.dynamicFormService.registerFormComponent(this.entityName, this.formComponent);
+    }
   }
 
   private async handleCrudAction(action: FormMode | null, entity: T, hasChanges: boolean) {
@@ -109,6 +112,8 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
   }
 
   onEntityRead(entity: T) {
-    this.offcanvasService.open(this.entityName, entity);
+    if (this.entityName && entity) {
+      this.offcanvasService.open(this.entityName, entity);
+    }
   }
 }

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouteInterface } from '@profolio/interfaces';
 import { AbstractListComponent } from '@profolio/core';
-import { RouteService } from '../../services/route.service';
+import { RouteService } from '@features/route-optimisation';
 
 @Component({
   selector: 'lib-route-list',

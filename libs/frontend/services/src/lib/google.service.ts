@@ -5,7 +5,6 @@ import { Loader } from '@googlemaps/js-api-loader';
 export class GoogleService {
   loader!: Loader;
   private map: google.maps.Map | null = null;
-  // private readonly apiKey = 'AIzaSyBC_xFYzPzcK2zQoVAvwk93X1lNFzXuU_U';
   private readonly defaultMapOptions: google.maps.MapOptions = {
     center: { lat: -28.4793, lng: 24.6727 },
     zoom: 6,

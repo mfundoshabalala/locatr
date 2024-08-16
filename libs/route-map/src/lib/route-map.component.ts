@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal, OnInit, inject, effect } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 
-import { RouteInterface } from '@profolio/interfaces';
-import { GoogleMapComponent } from './google-map.component';
-import { RouteService } from '@features/route-management';
+import { GoogleMapComponent } from './components/google-map.component';
 
 @Component({
   selector: 'lib-route-map',
@@ -14,34 +12,23 @@ import { RouteService } from '@features/route-management';
       <lib-google-map [id]="mapId" [routeData]="routes()"></lib-google-map>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        height: 100%;
-      }
-      .route-map-container {
-        height: 100%;
-      }
-    `,
-  ],
+  styles: [`
+  :host {
+    display: block;
+    height: 100%;
+  }
+  .route-map-container {
+    height: 100%;
+  }
+  `,],
 })
-export class RouteMapComponent implements OnInit {
+export class RouteMapComponent {
   mapId = 'route-map';
-  routes = signal<any>([]);
-  routeData = signal<RouteInterface[]>([]);
-
-  private routeService = inject(RouteService);
+  routes = input.required<any>();
 
   constructor() {
     effect(() => {
-      const transformedRoutes = this.routeService.transformRouteData(this.routeData());
-      this.routes.set(transformedRoutes );
-    }, { allowSignalWrites: true });
-  }
-
-  async ngOnInit(): Promise<void> {
-    const routes = await this.routeService.getAll();
-    this.routeData.set(routes);
+      console.log('RouteMapComponent', this.routes());
+    });
   }
 }

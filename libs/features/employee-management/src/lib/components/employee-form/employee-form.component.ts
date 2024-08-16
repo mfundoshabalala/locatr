@@ -32,4 +32,10 @@ export class EmployeeFormComponent extends AbstractFormComponent<UserInterface> 
       }),
     });
   }
+
+  protected override initializeForm(entity: UserInterface): void {
+    if (entity) {
+      this.entityForm.patchValue(entity);
+    }
+  }
 }

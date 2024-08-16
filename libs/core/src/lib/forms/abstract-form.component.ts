@@ -26,9 +26,8 @@ export abstract class AbstractFormComponent<T extends EntityInterface> implement
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['entity']) {
-      this.initializeForm(changes['entity'].currentValue);
-    }
+    console.log('Entity changed', changes['entity'].currentValue);
+    this.initializeForm(changes['entity'].currentValue);
   }
 
   /**
@@ -40,11 +39,7 @@ export abstract class AbstractFormComponent<T extends EntityInterface> implement
   /**
    * Populates the form with data from the entity.
    */
-  protected initializeForm(data: T | null): void {
-    if (data) {
-      this.entityForm.patchValue(data);
-    }
-  }
+  protected abstract initializeForm(data: T | null): void | Promise<void>;
 
   editMode() {
     return !!this.entity();

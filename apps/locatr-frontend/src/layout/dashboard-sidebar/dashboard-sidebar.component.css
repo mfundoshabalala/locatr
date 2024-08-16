@@ -1,3 +1,3 @@
 .active-link {
-  @apply bg-slate-400 border-slate-500 font-medium;
+  @apply bg-slate-200 border-slate-300 font-semibold text-sm;
 }

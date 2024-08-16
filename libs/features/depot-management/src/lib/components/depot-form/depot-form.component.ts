@@ -24,6 +24,12 @@ export class DepotFormComponent extends AbstractFormComponent<DepotInterface> {
     });
   }
 
+  protected override initializeForm(entity: DepotInterface): void {
+    if (entity) {
+      this.entityForm.patchValue(entity);
+    }
+  }
+
   onPlaceChange = (place: google.maps.places.PlaceResult) => {
     this.entityForm?.patchValue({
       address: place.formatted_address,
