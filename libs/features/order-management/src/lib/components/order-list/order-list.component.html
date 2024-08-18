@@ -21,21 +21,18 @@
           {{ '#' + order.orderNumber }}
         </a>
       </td>
-      <!-- <td>
-      </td> -->
       <td>
-        <span class="font-medium">{{ order.depot.name }}</span>
-        <address class="block text-xs text-slate-700 max-w-56 text-pretty">{{ order.depot.address }}</address>
+        <span class="font-medium">{{ order?.depot?.name }}</span>
+        <address class="block text-xs text-slate-700 max-w-56 text-pretty">{{ order?.depot?.address }}</address>
       </td>
       <td>
-        <span class="font-medium text-pretty">{{ order.customer.name }}</span>
-        <address class="block text-xs text-slate-700 max-w-56 text-pretty">{{ order.site.address }}</address>
+        <span class="font-medium text-pretty">{{ order?.customer?.name }}</span>
+        <address class="block text-xs text-slate-700 max-w-56 text-pretty">{{ order?.site?.address }}</address>
       </td>
       <td>
         <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium block text-center">{{ order.type }}</span>
       </td>
       <td>
-        <!-- <span class="border rounded px-3 py-1 text-xs bg-slate-100 font-medium block text-center">{{ order.status }}</span> -->
         @if(order.status === 'pending') {
           <lib-badge [color]="'warning'" [text]="order.status"></lib-badge>
         } @else if (order.status === 'cancelled') {

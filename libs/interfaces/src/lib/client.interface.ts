@@ -10,11 +10,11 @@ export interface ClientInterface extends EntityInterface {
   hours?: string[];
   website?: string;
   notes?: string;
-  isActive?: boolean;
+  isActive: boolean;
   services?: string[];
   industryID?: string;
   industry: IndustryInterface;
   contact: ContactInterface;
-  site: SiteInterface;
+  sites: SiteInterface[];
   orders?: OrderInterface[];
 }

@@ -1,8 +1,8 @@
-<section class="top-0 right-0 absolute bg-white p-8 h-full shadow-md border">
-  <form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-6">
+<section class="top-0 right-0 absolute bg-white p-8 h-full shadow-md border overflow-y-auto">
+  <form [formGroup]="entityForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-4">
     <!-- Client Information -->
-    <fieldset class="border border-gray-200 p-4 rounded-md space-y-4 bg-slate-50">
-      <legend class="text-sm font-medium text-gray-700">Client Information</legend>
+    <fieldset class="border border-slate-200 p-4 rounded-md space-y-4 bg-slate-50">
+      <legend class="text-sm font-medium text-slate-700">Client Information</legend>
       <div class="grid grid-cols-2 gap-4">
         <lib-basic-input formControlName="name" [label]="'Company Name'" type="text"
           placeholder="Company Ltd"></lib-basic-input>
@@ -10,43 +10,55 @@
           placeholder="https://example.com"></lib-basic-input>
         <lib-basic-input formControlName="businessHours" [label]="'Business Hours'" type="text"
           placeholder="9 AM - 5 PM"></lib-basic-input>
-        <!-- <lib-basic-text-area formControlName="services" [label]="'Services'" placeholder="Services provided"></lib-basic-text-area> -->
       </div>
-      <lib-basic-text-area formControlName="notes" [label]="'Busineess Notes'" placeholder="Notes"></lib-basic-text-area>
+      <lib-basic-text-area formControlName="notes" [label]="'Business Notes'" placeholder="Notes"></lib-basic-text-area>
     </fieldset>
-  
+
     <!-- Contact Information -->
-    <fieldset formGroupName="contact" class="border border-gray-200 p-4 rounded-md space-y-4 bg-slate-50">
-      <legend class="text-sm font-medium text-gray-700">Contact Information</legend>
+    <fieldset formGroupName="contact" class="border border-slate-200 p-4 rounded-md space-y-4 bg-slate-50">
+      <legend class="text-sm font-medium text-slate-700">Contact Information</legend>
       <div class="grid grid-cols-2 gap-4">
         <lib-basic-input formControlName="name" [label]="'Contact Name'" type="text"
           placeholder="Contact Name"></lib-basic-input>
         <lib-basic-input formControlName="email" [label]="'Email'" type="email"
           placeholder="email@example.com"></lib-basic-input>
         <lib-basic-input formControlName="phone" [label]="'Phone number'" type="phone"
-          placeholder="0123456789"></lib-basic-input>
+          placeholder="012 345 6789"></lib-basic-input>
       </div>
     </fieldset>
-  
+
     <!-- Site Information -->
-    <fieldset formGroupName="site" class="border border-gray-200 p-4 rounded-md space-y-4 bg-slate-50">
-      <legend class="text-sm font-medium text-gray-700">Site Information</legend>
-      <div class="grid grid-cols-2 gap-4">
-        <lib-basic-input formControlName="name" [label]="'Site Name'" type="text" class="col-span-full"
-          placeholder="Site Name"></lib-basic-input>
-        <lib-basic-input formControlName="description" [label]="'Description'" type="text"
-          placeholder="Description"></lib-basic-input>
-        <lib-search-box formControlName="address" type="address" placeholder="Search for site address"
-          label="Search address" (placeChange)="onPlaceChange($event)"></lib-search-box>
+    <fieldset class="border border-slate-200 p-4 rounded-md space-y-4 bg-slate-50">
+      <legend class="text-sm font-medium text-slate-700">Site Information</legend>
+
+      <div formArrayName="sites" class="flex flex-col gap-2">
+        <div *ngFor="let site of sites.controls; let i = index" [formGroupName]="i"
+          class="border border-slate-200 p-4 rounded-md space-y-4 bg-white">
+          <div class="grid grid-cols-2 gap-4">
+            <lib-basic-input formControlName="name" [label]="'Site Name'" type="text" class="col-span-full"
+              placeholder="Site Name"></lib-basic-input>
+            <lib-basic-input formControlName="description" [label]="'Description'" type="text"
+              placeholder="Description"></lib-basic-input>
+            <lib-search-box formControlName="address" type="address" placeholder="Search for site address"
+              label="Search address" (placeChange)="onPlaceChange(i, $event)"></lib-search-box>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <lib-basic-input formControlName="latitude" [label]="'Latitude'" type="point"
+              placeholder="Latitude"></lib-basic-input>
+            <lib-basic-input formControlName="longitude" [label]="'Longitude'" type="point"
+              placeholder="Longitude"></lib-basic-input>
+          </div>
+          <button type="button" (click)="removeSite(i)" class="text-red-600 hover:text-red-800">Remove Site</button>
+        </div>
       </div>
-      <div class="grid grid-cols-2 gap-4">
-        <lib-basic-input formControlName="latitude" [label]="'Latitude'" type="point"
-          placeholder="Latitude"></lib-basic-input>
-        <lib-basic-input formControlName="longitude" [label]="'Longitude'" type="point"
-          placeholder="Longitude"></lib-basic-input>
-      </div>
+
+      <ng-template #noSites>
+        <p class="text-slate-600">No sites added yet. Click "Add Another Site" to begin.</p>
+      </ng-template>
+
+      <button type="button" (click)="addSite()" class="mt-4 text-blue-600 hover:text-blue-800">Add Another Site</button>
     </fieldset>
-  
+
     <!-- Form Buttons -->
     <lib-form-buttons [canClear]="canClear()" [canDelete]="canDelete()" [canCancel]="canCancel()" [canSave]="canSave()"
       (clear)="onClear()" (delete)="onDelete()" (cancel)="onCancel()" (close)="onClose()" (save)="onSubmit()">

@@ -80,7 +80,7 @@ export class BasicInputComponent implements ControlValueAccessor {
   }
 
   getInputType(): string {
-    return this.type === 'point' ? 'text' : this.type;
+    return this.type === 'point' ? 'number' : this.type;
   }
 
   formatDateTime(value: string): string {

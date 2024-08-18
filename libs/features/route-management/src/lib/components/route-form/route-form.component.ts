@@ -34,9 +34,9 @@ export class RouteFormComponent extends AbstractFormComponent<RouteInterface> im
       order: ['', Validators.required],
       driver: ['', Validators.required],
       vehicle: ['', Validators.required],
-      startTime: ['', Validators.required],
-      endTime: ['', Validators.required],
-      routePath: ['', Validators.required]
+      startTime: [new Date().toISOString(), Validators.required],
+      endTime: [new Date().toISOString(), Validators.required],
+      routePath: ['', Validators.required],
     });
   }
 

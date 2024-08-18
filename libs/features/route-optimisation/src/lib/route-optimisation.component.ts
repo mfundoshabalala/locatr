@@ -46,6 +46,7 @@ export class RouteOptimisationComponent implements OnInit {
 
   filterInvalidRoutes(routes: RouteInterface[]): RouteInterface[] {
     return routes.filter((route) => route.order && route.order.site && route.order.customer);
+    // return routes.filter((route) => route.order && route.order.site);
   }
 
   mapRouteToMarker(routes: RouteInterface[]): MarkerInterface[] {

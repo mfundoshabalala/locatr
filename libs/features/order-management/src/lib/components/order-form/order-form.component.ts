@@ -36,7 +36,7 @@ export class OrderFormComponent extends AbstractFormComponent<OrderInterface> im
   sites = computed(() => {
     if (!this.selectedClientID()) return [];
     const selectedClient: ClientInterface | undefined = this.clients().find((client) => client.id === this.selectedClientID());
-    return selectedClient ? [selectedClient.site] : [];
+    return selectedClient ? selectedClient.sites : [];
   });
 
   override ngOnInit(): void {
