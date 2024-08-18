@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Client } from "src/modules/client/entities/client.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Site {
@@ -22,6 +23,10 @@ export class Site {
 
   @Column('decimal', { precision: 9, scale: 6, comment: 'Longitude of the site from the Google Place API' })
   longitude!: number;
+
+  @ManyToOne(() => Client, (client) => client.sites, { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'clientID' })
+  client!: Relation<Client>;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

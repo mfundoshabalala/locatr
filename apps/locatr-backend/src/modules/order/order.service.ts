@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
@@ -9,17 +9,32 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 @Injectable()
 export class OrderService {
   constructor(@InjectRepository(Order) private orderRepository: Repository<Order>) {}
-  
-  create(createOrderDto: CreateOrderDto): Promise<Order> {
-    return this.orderRepository.save(createOrderDto);
+
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    const order = this.orderRepository.create(createOrderDto);
+    await this.orderRepository.save(order);
+
+    const savedOrder = await this.orderRepository.findOne({
+      where: { id: order.id },
+      relations: ['customer', 'depot', 'site'],
+    });
+
+    if (!savedOrder) {
+      throw new NotFoundException('Order not found after creation');
+    }
+
+    return savedOrder;
   }
 
   findAll(): Promise<Order[]> {
-    return this.orderRepository.find();
+    return this.orderRepository.find({ relations: ['customer', 'depot', 'site'] });
   }
 
   findOne(id: string): Promise<Order | null> {
-    return this.orderRepository.findOne({ where: { id } });
+    return this.orderRepository.findOne({
+      where: { id },
+      relations: ['customer', 'depot', 'site']
+    });
   }
 
   update(id: string, updateOrderDto: UpdateOrderDto): Promise<UpdateResult> {

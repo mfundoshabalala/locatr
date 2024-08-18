@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,8 +9,20 @@ import { Route } from './entities/route.entity';
 export class RouteService {
   constructor(@InjectRepository(Route) private routeRepository: Repository<Route>) {}
 
-  create(createRouteDto: CreateRouteDto): Promise<Route> {
-    return this.routeRepository.save(createRouteDto);
+  async create(createRouteDto: CreateRouteDto): Promise<Route> {
+    const route = this.routeRepository.create(createRouteDto);
+    await this.routeRepository.save(route);
+
+    const savedRoute = await this.routeRepository.findOne({
+      where: { id: route.id },
+      relations: ['driver', 'order', 'vehicle']
+    });
+
+    if (!savedRoute) {
+      throw new NotFoundException('Order not found after creation');
+    }
+
+    return savedRoute;
   }
 
   findAll(): Promise<Route[]> {

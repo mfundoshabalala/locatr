@@ -44,12 +44,12 @@ export class ClientService {
       }
     }
 
-    if (updateClientDto.site?.name) {
-      const existingSite = await this.siteRepository.findOne({ where: { name: updateClientDto.site.name } });
-      if (existingSite && existingSite.id !== client.site.id) {
-        throw new ConflictException(`Site name "${updateClientDto.site.name}" already exists`);
-      }
-    }
+    // if (updateClientDto.site?.name) {
+    //   const existingSite = await this.siteRepository.findOne({ where: { name: updateClientDto.site.name } });
+    //   if (existingSite && existingSite.client.id !== client.id) {
+    //     throw new ConflictException(`Site name "${updateClientDto.site.name}" already exists`);
+    //   }
+    // }
 
     Object.assign(client, updateClientDto);
 

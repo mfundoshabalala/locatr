@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, IsArray, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, IsArray, ValidateNested, IsObject } from 'class-validator';
 import { CreateContactDto } from 'src/modules/contact/dto/create-contact.dto';
 import { CreateSiteDto } from 'src/modules/site/dto/create-site.dto';
 
@@ -32,6 +32,17 @@ export class CreateClientDto {
   @IsString({ each: true })
   services?: string[];
 
+  @ValidateNested()
+  @Type(() => CreateContactDto)
+  @IsNotEmpty()
+  contact!: CreateContactDto;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateSiteDto)
+  sites?: CreateSiteDto[];
+
   @IsNotEmpty()
   @IsString()
   status!: string;
@@ -39,14 +50,4 @@ export class CreateClientDto {
   @IsUUID()
   @IsNotEmpty()
   industryID!: string;
-
-  @ValidateNested()
-  @Type(() => CreateContactDto)
-  @IsNotEmpty()
-  contact!: CreateContactDto;
-
-  @ValidateNested()
-  @Type(() => CreateSiteDto)
-  @IsNotEmpty()
-  site!: CreateSiteDto;
 }

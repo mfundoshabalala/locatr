@@ -43,9 +43,13 @@ export class Client {
   @JoinColumn({ name: 'contactID' })
   contact!: Contact;
 
-  @OneToOne(() => Site, { cascade: true, eager: true })
-  @JoinColumn({ name: 'siteID' })
-  site!: Site;
+  @OneToMany(() => Site, (site) => site.client, {
+    nullable: true,
+    orphanedRowAction: 'delete',
+    eager: true,
+    cascade: ['insert', 'update', 'remove'],
+  })
+  sites!: Site[];
 
   @OneToMany(() => Order, (order) => order.customer, { nullable: true, orphanedRowAction: 'delete' })
   orders!: Order[];
