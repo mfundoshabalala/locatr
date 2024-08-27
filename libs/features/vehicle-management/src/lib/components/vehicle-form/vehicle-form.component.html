@@ -3,14 +3,11 @@
   <fieldset class="border border-gray-200 p-4 rounded-md space-y-4 bg-slate-50">
     <legend class="text-sm font-medium text-gray-700">Vehicle Information</legend>
     <div class="grid grid-cols-2 gap-4">
-      <lib-basic-input formControlName="make" [label]="'Make'" type="text"
-        placeholder="Enter vehicle make"></lib-basic-input>
-      <lib-basic-input formControlName="model" [label]="'Model'" type="text"
-        placeholder="Enter vehicle model"></lib-basic-input>
+      <lib-basic-input formControlName="make" [label]="'Make'" type="text" placeholder="Enter vehicle make"></lib-basic-input>
+      <lib-basic-input formControlName="model" [label]="'Model'" type="text" placeholder="Enter vehicle model"></lib-basic-input>
       <lib-drop-down formControlName="type" [label]="'Type'" [options]="vehicleTypes"></lib-drop-down>
       <lib-basic-input formControlName="year" [label]="'Year'" type="number" placeholder="Enter year"></lib-basic-input>
-      <lib-basic-input formControlName="licensePlate" [label]="'License Plate'" type="text"
-        placeholder="Enter license plate"></lib-basic-input>
+      <lib-basic-input formControlName="licensePlate" [label]="'License Plate'" type="text" placeholder="Enter license plate"></lib-basic-input>
     </div>
   </fieldset>
 
@@ -18,10 +15,9 @@
   <fieldset class="border border-gray-200 p-4 rounded-md space-y-4 bg-slate-50">
     <legend class="text-sm font-medium text-gray-700">Additional Information</legend>
     <div class="grid grid-cols-2 gap-4">
-      <lib-basic-input formControlName="capacity" [label]="'Capacity'" type="number"
-        placeholder="Enter capacity"></lib-basic-input>
-      <lib-basic-input formControlName="currentLocation" [label]="'Current Location'" type="text"
-        placeholder="Enter current location"></lib-basic-input>
+      <lib-basic-input formControlName="capacity" [label]="'Capacity'" type="number" placeholder="Enter capacity"></lib-basic-input>
+      <lib-drop-down formControlName="currentLocation" [label]="'current location'" entityName="depot" key="id" [options]="depots()"></lib-drop-down>
+      <lib-drop-down formControlName="driver" fieldName="username" [label]="'assigned driver'" entityName="user" key="id" [options]="users()"></lib-drop-down>
     </div>
   </fieldset>
 

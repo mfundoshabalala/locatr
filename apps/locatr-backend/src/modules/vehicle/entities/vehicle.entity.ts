@@ -1,8 +1,13 @@
 // src/vehicle/vehicle.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from 'typeorm';
+
+import { DepotEntity } from 'src/modules/depot/entities/depot.entity';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { VehicleType } from 'src/common/enums';
-@Entity()
-export class Vehicle {
+
+@Entity({ name: 'Vehicle'})
+export class VehicleEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'vehicleID' })
   id!: string;
 
@@ -24,8 +29,13 @@ export class Vehicle {
   @Column({ nullable: true })
   capacity!: number;
 
-  @Column({ nullable: true })
-  currentLocation?: string;
+  @ManyToOne(() => DepotEntity, { nullable: true, eager: true })
+  @JoinColumn({ name: 'depotID' })
+  currentLocation?: Relation<DepotEntity>;
+
+  @OneToOne(() => UserEntity, (user) => user.assignedVehicle, { nullable: true })
+  @JoinColumn({ name: 'driverID' })
+  driver?: Relation<UserEntity>;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;
@@ -36,6 +46,6 @@ export class Vehicle {
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt!: Date;
 
-  @Column({ nullable: true, length: 255, type: 'varchar', default: 'system' })
+  @Column({ nullable: true, length: 255, type: 'varchar' })
   updatedBy!: string;
 }

@@ -56,7 +56,8 @@ export abstract class AbstractDashboardComponent<T extends EntityInterface> impl
   }
 
   async ngOnInit() {
-    this.getList();
+    await this.getList();
+    console.log("Entity List", this.entityList());
   }
 
   ngAfterViewInit() {

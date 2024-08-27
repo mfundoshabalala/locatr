@@ -75,7 +75,7 @@ export interface VehicleInterface {
   id: number;
   type: VehicleType;
   capacity: number;
-  assignedDriver?: Driver;
+  driver?: Driver;
   currentLocation: LatLngLiteral;
   status: VehicleStatusType;
   maintenanceHistory: MaintenanceRecordInterface[];

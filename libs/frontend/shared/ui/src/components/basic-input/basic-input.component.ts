@@ -28,6 +28,7 @@ import { applyPhoneMask, applyPointMask } from '@profolio/utils';
         (blur)="onTouched()"
         [disabled]="isDisabled"
         [placeholder]="placeholder"
+        [autocomplete]="getAutocomplete()"
         class="inputField" />
     </div>
   `,
@@ -52,7 +53,7 @@ export class BasicInputComponent implements ControlValueAccessor {
   @Input() type: 'text' | 'number' | 'phone' | 'password' | 'email' | 'url' | 'datetime-local' | 'point' = 'text';
   @Input() placeholder = '';
 
-  value!:string;
+  value!: string;
   isDisabled = false;
 
   onChange: (value: string) => void = () => {};
@@ -102,5 +103,9 @@ export class BasicInputComponent implements ControlValueAccessor {
       this.value = inputValue;
       this.onChange(this.value);
     }
+  }
+
+  getAutocomplete(): string {
+    return this.type === 'password' ? 'new-password' : 'off';
   }
 }

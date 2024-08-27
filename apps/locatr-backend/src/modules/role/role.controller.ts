@@ -1,5 +1,6 @@
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Query, Delete } from '@nestjs/common';
+
 
 import { RoleService } from './role.service';
 import { Role } from './entities/role.entity';
@@ -20,18 +21,18 @@ export class RoleController {
     return this.roleService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<Role | null> {
+  @Get()
+  findOne(@Query('id') id: string): Promise<Role | null> {
     return this.roleService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto): Promise<UpdateResult> {
+  @Patch()
+  update(@Query('id') id: string, @Body() updateRoleDto: UpdateRoleDto): Promise<UpdateResult> {
     return this.roleService.update(id, updateRoleDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<DeleteResult> {
+  @Delete()
+  remove(@Query('id') id: string): Promise<DeleteResult> {
     return this.roleService.remove(id);
   }
 }

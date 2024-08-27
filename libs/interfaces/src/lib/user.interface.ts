@@ -1,6 +1,7 @@
 import { ContactInterface } from "./contact.interface";
 import { EmployeeInterface } from "./employee.interface";
 import { EntityInterface, UserRole, UserStatus } from "./enums";
+import { VehicleInterface } from "./vehicle.interface";
 
 export interface UserInterface extends EntityInterface {
   username: string;
@@ -11,4 +12,5 @@ export interface UserInterface extends EntityInterface {
   contact: ContactInterface;
   status: UserStatus;
   role: UserRole;
+  assignedVehicle?: VehicleInterface;
 }

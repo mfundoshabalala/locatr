@@ -70,6 +70,10 @@
       "options": {
         "command": "echo hello"
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/locatr-backend/Dockerfile . -t locatr-backend"
     }
   }
 }

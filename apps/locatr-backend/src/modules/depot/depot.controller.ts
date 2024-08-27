@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
 import { DepotService } from './depot.service';
 import { CreateDepotDto } from './dto/create-depot.dto';
 import { UpdateDepotDto } from './dto/update-depot.dto';
+import { CurrentUserInterceptor } from 'src/middleware';
 
 @Controller('depot')
 export class DepotController {
   constructor(private readonly depotService: DepotService) {}
 
   @Post()
+  @UseInterceptors(CurrentUserInterceptor)
   create(@Body() createDepotDto: CreateDepotDto) {
     return this.depotService.create(createDepotDto);
   }
@@ -17,18 +19,19 @@ export class DepotController {
     return this.depotService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get()
+  findOne(@Query('id') id: string) {
     return this.depotService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDepotDto: UpdateDepotDto) {
+  @Patch()
+  @UseInterceptors(CurrentUserInterceptor)
+  update(@Query('id') id: string, @Body() updateDepotDto: UpdateDepotDto) {
     return this.depotService.update(id, updateDepotDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete()
+  remove(@Query('id') id: string) {
     return this.depotService.remove(id);
   }
 }

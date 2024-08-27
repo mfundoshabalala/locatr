@@ -1,7 +1,7 @@
 <table class="table table-auto">
   <thead>
     <tr>
-      <th>ID</th>
+      <!-- <th>ID</th> -->
       <th>Name</th>
       <th>Address</th>
       <th>Latitude</th>
@@ -15,30 +15,31 @@
   <tbody>
     <tr *ngFor="let depot of entities">
       <td>
-        <span class="font-medium">{{ depot.id }}</span>
+        <span class="font-medium text-nowrap">{{ depot.name }}</span>
       </td>
-      <td>{{ depot.name }}</td>
-      <td>{{ depot.address }}</td>
+      <td>
+        <address class="block text-xs text-slate-700 max-w-56 text-pretty min-w-52">{{ depot.address }}</address>
+      </td>
       <td>{{ depot.latitude }}</td>
       <td>{{ depot.longitude }}</td>
       <td>
         <lib-badge [indicator]="false" [text]="depot.capacity ?? 0"></lib-badge>
       </td>
       <td>
-        <span class="block text-xs font-semibold">{{ depot.createdAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs font-semibold text-nowrap">{{ depot.createdAt | date : "MMM d, y" }}</span>
         <span class="block text-xs capitalize italic">{{ depot.createdBy }}</span>
       </td>
       <td>
-        <span class="block text-xs font-semibold">{{ depot.updatedAt | date : "MMM d, y" }}</span>
+        <span class="block text-xs font-semibold text-nowrap">{{ depot.updatedAt | date : "MMM d, y" }}</span>
         <span class="block text-xs capitalize italic">{{ depot.updatedBy }}</span>
       </td>
       <td>
-        <div class="text-xs font-medium flex flex-nowrap gap-x-1">
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
-            (click)="onEntitySelected(depot)"><img src="assets/icons/eye.svg" alt="View" class="size-4">
+        <div class="text-xs font-medium flex flex-nowrap gap-x-1 justify-center">
+          <button class="bg-slate-100 border rounded-md p-1.5 shadow-sm inline-flex items-center flex-shrink-0"
+            (click)="onEntitySelected(depot)"><img src="assets/icons/eye.svg" alt="View" class="h-4 w-4">
           </button>
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
-            (click)="onEntityDeleted(depot)"><img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+          <button class="bg-slate-100 border rounded-md p-1.5 shadow-sm inline-flex items-center flex-shrink-0"
+            (click)="onEntityDeleted(depot)"><img src="assets/icons/delete.svg" alt="Delete" class="h-4 w-4">
           </button>
         </div>
       </td>

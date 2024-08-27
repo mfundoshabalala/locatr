@@ -1,16 +1,14 @@
+import { ClientController } from './client.controller';
+import { ClientEntity } from './entities/client.entity';
+import { ClientService } from './client.service';
+import { ContactEntity } from '../contact/entities/contact.entity';
+import { Industry } from '../industry/entities/industry.entity';
 import { Module } from '@nestjs/common';
+import { SiteEntity } from '../site/entities/site.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ClientController } from './client.controller';
-import { ClientService } from './client.service';
-import { Client } from './entities/client.entity';
-import { Contact } from '../contact/entities/contact.entity';
-import { Industry } from '../industry/entities/industry.entity';
-import { Site } from '../site/entities/site.entity';
-
-
 @Module({
-  imports: [TypeOrmModule.forFeature([Client, Industry, Contact, Site])],
+  imports: [TypeOrmModule.forFeature([ClientEntity, Industry, ContactEntity, SiteEntity])],
   controllers: [ClientController],
   providers: [ClientService],
   exports: [ClientService],

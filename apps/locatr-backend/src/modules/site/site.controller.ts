@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
 import { SiteService } from './site.service';
 import { CreateSiteDto } from './dto/create-site.dto';
 import { UpdateSiteDto } from './dto/update-site.dto';
+import { CurrentUserInterceptor } from 'src/middleware';
 
 @Controller('site')
 export class SiteController {
   constructor(private readonly siteService: SiteService) {}
 
   @Post()
+  @UseInterceptors(CurrentUserInterceptor)
   create(@Body() createSiteDto: CreateSiteDto) {
     return this.siteService.create(createSiteDto);
   }
@@ -17,18 +19,19 @@ export class SiteController {
     return this.siteService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get()
+  findOne(@Query('id') id: string) {
     return this.siteService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSiteDto: UpdateSiteDto) {
+  @Patch()
+  @UseInterceptors(CurrentUserInterceptor)
+  update(@Query('id') id: string, @Body() updateSiteDto: UpdateSiteDto) {
     return this.siteService.update(id, updateSiteDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete()
+  remove(@Query('id') id: string) {
     return this.siteService.remove(id);
   }
 }

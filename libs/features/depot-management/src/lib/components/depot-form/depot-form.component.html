@@ -8,8 +8,8 @@
     <!-- <lib-basic-input formControlName="address" [label]="'Address'" type="text" autocomplete="off"></lib-basic-input> -->
     <lib-search-box formControlName="address" type="address" placeholder="Search for site address" label="Search address" (placeChange)="onPlaceChange($event)"></lib-search-box>
     <div class="grid grid-cols-2 gap-4">
-      <lib-basic-input formControlName="latitude" [label]="'Latitude'" type="text" autocomplete="off"></lib-basic-input>
-      <lib-basic-input formControlName="longitude" [label]="'Longitude'" type="text" autocomplete="off"></lib-basic-input>
+      <lib-basic-input formControlName="latitude" [label]="'Latitude'" type="number" autocomplete="off"></lib-basic-input>
+      <lib-basic-input formControlName="longitude" [label]="'Longitude'" type="number" autocomplete="off"></lib-basic-input>
     </div>
   </fieldset>
 

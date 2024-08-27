@@ -11,7 +11,6 @@ export class DynamicFormService {
   }
 
   getFormComponent(entityName = ''): Type<any> | null {
-    console.log('DynamicFormService getFormComponent', entityName, this.formComponents[entityName]);
     return this.formComponents[entityName] || null;
   }
 }

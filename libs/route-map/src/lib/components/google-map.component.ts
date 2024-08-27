@@ -30,7 +30,6 @@ export class GoogleMapComponent {
   constructor() {
     effect(async () => {
       await this.loadMap();
-      console.log('GoogleMapComponent', this.mapData);
     });
   }
 

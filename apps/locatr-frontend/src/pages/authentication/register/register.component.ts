@@ -27,12 +27,11 @@ export class RegisterComponent {
       department: ['', Validators.required],
       // Step 2 controls (user authentication)
       username: ['', [Validators.required, Validators.minLength(4)]],
-      password: [
-        '',
+      password: ['',
         [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
+          // Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
         ],
       ],
       confirmPassword: ['', Validators.required]

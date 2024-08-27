@@ -1,29 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
-import { Vehicle } from './entities/vehicle.entity';
+import { VehicleEntity } from './entities/vehicle.entity';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 
 @Injectable()
 export class VehicleService {
-  constructor(@InjectRepository(Vehicle) private vehicleRepository: Repository<Vehicle>) {}
+  constructor(@InjectRepository(VehicleEntity) private vehicleRepository: Repository<VehicleEntity>) {}
 
-  create(createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
-    return this.vehicleRepository.save(createVehicleDto);
+  async create(createVehicleDto: CreateVehicleDto) {
+    const vehicle = this.vehicleRepository.create(createVehicleDto);
+    await this.vehicleRepository.save(vehicle);
+    return this.vehicleRepository.findOne({ 
+      where: { id: vehicle.id },
+      relations: ['currentLocation', 'driver']
+    });
   }
 
-  findAll(): Promise<Vehicle[]> {
-    return this.vehicleRepository.find();
+  findAll(): Promise<VehicleEntity[]> {
+    return this.vehicleRepository.find({
+      relations: ['currentLocation', 'driver']
+    });
   }
 
-  findOne(id: string): Promise<Vehicle | null> {
-    return this.vehicleRepository.findOne({ where: { id } });
+  findOne(id: string): Promise<VehicleEntity | null> {
+    return this.vehicleRepository.findOne({ 
+      where: { id },
+      relations: ['currentLocation', 'driver']
+    });
   }
 
-  update(id: string, updateVehicleDto: UpdateVehicleDto): Promise<UpdateResult> {
-    return this.vehicleRepository.update(id, updateVehicleDto);
+  update(id: string, updateVehicleDto: UpdateVehicleDto): Promise<VehicleEntity> {
+    try {
+      return this.vehicleRepository.save(updateVehicleDto, { reload: true, transaction: true });
+    } catch (error) {
+      throw new Error('Failed to update vehicle');
+    }
   }
 
   remove(id: string): Promise<DeleteResult> {

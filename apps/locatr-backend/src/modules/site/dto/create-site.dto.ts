@@ -1,7 +1,7 @@
-import { Unique } from "typeorm";
 import { IsBoolean, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
-import { Client } from "../../client/entities/client.entity";
+import { ClientEntity } from "../../client/entities/client.entity";
+import { Unique } from "typeorm";
 
 export class CreateSiteDto {
   @IsOptional()
@@ -38,5 +38,5 @@ export class CreateSiteDto {
 
 	@IsNotEmptyObject()
   @IsObject()
-  readonly client!: Client;
+  readonly client!: ClientEntity;
 }

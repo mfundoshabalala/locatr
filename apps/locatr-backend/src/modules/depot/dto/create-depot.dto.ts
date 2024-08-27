@@ -7,11 +7,11 @@ export class CreateDepotDto {
   @IsString()
   address!: string;
 
-  @IsString()
-  latitude!: string;
+  @IsNumber()
+  latitude!: number;
 
-  @IsString()
-  longitude!: string;
+  @IsNumber()
+  longitude!: number;
 
   @IsNumber()
   capacity!: number;

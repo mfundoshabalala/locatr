@@ -5,14 +5,12 @@ import { DashboardHeaderComponent } from "../dashboard-header/dashboard-header.c
 import { DashboardSidebarComponent } from "../dashboard-sidebar/dashboard-sidebar.component";
 import { DashboardContentComponent } from "../dashboard-content/dashboard-content.component";
 import { DashboardFooterComponent } from "../dashboard-footer/dashboard-footer.component";
-import { ContentHeaderComponent } from "../../components/content-header/content-header.component";
 
 @Component({
   selector: 'app-dashboard-layout',
   standalone: true,
   imports: [
     CommonModule,
-    ContentHeaderComponent,
     DashboardContentComponent,
     DashboardFooterComponent,
     DashboardHeaderComponent,
@@ -23,7 +21,7 @@ import { ContentHeaderComponent } from "../../components/content-header/content-
       <app-dashboard-header />
       <main class="flex flex-1 gap-x-4 bg-slate-100">
         <app-dashboard-sidebar />
-        <app-dashboard-content class="flex flex-col flex-1 p-2 border rounded-md shadow-sm gap-y-4 bg-slate-100" />
+        <app-dashboard-content class="flex flex-col flex-1 p-2 border rounded-md shadow-sm gap-y-4 bg-slate-100 overflow-x-auto" />
       </main>
       <app-dashboard-footer />
     </section>

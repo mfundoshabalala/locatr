@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { User } from '../user/entities/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
 import { Public } from './strategy/public-strategy';
 
 @Controller('auth')
@@ -12,7 +12,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: User) {
+  signIn(@Body() signInDto: UserEntity) {
     return this.  authService.signIn(signInDto.username, signInDto.password);
   }
 
@@ -33,7 +33,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('forgot-password')
-  forgotPassword(@Body() forgotPasswordDto: User) {
+  forgotPassword(@Body() forgotPasswordDto: UserEntity) {
     return this.authService.forgotPassword(forgotPasswordDto.username);
   }
 }

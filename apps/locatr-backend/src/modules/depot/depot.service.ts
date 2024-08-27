@@ -1,28 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateDepotDto } from './dto/create-depot.dto';
 import { UpdateDepotDto } from './dto/update-depot.dto';
-import { Depot } from './entities/depot.entity';
+import { DepotEntity } from './entities/depot.entity';
 
 @Injectable()
 export class DepotService {
-  constructor(@InjectRepository(Depot) private depotRepository: Repository<Depot>) {}
+  constructor(@InjectRepository(DepotEntity) private depotRepository: Repository<DepotEntity>) {}
 
-  create(createDepotDto: CreateDepotDto): Promise<Depot> {
+  create(createDepotDto: CreateDepotDto): Promise<DepotEntity> {
     return this.depotRepository.save(createDepotDto);
   }
 
-  findAll(): Promise<Depot[]> {
+  findAll(): Promise<DepotEntity[]> {
     return this.depotRepository.find();
   }
 
-  findOne(id: string): Promise<Depot | null> {
+  findOne(id: string): Promise<DepotEntity | null> {
     return this.depotRepository.findOne({ where : { id }});
   }
 
-  update(id: string, updateDepotDto: UpdateDepotDto): Promise<UpdateResult> {
-    return this.depotRepository.update(id, updateDepotDto);
+  async update(id: string, updateDepotDto: UpdateDepotDto): Promise<DepotEntity> {
+    try {
+      return await this.depotRepository.save(updateDepotDto, { reload: true, transaction: true });
+    } catch (error) {
+      throw new Error("Failed to update depot");
+    }
   }
 
   remove(id: string): Promise<DeleteResult> {

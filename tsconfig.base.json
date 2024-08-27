@@ -14,9 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "paths": {
       "@features/client-management": ["libs/features/client-management/src/index.ts"],
       "@features/dashboard-overview": ["libs/features/dashboard-overview/src/index.ts"],

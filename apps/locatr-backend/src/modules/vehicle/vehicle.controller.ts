@@ -1,37 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
 
 import { VehicleService } from './vehicle.service';
-import { Vehicle } from './entities/vehicle.entity';
+import { VehicleEntity } from './entities/vehicle.entity';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
+import { CurrentUserInterceptor } from 'src/middleware';
 
 @Controller('vehicle')
 export class VehicleController {
   constructor(private readonly vehicleService: VehicleService) {}
 
   @Post()
-  create(@Body() createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
+  @UseInterceptors(CurrentUserInterceptor)
+  create(@Body() createVehicleDto: CreateVehicleDto) {
     return this.vehicleService.create(createVehicleDto);
   }
 
   @Get()
-  findAll(): Promise<Vehicle[]> {
+  findAll(): Promise<VehicleEntity[]> {
     return this.vehicleService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<Vehicle | null> {
+  @Get()
+  findOne(@Query('id') id: string): Promise<VehicleEntity | null> {
     return this.vehicleService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVehicleDto: UpdateVehicleDto): Promise<UpdateResult> {
+  @Patch()
+  @UseInterceptors(CurrentUserInterceptor)
+  update(@Query('id') id: string, @Body() updateVehicleDto: UpdateVehicleDto): Promise<VehicleEntity> {
     return this.vehicleService.update(id, updateVehicleDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<DeleteResult> {
+  @Delete()
+  remove(@Query('id') id: string): Promise<DeleteResult> {
     return this.vehicleService.remove(id);
   }
 }

@@ -18,9 +18,9 @@ export class DepotFormComponent extends AbstractFormComponent<DepotInterface> {
     return this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
-      latitude: ['', Validators.required],
-      longitude: ['', Validators.required],
-      capacity: ['', Validators.required],
+      latitude: [0.00, Validators.required],
+      longitude: [0.00, Validators.required],
+      capacity: [0, Validators.required],
     });
   }
 

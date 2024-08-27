@@ -2,12 +2,10 @@
   <fieldset class="border border-gray-200 p-4 rounded-md space-y-2 bg-slate-50">
     <legend class="text-sm font-medium text-gray-700">User Information</legend>
     <div class="grid grid-cols-2 gap-4">
-      <lib-basic-input formControlName="username" [label]="'Username'" type="text"
-        autocomplete="username"></lib-basic-input>
-      <lib-basic-input formControlName="email" [label]="'Email'" type="email" autocomplete="none"></lib-basic-input>
-      <lib-basic-input formControlName="password" [label]="'Password'" type="password" autocomplete="none"></lib-basic-input>
-      <lib-drop-down formControlName="role" [label]="'Role'"
-        [options]="['admin', 'driver', 'customer']"></lib-drop-down>
+      <lib-basic-input formControlName="username" [label]="'Username'" type="text"></lib-basic-input>
+      <lib-basic-input formControlName="email" [label]="'Email'" type="email"></lib-basic-input>
+      <lib-basic-input formControlName="password" [label]="'Password'" type="password"></lib-basic-input>
+      <lib-drop-down formControlName="role" [label]="'Role'" [options]="['admin', 'driver', 'customer']"></lib-drop-down>
     </div>
   </fieldset>
 

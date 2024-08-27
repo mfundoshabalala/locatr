@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ContactService } from './contact.service';
+import { ClientEntity } from '../client/entities/client.entity';
+import { ContactEntity } from './entities/contact.entity';
 import { ContactController } from './contact.controller';
+import { ContactService } from './contact.service';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Contact } from './entities/contact.entity';
-import { Client } from '../client/entities/client.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Contact, Client])],
+  imports: [TypeOrmModule.forFeature([ContactEntity, ClientEntity])],
   controllers: [ContactController],
   providers: [ContactService],
   exports: [ContactService]

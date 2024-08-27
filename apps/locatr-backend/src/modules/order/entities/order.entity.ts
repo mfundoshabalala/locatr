@@ -1,12 +1,13 @@
-import { OrderType, OrderStatus, OrderPriority } from 'src/common/enums';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn, Unique, Relation } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Relation, Unique, UpdateDateColumn } from 'typeorm';
+import { OrderPriority, OrderStatus, OrderType } from 'src/common/enums';
 
-import { Site } from 'src/modules/site/entities/site.entity';
-import { Depot } from 'src/modules/depot/entities/depot.entity';
-import { Client } from 'src/modules/client/entities/client.entity';
+import { ClientEntity } from 'src/modules/client/entities/client.entity';
+import { DepotEntity } from 'src/modules/depot/entities/depot.entity';
+import { RouteEntity } from 'src/modules/route/entities/route.entity';
+import { SiteEntity } from 'src/modules/site/entities/site.entity';
 
-@Entity()
-export class Order {
+@Entity({ name: 'Order' })
+export class OrderEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'orderID' })
   id!: string;
 
@@ -14,17 +15,17 @@ export class Order {
   @Column({ type: 'bigint', generated: 'identity', name: 'orderNumber' })
   orderNumber!: number;
 
-  @ManyToOne(() => Client, (client) => client.orders, { eager: true })
+  @ManyToOne(() => ClientEntity, (client) => client.orders, { eager: true })
   @JoinColumn({ name: 'customerID' })
-  customer!: Relation<Client>;
+  customer!: Relation<ClientEntity>;
 
-  @ManyToOne(() => Depot, { eager: true })
+  @ManyToOne(() => DepotEntity, { eager: true, nullable: true })
   @JoinColumn({ name: 'depotID' })
-  depot!: Relation<Depot>;
+  depot!: Relation<DepotEntity>;
 
-  @ManyToOne(() => Site, { eager: true })
+  @ManyToOne(() => SiteEntity, { eager: true })
   @JoinColumn({ name: 'siteID' })
-  site!: Relation<Site>;
+  site!: Relation<SiteEntity>;
 
   @Column({ type: 'enum', enum: OrderType })
   type!: OrderType;

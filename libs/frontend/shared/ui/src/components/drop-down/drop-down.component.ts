@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { CommonModule } from "@angular/common";
-import { Component, forwardRef, Input } from "@angular/core";
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
+import { Component, Input, forwardRef } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
   selector: 'lib-drop-down',
@@ -18,11 +18,11 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
     <div class="flex items-center gap-3">
       <label *ngIf="label" class="dropDownLabel" [for]="label">{{ label }}</label>
       <select class="capitalize" [id]="label" [value]="value" (change)="handleChange($event)" (blur)="onTouched()" [disabled]="isDisabled">
-        <option value="" disabled selected>Select {{ label }}</option>
+        <option disabled selected [value]="null">Select {{ label }}</option>
         @if (key) {
-          <option *ngFor="let entity of options" [value]="entity[key]">{{ entity[fieldName].replaceAll('_', ' ') }}</option>
+          <option *ngFor="let entity of options" [value]="entity[key]">{{ entity[fieldName]?.replaceAll('_', ' ') }}</option>
         } @else {
-          <option *ngFor="let entity of options" [value]="entity">{{ entity.replaceAll('_', ' ') }}</option>
+          <option *ngFor="let entity of options" [value]="entity">{{ entity?.replaceAll('_', ' ') }}</option>
         }
       </select>
     </div>
@@ -52,6 +52,13 @@ export class DropDownComponent implements ControlValueAccessor {
 
   value: any;
   isDisabled = false;
+
+  getEntityValue(entity: any, fieldname: string): string {
+    if (entity && fieldname) {
+      return entity[fieldname];
+    }
+    return entity;
+  }
 
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};

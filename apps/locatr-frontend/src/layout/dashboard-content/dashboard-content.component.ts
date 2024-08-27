@@ -10,7 +10,7 @@ import { ContentHeaderComponent } from '../../components';
   imports: [CommonModule, RouterOutlet, ContentHeaderComponent],
   template: `
     <app-content-header />
-    <section class="flex-1 p-2 bg-white border rounded-md shadow-sm">
+    <section class="flex-1 p-2 bg-white border rounded-md shadow-sm overflow-x-auto">
       <router-outlet></router-outlet>
     </section>
   `,

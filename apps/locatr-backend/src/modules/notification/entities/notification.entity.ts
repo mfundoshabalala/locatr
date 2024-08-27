@@ -1,14 +1,14 @@
 import { UserNotification } from 'src/common/enums';
-import { User } from 'src/modules/user/entities/user.entity';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 
-@Entity()
-export class Notification {
+@Entity({ name: 'Notification' })
+export class NotificationEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => User)
-  user!: User;
+  @ManyToOne(() => UserEntity)
+  user!: UserEntity;
 
   @Column()
   message!: string;

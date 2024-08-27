@@ -1,10 +1,17 @@
-import { UserStatus, UserRole } from "src/common/enums";
-import { Contact } from "src/modules/contact/entities/contact.entity";
-import { Employee } from "src/modules/employee/entities/employee.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
+import { UserRole, UserStatus } from "src/common/enums";
 
-@Entity()
-export class User {
+import { ContactEntity } from "src/modules/contact/entities/contact.entity";
+import { EmployeeEntity } from "src/modules/employee/entities/employee.entity";
+import { Exclude } from "class-transformer";
+import { VehicleEntity } from "src/modules/vehicle/entities/vehicle.entity";
+
+@Entity({ name: 'User' })
+export class UserEntity {
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
+
   @PrimaryGeneratedColumn('uuid', { name: 'userID' })
   id!: string;
 
@@ -14,19 +21,24 @@ export class User {
   @Column({ unique: true, type: 'varchar', length: 255 })
   email!: string;
 
+  @Exclude()
   @Column({ type: 'varchar', length: 255 })
   password!: string;
 
   @Column({ type: 'boolean', default: false })
   isVerified!: boolean;
 
-  @OneToOne(() => Employee, { cascade: true, eager: true })
+  @OneToOne(() => EmployeeEntity, { cascade: true, eager: true })
   @JoinColumn({ name: 'employeeID' })
-  employee!: Employee;
+  employee!: EmployeeEntity;
 
-  @OneToOne(() => Contact, { cascade: true, eager: true })
+  @OneToOne(() => ContactEntity, { cascade: true, eager: true })
   @JoinColumn({ name: 'contactID' })
-  contact!: Contact;
+  contact!: ContactEntity;
+
+  @OneToOne(() => VehicleEntity, (vehicle) => vehicle.driver, { nullable: true, eager: true })
+  @JoinColumn({ name: 'vehicleID' })
+  assignedVehicle!: Relation<VehicleEntity>;
 
   @Column({ type: 'enum', enum: UserStatus, default: UserStatus.ACTIVE })
   status!: UserStatus;

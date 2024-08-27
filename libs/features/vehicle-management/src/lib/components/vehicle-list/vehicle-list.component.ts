@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { VehicleInterface } from '@profolio/interfaces';
 import { AbstractListComponent } from '@profolio/core';
-import { VehicleService } from '@features/vehicle-management';
+import { CommonModule } from '@angular/common';
+import { VehicleInterface } from '@profolio/interfaces';
+import { VehicleService } from '../../services/vehicle.service';
 
 @Component({
   selector: 'lib-vehicle-list',

@@ -1,15 +1,18 @@
-import { SentryModule } from '@sentry/nestjs/setup';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+
+import { AuthModule, AuthService, ClientModule, ContactModule, DepotModule, EmployeeModule, IndustryModule, NotificationModule, OrderModule, RouteModule, SiteModule, TripModule, UserModule, VehicleModule } from 'src/modules';
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 
-import { AppService } from './app.service';
 import { AppController } from './app.controller';
-
+import { AppService } from './app.service';
+import { AuthMiddleware } from '../middleware';
+import { ConfigModule } from '@nestjs/config';
 import { DBConfigModule } from '../configs';
 import { DBConfigService } from '../configs';
-import { AuthMiddleware } from '../middleware';
-import { AuthModule, ClientModule, EmployeeModule, UserModule, SiteModule, ContactModule, IndustryModule, VehicleModule, TripModule, NotificationModule, OrderModule, RouteModule, AuthService, DepotModule } from 'src/modules';
+import { SentryModule } from '@sentry/nestjs/setup';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+dotenv.config();
 
 @Module({
   imports: [

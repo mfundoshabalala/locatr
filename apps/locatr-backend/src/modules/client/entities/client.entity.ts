@@ -1,22 +1,23 @@
-import { Contact } from 'src/modules/contact/entities/contact.entity';
-import { Industry } from 'src/modules/industry/entities/industry.entity';
-import { Order } from 'src/modules/order/entities/order.entity';
-import { Site } from 'src/modules/site/entities/site.entity';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
+  Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
-  Unique,
   OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
-export class Client {
+import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
+import { Industry } from 'src/modules/industry/entities/industry.entity';
+import { OrderEntity } from 'src/modules/order/entities/order.entity';
+import { SiteEntity } from 'src/modules/site/entities/site.entity';
+
+@Entity({ name: 'Client' })
+export class ClientEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'clientID' })
   id!: string;
 
@@ -39,20 +40,20 @@ export class Client {
   @Column({ default: true, type: 'boolean' })
   isActive!: boolean;
 
-  @OneToOne(() => Contact, { cascade: true, eager: true })
+  @OneToOne(() => ContactEntity, { cascade: true, eager: true })
   @JoinColumn({ name: 'contactID' })
-  contact!: Contact;
+  contact!: ContactEntity;
 
-  @OneToMany(() => Site, (site) => site.client, {
+  @OneToMany(() => SiteEntity, (site) => site.client, {
     nullable: true,
     orphanedRowAction: 'delete',
     eager: true,
     cascade: ['insert', 'update', 'remove'],
   })
-  sites!: Site[];
+  sites!: SiteEntity[];
 
-  @OneToMany(() => Order, (order) => order.customer, { nullable: true, orphanedRowAction: 'delete' })
-  orders!: Order[];
+  @OneToMany(() => OrderEntity, (order) => order.customer, { nullable: true, orphanedRowAction: 'delete' })
+  orders!: OrderEntity[];
 
   @ManyToOne(() => Industry, { eager: true })
   industry!: Industry;

@@ -2,11 +2,16 @@
  * This is not a production server yet!
  * This is only a minimal backend to get started.
  */
+
 import "./instrument.ts";
+
+import * as dotenv from 'dotenv';
+
+import { AppModule } from './app/app.module';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import { AppModule } from './app/app.module';
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

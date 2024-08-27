@@ -1,5 +1,8 @@
 import { EntityInterface, VehicleType } from "./enums";
 
+import { DepotInterface } from "./depot.interface";
+import { UserInterface } from "./user.interface";
+
 export interface VehicleInterface extends EntityInterface {
   make: string;
   model: string;
@@ -7,5 +10,6 @@ export interface VehicleInterface extends EntityInterface {
   type: VehicleType;
   licensePlate: string;
   capacity: number;
-  currentLocation?: string; // Optional field
+  currentLocation?: DepotInterface; // Optional field
+  driver?: UserInterface; // Optional field
 }

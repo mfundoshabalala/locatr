@@ -1,24 +1,25 @@
-import { Order } from 'src/modules/order/entities/order.entity';
-import { User } from 'src/modules/user/entities/user.entity';
-import { Vehicle } from 'src/modules/vehicle/entities/vehicle.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from 'typeorm';
 
-@Entity()
-export class Route {
+import { OrderEntity } from 'src/modules/order/entities/order.entity';
+import { UserEntity } from 'src/modules/user/entities/user.entity';
+import { VehicleEntity } from 'src/modules/vehicle/entities/vehicle.entity';
+
+@Entity({ name: 'Route' })
+export class RouteEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id!: number;
 
-  @ManyToOne(() => Order, { eager: true })
+  @ManyToOne(() => OrderEntity, { eager: true })
   @JoinColumn({ name: 'orderID' })
-  order!: Order;
+  order!: Relation<OrderEntity>;
 
-  @ManyToOne(() => User, { eager: true })
+  @ManyToOne(() => UserEntity, { eager: true })
   @JoinColumn({ name: 'driverID' })
-  driver!: User;
+  driver!: UserEntity;
 
-  @ManyToOne(() => Vehicle, { eager: true })
+  @ManyToOne(() => VehicleEntity, { eager: true })
   @JoinColumn({ name: 'vehicleID' })
-  vehicle!: Vehicle;
+  vehicle!: VehicleEntity;
 
   @Column({ nullable: true })
   startTime!: Date;

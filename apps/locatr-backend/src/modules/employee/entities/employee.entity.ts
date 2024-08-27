@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from "typeorm";
-import { Contact } from "src/modules/contact/entities/contact.entity";
-@Entity()
-export class Employee {
+import { ContactEntity } from "src/modules/contact/entities/contact.entity";
+
+@Entity({ name: 'Employee' })
+export class EmployeeEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'employeeID' })
   id!: string;
 
@@ -17,9 +18,9 @@ export class Employee {
   @Column({ length: 255, nullable: true })
   department!: string;
 
-  @OneToOne(() => Contact, { cascade: true })
+  @OneToOne(() => ContactEntity, { cascade: true })
   @JoinColumn({ name: 'contactID' })
-  contact?: Contact;
+  contact?: ContactEntity;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

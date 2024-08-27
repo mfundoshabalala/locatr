@@ -1,8 +1,9 @@
-import { Client } from "src/modules/client/entities/client.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 
-@Entity()
-export class Site {
+import { ClientEntity } from "src/modules/client/entities/client.entity";
+
+@Entity({ name: 'Site' })
+export class SiteEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'siteID' })
   id!: string;
 
@@ -15,18 +16,18 @@ export class Site {
   @Column({ default: true, type: 'boolean' })
   active!: boolean;
 
-  @Column({ type: 'varchar', length: 255, comment: 'Formatted address of the site from the Google Place API' })
+  @Column({ type: 'varchar', length: 255 })
   address!: string;
 
-  @Column('decimal', { precision: 9, scale: 6, comment: 'Latitude of the site from the Google Place API' })
+  @Column({ type: 'decimal', precision: 10, scale: 7, default: 0.0 })
   latitude!: number;
 
-  @Column('decimal', { precision: 9, scale: 6, comment: 'Longitude of the site from the Google Place API' })
+  @Column({ type: 'decimal', precision: 10, scale: 7, default: 0.0 })
   longitude!: number;
 
-  @ManyToOne(() => Client, (client) => client.sites, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => ClientEntity, (client) => client.sites, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'clientID' })
-  client!: Relation<Client>;
+  client!: Relation<ClientEntity>;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

@@ -6,6 +6,7 @@ export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly authService: AuthService) {}
 
   use = async (req: Request, _res: Response, next: NextFunction) => {
+    // TODO: Implement token validation from the request header
     const authHeader = req.headers['x-authorisation'];
     if (authHeader && !req.user) {
       const token = Array.isArray(authHeader) ? authHeader[0] : authHeader;

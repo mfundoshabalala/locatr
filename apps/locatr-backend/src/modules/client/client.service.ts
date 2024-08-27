@@ -2,28 +2,29 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 
-import { Client } from './entities/client.entity';
+import { ClientEntity } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { Contact } from '../contact/entities/contact.entity';
-import { Site } from '../site/entities/site.entity';
+import { ContactEntity } from '../contact/entities/contact.entity';
+import { SiteEntity } from '../site/entities/site.entity';
 @Injectable()
 export class ClientService {
   constructor(
-    @InjectRepository(Client) private clientRepository: Repository<Client>,
-    @InjectRepository(Contact) private contactRepository: Repository<Contact>,
-    @InjectRepository(Site) private siteRepository: Repository<Site>
+    @InjectRepository(ClientEntity) private clientRepository: Repository<ClientEntity>,
+    @InjectRepository(ContactEntity) private contactRepository: Repository<ContactEntity>,
+    @InjectRepository(SiteEntity) private siteRepository: Repository<SiteEntity>
   ) {}
 
-  async create(createClientDto: CreateClientDto): Promise<Client> {
-    return this.clientRepository.save(createClientDto);
+  async create(createClientDto: CreateClientDto): Promise<ClientEntity> {
+    const client = this.clientRepository.create(createClientDto);
+    return this.clientRepository.save(client);
   }
 
-  async findAll(): Promise<Client[]> {
+  async findAll(): Promise<ClientEntity[]> {
     return this.clientRepository.find();
   }
 
-  async findOne(id: string): Promise<Client | null> {
+  async findOne(id: string): Promise<ClientEntity | null> {
     return this.clientRepository.findOne({ where: { id } });
   }
 
@@ -31,7 +32,7 @@ export class ClientService {
     return this.clientRepository.delete(id);
   }
 
-  async update(id: string, updateClientDto: UpdateClientDto): Promise<Client> {
+  async update(id: string, updateClientDto: UpdateClientDto): Promise<ClientEntity> {
     const client = await this.clientRepository.findOne({ where: { id } });
     if (!client) {
       throw new NotFoundException(`Client with ID ${id} not found`);
@@ -43,13 +44,6 @@ export class ClientService {
         throw new ConflictException(`Contact name "${updateClientDto.contact.name}" already exists`);
       }
     }
-
-    // if (updateClientDto.site?.name) {
-    //   const existingSite = await this.siteRepository.findOne({ where: { name: updateClientDto.site.name } });
-    //   if (existingSite && existingSite.client.id !== client.id) {
-    //     throw new ConflictException(`Site name "${updateClientDto.site.name}" already exists`);
-    //   }
-    // }
 
     Object.assign(client, updateClientDto);
 

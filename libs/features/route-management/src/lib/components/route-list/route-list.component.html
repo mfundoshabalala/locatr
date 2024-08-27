@@ -40,12 +40,12 @@
         <span class="block text-xs capitalize italic">{{ route.updatedBy }}</span>
       </td>
       <td>
-        <div class="text-xs font-medium flex flex-nowrap gap-x-1">
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
-            (click)="onEntitySelected(route)"><img src="assets/icons/eye.svg" alt="View" class="size-4">
+        <div class="text-xs font-medium flex flex-nowrap gap-x-1 justify-center">
+          <button class="bg-slate-100 border rounded-md p-1.5 shadow-sm inline-flex items-center flex-shrink-0"
+            (click)="onEntitySelected(route)"><img src="assets/icons/eye.svg" alt="View" class="h-4 w-4">
           </button>
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
-            (click)="onEntityDeleted(route)"><img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+          <button class="bg-slate-100 border rounded-md p-1.5 shadow-sm inline-flex items-center flex-shrink-0"
+            (click)="onEntityDeleted(route)"><img src="assets/icons/delete.svg" alt="Delete" class="h-4 w-4">
           </button>
         </div>
       </td>

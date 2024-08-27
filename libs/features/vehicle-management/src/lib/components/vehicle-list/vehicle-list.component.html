@@ -9,20 +9,26 @@
       <th>License Plate</th>
       <th>Capacity</th>
       <th>Current Location</th>
+      <th>Assigned Driver</th>
       <th>Created</th>
       <th>Updated</th>
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="capitalize">
     <tr *ngFor="let vehicle of entities">
-      <td>{{ vehicle.make }}</td>
+      <td>
+        <span class="font-medium uppercase">{{ vehicle.make }}</span>
+      </td>
       <td>{{ vehicle.model }}</td>
       <td>{{ vehicle.type }}</td>
       <td>{{ vehicle.year }}</td>
-      <td>{{ vehicle.licensePlate }}</td>
-      <td>{{ vehicle.capacity || 'N/A' }}</td>
-      <td>{{ vehicle.currentLocation || 'N/A' }}</td>
+      <td>
+        <span class="font-medium uppercase">{{ vehicle.licensePlate }}</span>
+      </td>
+      <td>{{ vehicle.capacity }}</td>
+      <td>{{ vehicle.currentLocation?.name }}</td>
+      <td>{{ vehicle.driver?.username }}</td>
       <td>
         <span class="block text-xs font-semibold">{{ vehicle.createdAt | date : "MMM d, y" }}</span>
         <span class="block text-xs capitalize italic">{{ vehicle.createdBy }}</span>
@@ -32,12 +38,12 @@
         <span class="block text-xs capitalize italic">{{ vehicle.updatedBy }}</span>
       </td>
       <td>
-        <div class="text-xs font-medium flex flex-nowrap gap-x-1">
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
-            (click)="onEntitySelected(vehicle)"><img src="assets/icons/eye.svg" alt="View" class="size-4">
+        <div class="text-xs font-medium flex flex-nowrap gap-x-1 justify-center">
+          <button class="bg-slate-100 border rounded-md p-1.5 shadow-sm inline-flex items-center flex-shrink-0"
+            (click)="onEntitySelected(vehicle)"><img src="assets/icons/eye.svg" alt="View" class="h-4 w-4">
           </button>
-          <button class="bg-slate-100 border rounded-md px-3 py-1 shadow-sm inline-flex items-center"
-            (click)="onEntityDeleted(vehicle)"><img src="assets/icons/delete.svg" alt="Delete" class="size-4">
+          <button class="bg-slate-100 border rounded-md p-1.5 shadow-sm inline-flex items-center flex-shrink-0"
+            (click)="onEntityDeleted(vehicle)"><img src="assets/icons/delete.svg" alt="Delete" class="h-4 w-4">
           </button>
         </div>
       </td>

@@ -1,8 +1,8 @@
 // src/trip/trip.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Trip {
+@Entity({ name: 'Trip' })
+export class TripEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'tripID' })
   id!: string;
 

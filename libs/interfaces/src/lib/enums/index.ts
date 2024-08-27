@@ -1,5 +1,10 @@
 // export type EntityInterface = Record<string, any> | null;
 
+export enum LocalStorageTypes {
+  SESSION = 'session',
+  LOCAL = 'local'
+}
+
 export interface LoginInterface {
   username: string;
   password: string;

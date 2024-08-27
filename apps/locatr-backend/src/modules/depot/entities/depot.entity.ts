@@ -1,24 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { VehicleEntity } from "src/modules/vehicle/entities/vehicle.entity";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, Relation } from "typeorm";
 
-@Entity()
-export class Depot {
+@Entity({ name: 'Depot' })
+export class DepotEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column({ unique: true })
   name!: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, type: 'varchar', length: 255 })
   address!: string;
 
-  @Column()
-  latitude!: string;
+  @Column({ type: 'decimal', precision: 10, scale: 7, default: 0.0 })
+  latitude!: number;
 
-  @Column()
-  longitude!: string;
+  @Column({ type: 'decimal', precision: 10, scale: 7, default: 0.0 })
+  longitude!: number;
 
   @Column({ nullable: true })
   capacity!: number;
+
+  @OneToMany(() => VehicleEntity, (vehicle) => vehicle.currentLocation, { orphanedRowAction: 'delete', nullable: true })
+  vehicles?: Relation<VehicleEntity[]>;
 
   @CreateDateColumn({ type: 'timestamp', update: false, default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

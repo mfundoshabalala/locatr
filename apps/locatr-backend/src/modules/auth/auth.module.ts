@@ -1,13 +1,13 @@
-import { JwtModule } from '@nestjs/jwt';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 
-import { User } from '../user/entities/user.entity';
-import { UserService } from '../user/user.service';
-import { AuthService } from './auth.service';
-import { AuthMiddleware } from '../../middleware';
 import { AuthController } from './auth.controller';
+import { AuthMiddleware } from '../../middleware';
+import { AuthService } from './auth.service';
+import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt-strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from '../user/entities/user.entity';
+import { UserService } from '../user/user.service';
 
 @Module({
   imports: [
@@ -16,11 +16,11 @@ import { JwtStrategy } from './strategy/jwt-strategy';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([UserEntity]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, UserService],
-  exports: [AuthService],
+  exports: [AuthService, JwtStrategy],
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

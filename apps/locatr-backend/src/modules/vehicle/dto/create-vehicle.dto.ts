@@ -1,6 +1,7 @@
 import { Optional } from "@nestjs/common";
 import { IsEnum, IsNumber, IsString } from "class-validator";
 import { VehicleType } from "src/common/enums";
+import { DepotEntity } from "src/modules/depot/entities/depot.entity";
 
 export class CreateVehicleDto {
   @IsString()
@@ -24,5 +25,5 @@ export class CreateVehicleDto {
 
   @Optional()
   @IsString()
-  currentLocation!: string;
+  currentLocation!: DepotEntity;
 }

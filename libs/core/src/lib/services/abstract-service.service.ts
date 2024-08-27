@@ -17,7 +17,8 @@ export abstract class AbstractService<T> {
 
   async create(entity: T): Promise<T> {
     try {
-      return await firstValueFrom(this.http.post<T>(this.baseUrl, entity));
+      const request = this.http.post<T>(this.baseUrl, entity);
+      return await firstValueFrom(request);
     } catch (error) {
       throw new Error(`Error creating entity: ${(error as Error).message}`);
     }
@@ -25,7 +26,9 @@ export abstract class AbstractService<T> {
 
   async read(id: string): Promise<T> {
     try {
-      return await firstValueFrom(this.http.get<T>(`${this.baseUrl}/${id}`));
+      const url = this.baseUrl + '?id=' + id;
+      const request = this.http.get<T>(url);
+      return await firstValueFrom(request);
     } catch (error) {
       throw new Error(`Error getting entity: ${(error as Error).message}`);
     }
@@ -33,7 +36,9 @@ export abstract class AbstractService<T> {
 
   async update(id: string, entity: T): Promise<T> {
     try {
-      return await firstValueFrom(this.http.patch<T>(`${this.baseUrl}/${id}`, entity));
+      const url = this.baseUrl + '?id=' + id;
+      const request = this.http.patch<T>(url, entity)
+      return await firstValueFrom(request);
     } catch (error) {
       throw new Error(`Error updating entity: ${(error as Error).message}`);
     }
@@ -41,7 +46,8 @@ export abstract class AbstractService<T> {
 
   async delete(id: string): Promise<void> {
     try {
-      await firstValueFrom(this.http.delete<void>(`${this.baseUrl}/${id}`));
+      const url = this.baseUrl + '?id=' + id;
+      await firstValueFrom(this.http.delete<void>(url));
     } catch (error) {
       throw new Error(`Error deleting entity: ${(error as Error).message}`);
     }
