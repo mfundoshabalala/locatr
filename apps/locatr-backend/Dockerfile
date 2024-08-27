@@ -8,26 +8,30 @@ WORKDIR /app
 RUN addgroup --system locatr-backend && \
     adduser --system -G locatr-backend locatr-backend
 
-# Copy the package files for the entire monorepo to install dependencies
+# Copy only the necessary files for dependencies
 COPY package*.json pnpm-lock.yaml ./
 
 # Install pnpm globally and install project dependencies
 RUN npm install -g pnpm && \
     pnpm install --frozen-lockfile
 
-# Copy only the locatr-backend app files and nx workspace configuration
+# Copy the necessary files for building the app
 COPY apps/locatr-backend ./apps/locatr-backend
 COPY libs ./libs
 COPY nx.json .eslintrc.json tsconfig.base.json ./
 
 # Build only the locatr-backend app
-RUN npx nx reset && npx nx build locatr-backend --verbose
+RUN npx nx build locatr-backend --verbose
 
-# Remove node_modules and other unnecessary files to reduce image size
-RUN rm -rf node_modules apps libs nx.json .eslintrc.json tsconfig.base.json
+# Clean up unnecessary files to reduce image size
+RUN rm -rf apps/ \
+      libs/ \
+      nx.json \
+      .eslintrc.json \
+      tsconfig.base.json
 
-# Set permissions for the locatr-backend folder
-RUN chown -R locatr-backend:locatr-backend ./
+# Set permissions for the built files
+RUN chown -R locatr-backend:locatr-backend ./dist
 
 # Use the non-root user to run the app
 USER locatr-backend
