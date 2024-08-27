@@ -15,7 +15,7 @@ RUN addgroup --system locatr-backend && \
     adduser --system -G locatr-backend locatr-backend
 
 # Copy the .env file to the container
-COPY .env ./locatr-backend/
+# COPY .env ./locatr-backend/
 
 # Copy the built application files to the container
 COPY dist/apps/locatr-backend ./locatr-backend/
@@ -25,7 +25,6 @@ RUN chown -R locatr-backend:locatr-backend ./locatr-backend
 
 # Copy the package files
 COPY package*.json pnpm-lock.yaml ./locatr-backend/
-
 
 # Install pnpm globally and install project dependencies using pnpm
 RUN npm install -g pnpm && \
