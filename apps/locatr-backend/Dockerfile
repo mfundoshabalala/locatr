@@ -1,40 +1,53 @@
-# Use the Node.js Alpine image as the base
-FROM docker.io/node:lts-alpine
+# Use the Node.js LTS image
+FROM node:lts-alpine AS base
+
+# Set up PNPM environment variables and enable corepack
+ENV PNPM_HOME="/home/locatr-backend/.pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
 # Set working directory
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Create a non-root user and group to run the app
-RUN addgroup --system locatr-backend && \
-    adduser --system -G locatr-backend locatr-backend
+# Create a non-root user and group
+RUN addgroup --system locatr-backend && adduser --system -G locatr-backend locatr-backend
 
-# Copy only the necessary files for dependencies
-COPY package*.json pnpm-lock.yaml ./
+# Install npm globally
+RUN npm install -g npm@10.8.3
 
-# Install pnpm globally and install project dependencies
-RUN npm install -g pnpm && \
-    pnpm install --frozen-lockfile
+# Copy necessary configuration files
+COPY package.json pnpm-lock.yaml ./
+COPY nx.json .eslintrc.json tsconfig.base.json .prettierrc ./
 
-# Copy the necessary files for building the app
+# Install project dependencies
+RUN pnpm install --frozen-lockfile --silent
+
+# Ensure pnpm home is in the PATH and install nx globally
+RUN export PATH="$PNPM_HOME:$PATH" && pnpm add -g nx
+
+# Copy the backend application code and project-specific configuration
 COPY apps/locatr-backend ./apps/locatr-backend
 COPY libs ./libs
-COPY nx.json .eslintrc.json tsconfig.base.json ./
 
-# Build only the locatr-backend app
-RUN npx nx build locatr-backend --verbose
+# Clean the Nx cache and build the application
+RUN npx nx reset
+RUN npx nx build locatr-backend --configuration=production
 
-# Clean up unnecessary files to reduce image size
-RUN rm -rf apps/ \
-      libs/ \
-      nx.json \
-      .eslintrc.json \
-      tsconfig.base.json
+# For debugging: Expose the contents of the app directory
+RUN ls -la
 
-# Set permissions for the built files
-RUN chown -R locatr-backend:locatr-backend ./dist
+# remove node_modules, libs etc
+# RUN rm -rf node_modules libs apps .prettierrc .eslintrc.json nx.json tsconfig.base.json .nx
 
-# Use the non-root user to run the app
+# For debugging: Expose the contents of the app directory
+# RUN ls -la
+RUN ls -la dist/apps/locatr-backend
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Switch to the non-root user
 USER locatr-backend
 
-# Start the application
-CMD [ "node", "dist/apps/locatr-backend/main.js" ]
+# Run the app
+CMD ["node", "dist/apps/locatr-backend/main.js"]
