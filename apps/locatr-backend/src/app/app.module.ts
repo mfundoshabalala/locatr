@@ -1,47 +1,41 @@
-import * as dotenv from 'dotenv';
-
-import { AuthModule, AuthService, ClientModule, ContactModule, DepotModule, EmployeeModule, IndustryModule, NotificationModule, OrderModule, RouteModule, SiteModule, TripModule, UserModule, VehicleModule } from 'src/modules';
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthMiddleware } from '../middleware';
-import { ConfigModule } from '@nestjs/config';
-import { DBConfigModule } from '../configs';
-import { DBConfigService } from '../configs';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Module } from '@nestjs/common';
 import { SentryModule } from '@sentry/nestjs/setup';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-dotenv.config();
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
+import { AuthModule } from 'src/core/auth/auth.module';
+import { AuthService } from 'src/core/auth/auth.service';
+import { UserModule } from 'src/core/user/user.module';
+import { typeOrmConfig } from 'src/config/typeorm.config';
+import { ClientModule, ContactModule, DepotModule, EmployeeModule, IndustryModule, NotificationModule, OrderModule, RouteModule, SiteModule, TripModule, VehicleModule } from 'src/modules';
 
 @Module({
   imports: [
     SentryModule.forRoot(),
-    ConfigModule.forRoot({ envFilePath: ['.env.local','.env'], isGlobal: true }),
+    ConfigModule.forRoot({ envFilePath: ['.env.local', '.env'], isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      imports: [DBConfigModule],
-      useClass: DBConfigService,
-      inject: [DBConfigService],
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => typeOrmConfig(configService),
+      inject: [ConfigService],
     }),
     AuthModule,
     ClientModule,
-    EmployeeModule,
-    UserModule,
-    SiteModule,
     ContactModule,
+    DepotModule,
+    EmployeeModule,
     IndustryModule,
-    VehicleModule,
-    TripModule,
     NotificationModule,
     OrderModule,
     RouteModule,
-    DepotModule
+    SiteModule,
+    TripModule,
+    UserModule,
+    VehicleModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],
 })
-export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
-  }
-}
+export class AppModule {}
