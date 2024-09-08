@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Delete, Query, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { EmployeeService } from './employee.service';
 import { EmployeeEntity } from './entities/employee.entity';
@@ -6,6 +7,7 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { CurrentUserInterceptor } from 'src/middleware';
 
+@ApiTags('employee')
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}

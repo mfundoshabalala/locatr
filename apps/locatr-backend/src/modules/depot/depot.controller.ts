@@ -1,9 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { DepotService } from './depot.service';
 import { CreateDepotDto } from './dto/create-depot.dto';
 import { UpdateDepotDto } from './dto/update-depot.dto';
 import { CurrentUserInterceptor } from 'src/middleware';
 
+@ApiTags('depot')
 @Controller('depot')
 export class DepotController {
   constructor(private readonly depotService: DepotService) {}

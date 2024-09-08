@@ -1,5 +1,6 @@
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { OrderService } from './order.service';
 import { OrderEntity } from './entities/order.entity';
@@ -7,6 +8,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { CurrentUserInterceptor } from 'src/middleware';
 
+@ApiTags('order')
 @Controller('order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}

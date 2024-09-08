@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
 import { VehicleService } from './vehicle.service';
 import { VehicleEntity } from './entities/vehicle.entity';
@@ -7,6 +8,7 @@ import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { CurrentUserInterceptor } from 'src/middleware';
 
+@ApiTags('vehicle')
 @Controller('vehicle')
 export class VehicleController {
   constructor(private readonly vehicleService: VehicleService) {}

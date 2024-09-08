@@ -1,11 +1,14 @@
+import { DeleteResult } from 'typeorm';
 import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { TripEntity } from './entities/trip.entity';
-import { DeleteResult } from 'typeorm';
 import { CurrentUserInterceptor } from 'src/middleware';
 
+@ApiTags('trip')
 @Controller('trip')
 export class TripController {
   constructor(private readonly tripService: TripService) {}

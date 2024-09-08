@@ -6,7 +6,9 @@ import { ClientEntity } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { CurrentUserInterceptor } from 'src/middleware';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('client')
 @Controller('client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}

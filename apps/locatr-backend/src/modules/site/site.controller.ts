@@ -1,9 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { SiteService } from './site.service';
 import { CreateSiteDto } from './dto/create-site.dto';
 import { UpdateSiteDto } from './dto/update-site.dto';
 import { CurrentUserInterceptor } from 'src/middleware';
 
+@ApiTags('site')
 @Controller('site')
 export class SiteController {
   constructor(private readonly siteService: SiteService) {}

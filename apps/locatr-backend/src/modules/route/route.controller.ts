@@ -1,11 +1,14 @@
+import { DeleteResult } from 'typeorm';
 import { Controller, Get, Post, Body, Patch, Query, Delete, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { RouteService } from './route.service';
 import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { RouteEntity } from './entities/route.entity';
-import { DeleteResult } from 'typeorm';
 import { CurrentUserInterceptor } from 'src/middleware';
 
+@ApiTags('route')
 @Controller('route')
 export class RouteController {
   constructor(private readonly routeService: RouteService) {}

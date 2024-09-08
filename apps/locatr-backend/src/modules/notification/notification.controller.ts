@@ -1,12 +1,13 @@
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { Controller, Get, Post, Body, Patch, Query, Delete } from '@nestjs/common';
-
+import { ApiTags } from '@nestjs/swagger';
 
 import { NotificationService } from './notification.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { NotificationEntity } from './entities/notification.entity'; // Add this import
 
+@ApiTags('notification')
 @Controller('notification')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
