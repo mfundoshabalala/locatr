@@ -1,10 +1,11 @@
 // src/vehicle/vehicle.entity.ts
 
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 
-import { DepotEntity } from 'src/modules/depot/entities/depot.entity';
-import { UserEntity } from 'src/modules/user/entities/user.entity';
-import { VehicleType } from 'src/common/enums';
+import { DepotEntity } from "src/modules/depot/entities/depot.entity";
+import { UserEntity } from "src/core/user/entities/user.entity";
+import { VehicleType } from "src/common/enums";
+
 
 @Entity({ name: 'Vehicle'})
 export class VehicleEntity {

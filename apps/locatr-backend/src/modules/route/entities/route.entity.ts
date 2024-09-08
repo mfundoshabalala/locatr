@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from 'typeorm';
 
 import { OrderEntity } from 'src/modules/order/entities/order.entity';
-import { UserEntity } from 'src/modules/user/entities/user.entity';
+import { UserEntity } from 'src/core/user/entities/user.entity';
 import { VehicleEntity } from 'src/modules/vehicle/entities/vehicle.entity';
 
 @Entity({ name: 'Route' })

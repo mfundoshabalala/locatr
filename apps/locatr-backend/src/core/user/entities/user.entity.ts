@@ -1,9 +1,10 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
-import { UserRole, UserStatus } from "src/common/enums";
+import { ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 
+import { UserRole, UserStatus } from "src/common/enums";
 import { ContactEntity } from "src/modules/contact/entities/contact.entity";
 import { EmployeeEntity } from "src/modules/employee/entities/employee.entity";
-import { Exclude } from "class-transformer";
 import { VehicleEntity } from "src/modules/vehicle/entities/vehicle.entity";
 
 @Entity({ name: 'User' })
@@ -25,6 +26,7 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 255 })
   password!: string;
 
+  // @ApiProperty({ example: false, description: 'Verify the user email.' })
   @Column({ type: 'boolean', default: false })
   isVerified!: boolean;
 
@@ -40,9 +42,11 @@ export class UserEntity {
   @JoinColumn({ name: 'vehicleID' })
   assignedVehicle!: Relation<VehicleEntity>;
 
+  @ApiProperty({ example: "active", description: 'User status.' })
   @Column({ type: 'enum', enum: UserStatus, default: UserStatus.ACTIVE })
   status!: UserStatus;
 
+  @ApiProperty({ example: 'driver', description: 'User role.' })
   @Column({ type: 'enum', enum: UserRole, default: UserRole.CUSTOMER })
   role!: UserRole;
 

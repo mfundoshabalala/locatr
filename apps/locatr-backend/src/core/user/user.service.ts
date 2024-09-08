@@ -23,14 +23,14 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOneBy(username: string): Promise<UserEntity | null> {
+  findOneByName(username: string): Promise<UserEntity | null> {
     return this.userRepository.findOne({
       where: { username },
       relations: ['employee', 'contact', 'assignedVehicle', 'assignedVehicle.currentLocation']
     });
   }
 
-  findById(id: string): Promise<UserEntity | null> {
+  getUserById(id: string): Promise<UserEntity | null> {
     return this.userRepository.findOne({ where: { id } });
   }
 
@@ -46,7 +46,7 @@ export class UserService {
     return this.userRepository.delete(id);
   }
 
-  private hasActiveUsers() {
-    return this.userRepository.count();
+  private async hasActiveUsers(): Promise<number> {
+    return await this.userRepository.count();
   }
 }

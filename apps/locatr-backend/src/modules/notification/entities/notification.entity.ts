@@ -1,6 +1,6 @@
-import { UserNotification } from 'src/common/enums';
-import { UserEntity } from 'src/modules/user/entities/user.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { UserNotification } from "src/common/enums";
+import { UserEntity } from "src/core/user/entities/user.entity";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, CreateDateColumn } from "typeorm";
 
 @Entity({ name: 'Notification' })
 export class NotificationEntity {
@@ -22,13 +22,13 @@ export class NotificationEntity {
   )
   type!: UserNotification;
 
-  
+
   @Column({ default: false })
   isRead!: boolean;
-  
+
   @Column({ nullable: true })
   readAt!: Date;
-  
+
   @CreateDateColumn()
   createdAt!: Date;
 
