@@ -14,3 +14,4 @@ export * from './lib/constants/http-cache.constants';
 
 // interceptors
 export * from './lib/interceptors/http-cache.interceptor';
+export * from './lib/interceptors/http-auth.interceptor';

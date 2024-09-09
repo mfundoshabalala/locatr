@@ -1,12 +1,13 @@
-import { APP_INITIALIZER, ErrorHandler, NgModule } from "@angular/core";
+import { Router } from '@angular/router';
 import * as Sentry from "@sentry/angular";
+import { APP_INITIALIZER, ErrorHandler } from "@angular/core";
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
-import { appRoutes } from './app.routes';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { HttpCacheInterceptor, LoadingService } from "@profolio/core";
+
+import { appRoutes } from './app.routes';
+import { HttpCacheInterceptor, HttpAuthInterceptor, LoadingService } from "@profolio/core";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,6 +41,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpCacheInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpAuthInterceptor,
       multi: true,
     }
   ]

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContactInterface, EmployeeInterface, UserRole } from '@profolio/interfaces';
 import { lastValueFrom } from 'rxjs';
@@ -8,7 +8,7 @@ import urlJoin from 'url-join';
 interface UserLogin {
   username: string;
   password: string;
-  access_token?: string;
+  accessToken?: string;
 }
 
 export interface UserRegistration extends UserLogin {
@@ -19,13 +19,12 @@ export interface UserRegistration extends UserLogin {
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  // private authUrl = process.env["LOCATR_API_URL"] + 'auth/';
   private authUrl = urlJoin(process.env["LOCATR_API_URL"] as string, 'auth');
 
-  constructor(private http: HttpClient, private router: Router) {}
+  router = inject(Router);
+  http = inject(HttpClient);
 
   async register(user: UserRegistration) {
-    // const url = this.authUrl + 'register'
     const url = urlJoin(this.authUrl, 'register');
     try {
       await lastValueFrom(this.http.post<UserRegistration>(url, user));
@@ -43,10 +42,12 @@ export class AuthenticationService {
     const url = urlJoin(this.authUrl, 'login');
     try {
       const response = await lastValueFrom(this.http.post<UserLogin>(url, user));
-      if (!response?.access_token) {
+      if (!response?.accessToken) {
         throw new Error('Login failed: No access token received');
       }
-      sessionStorage.setItem('access_token', response?.access_token);
+      sessionStorage.setItem('token', response?.accessToken);
+      sessionStorage.setItem('username', response?.username);
+      sessionStorage.setItem('user', JSON.stringify(response));
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error('Login failed: ' + error.message);
@@ -61,14 +62,16 @@ export class AuthenticationService {
   }
 
   logout() {
-    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('user');
   }
 
   isAuthenticated(): boolean {
-    return !!sessionStorage.getItem('access_token');
+    return !!this.getAuthToken();
   }
 
   getAuthToken(): string | null {
-    return sessionStorage.getItem('access_token');
+    return sessionStorage.getItem('token');
   }
 }
