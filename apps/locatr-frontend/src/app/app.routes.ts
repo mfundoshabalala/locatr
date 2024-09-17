@@ -1,6 +1,6 @@
+import { DashboardLayoutComponent } from '../layout';
 import { Route } from '@angular/router';
 import { authGuard } from '../guards/auth.guard';
-import { DashboardLayoutComponent } from '../layout';
 
 export const appRoutes: Route[] = [
   {
@@ -125,6 +125,10 @@ export const appRoutes: Route[] = [
     ],
   },
   {
+    path: 'auth/profile',
+    loadComponent: () => import('../pages').then((m) => m.ProfileComponent),
+  },
+  {
     path: 'auth/login',
     loadComponent: () => import('../pages').then((m) => m.LoginComponent),
   },
@@ -135,6 +139,18 @@ export const appRoutes: Route[] = [
   {
     path: 'auth/logout',
     loadComponent: () => import('../pages').then((m) => m.LogoutComponent),
+  },
+  {
+    path: 'auth/forgot-password',
+    loadComponent: () => import('../pages').then((m) => m.ForgotPasswordComponent),
+  },
+  {
+    path: 'auth/reset-password',
+    loadComponent: () => import('../pages').then((m) => m.ResetPasswordComponent),
+  },
+  {
+    path: 'auth/verify-user',
+    loadComponent: () => import('../pages').then((m) => m.VerifyUserComponent),
   },
   {
     path: 'error',

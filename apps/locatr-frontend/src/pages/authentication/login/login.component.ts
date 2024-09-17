@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // login.component.ts
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '@profolio/frontend/services';
+import { CommonModule } from '@angular/common';
 import { ToasterService } from '@toaster';
 
 @Component({
@@ -16,18 +18,19 @@ import { ToasterService } from '@toaster';
 })
 export class LoginComponent implements OnInit {
   private returnUrl = '';
+  showPassword = false;
+  loginForm!: FormGroup;
+
+  private router = inject(Router);
   private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
   private toasterService = inject(ToasterService);
   private authService = inject(AuthenticationService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
-
-  loginForm!: FormGroup
 
   constructor() {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
     });
   }
 
@@ -35,23 +38,53 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
   }
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   async onSubmit() {
     if (this.loginForm.valid) {
       try {
-        await this.authService.login(this.loginForm.value);
-        this.successToast();
-        this.router.navigateByUrl(this.returnUrl);
+        const response = await this.authService.login(this.loginForm.value);
+        if (response?.accessToken) {
+          this.saveSessionItems(response);
+          this.onSuccess();
+        } else {
+          this.onFailed();
+        }
       } catch (error) {
-        this.errorToast();
+        this.onFailed();
       }
     }
   }
 
+  private saveSessionItems(response: any) {
+    sessionStorage.setItem('token', response?.accessToken);
+    sessionStorage.setItem('username', response?.username);
+    sessionStorage.setItem('user', JSON.stringify(response));
+  }
+
+  private removeSessionItems() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('user');
+  }
+
+  private onFailed() {
+    this.removeSessionItems();
+    this.errorToast();
+  }
+
+  private onSuccess() {
+    this.successToast();
+    this.router.navigateByUrl(this.returnUrl);
+  }
+
   private successToast() {
-    this.toasterService.addToast('Login successful', 'success');
+    this.toasterService.addToast('Login successful.', 'success');
   }
 
   private errorToast() {
-    this.toasterService.addToast('Login failed', 'error');
+    this.toasterService.addToast('Login failed, try again.', 'error');
   }
 }

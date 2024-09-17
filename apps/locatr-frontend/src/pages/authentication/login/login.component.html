@@ -1,58 +1,65 @@
-<section class="flex min-h-screen w-full flex-col items-center justify-center bg-src bg-polygon bg-repeat-x">
-  <section class="container mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16 lg:px-8 lg:py-20">
-    <div class="space-y-4 text-center">
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-transparent bg-gradient-to-r from-blue-800 via-green-800 to-indigo-800 bg-clip-text">Welcome to our platform</h1>
-      <p class="text-slate-700 text-pretty md:text-xl max-w-prose mx-auto">
-        Plan your routes with ease and precision. Log in to access advanced mapping tools and ensure efficient travel every time. Your journey starts here.
-      </p>
-    </div>
-    <section class="mt-10 max-w-md mx-auto">
-      <div class="flex flex-col items-center justify-center space-y-4">
-        <form class="w-full space-y-4" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-          <div class="space-y-2">
-            <label for="username" class="font-medium">Username</label>
-            <input type="text" id="username" formControlName="username" name="username" autocomplete="username"
-              class="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-primary focus:border-primary focus:ring-opacity-50"
-              required>
-          </div>
-          <div class="space-y-2">
-            <label for="password" class="font-medium">Password</label>
-            <input type="password" id="password" formControlName="password" name="password" autocomplete="current-password"
-              class="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-primary focus:border-primary focus:ring-opacity-50"
-              required>
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <button type="button" role="checkbox" aria-checked="false" data-state="unchecked" value="on"
-                class="peer shrink-0 border border-slate-400 shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground h-4 w-4 rounded"
-                id="remember-me">
-              </button>
-              <input aria-hidden="true" tabindex="-1" type="checkbox" value="on" name="remember-me"
-                style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 16px; height: 16px;" />
-              <label
-                class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ml-2 block text-sm text-muted-foreground"
-                for="remember-me">
-                Remember me
-              </label>
-            </div>
-            <div class="text-sm">
-              <a class="font-medium text-blue-600 hover:text-blue-700" href="/auth/forgot-password">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-          <div class="space-y-2">
-            <button type="submit" [disabled]="!loginForm.valid"
-              class="w-full px-3 py-2 text-white bg-blue-500 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-50">
-              Sign in
-            </button>
-          </div>
-        </form>
-        <div class="flex items-center justify-center space-x-2">
-          <span class="text-sm">Don't have an account?</span>
-          <a class="font-medium text-blue-600 hover:text-blue-700" href="/auth/register">Register</a>
+<section class="h-screen w-full flex flex-col items-center justify-center bg-src bg-polygon bg-repeat-x">
+  <div class="px-4 py-10 text-center sm:px-6 lg:px-8">
+    <h1
+      class="py-2 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl text-transparent bg-gradient-to-r from-slate-700 via-slate-600 to-gray-700 bg-clip-text">
+      Welcome back</h1>
+    <p class="my-3 -mt-1.5 text-slate-600">Access Your Account to Plan Routes Efficiently.</p>
+
+    <form class="w-full max-w-sm space-y-3 mt-5 mx-auto" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+      <div class="form-group">
+        <label for="username" class="block text-left text-sm font-medium text-slate-600 p-0.5">Username</label>
+        <input id="username" type="text" formControlName="username" placeholder="Enter your username"
+          autocomplete="username"
+          class="w-full px-4 py-2 text-sm border border-slate-300 shadow-sm rounded focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
+        <div class="flex flex-col items-start px-3 py-1"
+          *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+          <small class="text-red-600" *ngIf="loginForm.get('username')?.errors?.['required']">Username is
+            required</small>
         </div>
       </div>
-    </section>
-  </section>
+      <div class="form-group">
+        <label for="password" class="block text-left text-sm font-medium text-slate-600 p-0.5">Password</label>
+        <div class="relative">
+          <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+            placeholder="Enter your password" autocomplete="current-password"
+            class="w-full px-4 py-2 text-sm border border-slate-300 shadow-sm rounded focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
+          <button type="button" (click)="togglePasswordVisibility()"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+            <svg class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path *ngIf="!showPassword" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path *ngIf="!showPassword" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              <path *ngIf="showPassword" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex flex-col items-start px-3 py-1"
+          *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <small class="text-red-600" *ngIf="loginForm.get('password')?.errors?.['required']">Password is
+            required</small>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <input id="remember-me" name="remember-me" type="checkbox"
+            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+          <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+        </div>
+        <div class="text-sm">
+          <a href="auth/forgot-password" class="font-medium text-blue-600 hover:text-blue-500">Forgot your password?</a>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid"
+        class="w-full px-4 py-2 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded hover:bg-blue-700 cursor-pointer disabled:bg-slate-600 disabled:text-white">
+        Login
+      </button>
+    </form>
+
+    <p class="mt-3 text-slate-600">If you don't have an account, you can <a href="auth/register"
+        class="text-blue-600 hover:underline tracking-tighter">register</a> here.</p>
+  </div>
 </section>

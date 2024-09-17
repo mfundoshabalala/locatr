@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+
 import { AuthenticationService } from '@profolio/frontend/services';
-
-
+import { CommonModule } from '@angular/common';
 
 interface SidebarItem {
   icon: string;
@@ -31,7 +30,7 @@ export class DashboardSidebarComponent implements OnInit {
   sidebarItems: SidebarItem[] = [
     // Common Sections
     { icon: 'dashboard', route: '/dashboard', label: 'Dashboard', roles: ['admin', 'dispatcher', 'driver'] },
-    { icon: 'person', route: '/profile', label: 'Profile', roles: ['admin', 'dispatcher', 'driver'] },
+    { icon: 'person', route: 'auth/profile', label: 'Profile', roles: ['admin', 'dispatcher', 'driver'] },
     {
       icon: 'notifications',
       route: '/notifications',

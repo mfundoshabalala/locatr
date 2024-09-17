@@ -1,34 +1,45 @@
+import { UserRole } from '@profolio/interfaces';
+import { Injectable, inject } from '@angular/core';
+
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContactInterface, EmployeeInterface, UserRole } from '@profolio/interfaces';
 import { lastValueFrom } from 'rxjs';
 import urlJoin from 'url-join';
 
-interface UserLogin {
+interface UsernameInterface {
   username: string;
+  message?: string;
+}
+
+interface UserLoginInterface extends UsernameInterface {
   password: string;
   accessToken?: string;
 }
 
-export interface UserRegistration extends UserLogin {
-	email: string;
-  contact: ContactInterface;
-	employee: EmployeeInterface;
+export interface UserRegistrationInterface extends UserLoginInterface {
+  email: string;
+}
+
+interface ResetPasswordInterface extends UsernameInterface {
+  password: string;
+  token: string;
+}
+
+interface VerifyUserInterface extends UsernameInterface {
+  token: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private authUrl = urlJoin(process.env["LOCATR_API_URL"] as string, 'auth');
+  private authUrl = urlJoin(process.env['LOCATR_API_URL'] as string, 'auth');
 
   router = inject(Router);
   http = inject(HttpClient);
 
-  async register(user: UserRegistration) {
-    const url = urlJoin(this.authUrl, 'register');
+  async register(user: UserRegistrationInterface) {
     try {
-      await lastValueFrom(this.http.post<UserRegistration>(url, user));
-      this.router.navigate(['/auth/login']);
+      const url = urlJoin(this.authUrl, 'register');
+      return await lastValueFrom(this.http.post<UserRegistrationInterface>(url, user));
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error('Registration failed: ' + error.message);
@@ -38,16 +49,14 @@ export class AuthenticationService {
     }
   }
 
-  async login(user: UserLogin) {
-    const url = urlJoin(this.authUrl, 'login');
+  async login(user: UserLoginInterface) {
     try {
-      const response = await lastValueFrom(this.http.post<UserLogin>(url, user));
+      const url = urlJoin(this.authUrl, 'login');
+      const response = await lastValueFrom(this.http.post<UserLoginInterface>(url, user));
       if (!response?.accessToken) {
         throw new Error('Login failed: No access token received');
       }
-      sessionStorage.setItem('token', response?.accessToken);
-      sessionStorage.setItem('username', response?.username);
-      sessionStorage.setItem('user', JSON.stringify(response));
+      return response;
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error('Login failed: ' + error.message);
@@ -57,11 +66,50 @@ export class AuthenticationService {
     }
   }
 
+  async forgotPassword({ username }: UsernameInterface) {
+    try {
+      const url = urlJoin(this.authUrl, 'forgot-password');
+      return await lastValueFrom(this.http.post<UsernameInterface>(url, { username }));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error('Reset password failed: ' + error.message);
+      } else {
+        throw new Error('Reset password failed: Unknown error');
+      }
+    }
+  }
+
+  async resetPassword({ token, password, username }: ResetPasswordInterface) {
+    try {
+      const url = urlJoin(this.authUrl, 'reset-password');
+      return await lastValueFrom(this.http.post<ResetPasswordInterface>(url, { token, password, username }));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error('Reset password failed: ' + error.message);
+      } else {
+        throw new Error('Reset password failed: Unknown error');
+      }
+    }
+  }
+
+  async verifyUser({ token, username }: VerifyUserInterface) {
+    try {
+      const url = urlJoin(this.authUrl, 'verify-user');
+      return await lastValueFrom(this.http.post<VerifyUserInterface>(url, { token, username }));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error('Verification failed: ' + error.message);
+      } else {
+        throw new Error('Verification failed: Unknown error');
+      }
+    }
+  }
+
   getUserRole(): string {
     return UserRole.ADMIN;
   }
 
-  logout() {
+  logout(): void {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('user');
