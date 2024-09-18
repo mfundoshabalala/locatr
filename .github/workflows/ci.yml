@@ -14,24 +14,48 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Fetch all history for all branches and tags
+          ref: master  # Ensure the master branch is checked out
 
-      # Connect your workspace on nx.app and uncomment this to enable task distribution.
-      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
-      # - run: npx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'npm'
 
-      - run: npm ci
+      - name: Cache pnpm modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Check pnpm version
+        run: pnpm --version
+
+      - name: Print working directory
+        run: pwd
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
       - uses: nrwl/nx-set-shas@v4
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: npx nx-cloud record -- echo Hello World
-      - run: npx nx affected -t lint test build
-      - run: npx nx affected --parallel 1 -t e2e-ci
+      - name: Determine Base SHA
+        id: determine_base_sha
+        run: |
+          echo "NX_BASE=$(git merge-base origin/master HEAD)" >> $GITHUB_ENV
+
+      - name: Run Nx commands
+        run: |
+          npx nx affected -t lint test build --verbose
+          npx nx affected --parallel 1 -t e2e-ci --verbose
+        env:
+          NX_BASE: ${{ env.NX_BASE }}
+          NX_HEAD: ${{ github.sha }}
