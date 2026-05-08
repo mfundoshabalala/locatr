@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
+import { randomBytes } from 'crypto';
 
 import { UserEntity } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -48,5 +49,63 @@ export class UserService {
 
   private async hasActiveUsers(): Promise<number> {
     return await this.userRepository.count();
+  }
+
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({ where: { email } });
+  }
+
+  async findByPasswordResetToken(token: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({
+      where: { passwordResetToken: token },
+    });
+  }
+
+  async findByVerificationToken(token: string): Promise<UserEntity | null> {
+    return this.userRepository.findOne({
+      where: { verificationToken: token },
+    });
+  }
+
+  async setPasswordResetToken(userId: string): Promise<string> {
+    const token = randomBytes(32).toString('hex');
+    const expiry = new Date();
+    expiry.setHours(expiry.getHours() + 1); // 1 hour expiry
+
+    await this.userRepository.update(userId, {
+      passwordResetToken: token,
+      passwordResetTokenExpiry: expiry,
+    });
+
+    return token;
+  }
+
+  async setVerificationToken(userId: string): Promise<string> {
+    const token = randomBytes(32).toString('hex');
+    const expiry = new Date();
+    expiry.setHours(expiry.getHours() + 24); // 24 hour expiry
+
+    await this.userRepository.update(userId, {
+      verificationToken: token,
+      verificationTokenExpiry: expiry,
+    });
+
+    return token;
+  }
+
+  async verifyEmail(userId: string): Promise<void> {
+    await this.userRepository.update(userId, {
+      isVerified: true,
+      verificationToken: null,
+      verificationTokenExpiry: null,
+    });
+  }
+
+  async updatePassword(userId: string, hashedPassword: string): Promise<void> {
+    await this.userRepository.update(userId, {
+      password: hashedPassword,
+      passwordResetToken: null,
+      passwordResetTokenExpiry: null,
+    });
   }
 }
