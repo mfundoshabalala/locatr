@@ -26,9 +26,21 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 255 })
   password!: string;
 
-  // @ApiProperty({ example: false, description: 'Verify the user email.' })
+  @ApiProperty({ example: false, description: 'Verify the user email.' })
   @Column({ type: 'boolean', default: false })
   isVerified!: boolean;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  verificationToken!: string | null;
+
+  @Column({ type: 'timestamp', nullable: true })
+  verificationTokenExpiry!: Date | null;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  passwordResetToken!: string | null;
+
+  @Column({ type: 'timestamp', nullable: true })
+  passwordResetTokenExpiry!: Date | null;
 
   @OneToOne(() => EmployeeEntity, { cascade: true, eager: true })
   @JoinColumn({ name: 'employeeID' })
